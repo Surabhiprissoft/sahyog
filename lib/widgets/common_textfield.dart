@@ -5,8 +5,9 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:trackmate/utils/app_colors.dart';
-import 'package:trackmate/utils/app_validation.dart';
+
+import '../utils/app_colors.dart';
+import '../utils/app_validation.dart';
 
 class MyTextFormField extends StatelessWidget {
   final String labelText;

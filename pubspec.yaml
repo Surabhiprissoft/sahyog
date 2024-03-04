@@ -38,6 +38,8 @@ dependencies:
   get: ^4.6.6
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  responsive_sizer: ^3.3.0+1
+  google_fonts: ^6.2.0
 
 dev_dependencies:
   flutter_test:

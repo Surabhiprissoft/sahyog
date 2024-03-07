@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:sahyog/controller/AddTrainerController.dart';
 
-
 class AddTrainer extends GetView<AddTrainerController> {
    AddTrainer({super.key});
 
@@ -16,7 +15,9 @@ class AddTrainer extends GetView<AddTrainerController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Trainer"),
-        leading: const Icon(Icons.arrow_back_ios_rounded),
+        leading: IconButton(onPressed: (){
+          Get.back();
+        }, icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: SingleChildScrollView(
         child: Builder(
@@ -100,6 +101,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                           border: OutlineInputBorder()
                       ),
                     ),
+                  //  InputFormField(textcontroller:addTrainerController.e , lableText: 'Name', validator: (String ) {  }, keyboardType: TextInputType.text, obscureText: false, focusedBorderColor: null,),
                     const SizedBox(height: 20.0,),
                     TextFormField(
                       decoration: const InputDecoration(

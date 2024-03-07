@@ -27,10 +27,24 @@ class HeaderText extends StatelessWidget {
     ),textAlign: TextAlign.center,);
   }
 }
-
 class SubHeaderText extends StatelessWidget {
   final String sub_header;
   const SubHeaderText({super.key, required this.sub_header,});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(sub_header,
+      style: TextStyle(
+        fontSize: 17.sp,fontWeight: FontWeight.w700,fontFamily: GoogleFonts.archivo().fontFamily,
+      ),
+    );
+  }
+}
+
+
+class NormalText extends StatelessWidget {
+  final String sub_header;
+  const NormalText({super.key, required this.sub_header,});
 
   @override
   Widget build(BuildContext context) {

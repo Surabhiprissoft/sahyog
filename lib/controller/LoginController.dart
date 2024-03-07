@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
@@ -13,7 +14,7 @@ class LoginController extends GetxController
   late TextEditingController emailController,passController;
   var email='',password='';
   bool shouldValidate = false;
-  late LoginResponseModel loginResponseModel;
+  late SingleResponse<LoginResponseModel> loginResponseModel;
   LoginController(this.userRepository);
 
   @override
@@ -52,7 +53,7 @@ class LoginController extends GetxController
     return null;
   }
 
-  Future<LoginResponseModel> onlogin()
+  /*Future<LoginResponseModel> onlogin()
   async {
     final isValid = loginFormKey.currentState!.validate();
     if (!isValid) {
@@ -72,15 +73,58 @@ class LoginController extends GetxController
 
     //clearFieldsAndReset();
 
-    /*email="";
+    *//*email="";
     password="";
 
     Future.delayed(const Duration(milliseconds: 100), () {
 
       loginFormKey.currentState!.reset();
-    });*/
+    });*//*
     return loginResponseModel;
+  }*/
+
+
+  Future<SingleResponse<LoginResponseModel>> onlogin() async {
+    try {
+      final isValid = loginFormKey.currentState!.validate();
+      if (!isValid) {
+        Get.snackbar(
+          "Login Failed",
+          "Enter all fields to login",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        shouldValidate = true;
+      } else {
+        LoginRequestModel loginRequestModel = LoginRequestModel(
+          username: emailController.text.toString(),
+          password: passController.text.toString(),
+        );
+
+        // Call the login method and await its result
+
+
+        loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+        // Construct SingleResponse object from the login response
+
+
+        // Navigate to AdminDashboard after successful login
+        Get.to(AdminDasboard());
+
+        // Return the SingleResponse object
+        return loginResponseModel;
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the login process
+      print('Error during login: $error');
+      // You can throw the error or return an error response here if needed
+      throw error;
+    }
+
+    return loginResponseModel;
+    // Return null or an error response if login fails
+
   }
+
 
   void clearFieldsAndReset() {
     emailController.clear();

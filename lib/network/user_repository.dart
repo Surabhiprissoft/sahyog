@@ -1,6 +1,7 @@
 
 
 
+import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
@@ -21,6 +22,29 @@ class UserRepository{
     print("USER DATA ${user}");
     return LoginResponseModel.fromJson(user);
 
+  }
+
+
+
+  Future<SingleResponse<LoginResponseModel>> checkLogin(LoginRequestModel loginRequest) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final user = await apiBaseHelper.post(AppConstants.LOGIN, loginRequest.toJson());
+
+      // Parse the response JSON into a SingleResponse object
+      SingleResponse<LoginResponseModel> loginResponse = SingleResponse.fromJson(
+          user,
+              (json) => LoginResponseModel.fromJson(json)
+      );
+
+      // Return the parsed response
+      return loginResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      // You can throw the error or return an error response here if needed
+      throw error;
+    }
   }
 
 

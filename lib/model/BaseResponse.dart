@@ -8,7 +8,7 @@ class BaseResponse {
 
   factory BaseResponse.fromJson(Map<String, dynamic> json) {
     return BaseResponse(
-        status: json["success"],
+        status: json["status"],
         message: json["message"]);
   }
 }

@@ -11,12 +11,8 @@ import 'package:sahyog/utils/preference_utils.dart';
 class ApiBaseHelper {
 
 
-  //final baseUrl = "http://192.168.0.106:8080/"; //home
-  //final baseUrl = "http://192.168.0.124:8080/";   //office
-  final baseUrl = "http://49.248.214.214:8080/";
- // final baseUrl = "http://192.168.0.110:8080/";
- // final baseUrl = "http://192.168.0.34:8080/";    //kunal
-
+   //office
+  final baseUrl = "http://192.168.0.117:8000/";
 
   final authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
   // final authToken=PreferenceUtils.getString("token");

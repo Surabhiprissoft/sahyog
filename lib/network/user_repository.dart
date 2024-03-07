@@ -1,12 +1,27 @@
 
 
 
+import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
+import 'package:sahyog/utils/app_constants.dart';
 
 class UserRepository{
   final ApiBaseHelper apiBaseHelper;
 
   UserRepository(this.apiBaseHelper);
+
+
+  Future<LoginResponseModel> login(LoginRequestModel loginRequest) async
+  {
+
+   /* var data = {"emailAddress": loginRequest.email.toString(), "user_password": loginRequest.userPassword.toString()};
+    print("login_data ="+data.toString());*/
+    final user = await apiBaseHelper.post(AppConstants.LOGIN, loginRequest.toJson());
+    print("USER DATA ${user}");
+    return LoginResponseModel.fromJson(user);
+
+  }
 
 
 /*  Future<LoginResponse> login(LoginRequest loginRequest) async

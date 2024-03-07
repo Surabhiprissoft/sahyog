@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/controller/LoginController.dart';
+import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
+import 'package:sahyog/network/user_repository.dart';
 
 class LoginScreen extends GetView<LoginController> {
    LoginScreen({super.key});
 
-  final LoginController loginController = Get.put(LoginController());
+
+
+  final LoginController loginController = Get.put(LoginController(UserRepository(ApiBaseHelper())));
   var date = DateTime.now();
   var customeDate = DateTime.now().add(Duration(days: 7));
 
@@ -44,9 +49,9 @@ class LoginScreen extends GetView<LoginController> {
                               onSaved: (value){
                                 loginController.email=value!;
                               },
-                              validator: (value){
+                           /*   validator: (value){
                                 return loginController.validateEmail(value!);
-                              },
+                              },*/
                             ),
                             const SizedBox(height: 20.0),
                             TextFormField(
@@ -65,14 +70,10 @@ class LoginScreen extends GetView<LoginController> {
                             const SizedBox(height: 20.0),
                             OutlinedButton(
                                 onPressed: (){
-                                  loginController.checkLogin();
+                                  loginController.onlogin();
                                 },
                                 child: const Text("Login")
                             ),
-
-
-
-
 
                           ],
                         ),

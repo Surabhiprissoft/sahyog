@@ -18,6 +18,8 @@ class AppColors
   static const hintText=Color(0xff454650);
   static const hintText1=Color(0xffC5C5D1);
   static const checkBoxBackground=Color(0xffDCE1FF);
+  static const blueRacket=Color(0xff51CBF1);
+  static const redRacket=Color(0xffEB9492);
 
 
   ////

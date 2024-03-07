@@ -39,8 +39,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){Get.to(ManageTrainer());}, icon: Icon(Icons.account_circle_outlined)),
-                Text("Account"),
+                IconButton(onPressed: (){Get.to(ManageTrainer());}, icon: Icon(Icons.account_circle_outlined,size: 8.w,)),
+                Text("Accounts",style: TextStyle(fontSize:15.sp),),
               ],
             ),
           ),
@@ -49,8 +49,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: Icon(Icons.groups_outlined)),
-                Text("Trainee"),
+                IconButton(onPressed: (){}, icon: Icon(Icons.groups_outlined,size: 8.w,)),
+                Text("Trainee",style: TextStyle(fontSize:15.sp),),
               ],
             ),
           ),
@@ -59,8 +59,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/images/trainer.svg")),
-                Text("Trainer"),
+                IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/images/trainer.svg",),iconSize: 8.h,),
+                Text("Trainer",style: TextStyle(fontSize:15.sp),),
               ],
             ),
           ),
@@ -69,7 +69,7 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: Icon(Icons.home_outlined)),
+                IconButton(onPressed: (){}, icon: Icon(Icons.home_outlined,size: 8.w,)),
                 Text("Home",style: TextStyle(fontSize:15.sp),),
               ],
             ),
@@ -137,7 +137,7 @@ class AdminDasboard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10.h,),
+                      SizedBox(height: 7.5.h,),
                       Row(
                         children: [
                           SubHeaderText(sub_header: "Total Centers "),
@@ -148,6 +148,7 @@ class AdminDasboard extends StatelessWidget {
                       Column(
                         children: [
                           Card(
+                            surfaceTintColor: Colors.white,
                             elevation: 10.0,
                             child: Container(
                               width: 30.w,
@@ -195,12 +196,12 @@ class AdminDasboard extends StatelessWidget {
                           Text("Center 1",style: TextStyle(fontWeight: FontWeight.w600),),
                         ],
                       ),
-                      SizedBox(height: 12.0),
+                      SizedBox(height: 3.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SubHeaderText(sub_header: "Fees Status "),
-                          TextButton(onPressed: (){}, child: Text("View",style: TextStyle(decoration: TextDecoration.underline,fontSize: 15.sp,fontWeight: FontWeight.w400),))
+                          TextButton(onPressed: (){},style: ButtonStyle(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero,)), child: Text("View",style: TextStyle(decoration: TextDecoration.underline,fontSize: 15.sp,fontWeight: FontWeight.w400),))
                         ],
                       ),
                       Card(
@@ -355,7 +356,7 @@ class AdminDasboard extends StatelessWidget {
   }
 }
 
-Widget _buildCard(String imagePath,String QuickAccessName) {
+Widget _buildCard(String imagePath,String quickAccessName) {
   return Column(
     children: [
       Container(
@@ -371,7 +372,12 @@ Widget _buildCard(String imagePath,String QuickAccessName) {
           )
         ),
       ),
-      Text(QuickAccessName,softWrap: false,)
+
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: quickAccessName.split(' ').map((word) => Text(word)).toList(),
+      )
     ],
   );
 }

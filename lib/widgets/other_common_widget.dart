@@ -50,7 +50,7 @@ class NormalText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(sub_header,
       style: TextStyle(
-        fontSize: 15.sp,fontWeight: FontWeight.w400,fontFamily: GoogleFonts.archivo().fontFamily,
+        fontSize: 16.sp,fontWeight: FontWeight.w500,fontFamily: GoogleFonts.archivo().fontFamily,
       ),
     );
   }

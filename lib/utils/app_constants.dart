@@ -21,7 +21,7 @@ class AppConstants
 
   //ENDPOINT OF API
 
-  static const LOGIN="/login";
+  static const LOGIN="login/";
   static const OTP_REQUEST="UserManagement/auth/otpRequest";
   static const SIGN_UP="UserManagement/auth/signup";
 

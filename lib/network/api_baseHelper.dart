@@ -14,9 +14,9 @@ class ApiBaseHelper {
    //office
   final baseUrl = "http://192.168.0.117:8000/";
 
-  final authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+ // final authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
   // final authToken=PreferenceUtils.getString("token");
- // final authToken="";
+  final authToken="";
   // final authToken="876654fd-3c24-4a7b-9784-ec80256bf995";
 
 

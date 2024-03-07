@@ -7,7 +7,15 @@ import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/bindings/ProjectBindings.dart';
 
+enum Version {
+  lazy,
+  wait
+}
+const String version = String.fromEnvironment('VERSION');
+const Version running = version == "lazy" ? Version.lazy : Version.wait;
 void main() {
+  ProjectBindings().dependencies();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

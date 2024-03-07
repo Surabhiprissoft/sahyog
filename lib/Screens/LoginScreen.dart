@@ -11,8 +11,8 @@ class LoginScreen extends GetView<LoginController> {
    LoginScreen({super.key});
 
 
-
-  final LoginController loginController = Get.put(LoginController(UserRepository(ApiBaseHelper())));
+  final loginController  = Get.find<LoginController>();
+  //final LoginController loginController = Get.put(LoginController(UserRepository(ApiBaseHelper())));
   var date = DateTime.now();
   var customeDate = DateTime.now().add(Duration(days: 7));
 

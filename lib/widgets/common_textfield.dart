@@ -67,13 +67,16 @@ class InputFormField extends StatefulWidget {
 class InputTextFormField extends StatelessWidget {
   final String label;
   final TextInputType keyboardType;
+  final TextEditingController controller;
   final List<TextInputFormatter> inputFormatters;
+
 
   InputTextFormField({
 
     required this.label,
     this.keyboardType = TextInputType.text,
     this.inputFormatters = const [],
+    required this.controller,
   });
 
   @override
@@ -86,6 +89,7 @@ class InputTextFormField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
+      controller: controller,
       validator: (value) {
         if(label=="Mobile Number")
           {
@@ -100,7 +104,10 @@ class InputTextFormField extends StatelessWidget {
             return AppValidation.validateforrequiredfield(value, label);
           }
 
+
+
       },
+
     );
   }
 }

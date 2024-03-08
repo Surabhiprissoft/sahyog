@@ -57,35 +57,6 @@ class LoginController extends GetxController
 
   }
 
-  /*Future<LoginResponseModel> onlogin()
-  async {
-    final isValid = loginFormKey.currentState!.validate();
-    if (!isValid) {
-      Get.snackbar("Login Failed", "Enter all field to login",snackPosition: SnackPosition.BOTTOM);
-      shouldValidate=true;
-
-    }
-    else
-      {
-        LoginRequestModel loginRequestModel = LoginRequestModel(username: emailController.text.toString(),password: passController.text.toString());
-         loginResponseModel = await userRepository.login(loginRequestModel);
-         print("STATUS CODE"+loginResponseModel.message.toString());
-         loginFormKey.currentState!.save();
-         Get.to(AdminDasboard());
-      }
-
-
-    //clearFieldsAndReset();
-
-    *//*email="";
-    password="";
-
-    Future.delayed(const Duration(milliseconds: 100), () {
-
-      loginFormKey.currentState!.reset();
-    });*//*
-    return loginResponseModel;
-  }*/
 
 
   Future<SingleResponse<LoginResponseModel>> onlogin() async {
@@ -99,13 +70,14 @@ class LoginController extends GetxController
         );
         shouldValidate = true;
       } else {
+        loginFormKey.currentState!.save();
         LoginRequestModel loginRequestModel = LoginRequestModel(
           email: emailController.text.toString(),
           password: passController.text.toString(),
         );
 
         // Call the login method and await its result
-
+       // Get.to(AdminDasboard());
 
         loginResponseModel= await userRepository.checkLogin(loginRequestModel);
         if(loginResponseModel.status==200){

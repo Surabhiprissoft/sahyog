@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
+import 'package:sahyog/network/user_repository.dart';
 
 class AddTraineeController extends GetxController
 {
@@ -18,15 +21,19 @@ class AddTraineeController extends GetxController
   final List<String> level = ['Beginner', 'Intermediate', 'Advanced'];
   final RxString selectedLevel = 'Beginner'.obs;
 
-  final GlobalKey<FormState> trainerFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> traineeFormKey = GlobalKey<FormState>();
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";
-  late TextEditingController fullNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
+  late TextEditingController firstNameController,lastNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
+  late TrainerTraineeResponseModel traineeResponseModel;
+  final UserRepository userRepository;
 
 
+  AddTraineeController(this.userRepository);
 
   @override
   void onInit() {
-    fullNameController=TextEditingController();
+    firstNameController=TextEditingController();
+    lastNameController=TextEditingController();
     ageController=TextEditingController();
     mobileNumberController=TextEditingController();
     emailController=TextEditingController();
@@ -48,5 +55,43 @@ class AddTraineeController extends GetxController
     if(image!=null){
       imagePath.value = image.path.toString();
     }
+  }
+  Future<TrainerTraineeResponseModel> addTrainee() async
+  {
+
+    final isValid = traineeFormKey.currentState!.validate();
+    if(isValid)
+    {
+      traineeFormKey.currentState!.save();
+      AddTraineeRequestModel addTraineeRequestModel = AddTraineeRequestModel(
+          firstName: firstNameController.text.toString(),
+          lastName: lastNameController.text.toString(),
+          gender: "Male",
+          age: num.parse(ageController.text.toString()),
+          username: emailController.text.toString(),
+          password: "",
+          photo: "",
+          contact: mobileNumberController.text.toString(),
+          email: emailController.text.toString(),
+          address:addressController.text.toString(),
+          role: 1,
+         //center: selectedCeneter.value.toString(),
+         center: 3,
+        trainingType: selectedLevel.value.toString(),
+        feesPaid: "Yes"
+      );
+      traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
+      if(traineeResponseModel.status==200){
+       Get.snackbar("Trainee Created!",traineeResponseModel.message.toString());
+      }
+      else
+        {
+          Get.snackbar("Something went wrong!",traineeResponseModel.message.toString());
+        }
+
+    }
+
+    return traineeResponseModel;
+    print("isValid"+isValid.toString());
   }
 }

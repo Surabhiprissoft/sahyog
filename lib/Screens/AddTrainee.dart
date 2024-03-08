@@ -19,7 +19,7 @@ class AddTrainee extends GetView<AddTraineeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Trainer"),
+        title: const Text("Add Trainee"),
         leading: IconButton(onPressed: () {
           Get.back();
         }, icon: const Icon(Icons.arrow_back_ios)),
@@ -28,7 +28,7 @@ class AddTrainee extends GetView<AddTraineeController> {
         child: Builder(
             builder: (context) {
               return Form(
-                key: addTraineeController.trainerFormKey,
+                key: addTraineeController.traineeFormKey,
                 child: Container(
                   margin: const EdgeInsets.all(20.0),
                   width: MediaQuery
@@ -124,25 +124,31 @@ class AddTrainee extends GetView<AddTraineeController> {
 
                       ),
                       const SizedBox(height: 30.0,),
-                      InputTextFormField(label: "Full Name",
+                      InputTextFormField(label: "First Name",
                           keyboardType: TextInputType.text,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(
                                 r'[a-zA-Z]')),
-                          ]),
-                      // InputFormField(textcontroller:addTrainerController.e , lableText: 'Name', validator: (String ) {  }, keyboardType: TextInputType.text, obscureText: false, focusedBorderColor: null,),
+                          ],controller: addTraineeController.firstNameController,),
+                      const SizedBox(height: 20.0,),
+                      InputTextFormField(label: "Last Name",
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(
+                              r'[a-zA-Z]')),
+                        ],controller: addTraineeController.lastNameController,),
                       const SizedBox(height: 20.0,),
                       InputTextFormField(
-                          label: "Age", keyboardType: TextInputType.number),
+                          label: "Age", keyboardType: TextInputType.number,controller: addTraineeController.ageController),
                       const SizedBox(height: 20.0,),
                       InputTextFormField(label: "Mobile Number",
-                          keyboardType: TextInputType.number),
+                          keyboardType: TextInputType.number,controller: addTraineeController.mobileNumberController),
                       const SizedBox(height: 20.0,),
                       InputTextFormField(label: "Email ID",
-                          keyboardType: TextInputType.emailAddress),
+                          keyboardType: TextInputType.emailAddress,controller: addTraineeController.emailController),
                       const SizedBox(height: 20.0,),
                       InputTextFormField(label: "Address",
-                          keyboardType: TextInputType.multiline),
+                          keyboardType: TextInputType.multiline,controller: addTraineeController.addressController),
                       const SizedBox(height: 20.0,),
                       Obx(() =>
                           DropdownButtonFormField<String>(
@@ -211,11 +217,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                             flex: 4,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (addTraineeController.trainerFormKey
-                                    .currentState!.validate()) {
-                                  addTraineeController.trainerFormKey
-                                      .currentState!.save();
-                                }
+                                addTraineeController.addTrainee();
                               },
 
                               child: const Text('Submit'),

@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       builder: (context,orientation,screenType) {
         return GetMaterialApp(
           title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
           initialBinding: ProjectBindings(),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

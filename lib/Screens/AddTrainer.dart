@@ -98,20 +98,23 @@ class AddTrainer extends GetView<AddTrainerController> {
 
                     ),
                     const SizedBox(height: 30.0,),
-                    InputTextFormField(label: "First Name",keyboardType: TextInputType.text,inputFormatters: [
+                    InputTextFormField(label: "First Name",keyboardType: TextInputType.text,controller:addTrainerController.firstNameController,inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
                     ]),
-                   // InputFormField(textcontroller:addTrainerController.e , lableText: 'Name', validator: (String ) {  }, keyboardType: TextInputType.text, obscureText: false, focusedBorderColor: null,),
                     const SizedBox(height: 20.0,),
-                    InputTextFormField(label: "Age",keyboardType: TextInputType.number),
+                    InputTextFormField(label: "Last Name",keyboardType: TextInputType.text,controller:addTrainerController.lastNameController,inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                    ]),
                     const SizedBox(height: 20.0,),
-                    InputTextFormField(label: "Mobile Number",keyboardType: TextInputType.number),
+                    InputTextFormField(label: "Age",keyboardType: TextInputType.number,controller:addTrainerController.ageController),
                     const SizedBox(height: 20.0,),
-                    InputTextFormField(label: "Email ID",keyboardType: TextInputType.emailAddress),
+                    InputTextFormField(label: "Mobile Number",keyboardType: TextInputType.number,controller:addTrainerController.mobileNumberController),
                     const SizedBox(height: 20.0,),
-                    InputTextFormField(label: "Years of Experience",keyboardType: TextInputType.number),
+                    InputTextFormField(label: "Email ID",keyboardType: TextInputType.emailAddress,controller:addTrainerController.emailController),
                     const SizedBox(height: 20.0,),
-                    InputTextFormField(label: "Address",keyboardType: TextInputType.multiline),
+                    InputTextFormField(label: "Years of Experience",keyboardType: TextInputType.number,controller:addTrainerController.yearsofExperienceController),
+                    const SizedBox(height: 20.0,),
+                    InputTextFormField(label: "Address",keyboardType: TextInputType.multiline,controller:addTrainerController.addressController),
                     const SizedBox(height: 20.0,),
                     Row(
                       children: [
@@ -130,9 +133,12 @@ class AddTrainer extends GetView<AddTrainerController> {
                           child: ElevatedButton(
                             onPressed: () {
 
-                              if (addTrainerController.trainerFormKey.currentState!.validate()) {
+                              addTrainerController.onAddTrainer();
+                            /*  if (addTrainerController.trainerFormKey.currentState!.validate())
+                              {
                                 addTrainerController.trainerFormKey.currentState!.save();
-                              }
+                                addTrainerController.onA
+                              }*/
                             },
 
                             child: const Text('Submit'),

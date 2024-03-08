@@ -1,3 +1,4 @@
+
 import 'package:fab_circular_menu_plus/fab_circular_menu_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ import '../widgets/AnimatedCount.dart';
 class AdminDasboard extends StatelessWidget {
   AdminDasboard({super.key});
   var totalCenterCount = 1;
+  final GlobalKey<FabCircularMenuPlusState> fabKey = GlobalKey();
   List<String> imagePaths =[
     'assets/images/trainer_qa.svg',
     'assets/images/trainer_qa.svg',
@@ -30,38 +32,48 @@ class AdminDasboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
       floatingActionButton: FabCircularMenuPlus(
+        key: fabKey,
         fabOpenColor: Colors.white60,
         fabCloseColor: Colors.white,
         ringWidth: 75.0,
         ringDiameter: 320.0,
+        animationDuration:  const Duration(milliseconds: 800),
+
         children: <Widget>[
-          GestureDetector(
-            onTap: (){},
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(onPressed: (){Get.to(ManageTrainer());}, icon: Icon(Icons.account_circle_outlined)),
-                Text("Account"),
-              ],
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              IconButton(onPressed: (){}, icon: Icon(Icons.account_circle_outlined)),
+              Text("Account"),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              IconButton(onPressed: (){Get.to(AddTrainee());}, icon: Icon(Icons.groups_outlined)),
+              Text("Trainee"),
+            ],
           ),
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+
+            },
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){Get.to(AddTrainee());}, icon: Icon(Icons.groups_outlined)),
-                Text("Trainee"),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: (){},
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(onPressed: (){Get.to(AddTrainer());}, icon: SvgPicture.asset("assets/images/trainer.svg")),
+                IconButton(onPressed: ()
+                {
+                if (fabKey.currentState!.isOpen) {
+                 fabKey.currentState?.close();
+                } else {
+                fabKey.currentState!.open();
+                }
+                Get.to(ManageTrainer());
+
+                  }, icon: SvgPicture.asset("assets/images/trainer.svg")),
                 Text("Trainer"),
               ],
             ),

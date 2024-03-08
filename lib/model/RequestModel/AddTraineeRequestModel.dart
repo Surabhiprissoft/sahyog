@@ -1,4 +1,5 @@
 import 'dart:convert';
+/// photo : null
 /// first_name : "Sujal"
 /// last_name : "Ghuble"
 /// gender : "male"
@@ -17,6 +18,7 @@ AddTraineeRequestModel addTraineeRequestModelFromJson(String str) => AddTraineeR
 String addTraineeRequestModelToJson(AddTraineeRequestModel data) => json.encode(data.toJson());
 class AddTraineeRequestModel {
   AddTraineeRequestModel({
+      dynamic photo, 
       String? firstName, 
       String? lastName, 
       String? gender, 
@@ -30,6 +32,7 @@ class AddTraineeRequestModel {
       num? center, 
       String? trainingType, 
       String? feesPaid,}){
+    _photo = photo;
     _firstName = firstName;
     _lastName = lastName;
     _gender = gender;
@@ -46,6 +49,7 @@ class AddTraineeRequestModel {
 }
 
   AddTraineeRequestModel.fromJson(dynamic json) {
+    _photo = json['photo'];
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _gender = json['gender'];
@@ -60,6 +64,7 @@ class AddTraineeRequestModel {
     _trainingType = json['training_type'];
     _feesPaid = json['fees_paid'];
   }
+  dynamic _photo;
   String? _firstName;
   String? _lastName;
   String? _gender;
@@ -73,7 +78,8 @@ class AddTraineeRequestModel {
   num? _center;
   String? _trainingType;
   String? _feesPaid;
-AddTraineeRequestModel copyWith({  String? firstName,
+AddTraineeRequestModel copyWith({  dynamic photo,
+  String? firstName,
   String? lastName,
   String? gender,
   num? age,
@@ -86,7 +92,8 @@ AddTraineeRequestModel copyWith({  String? firstName,
   num? center,
   String? trainingType,
   String? feesPaid,
-}) => AddTraineeRequestModel(  firstName: firstName ?? _firstName,
+}) => AddTraineeRequestModel(  photo: photo ?? _photo,
+  firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   gender: gender ?? _gender,
   age: age ?? _age,
@@ -100,6 +107,7 @@ AddTraineeRequestModel copyWith({  String? firstName,
   trainingType: trainingType ?? _trainingType,
   feesPaid: feesPaid ?? _feesPaid,
 );
+  dynamic get photo => _photo;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
@@ -116,6 +124,7 @@ AddTraineeRequestModel copyWith({  String? firstName,
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['photo'] = _photo;
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['gender'] = _gender;

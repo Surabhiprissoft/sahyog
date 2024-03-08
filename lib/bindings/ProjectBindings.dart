@@ -12,9 +12,10 @@ class ProjectBindings implements Bindings
   @override
   void dependencies()
   {
-    Get.lazyPut(() => AddTraineeController());
+    Get.put<AddTrainerController>(AddTrainerController());
     Get.put<AddTraineeController>(AddTraineeController());
     Get.put<ManageTrainerController>(ManageTrainerController());
+    Get.put<AddTraineeController>(AddTraineeController());
 
     //Get.lazyPut<AddTraineeController>(() => LoginPageLogic(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController(UserRepository(ApiBaseHelper())), fenix: true);

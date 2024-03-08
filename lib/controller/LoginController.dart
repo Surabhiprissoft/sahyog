@@ -50,7 +50,11 @@ class LoginController extends GetxController
     {
       return "Password must be 7 character long";
     }
-    return null;
+    else
+      {
+        return null;
+      }
+
   }
 
   /*Future<LoginResponseModel> onlogin()
@@ -103,11 +107,8 @@ class LoginController extends GetxController
         // Call the login method and await its result
 
 
-        loginResponseModel= await userRepository.checkLogin(loginRequestModel);
-        // Construct SingleResponse object from the login response
+       // loginResponseModel= await userRepository.checkLogin(loginRequestModel);
 
-
-        // Navigate to AdminDashboard after successful login
         Get.to(AdminDasboard());
 
         // Return the SingleResponse object

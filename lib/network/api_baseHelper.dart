@@ -61,7 +61,7 @@ class ApiBaseHelper {
   //For all the POST requests
   Future<dynamic>? post(String url, Map<String, Object?> requestBody) async {
     var responseJson;
-    print("auth token jwt ="+authToken);
+
     try{
 
       final Uri uri = Uri.parse(baseUrl + url);

@@ -198,8 +198,24 @@ class VerificationButton extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
-
+Widget buildRadio(String value,  final RxString selectedValue) {
+  return Row(
+    children: [
+      Obx(() => Radio<String>(
+        value: value,
+        groupValue: selectedValue.value,
+        onChanged: (newValue) {
+          selectedValue.value = newValue!;
+          print("Selected Value"+selectedValue.value);
+        },
+      )),
+      Text(value,style: TextStyle(fontSize: 10),),
+    ],
+  );
+}
 
 

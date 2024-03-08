@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -62,6 +63,48 @@ class InputFormField extends StatefulWidget {
   @override
   _InputFormFieldState createState() => _InputFormFieldState();
 }
+
+class InputTextFormField extends StatelessWidget {
+  final String label;
+  final TextInputType keyboardType;
+  final List<TextInputFormatter> inputFormatters;
+
+  InputTextFormField({
+
+    required this.label,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatters = const [],
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
+      validator: (value) {
+        if(label=="Mobile Number")
+          {
+             return AppValidation.validateMobileNumber(value!!);
+          }
+        else if(label=="Email ID")
+          {
+            return AppValidation.validateEmail(value!!);
+          }
+        else
+          {
+            return AppValidation.validateforrequiredfield(value, label);
+          }
+
+      },
+    );
+  }
+}
+
 
 class _InputFormFieldState extends State<InputFormField> {
   late  bool  _isPasswordVisible = true;

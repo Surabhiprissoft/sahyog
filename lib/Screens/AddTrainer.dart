@@ -2,14 +2,16 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:sahyog/controller/AddTrainerController.dart';
+import 'package:sahyog/utils/app_validation.dart';
+import 'package:sahyog/widgets/common_textfield.dart';
 
 class AddTrainer extends GetView<AddTrainerController> {
    AddTrainer({super.key});
-
-  final addTrainerController = Get.put(AddTrainerController());
+   final addTrainerController  = Get.find<AddTrainerController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +25,7 @@ class AddTrainer extends GetView<AddTrainerController> {
         child: Builder(
           builder: (context) {
             return Form(
+              key: addTrainerController.trainerFormKey,
               child: Container(
                 margin: const EdgeInsets.all(20.0),
                 width: MediaQuery.of(context).size.width,
@@ -95,48 +98,23 @@ class AddTrainer extends GetView<AddTrainerController> {
 
                     ),
                     const SizedBox(height: 30.0,),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Full Name"),
-                          border: OutlineInputBorder()
-                      ),
-                    ),
-                  //  InputFormField(textcontroller:addTrainerController.e , lableText: 'Name', validator: (String ) {  }, keyboardType: TextInputType.text, obscureText: false, focusedBorderColor: null,),
+                    InputTextFormField(label: "First Name",keyboardType: TextInputType.text,controller:addTrainerController.firstNameController,inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                    ]),
                     const SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Age"),
-                          border: OutlineInputBorder()
-                      ),
-                    ),
+                    InputTextFormField(label: "Last Name",keyboardType: TextInputType.text,controller:addTrainerController.lastNameController,inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                    ]),
                     const SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Mobile Number"),
-                          border: OutlineInputBorder()
-                      ),
-                    ),
+                    InputTextFormField(label: "Age",keyboardType: TextInputType.number,controller:addTrainerController.ageController),
                     const SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Email ID"),
-                          border: OutlineInputBorder()
-                      ),
-                    ),
+                    InputTextFormField(label: "Mobile Number",keyboardType: TextInputType.number,controller:addTrainerController.mobileNumberController),
                     const SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Year of Experience"),
-                          border: OutlineInputBorder()
-                      ),
-                    ),
+                    InputTextFormField(label: "Email ID",keyboardType: TextInputType.emailAddress,controller:addTrainerController.emailController),
                     const SizedBox(height: 20.0,),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Address"),
-                          border: OutlineInputBorder()
-                      ),
-                    ),
+                    InputTextFormField(label: "Years of Experience",keyboardType: TextInputType.number,controller:addTrainerController.yearsofExperienceController),
+                    const SizedBox(height: 20.0,),
+                    InputTextFormField(label: "Address",keyboardType: TextInputType.multiline,controller:addTrainerController.addressController),
                     const SizedBox(height: 20.0,),
                     Row(
                       children: [
@@ -154,16 +132,21 @@ class AddTrainer extends GetView<AddTrainerController> {
                           flex: 4,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Handle button 2 press
+
+                              addTrainerController.onAddTrainer();
+                            /*  if (addTrainerController.trainerFormKey.currentState!.validate())
+                              {
+                                addTrainerController.trainerFormKey.currentState!.save();
+                                addTrainerController.onA
+                              }*/
                             },
+
                             child: const Text('Submit'),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 20.0,),
-
-
 
                   ],
                 ),
@@ -175,3 +158,5 @@ class AddTrainer extends GetView<AddTrainerController> {
     );
   }
 }
+
+

@@ -247,10 +247,14 @@ class AppValidation {
     return null;
   }
 
-  static String? validatefordropdown(String? value){
+  static String? validateforrequiredfield(String? value,String?message){
     if(value!.trim().isEmpty){
-      return 'Please enter mandatory field';
+      return message!+" is required";
     }
-    return null;
+    else
+      {
+        return null;
+      }
+
   }
 }

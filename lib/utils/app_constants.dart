@@ -22,12 +22,9 @@ class AppConstants
   //ENDPOINT OF API
 
   static const LOGIN="login/";
-  static const OTP_REQUEST="UserManagement/auth/otpRequest";
-  static const SIGN_UP="UserManagement/auth/signup";
+  static const ADDTRAINER="users/";
+  static const ADDTRAINEE="users/";
 
-  static const RESET_PASSWORD="UserManagement/auth/userGuid";
-  static const CHECK_EMAIL="UserManagement/auth/checkIdExist?user_guid=";
-  static const SAVE_PROFILE="UserProfile/update";
 
 
 

@@ -235,7 +235,8 @@ class ApiBaseHelper {
         throw BadRequestException(AppConstants.USER_EXISTS);
       case 500:
       default:
-        throw FetchDataException(AppConstants.INTERNAL_SERVER);
+      var responseJson = jsonDecode(utf8.decode(response.bodyBytes));
+      return responseJson;
     }
   }
 

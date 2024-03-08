@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
@@ -69,24 +70,25 @@ class AddTraineeController extends GetxController
           gender: "Male",
           age: num.parse(ageController.text.toString()),
           username: emailController.text.toString(),
-          password: "",
-          photo: "",
+          password: "prismatic123",
+          photo: null,
           contact: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address:addressController.text.toString(),
-          role: 1,
+          role: 3,
          //center: selectedCeneter.value.toString(),
          center: 3,
         trainingType: selectedLevel.value.toString(),
         feesPaid: "Yes"
       );
       traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
-      if(traineeResponseModel.status==200){
-       Get.snackbar("Trainee Created!",traineeResponseModel.message.toString());
+      if(traineeResponseModel.status==201){
+       Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+       Get.to(AdminDasboard());
       }
       else
         {
-          Get.snackbar("Something went wrong!",traineeResponseModel.message.toString());
+          Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
         }
 
     }

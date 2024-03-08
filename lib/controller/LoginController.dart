@@ -77,15 +77,15 @@ class LoginController extends GetxController
         );
 
         // Call the login method and await its result
-       // Get.to(AdminDasboard());
+        Get.to(AdminDasboard());
 
-        loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+        /*loginResponseModel= await userRepository.checkLogin(loginRequestModel);
         if(loginResponseModel.status==200){
           Get.to(AdminDasboard());
         }
         else{
           Get.snackbar("Login Failed", loginResponseModel.message);
-        }
+        }*/
         // Construct SingleResponse object from the login response
 
 

@@ -84,7 +84,9 @@ class InputTextFormField extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: keyboardType,

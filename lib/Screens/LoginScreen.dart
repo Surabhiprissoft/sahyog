@@ -70,7 +70,8 @@ class LoginScreen extends GetView<LoginController> {
                             const SizedBox(height: 20.0),
                             OutlinedButton(
                                 onPressed: (){
-                                  loginController.onlogin();
+                                 Get.to(AdminDasboard());
+                                  // loginController.onlogin();
                                 },
                                 child: const Text("Login")
                             ),

@@ -4,8 +4,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class AnimatedNumber extends StatefulWidget {
   final int targetNumber;
   final Duration duration;
+  final Color textColor;
 
-  const AnimatedNumber({Key? key, required this.targetNumber, this.duration = const Duration(milliseconds: 500)}) : super(key: key);
+  const AnimatedNumber({Key? key, required this.targetNumber, this.duration = const Duration(milliseconds: 500), required this.textColor}) : super(key: key);
 
   @override
   _AnimatedNumberState createState() => _AnimatedNumberState();
@@ -38,6 +39,7 @@ class _AnimatedNumberState extends State<AnimatedNumber> with SingleTickerProvid
       style: TextStyle(
         fontSize: 22.sp,
         fontWeight: FontWeight.w700,
+        color: widget.textColor
       ),
     );
   }

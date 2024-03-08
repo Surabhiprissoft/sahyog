@@ -1,10 +1,13 @@
 import 'package:fab_circular_menu_plus/fab_circular_menu_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/utils/app_colors.dart';
+import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
 import '../widgets/AnimatedCount.dart';
@@ -29,8 +32,12 @@ class AdminDasboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FabCircularMenuPlus(
-        fabOpenColor: Colors.white60,
-        fabCloseColor: Colors.white,
+        fabSize: 7.h,
+        fabOpenColor: AppColors.appThemeColor,
+        fabCloseColor: AppColors.appThemeColor,
+        fabOpenIcon: Icon(Icons.menu,color: Colors.white,),
+        fabCloseIcon: Icon(Icons.close,color: Colors.white,),
+        ringColor: AppColors.ringDiameterColor,
         ringWidth: 75.0,
         ringDiameter: 320.0,
         children: <Widget>[
@@ -39,8 +46,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){Get.to(ManageTrainer());}, icon: Icon(Icons.account_circle_outlined,size: 8.w,)),
-                Text("Accounts",style: TextStyle(fontSize:15.sp),),
+                IconButton(onPressed: (){}, icon: Icon(Icons.account_circle_outlined,size: 8.w,),color: AppColors.appThemeColor,),
+                Text("Accounts",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor),),
               ],
             ),
           ),
@@ -49,8 +56,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: Icon(Icons.groups_outlined,size: 8.w,)),
-                Text("Trainee",style: TextStyle(fontSize:15.sp),),
+                IconButton(onPressed: (){}, icon: Icon(Icons.groups_outlined,size: 8.w,),color: AppColors.appThemeColor),
+                Text("Trainee",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor)),
               ],
             ),
           ),
@@ -59,8 +66,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/images/trainer.svg",),iconSize: 8.h,),
-                Text("Trainer",style: TextStyle(fontSize:15.sp),),
+                IconButton(onPressed: (){Get.to(ManageTrainer());}, icon: SvgPicture.asset("assets/images/trainer.svg",),iconSize: 8.h),
+                Text("Trainer",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor)),
               ],
             ),
           ),
@@ -69,8 +76,8 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: Icon(Icons.home_outlined,size: 8.w,)),
-                Text("Home",style: TextStyle(fontSize:15.sp),),
+                IconButton(onPressed: (){}, icon: Icon(Icons.home_outlined,size: 8.w,),color: AppColors.appThemeColor,),
+                Text("Home",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor)),
               ],
             ),
           ),
@@ -78,46 +85,7 @@ class AdminDasboard extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Positioned(
-              top: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 30.h,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/Top _bg.png'),
-                      fit: BoxFit.cover, // Adjust the BoxFit as needed
-                    ),
-                    color: Colors.blue
-                ),
-                child:  Padding(
-                  padding: EdgeInsets.only(left:6.w,bottom: 16.h,right: 6.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                          "Hello, Admin",
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontStyle: FontStyle.normal,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                          )
-                      ),
-                      IconButton(onPressed: (){
-
-                      },
-                          icon:Icon(Icons.notifications_none,color: Colors.white,size: 25.0,)
-                      ),
-
-                    ],
-                  ),
-                ),
-
-
-              )
-          ),
+          CustomTopBar(titleName: "Admin Dashboard"),
           Positioned  (
               top: 140,
               left: 0,
@@ -160,7 +128,7 @@ class AdminDasboard extends StatelessWidget {
                                     child: Container( margin: EdgeInsets.only(top: 1.h),child: Center(child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        AnimatedNumber(targetNumber: 8765, duration: Duration(milliseconds: 2000)),
+                                        AnimatedNumber(targetNumber: 8765, duration: Duration(milliseconds: 2000),textColor: Colors.black),
                                         Text("trainees")
                                       ],
                                     ))),
@@ -210,7 +178,7 @@ class AdminDasboard extends StatelessWidget {
                       color: Colors.white,
                       child: Container(
                         width: 100.w,
-                        height: 15.h,
+                        height: 13.h,
                         margin: EdgeInsets.only(right: 10.w,left: 10.w),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -278,26 +246,32 @@ class AdminDasboard extends StatelessWidget {
                         height: 15.h,
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: 0.55 * 15.h, // 70% of the parent's height
-                              child: Container( margin: EdgeInsets.only(top: 1.h),child: Center(child: AnimatedNumber(targetNumber: 8765, duration: Duration(milliseconds: 2000)))),
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                                //height: 0.55 * 15.h, // 70% of the parent's height
+                                child: Container( margin: EdgeInsets.only(top: 1.h),child: Center(child: AnimatedNumber(targetNumber: 8765, duration: Duration(milliseconds: 2000),textColor: AppColors.goldenText,))),
+                              ),
                             ),
-                            SizedBox(
-                              height: 0.438 * 15.h, // 30% of the parent's height
-                              child: Container(
-                                margin: const EdgeInsets.all(3),
-                                decoration: const BoxDecoration(
-                                  color: AppColors.blueRacket,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10.0),
-                                    bottomRight: Radius.circular(10.0),
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                                //height: 0.438 * 15.h, // 30% of the parent's height
+                                child: Container(
+                                  margin: const EdgeInsets.all(3),
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.blueRacket,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10.0),
+                                      bottomRight: Radius.circular(10.0),
+                                    ),
                                   ),
-                                ),
-                                // color: Colors.lightBlueAccent,
-                                child: Center(
-                                  child: Text(
-                                    "Total Trainees",
-                                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+                                  // color: Colors.lightBlueAccent,
+                                  child: Center(
+                                    child: Text(
+                                      "Total Trainees",
+                                      style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -315,26 +289,32 @@ class AdminDasboard extends StatelessWidget {
                         height: 15.h,
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: 0.55 * 15.h, // 70% of the parent's height
-                              child: Container( margin: EdgeInsets.only(top: 1.h),child: Center(child: AnimatedNumber(targetNumber: 26, duration: Duration(milliseconds: 2000)))),
+                            Expanded(
+                              flex:1,
+                              child: SizedBox(
+                                //height: 0.55 * 15.h, // 70% of the parent's height
+                                child: Container( margin: EdgeInsets.only(top: 1.h),child: Center(child: AnimatedNumber(targetNumber: 26, duration: Duration(milliseconds: 2000),textColor: AppColors.goldenText))),
+                              ),
                             ),
-                            SizedBox(
-                              height: 0.438 * 15.h, // 30% of the parent's height
-                              child: Container(
-                                margin: const EdgeInsets.all(3),
-                                decoration: const BoxDecoration(
-                                  color: AppColors.redRacket,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10.0),
-                                    bottomRight: Radius.circular(10.0),
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                               // height: 0.438 * 15.h, // 30% of the parent's height
+                                child: Container(
+                                  margin: const EdgeInsets.all(3),
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.redRacket,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10.0),
+                                      bottomRight: Radius.circular(10.0),
+                                    ),
                                   ),
-                                ),
-                                // color: Colors.lightBlueAccent,
-                                child: Center(
-                                  child: Text(
-                                    "Total Trainers",
-                                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+                                  // color: Colors.lightBlueAccent,
+                                  child: Center(
+                                    child: Text(
+                                      "Total Trainers",
+                                      style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -356,27 +336,29 @@ class AdminDasboard extends StatelessWidget {
   }
 }
 
+
 Widget _buildCard(String imagePath,String quickAccessName) {
   return Column(
     children: [
       Container(
-        margin: EdgeInsets.only(left: 2.w,right: 2.w),
+        margin: EdgeInsets.only(left: 2.w,right: 2.w,bottom: 1.h),
         child: Card(
           surfaceTintColor: Colors.white,
           elevation: 5.0,
           child: Container(
               width: 22.w,
               height: 10.h,
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(20.0),
               child: SvgPicture.asset(imagePath)
           )
         ),
       ),
 
       Column(
+
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: quickAccessName.split(' ').map((word) => Text(word)).toList(),
+        children: quickAccessName.split(' ').map((word) => Text(word,style: TextStyle(fontWeight: FontWeight.w500),)).toList(),
       )
     ],
   );

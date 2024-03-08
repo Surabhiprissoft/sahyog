@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/ChangePassword.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/bindings/ProjectBindings.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
     return ResponsiveSizer(
       builder: (context,orientation,screenType) {
         return GetMaterialApp(
-          title: 'Flutter Demo',
+          title: 'Sahbhag',
+          debugShowCheckedModeBanner: false,
           initialBinding: ProjectBindings(),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

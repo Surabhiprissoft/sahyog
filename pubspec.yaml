@@ -43,6 +43,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   image_picker: ^1.0.7
   fab_circular_menu_plus: ^0.0.2
+  custom_sliding_segmented_control: ^1.8.1
 
 
 

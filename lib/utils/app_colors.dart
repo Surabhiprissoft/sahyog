@@ -21,6 +21,10 @@ class AppColors
   static const blueRacket=Color(0xff51CBF1);
   static const redRacket=Color(0xffEB9492);
 
+  static const goldenText=Color(0xffECB075);
+  static const appThemeColor=Color(0xff393186);
+  static const ringDiameterColor=Color(0xffF0EEFF);
+
 
   ////
   static const transitLogin=Color(0xff2B1F75);

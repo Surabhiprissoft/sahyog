@@ -1,34 +1,34 @@
 import 'dart:convert';
-/// username : "john"
+/// email : "john@gmail.com"
 /// password : "admin123"
 
 LoginRequestModel loginRequestModelFromJson(String str) => LoginRequestModel.fromJson(json.decode(str));
 String loginRequestModelToJson(LoginRequestModel data) => json.encode(data.toJson());
 class LoginRequestModel {
   LoginRequestModel({
-      String? username, 
+      String? email, 
       String? password,}){
-    _username = username;
+    _email = email;
     _password = password;
 }
 
   LoginRequestModel.fromJson(dynamic json) {
-    _username = json['username'];
+    _email = json['email'];
     _password = json['password'];
   }
-  String? _username;
+  String? _email;
   String? _password;
-LoginRequestModel copyWith({  String? username,
+LoginRequestModel copyWith({  String? email,
   String? password,
-}) => LoginRequestModel(  username: username ?? _username,
+}) => LoginRequestModel(  email: email ?? _email,
   password: password ?? _password,
 );
-  String? get username => _username;
+  String? get email => _email;
   String? get password => _password;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['username'] = _username;
+    map['email'] = _email;
     map['password'] = _password;
     return map;
   }

@@ -100,16 +100,25 @@ class LoginController extends GetxController
         shouldValidate = true;
       } else {
         LoginRequestModel loginRequestModel = LoginRequestModel(
-          username: emailController.text.toString(),
+          email: emailController.text.toString(),
           password: passController.text.toString(),
         );
 
         // Call the login method and await its result
 
 
-       // loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+        loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+        if(loginResponseModel.status==200){
+          Get.to(AdminDasboard());
+        }
+        else{
+          Get.snackbar("Login Failed", loginResponseModel.message);
+        }
+        // Construct SingleResponse object from the login response
 
-        Get.to(AdminDasboard());
+
+       // print("LoginResponseModel"+loginResponseModel.)
+        // Navigate to AdminDashboard after successful login
 
         // Return the SingleResponse object
         return loginResponseModel;

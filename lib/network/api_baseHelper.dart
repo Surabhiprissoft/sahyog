@@ -69,7 +69,7 @@ class ApiBaseHelper {
       print("url is requestBody ${requestBody}");
       final response = await http.post(uri, body: jsonEncode(requestBody),
           encoding: Encoding.getByName('utf-8'), headers: { "Accept": "application/json",
-            "content-type":"application/json","Authorization":'Bearer $authToken'});
+            "content-type":"application/json"});
       //request.headers.set('Authorization', authToken,);
       debugPrint("RESPONSE CODE "+response.statusCode.toString());
       debugPrint("RESPONSE Body "+response.body);

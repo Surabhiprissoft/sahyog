@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
@@ -56,7 +57,7 @@ class AdminDasboard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                IconButton(onPressed: (){}, icon: Icon(Icons.groups_outlined,size: 8.w,),color: AppColors.appThemeColor),
+                IconButton(onPressed: (){Get.to(AddTrainee());}, icon: Icon(Icons.groups_outlined,size: 8.w,),color: AppColors.appThemeColor),
                 Text("Trainee",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor)),
               ],
             ),

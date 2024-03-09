@@ -52,7 +52,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
               right: 16,
               child: SizedBox(
                 child: CustomSlidingSegmentedControl<int>(
-                  initialValue: 2,
+                  initialValue: 1,
                   children: const {
                     1: Text('Trainer List'),
                     2: Text('Schedule Trainer'),

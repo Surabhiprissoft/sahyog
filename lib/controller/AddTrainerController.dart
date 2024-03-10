@@ -5,6 +5,7 @@ import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 
 class AddTrainerController extends GetxController
 {
@@ -27,6 +28,15 @@ class AddTrainerController extends GetxController
     emailController=TextEditingController();
     yearsofExperienceController=TextEditingController();
     addressController=TextEditingController();
+  }
+  void clearControllers() {
+    firstNameController.clear();
+    lastNameController.clear();
+    ageController.clear();
+    mobileNumberController.clear();
+    emailController.clear();
+    yearsofExperienceController.clear();
+    addressController.clear();
   }
 
   Future openCamera() async{
@@ -51,6 +61,7 @@ class AddTrainerController extends GetxController
     final isValid = trainerFormKey.currentState!.validate();
     if(isValid)
       {
+        DialogHelper.showLoading();
         trainerFormKey.currentState!.save();
         AddTrainerRequestModel addTrainerRequestModel = AddTrainerRequestModel(
           firstName: firstNameController.text.toString(),
@@ -71,12 +82,14 @@ class AddTrainerController extends GetxController
         print(addTrainerRequestModel);
         trainerresponseModel= await userRepository.addTrainer(addTrainerRequestModel);
         if(trainerresponseModel.status==201){
+          DialogHelper.hideLoading();
           Get.snackbar("Trainer Created!",trainerresponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
           trainerFormKey.currentState!.reset();
           Get.to(AdminDasboard());
         }
         else
         {
+          DialogHelper.hideLoading();
           Get.snackbar("Something went wrong!",trainerresponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
         }
 

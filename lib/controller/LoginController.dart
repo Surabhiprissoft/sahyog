@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
@@ -5,6 +7,7 @@ import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 
 class LoginController extends GetxController
 {
@@ -76,12 +79,21 @@ class LoginController extends GetxController
           password: passController.text.toString(),
         );
 
+        print(loginRequestModel.toString());
         // Call the login method and await its result
-        Get.to(AdminDasboard());
+
+        DialogHelper.showLoading();
+
+        Future.delayed(Duration(seconds: 3),()
+        {
+          // Do something
+          DialogHelper.hideLoading();
+          Get.to(AdminDasboard());
+        });
 
         /*loginResponseModel= await userRepository.checkLogin(loginRequestModel);
         if(loginResponseModel.status==200){
-          Get.to(AdminDasboard());
+
         }
         else{
           Get.snackbar("Login Failed", loginResponseModel.message);

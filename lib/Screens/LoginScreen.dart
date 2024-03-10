@@ -8,6 +8,7 @@ import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
+import 'package:sahyog/widgets/common_textfield.dart';
 
 class LoginScreen extends GetView<LoginController> {
    LoginScreen({super.key});
@@ -55,7 +56,7 @@ class LoginScreen extends GetView<LoginController> {
                                   autovalidateMode: loginController.shouldValidate ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                                   child: Column(
                                     children: [
-                                      TextFormField(
+                                     /* TextFormField(
                                         decoration: const InputDecoration(
                                             label: Text("Email"),
                                             border: OutlineInputBorder()
@@ -64,24 +65,16 @@ class LoginScreen extends GetView<LoginController> {
                                         onSaved: (value){
                                           loginController.email=value!;
                                         },
-                                        /*   validator: (value){
+                                        *//*   validator: (value){
                               return loginController.validateEmail(value!);
-                            },*/
-                                      ),
-                                      const SizedBox(height: 20.0),
-                                      TextFormField(
-                                        decoration: const InputDecoration(
-                                            label: Text("Password"),
-                                            border: OutlineInputBorder()
-                                        ),
-                                        controller: loginController.passController,
-                                        onSaved: (value){
-                                          loginController.password=value!;
-                                        },
-                                        validator: (value){
-                                          return loginController.validatePass(value!);
-                                        },
-                                      ),
+                            },*//*
+                                      ),*/
+                                      InputTextFormField(label: "Email ID",
+                                          keyboardType: TextInputType.emailAddress,controller: loginController.emailController),
+                                      const SizedBox(height: 20.0,),
+
+                                      InputTextFormField(label: "Password",
+                                          keyboardType: TextInputType.text,controller: loginController.passController),
                                       const SizedBox(height: 20.0),
                                       OutlinedButton(
                                           onPressed: (){

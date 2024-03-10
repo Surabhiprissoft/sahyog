@@ -5,6 +5,7 @@ import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 
 class AddTraineeController extends GetxController
 {
@@ -63,6 +64,7 @@ class AddTraineeController extends GetxController
     final isValid = traineeFormKey.currentState!.validate();
     if(isValid)
     {
+      DialogHelper.showLoading();
       traineeFormKey.currentState!.save();
       AddTraineeRequestModel addTraineeRequestModel = AddTraineeRequestModel(
           firstName: firstNameController.text.toString(),
@@ -83,11 +85,13 @@ class AddTraineeController extends GetxController
       );
       traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
       if(traineeResponseModel.status==201){
+        DialogHelper.hideLoading();
        Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
        Get.to(AdminDasboard());
       }
       else
         {
+          DialogHelper.hideLoading();
           Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
         }
 

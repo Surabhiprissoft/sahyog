@@ -99,7 +99,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                             border: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(Radius.circular(20.0))
                                             ),
-
+                                            hintText: "Select Center",
                                           ),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {
@@ -137,14 +137,37 @@ class AddTrainee extends GetView<AddTraineeController> {
                             )),
                         SizedBox(height: 20),*/
 
-                                    Row(
+                                    Obx(() =>
+                                        DropdownButtonFormField<String>(
+                                          value: addTraineeController.selectedLevel.value,
+                                          decoration: InputDecoration(
+                                            labelText: "Select Level",
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                            ),
+                                            hintText: "Select Level",
+                                          ),
+                                          onChanged: (String? newValue) {
+                                            if (newValue != null) {
+                                              addTraineeController.selectedLevel.value = newValue;
+                                            }
+                                          },
+                                          items: addTraineeController.level.map<DropdownMenuItem<String>>((
+                                              String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        )),
+                                    /*Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         for (var option in addTraineeController.level)
                                           buildRadio(option,addTraineeController.selectedLevel),
                                       ],
-                                    ),
-                                    SizedBox(height: 10),
+                                    ),*/
+                                    SizedBox(height: 20),
                                     Row(
                                       children: [
                                         Expanded(

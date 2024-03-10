@@ -12,6 +12,11 @@ class LoginRequestModel {
     _password = password;
 }
 
+  @override
+  String toString() {
+    return 'LoginRequestModel{_email: $_email, _password: $_password}';
+  }
+
   LoginRequestModel.fromJson(dynamic json) {
     _email = json['email'];
     _password = json['password'];

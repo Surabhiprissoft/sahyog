@@ -36,20 +36,18 @@ class ManageTrainer extends GetView<ManageTrainerController> {
           {
             Get.snackbar("Hello", "1");
           });*/
+
           return Stack(
             children: [
               CustomTopBar(titleName: "Manage Trainer"),
               Positioned(
-                  top: 140,
+                  top: 140, // Adjust this value to control the position of the card
                   left: 0,
                   right: 0,
                   child: Container(
                       height: 100.h,
                       padding: EdgeInsets.all(2.h),
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -57,80 +55,60 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                           topRight: Radius.circular(30),
                         ),
                       ),
-                      child: Text("")
+                      child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context,index)
+                          {
+                            return ManageTraineeCardItem();
+
+                          })
                   )
+
               ),
               Positioned(
-                  top: 85,
-                  // Adjust this value to control the position of the card
-                  left: 16,
-                  right: 16,
-                  child: SizedBox(
-                    child: CustomSlidingSegmentedControl<int>(
-                      initialValue: 1,
-                      children: const {
-                        1: Text('Trainer List'),
-                        2: Text('Schedule Trainer'),
-                      },
-                      innerPadding: EdgeInsets.zero,
-                      fixedWidth: 45.w,
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.lightBackgroundGray,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      thumbDecoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.3),
-                            blurRadius: 4.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(
-                              0.0,
-                              2.0,
-                            ),
+                top: 85,
+                left: 16,
+                right: 16,
+                child: SizedBox(
+                  child: CustomSlidingSegmentedControl<int>(
+                    initialValue: 1,
+                    children: const {
+                      1: Text('Trainer List'),
+                      2: Text('Schedule Trainer'),
+                    },
+                    innerPadding: EdgeInsets.zero,
+                    fixedWidth: 45.w,
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.lightBackgroundGray,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    thumbDecoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.3),
+                          blurRadius: 4.0,
+                          spreadRadius: 1.0,
+                          offset: Offset(
+                            0.0,
+                            2.0,
                           ),
-                        ],
-                      ),
-                      onValueChanged: (v) {
-                        if (v == 0) {
-
-                          Get.snackbar("Hello", "1");
-                        }
-                        else {
-                          Get.snackbar("Hello", "2");
-
-                        }
-                        print("POSITION" + v.toString());
-                      },
+                        ),
+                      ],
                     ),
-                  )
-              ),
+                    onValueChanged: (v) {
+                      if (v == 0) {
 
-              Positioned(
-                top: 140,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: 120,
-                  padding: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
+                        //  Get.snackbar("Hello", "1");
+                      }
+                      else {
+                        // Get.snackbar("Hello", "2");
+
+                      }
+                      print("POSITION" + v.toString());
+                    },
                   ),
-                  child:
-                  ManageTraineeCardItem()/* ListView.builder(
-                    itemCount: 10,
-                      itemBuilder: (context,index)
-                  {
-                      return ManageTraineeCardItem();
-
-                  })*/
                 ),
               ),
 
@@ -158,44 +136,48 @@ class ManageTraineeCardItem extends StatelessWidget {
         color: Colors.white,
         child: Container(
             width: 100.w,
-            height: 20.h,
+            //height: 10.h,
+            padding: EdgeInsets.all(10.0),
 
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(backgroundImage:AssetImage("assets/images/user_img.png"),radius: 3.5.h,),
-                Padding(
-                  padding:  EdgeInsets.only(left:2.w,right: 2.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-
-                      SizedBox(
-                        width: 60.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(backgroundImage:AssetImage("assets/images/user_img.png"),radius: 3.5.h,),
+                    SizedBox(width: 2.w,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Trainer Name 1 "),
+                        SizedBox(height: 1.h,),
+                        Row(
                           children: [
-                            Text("Trainer Name 1 "),
-                            Text("Center1")
+                            Icon(Icons.phone,size: 16.0,),
+                            Text("+91 1234567890",style: TextStyle(fontSize: 14.sp),),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        width: 60.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Trainer Name 1 "),
-                            Text("Center1")
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.location_on_outlined,size: 16.0,),
+                        Text("Center1"),
+                      ],
+                    ),
+                    SizedBox(height: 1.h,),
+                    Text("Slot 1(9am-10am)",style: TextStyle(fontSize: 14.sp),)
+                  ],
+                )
               ],
             )
+
         )
     );
   }

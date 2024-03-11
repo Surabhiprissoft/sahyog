@@ -84,7 +84,7 @@ class AddTraineeController extends GetxController
         feesPaid: "Yes"
       );
       traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
-      if(traineeResponseModel.status==201){
+      if(traineeResponseModel.status==200){
         DialogHelper.hideLoading();
        Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
        Get.to(AdminDasboard());

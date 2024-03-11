@@ -81,7 +81,7 @@ class AddTrainerController extends GetxController
 
         print(addTrainerRequestModel);
         trainerresponseModel= await userRepository.addTrainer(addTrainerRequestModel);
-        if(trainerresponseModel.status==201){
+        if(trainerresponseModel.status==200){
           DialogHelper.hideLoading();
           Get.snackbar("Trainer Created!",trainerresponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
           trainerFormKey.currentState!.reset();

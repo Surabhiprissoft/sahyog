@@ -24,19 +24,12 @@ class ManageTrainer extends GetView<ManageTrainerController> {
         backgroundColor: AppColors.appThemeColor,
         elevation: 10.0,
         onPressed: () {
-         /* var controller = Get.find<AddTrainerController>();
-          controller.clearControllers();*/
           Get.to(AddTrainer());
         },
       ),
       body: GetBuilder<ManageTrainerController>(
         assignId: true,
         builder: (controller) {
-        /*  WidgetsBinding.instance.addPostFrameCallback((_)
-          {
-            Get.snackbar("Hello", "1");
-          });*/
-
           return Stack(
             children: [
               CustomTopBar(titleName: "Manage Trainer"),
@@ -98,15 +91,8 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                       ],
                     ),
                     onValueChanged: (v) {
-                      if (v == 0) {
-
-                        //  Get.snackbar("Hello", "1");
-                      }
-                      else {
-                        // Get.snackbar("Hello", "2");
-
-                      }
-                      print("POSITION" + v.toString());
+                      controller.slidingValue.value=v;
+                      print("POSITION" + controller.slidingValue.value.toString());
                     },
                   ),
                 ),

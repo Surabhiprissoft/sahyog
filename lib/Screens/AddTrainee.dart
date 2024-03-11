@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,11 +80,79 @@ class AddTrainee extends GetView<AddTraineeController> {
                                       ],
                                     ),
                                     const SizedBox(height: 20.0,),
-                                    InputTextFormField(
-                                        label: "Age", keyboardType: TextInputType.number,controller: addTraineeController.ageController),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: InputTextFormField(
+                                              label: "Age", keyboardType: TextInputType.number,controller: addTraineeController.ageController),
+                                        ),
+                                        const SizedBox(width: 15.0,),
+                                        Expanded(
+                                          child: Obx(() =>
+                                              DropdownButtonFormField<String>(
+                                                value: addTraineeController.selectedGender.value.isEmpty ? null : addTraineeController.selectedGender.value,
+                                                decoration: InputDecoration(
+                                                  labelText: "Gender",
+                                                  border: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                                  ),
+                                                  hintText: "Gender",
+
+                                                  errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedGender.value.isEmpty ? "Gender" : null,
+                                                ),
+                                                onChanged: (String? newValue) {
+                                                  if (newValue != null) {
+                                                    addTraineeController.selectedGender.value = newValue;
+                                                  }
+                                                },
+                                                items: addTraineeController.Gender.map<DropdownMenuItem<String>>((
+                                                    String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList(),
+                                              )))
+                                      ],
+                                    ),
                                     const SizedBox(height: 20.0,),
-                                    InputTextFormField(label: "Mobile Number",
-                                        keyboardType: TextInputType.number,controller: addTraineeController.mobileNumberController),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: InputTextFormField(label: "Mobile Number",
+                                              keyboardType: TextInputType.number,controller: addTraineeController.mobileNumberController),
+
+                                        ),
+                                        const SizedBox(width: 15.0,),
+                                        Expanded(
+                                          child: Obx(() =>
+                                              DropdownButtonFormField<String>(
+                                                value: addTraineeController.selectedCeneter.value.isEmpty ? null : addTraineeController.selectedCeneter.value,
+                                                decoration: InputDecoration(
+                                                  labelText: "Center",
+                                                  border: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                                  ),
+                                                  hintText: "Center",
+
+                                                  errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedCeneter.value.isEmpty ? "Center" : null,
+                                                ),
+                                                onChanged: (String? newValue) {
+                                                  if (newValue != null) {
+                                                    addTraineeController.selectedCeneter.value = newValue;
+                                                  }
+                                                },
+                                                items: addTraineeController.centers.map<DropdownMenuItem<String>>((
+                                                    String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList(),
+                                              )),
+                                        ),
+                                      ],
+                                    ),
                                     const SizedBox(height: 20.0,),
                                     InputTextFormField(label: "Email ID",
                                         keyboardType: TextInputType.emailAddress,controller: addTraineeController.emailController),
@@ -91,61 +160,18 @@ class AddTrainee extends GetView<AddTraineeController> {
                                     InputTextFormField(label: "Address",
                                         keyboardType: TextInputType.multiline,controller: addTraineeController.addressController),
                                     const SizedBox(height: 20.0,),
-                                    Obx(() =>
-                                        DropdownButtonFormField<String>(
-                                          value: addTraineeController.selectedCeneter.value,
-                                          decoration: InputDecoration(
-                                            labelText: "Select Center",
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(20.0))
-                                            ),
-                                            hintText: "Select Center",
-                                          ),
-                                          onChanged: (String? newValue) {
-                                            if (newValue != null) {
-                                              addTraineeController.selectedCeneter.value = newValue;
-                                            }
-                                          },
-                                          items: addTraineeController.centers.map<DropdownMenuItem<String>>((
-                                              String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        )),
-                                    SizedBox(height: 20),
-                                    /*Obx(() =>
-                            DropdownButtonFormField<String>(
-                              value: addTraineeController.selectedDiscount.value,
-                              decoration: InputDecoration(
-                                labelText: "Select Discount",
-                                border: OutlineInputBorder(),
-                              ),
-                              onChanged: (String? newValue) {
-                                if (newValue != null) {
-                                  addTraineeController.selectedDiscount.value = newValue;
-                                }
-                              },
-                              items: addTraineeController.discount.map<DropdownMenuItem<String>>((
-                                  String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            )),
-                        SizedBox(height: 20),*/
 
                                     Obx(() =>
                                         DropdownButtonFormField<String>(
-                                          value: addTraineeController.selectedLevel.value,
+                                          value: addTraineeController.selectedLevel.value.isEmpty ? null : addTraineeController.selectedLevel.value,
                                           decoration: InputDecoration(
-                                            labelText: "Select Level",
+                                            labelText: "Training Level",
                                             border: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(Radius.circular(20.0))
                                             ),
-                                            hintText: "Select Level",
+                                            hintText: "Training Level",
+
+                                            errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedLevel.value.isEmpty ? "Training Level" : null,
                                           ),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {
@@ -160,6 +186,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                             );
                                           }).toList(),
                                         )),
+
                                     /*Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
@@ -171,7 +198,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                     Row(
                                       children: [
                                         Expanded(
-                                          flex: 2,
+
                                           child: OutlinedButton(
                                             onPressed: () {
                                               //TODO
@@ -181,13 +208,15 @@ class AddTrainee extends GetView<AddTraineeController> {
                                         ),
                                         const SizedBox(width: 8),
                                         Expanded(
-                                          flex: 4,
+
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              addTraineeController.isSubmitted.value = true;
                                               addTraineeController.addTrainee();
                                             },
 
-                                            child: const Text('Submit'),
+                                              child: const Text('Add',style: TextStyle(color: AppColors.white),),
+                                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(AppColors.appThemeColor),)
                                           ),
                                         ),
                                       ],

@@ -15,6 +15,9 @@ class AddTrainerController extends GetxController
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";
   late TextEditingController firstNameController,lastNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
   final UserRepository userRepository;
+  final RxBool isSubmitted = false.obs;
+  final List<String> Gender = ['Male', 'Female', 'Other'];
+  final RxString selectedGender = ''.obs;
 
   late TrainerTraineeResponseModel trainerresponseModel;
   AddTrainerController(this.userRepository);
@@ -63,6 +66,7 @@ class AddTrainerController extends GetxController
       {
         DialogHelper.showLoading();
         trainerFormKey.currentState!.save();
+
         AddTrainerRequestModel addTrainerRequestModel = AddTrainerRequestModel(
           firstName: firstNameController.text.toString(),
           lastName: lastNameController.text.toString(),

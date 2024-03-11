@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/controller/AddTrainerController.dart';
+import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_validation.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
@@ -64,16 +65,50 @@ class AddTrainer extends GetView<AddTrainerController> {
                                       ),
                                     ],
                                   ),
+
+
                                   const SizedBox(height: 20.0,),
                                   Row(
                                     children: [
                                       Expanded(child: InputTextFormField(label: "Age",keyboardType: TextInputType.number,controller:addTrainerController.ageController)),
                                       const SizedBox(width: 15.0,),
-                                      Expanded(child: InputTextFormField(label: "Experience",keyboardType: TextInputType.number,controller:addTrainerController.yearsofExperienceController)),
+                                      Expanded(
+                                        child: Obx(() =>
+                                            DropdownButtonFormField<String>(
+                                              value: addTrainerController.selectedGender.value.isEmpty ? null : addTrainerController.selectedGender.value,
+                                              decoration: InputDecoration(
+                                                labelText: "Select Gender",
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                                ),
+                                                hintText: "Select Gender",
+                                        
+                                                errorText: addTrainerController.isSubmitted.value && addTrainerController.selectedGender.value.isEmpty ? "Select Gender" : null,
+                                              ),
+                                              onChanged: (String? newValue) {
+                                                if (newValue != null) {
+                                                  addTrainerController.selectedGender.value = newValue;
+                                                }
+                                              },
+                                              items: addTrainerController.Gender.map<DropdownMenuItem<String>>((
+                                                  String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                            )),
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 20.0,),
-                                  InputTextFormField(label: "Mobile Number",keyboardType: TextInputType.number,controller:addTrainerController.mobileNumberController),
+                                  Row(
+                                    children: [
+                                      Expanded(child: InputTextFormField(label: "Mobile Number",keyboardType: TextInputType.number,controller:addTrainerController.mobileNumberController)),
+                                      const SizedBox(width: 15.0,),
+                                      Expanded(child: InputTextFormField(label: "Experience",keyboardType: TextInputType.number,controller:addTrainerController.yearsofExperienceController)),
+                                    ],
+                                  ),
                                   const SizedBox(height: 20.0,),
                                   InputTextFormField(label: "Email ID",keyboardType: TextInputType.emailAddress,controller:addTrainerController.emailController),
                                   const SizedBox(height: 20.0,),
@@ -82,7 +117,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                                   Row(
                                     children: [
                                       Expanded(
-                                        flex: 2,
+
                                         child: OutlinedButton(
                                           onPressed: () {
                                             //TODO
@@ -92,10 +127,11 @@ class AddTrainer extends GetView<AddTrainerController> {
                                       ),
                                       const SizedBox(width: 8),
                                       Expanded(
-                                        flex: 4,
-                                        child: ElevatedButton(
-                                          onPressed: () {
 
+                                        child: ElevatedButton(
+
+                                          onPressed: () {
+                                            addTrainerController.isSubmitted.value = true;
                                             addTrainerController.onAddTrainer();
                                             /*  if (addTrainerController.trainerFormKey.currentState!.validate())
                               {
@@ -104,7 +140,8 @@ class AddTrainer extends GetView<AddTrainerController> {
                               }*/
                                           },
 
-                                          child: const Text('Submit'),
+                                          child: const Text('Add',style: TextStyle(color: AppColors.white),),
+                                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(AppColors.appThemeColor),),
                                         ),
                                       ),
                                     ],

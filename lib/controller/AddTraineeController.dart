@@ -13,7 +13,10 @@ class AddTraineeController extends GetxController
 
   final List<String> centers = ['Center1', 'Center2', 'Ceneter3'];
 
-  final RxString selectedCeneter= 'Center1'.obs;
+ // final RxString selectedCeneter= 'Center1'.obs;
+  final RxString selectedCeneter= ''.obs;
+
+  final RxBool isSubmitted = false.obs;
 
   final List<String> discount = ['30%', '40%', '50%'];
 
@@ -21,7 +24,10 @@ class AddTraineeController extends GetxController
 
 
   final List<String> level = ['Beginner', 'Intermediate', 'Advanced'];
-  final RxString selectedLevel = 'Beginner'.obs;
+  final RxString selectedLevel = ''.obs;
+
+  final List<String> Gender = ['Male', 'Female', 'Other'];
+  final RxString selectedGender = ''.obs;
 
   final GlobalKey<FormState> traineeFormKey = GlobalKey<FormState>();
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";

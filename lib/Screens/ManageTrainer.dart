@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
-import 'package:sahyog/controller/AddTrainerController.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
@@ -24,7 +23,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
         backgroundColor: AppColors.appThemeColor,
         elevation: 10.0,
         onPressed: () {
-         /* var controller = Get.find<AddTrainerController>();
+          /* var controller = Get.find<AddTrainerController>();
           controller.clearControllers();*/
           Get.to(AddTrainer());
         },
@@ -32,7 +31,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
       body: GetBuilder<ManageTrainerController>(
         assignId: true,
         builder: (controller) {
-        /*  WidgetsBinding.instance.addPostFrameCallback((_)
+          /*  WidgetsBinding.instance.addPostFrameCallback((_)
           {
             Get.snackbar("Hello", "1");
           });*/
@@ -41,28 +40,34 @@ class ManageTrainer extends GetView<ManageTrainerController> {
             children: [
               CustomTopBar(titleName: "Manage Trainer"),
               Positioned(
-                  top: 140, // Adjust this value to control the position of the card
+                  top: 140,
+                  // Adjust this value to control the position of the card
                   left: 0,
                   right: 0,
-                  child: Container(
-                      height: 100.h,
-                      padding: EdgeInsets.all(2.h),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
+                  bottom: 1,
+                  child: Obx(() {
+                    return Container(
+                        height: 100.h,
+                        padding: EdgeInsets.all(2.h),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30),
+                          ),
                         ),
-                      ),
-                      child: ListView.builder(
-                          itemCount: 10,
-                          itemBuilder: (context,index)
-                          {
-                            return ManageTraineeCardItem();
-
-                          })
-                  )
+                        child:
+                        controller.slidingValue.value == 1 ? ListView.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return ManageTraineeCardItem();
+                            }) : Text("Hello")
+                    );
+                  })
 
               ),
               Positioned(
@@ -98,15 +103,9 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                       ],
                     ),
                     onValueChanged: (v) {
-                      if (v == 0) {
-
-                        //  Get.snackbar("Hello", "1");
-                      }
-                      else {
-                        // Get.snackbar("Hello", "2");
-
-                      }
-                      print("POSITION" + v.toString());
+                      controller.slidingValue.value = v;
+                      print("POSITION" + controller.slidingValue.value
+                          .toString());
                     },
                   ),
                 ),
@@ -115,8 +114,6 @@ class ManageTrainer extends GetView<ManageTrainerController> {
             ],
 
           );
-
-
         },
       ),
     );
@@ -145,7 +142,9 @@ class ManageTraineeCardItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleAvatar(backgroundImage:AssetImage("assets/images/user_img.png"),radius: 3.5.h,),
+                    CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/user_img.png"),
+                      radius: 3.5.h,),
                     SizedBox(width: 2.w,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,8 +153,9 @@ class ManageTraineeCardItem extends StatelessWidget {
                         SizedBox(height: 1.h,),
                         Row(
                           children: [
-                            Icon(Icons.phone,size: 16.0,),
-                            Text("+91 1234567890",style: TextStyle(fontSize: 14.sp),),
+                            Icon(Icons.phone, size: 16.0,),
+                            Text("+91 1234567890",
+                              style: TextStyle(fontSize: 14.sp),),
                           ],
                         ),
                       ],
@@ -167,12 +167,12 @@ class ManageTraineeCardItem extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined,size: 16.0,),
+                        Icon(Icons.location_on_outlined, size: 16.0,),
                         Text("Center1"),
                       ],
                     ),
                     SizedBox(height: 1.h,),
-                    Text("Slot 1(9am-10am)",style: TextStyle(fontSize: 14.sp),)
+                    Text("Slot 1(9am-10am)", style: TextStyle(fontSize: 14.sp),)
                   ],
                 )
               ],

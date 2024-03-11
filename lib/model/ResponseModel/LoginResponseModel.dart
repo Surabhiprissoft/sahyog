@@ -1,161 +1,143 @@
 import 'dart:convert';
-/// photo : "/media/photos/IMG20240225211104.jpg"
-/// first_name : "John"
-/// last_name : "Doe"
-/// gender : "Male"
-/// age : 0
-/// username : "john"
-/// contact : "9422968315"
-/// email : "john@gmail.com"
-/// address : "John house no 21, Pune"
-/// role : 1
-/// center : 1
+/// id : 1
+/// profile_photo : null
+/// email : "admin@admin.com"
+/// first_name : "john"
+/// last_name : "doe"
+/// username : "admin"
+/// role : 3
+/// phone : null
+/// gender : null
 /// year_of_experience : 0
 /// training_type : ""
 /// discount : "0.00"
-/// fees_paid : ""
-/// token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5ODE0NTE5LCJpYXQiOjE3MDk4MTM5MTksImp0aSI6IjgyYzA2NmY4YWJiNzRkN2ZhMTE5ZDUyZTI4NmE3MGY3IiwidXNlcl9pZCI6MX0.eZhQM0yhLMbA92fjxkhMkTLdmY_1cx9mo4vRAFcnSnQ"
+/// is_firsttime : true
+/// session_token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwMTYxNzcyLCJpYXQiOjE3MTAxNjE0NzIsImp0aSI6IjRlNzEwNTAzNWE2ODQxNWE5MTMzNDc3YTMzMzcxZmI5IiwidXNlcl9pZCI6IjEifQ.VMIocPGsAsD-kiMLlNrRFar6mp53dD0VnB3dLMbj4fY"
 
 LoginResponseModel loginResponseModelFromJson(String str) => LoginResponseModel.fromJson(json.decode(str));
 String loginResponseModelToJson(LoginResponseModel data) => json.encode(data.toJson());
 class LoginResponseModel {
   LoginResponseModel({
-      String? photo, 
+      num? id, 
+      dynamic profilePhoto, 
+      String? email, 
       String? firstName, 
       String? lastName, 
-      String? gender, 
-      num? age, 
       String? username, 
-      String? contact, 
-      String? email, 
-      String? address, 
       num? role, 
-      num? center, 
+      dynamic phone, 
+      dynamic gender, 
       num? yearOfExperience, 
       String? trainingType, 
       String? discount, 
-      String? feesPaid, 
-      String? token,}){
-    _photo = photo;
+      bool? isFirsttime, 
+      String? sessionToken,}){
+    _id = id;
+    _profilePhoto = profilePhoto;
+    _email = email;
     _firstName = firstName;
     _lastName = lastName;
-    _gender = gender;
-    _age = age;
     _username = username;
-    _contact = contact;
-    _email = email;
-    _address = address;
     _role = role;
-    _center = center;
+    _phone = phone;
+    _gender = gender;
     _yearOfExperience = yearOfExperience;
     _trainingType = trainingType;
     _discount = discount;
-    _feesPaid = feesPaid;
-    _token = token;
+    _isFirsttime = isFirsttime;
+    _sessionToken = sessionToken;
 }
 
   LoginResponseModel.fromJson(dynamic json) {
-    _photo = json['photo'];
+    _id = json['id'];
+    _profilePhoto = json['profile_photo'];
+    _email = json['email'];
     _firstName = json['first_name'];
     _lastName = json['last_name'];
-    _gender = json['gender'];
-    _age = json['age'];
     _username = json['username'];
-    _contact = json['contact'];
-    _email = json['email'];
-    _address = json['address'];
     _role = json['role'];
-    _center = json['center'];
+    _phone = json['phone'];
+    _gender = json['gender'];
     _yearOfExperience = json['year_of_experience'];
     _trainingType = json['training_type'];
     _discount = json['discount'];
-    _feesPaid = json['fees_paid'];
-    _token = json['token'];
+    _isFirsttime = json['is_firsttime'];
+    _sessionToken = json['session_token'];
   }
-  String? _photo;
+  num? _id;
+  dynamic _profilePhoto;
+  String? _email;
   String? _firstName;
   String? _lastName;
-  String? _gender;
-  num? _age;
   String? _username;
-  String? _contact;
-  String? _email;
-  String? _address;
   num? _role;
-  num? _center;
+  dynamic _phone;
+  dynamic _gender;
   num? _yearOfExperience;
   String? _trainingType;
   String? _discount;
-  String? _feesPaid;
-  String? _token;
-LoginResponseModel copyWith({  String? photo,
+  bool? _isFirsttime;
+  String? _sessionToken;
+LoginResponseModel copyWith({  num? id,
+  dynamic profilePhoto,
+  String? email,
   String? firstName,
   String? lastName,
-  String? gender,
-  num? age,
   String? username,
-  String? contact,
-  String? email,
-  String? address,
   num? role,
-  num? center,
+  dynamic phone,
+  dynamic gender,
   num? yearOfExperience,
   String? trainingType,
   String? discount,
-  String? feesPaid,
-  String? token,
-}) => LoginResponseModel(  photo: photo ?? _photo,
+  bool? isFirsttime,
+  String? sessionToken,
+}) => LoginResponseModel(  id: id ?? _id,
+  profilePhoto: profilePhoto ?? _profilePhoto,
+  email: email ?? _email,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
-  gender: gender ?? _gender,
-  age: age ?? _age,
   username: username ?? _username,
-  contact: contact ?? _contact,
-  email: email ?? _email,
-  address: address ?? _address,
   role: role ?? _role,
-  center: center ?? _center,
+  phone: phone ?? _phone,
+  gender: gender ?? _gender,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
   trainingType: trainingType ?? _trainingType,
   discount: discount ?? _discount,
-  feesPaid: feesPaid ?? _feesPaid,
-  token: token ?? _token,
+  isFirsttime: isFirsttime ?? _isFirsttime,
+  sessionToken: sessionToken ?? _sessionToken,
 );
-  String? get photo => _photo;
+  num? get id => _id;
+  dynamic get profilePhoto => _profilePhoto;
+  String? get email => _email;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
-  String? get gender => _gender;
-  num? get age => _age;
   String? get username => _username;
-  String? get contact => _contact;
-  String? get email => _email;
-  String? get address => _address;
   num? get role => _role;
-  num? get center => _center;
+  dynamic get phone => _phone;
+  dynamic get gender => _gender;
   num? get yearOfExperience => _yearOfExperience;
   String? get trainingType => _trainingType;
   String? get discount => _discount;
-  String? get feesPaid => _feesPaid;
-  String? get token => _token;
+  bool? get isFirsttime => _isFirsttime;
+  String? get sessionToken => _sessionToken;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['photo'] = _photo;
+    map['id'] = _id;
+    map['profile_photo'] = _profilePhoto;
+    map['email'] = _email;
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
-    map['gender'] = _gender;
-    map['age'] = _age;
     map['username'] = _username;
-    map['contact'] = _contact;
-    map['email'] = _email;
-    map['address'] = _address;
     map['role'] = _role;
-    map['center'] = _center;
+    map['phone'] = _phone;
+    map['gender'] = _gender;
     map['year_of_experience'] = _yearOfExperience;
     map['training_type'] = _trainingType;
     map['discount'] = _discount;
-    map['fees_paid'] = _feesPaid;
-    map['token'] = _token;
+    map['is_firsttime'] = _isFirsttime;
+    map['session_token'] = _sessionToken;
     return map;
   }
 

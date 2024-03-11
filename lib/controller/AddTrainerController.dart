@@ -12,13 +12,13 @@ class AddTrainerController extends GetxController
 {
   RxString imagePath = "".obs;
 
-  final GlobalKey<FormState> trainerFormKey = GlobalKey<FormState>();
+   GlobalKey<FormState> trainerFormKey = GlobalKey<FormState>();
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";
   late TextEditingController firstNameController,lastNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
   final UserRepository userRepository;
   final RxBool isSubmitted = false.obs;
   final List<String> Gender = ['Male', 'Female', 'Other'];
-  final RxString selectedGender = ''.obs;
+  late final  RxString selectedGender;
 
   late TrainerTraineeResponseModel trainerresponseModel;
   AddTrainerController(this.userRepository);
@@ -32,6 +32,7 @@ class AddTrainerController extends GetxController
     emailController=TextEditingController();
     yearsofExperienceController=TextEditingController();
     addressController=TextEditingController();
+    selectedGender= ''.obs;
   }
   void clearControllers() {
     firstNameController.clear();
@@ -41,6 +42,8 @@ class AddTrainerController extends GetxController
     emailController.clear();
     yearsofExperienceController.clear();
     addressController.clear();
+    trainerFormKey = GlobalKey<FormState>();
+    selectedGender= ''.obs;
   }
 
   Future openCamera() async{
@@ -89,8 +92,9 @@ class AddTrainerController extends GetxController
         if(trainerresponseModel.status==200){
           DialogHelper.hideLoading();
           showSnackBar("Trainer Created!", trainerresponseModel.message.toString());
-          trainerFormKey.currentState!.reset();
+
           Get.to(AdminDasboard());
+          clearControllers();
         }
         else
         {

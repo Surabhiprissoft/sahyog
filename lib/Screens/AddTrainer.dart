@@ -77,13 +77,13 @@ class AddTrainer extends GetView<AddTrainerController> {
                                             DropdownButtonFormField<String>(
                                               value: addTrainerController.selectedGender.value.isEmpty ? null : addTrainerController.selectedGender.value,
                                               decoration: InputDecoration(
-                                                labelText: "Select Gender",
+                                                labelText: "Gender",
                                                 border: OutlineInputBorder(
                                                     borderRadius: BorderRadius.all(Radius.circular(20.0))
                                                 ),
-                                                hintText: "Select Gender",
+                                                hintText: "Gender",
                                         
-                                                errorText: addTrainerController.isSubmitted.value && addTrainerController.selectedGender.value.isEmpty ? "Select Gender" : null,
+                                                errorText: addTrainerController.isSubmitted.value && addTrainerController.selectedGender.value.isEmpty ? "" : null,
                                               ),
                                               onChanged: (String? newValue) {
                                                 if (newValue != null) {

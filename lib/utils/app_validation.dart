@@ -4,7 +4,7 @@ class AppValidation {
   //for sign up screen validation
   static String? validateEmail(String email) {
     if (email.trim().isEmpty) {
-      return 'Email address is required.';
+      return '';
     }
     else if (!RegExp(r'^([a-zA-Z0-9]){1,}([._-]){0,1}([a-zA-Z0-9]){1,}@([a-zA-Z0-9-]){1,}([.]){1}([a-zA-Z]){2,}$')
         .hasMatch(email!.trim())) {
@@ -29,7 +29,7 @@ class AppValidation {
     final regex = RegExp(r'^[0-9]{3}[-\s]?[0-9]{3}[-\s]?[0-9]{4}$');
 
     if (value.trim().isEmpty) {
-      return 'Mobile number is required.';
+      return '';
     } else if (!regex.hasMatch(value)) {
       return 'Please enter a valid mobile number (e.g., 123-456-7890).';
     }
@@ -249,7 +249,8 @@ class AppValidation {
 
   static String? validateforrequiredfield(String? value,String?message){
     if(value!.trim().isEmpty){
-      return message!+" is required";
+    /*  return message!+" is required";*/
+      return "";
     }
     else
       {

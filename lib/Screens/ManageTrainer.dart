@@ -25,7 +25,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
         onPressed: () {
           /* var controller = Get.find<AddTrainerController>();
           controller.clearControllers();*/
-          Get.to(AddTrainer());
+          Get.to(() => AddTrainer());
         },
       ),
       body: GetBuilder<ManageTrainerController>(

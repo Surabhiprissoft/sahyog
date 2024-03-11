@@ -6,7 +6,6 @@ import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
-import 'package:sahyog/widgets/other_common_widget.dart';
 
 class AddTraineeController extends GetxController
 {
@@ -15,7 +14,7 @@ class AddTraineeController extends GetxController
   final List<String> centers = ['Center1', 'Center2', 'Ceneter3'];
 
  // final RxString selectedCeneter= 'Center1'.obs;
-  final RxString selectedCeneter= ''.obs;
+  late final  RxString selectedCeneter;
 
   final RxBool isSubmitted = false.obs;
 
@@ -25,12 +24,12 @@ class AddTraineeController extends GetxController
 
 
   final List<String> level = ['Beginner', 'Intermediate', 'Advanced'];
-  final RxString selectedLevel = ''.obs;
+  late final RxString selectedLevel;
 
   final List<String> Gender = ['Male', 'Female', 'Other'];
-  final RxString selectedGender = ''.obs;
+  late final RxString selectedGender ;
 
-  final GlobalKey<FormState> traineeFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> traineeFormKey = GlobalKey<FormState>();
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";
   late TextEditingController firstNameController,lastNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
   late TrainerTraineeResponseModel traineeResponseModel;
@@ -48,6 +47,24 @@ class AddTraineeController extends GetxController
     emailController=TextEditingController();
     yearsofExperienceController=TextEditingController();
     addressController=TextEditingController();
+    selectedCeneter= ''.obs;
+    selectedLevel = ''.obs;
+    selectedGender = ''.obs;
+  }
+
+  void clearControllers() {
+    firstNameController.clear();
+    lastNameController.clear();
+    ageController.clear();
+    mobileNumberController.clear();
+    emailController.clear();
+    yearsofExperienceController.clear();
+    addressController.clear();
+    traineeFormKey = GlobalKey<FormState>();
+    selectedGender= ''.obs;
+    selectedLevel = ''.obs;
+    selectedCeneter= ''.obs;
+
   }
 
   Future openCamera() async{
@@ -93,13 +110,13 @@ class AddTraineeController extends GetxController
       traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
       if(traineeResponseModel.status==200){
         DialogHelper.hideLoading();
-        showSnackBar("Trainee Created!", traineeResponseModel.message.toString());
+       Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
        Get.to(AdminDasboard());
       }
       else
         {
           DialogHelper.hideLoading();
-          showSnackBar("Something went wrong!", traineeResponseModel.message.toString());
+          Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
         }
 
     }

@@ -98,7 +98,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                   ),
                                                   hintText: "Gender",
 
-                                                  errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedGender.value.isEmpty ? "Gender" : null,
+                                                  errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedGender.value.isEmpty ? "" : null,
                                                 ),
                                                 onChanged: (String? newValue) {
                                                   if (newValue != null) {
@@ -135,7 +135,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                   ),
                                                   hintText: "Center",
 
-                                                  errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedCeneter.value.isEmpty ? "Center" : null,
+                                                  errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedCeneter.value.isEmpty ? "" : null,
                                                 ),
                                                 onChanged: (String? newValue) {
                                                   if (newValue != null) {
@@ -171,7 +171,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                             ),
                                             hintText: "Training Level",
 
-                                            errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedLevel.value.isEmpty ? "Training Level" : null,
+                                            errorText: addTraineeController.isSubmitted.value && addTraineeController.selectedLevel.value.isEmpty ? "" : null,
                                           ),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {

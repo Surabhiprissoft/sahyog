@@ -15,7 +15,7 @@ class LoginController extends GetxController
 {
   final UserRepository userRepository;
 
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late TextEditingController emailController,passController;
   var email='',password='';
   bool shouldValidate = false;
@@ -31,6 +31,13 @@ class LoginController extends GetxController
     passController = TextEditingController();
   }
 
+ void clearcontrollers()
+ {
+     emailController.clear();
+     passController.clear();
+     //loginFormKey = GlobalKey<FormState>();
+     loginFormKey.currentState!.reset();
+ }
   @override
   void onClose() {
     // TODO: implement onClose
@@ -39,6 +46,8 @@ class LoginController extends GetxController
     emailController.dispose();
     passController.dispose();
   }
+
+
 
   /*String? validateEmail(String value)
   {
@@ -86,7 +95,11 @@ class LoginController extends GetxController
         {
           // Do something
           DialogHelper.hideLoading();
+
           Get.to(AdminDasboard());
+          clearcontrollers();
+
+
         });
 
        /* loginResponseModel= await userRepository.checkLogin(loginRequestModel);

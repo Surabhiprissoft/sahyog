@@ -6,6 +6,7 @@ import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 class AddTrainerController extends GetxController
 {
@@ -87,14 +88,14 @@ class AddTrainerController extends GetxController
         trainerresponseModel= await userRepository.addTrainer(addTrainerRequestModel);
         if(trainerresponseModel.status==200){
           DialogHelper.hideLoading();
-          Get.snackbar("Trainer Created!",trainerresponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+          showSnackBar("Trainer Created!", trainerresponseModel.message.toString());
           trainerFormKey.currentState!.reset();
           Get.to(AdminDasboard());
         }
         else
         {
           DialogHelper.hideLoading();
-          Get.snackbar("Something went wrong!",trainerresponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+          showSnackBar("Something went wrong!",trainerresponseModel.message.toString());
         }
 
       }

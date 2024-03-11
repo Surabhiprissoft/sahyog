@@ -219,3 +219,20 @@ Widget buildRadio(String value,  final RxString selectedValue) {
 }
 
 
+
+showSnackBar(
+  String title,
+  String message
+  ){
+  return
+    Get.snackbar(
+      title,message,
+      snackPosition: SnackPosition.BOTTOM,
+      margin: const EdgeInsets.all(10.0)
+    );
+}
+
+
+
+
+

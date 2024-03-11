@@ -3,11 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/ChangePassword.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 class LoginController extends GetxController
 {
@@ -66,11 +68,7 @@ class LoginController extends GetxController
     try {
       final isValid = loginFormKey.currentState!.validate();
       if (!isValid) {
-        Get.snackbar(
-          "Login Failed",
-          "Enter all fields to login",
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        showSnackBar("Login Failed", "Enter all fields to login");
         shouldValidate = true;
       } else {
         loginFormKey.currentState!.save();
@@ -91,13 +89,23 @@ class LoginController extends GetxController
           Get.to(AdminDasboard());
         });
 
-        /*loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+       /* loginResponseModel= await userRepository.checkLogin(loginRequestModel);
         if(loginResponseModel.status==200){
-
+          DialogHelper.hideLoading();
+          print(loginResponseModel.data.role);
+          print(loginResponseModel.data.isFirsttime);
+          if(loginResponseModel.data.role==3 && loginResponseModel.data.isFirsttime==true){
+            print("Inside 20");
+            Get.to(ChangePassword());
+          }else{
+            print("Helo");
+          }
         }
         else{
-          Get.snackbar("Login Failed", loginResponseModel.message);
+          showSnackBar("Login Failed", loginResponseModel.message);
+          DialogHelper.hideLoading();
         }*/
+
         // Construct SingleResponse object from the login response
 
 
@@ -110,6 +118,7 @@ class LoginController extends GetxController
     } catch (error) {
       // Handle any errors that occurred during the login process
       print('Error during login: $error');
+      DialogHelper.hideLoading();
       // You can throw the error or return an error response here if needed
       throw error;
     }

@@ -8,6 +8,8 @@ import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/utils/app_constants.dart';
+import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
@@ -91,7 +93,7 @@ class LoginController extends GetxController
 
         DialogHelper.showLoading();
 
-        Future.delayed(Duration(seconds: 3),()
+       /* Future.delayed(Duration(seconds: 3),()
         {
           // Do something
           DialogHelper.hideLoading();
@@ -100,24 +102,32 @@ class LoginController extends GetxController
           clearcontrollers();
 
 
-        });
+        })*/;
 
-       /* loginResponseModel= await userRepository.checkLogin(loginRequestModel);
-        if(loginResponseModel.status==200){
+        loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+        if(loginResponseModel.status==200)
+        {
+
           DialogHelper.hideLoading();
+
+          PreferenceUtils.setString(AppConstants.USER_TOKEN, loginResponseModel.data.sessionToken!);
+
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
-          if(loginResponseModel.data.role==3 && loginResponseModel.data.isFirsttime==true){
-            print("Inside 20");
-            Get.to(ChangePassword());
-          }else{
-            print("Helo");
+          if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true)
+          {
+            Get.to(() => ChangePassword());
+
+          }else
+          {
+
+            Get.to(() => AdminDasboard());
           }
         }
         else{
           showSnackBar("Login Failed", loginResponseModel.message);
           DialogHelper.hideLoading();
-        }*/
+        }
 
         // Construct SingleResponse object from the login response
 

@@ -1,3 +1,4 @@
+import 'package:sahyog/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferences;
 
@@ -11,10 +12,13 @@ class PreferenceUtils {
     return _prefsInstance!;
   }
 
-  static String getString(String key, [String? defValue]) {
+  /*static String getString(String key, [String? defValue]) {
     return _prefsInstance!.getString(key) ?? defValue ?? "";
-  }
+  }*/
 
+  static String getString(String key, [String? defValue]) {
+    return _prefsInstance!.getString(AppConstants.USER_TOKEN) ?? defValue ?? "";
+  }
   static Future<bool> setString(String key, String value) async {
     var prefs = await _instance;
     return prefs.setString(key, value);

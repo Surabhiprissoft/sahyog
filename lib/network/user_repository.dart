@@ -33,7 +33,7 @@ class UserRepository{
   Future<SingleResponse<LoginResponseModel>> checkLogin(LoginRequestModel loginRequest) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final user = await apiBaseHelper.post(AppConstants.LOGIN, loginRequest.toJson());
+      final user = await apiBaseHelper.postWithoutToken(AppConstants.LOGIN, loginRequest.toJson());
 
       // Parse the response JSON into a SingleResponse object
       SingleResponse<LoginResponseModel> loginResponse = SingleResponse.fromJson(

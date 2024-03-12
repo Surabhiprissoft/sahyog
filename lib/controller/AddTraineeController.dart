@@ -93,7 +93,7 @@ class AddTraineeController extends GetxController
       AddTraineeRequestModel addTraineeRequestModel = AddTraineeRequestModel(
           firstName: firstNameController.text.toString(),
           lastName: lastNameController.text.toString(),
-          gender: "Male",
+          gender: selectedGender.value.toString(),
           age: num.parse(ageController.text.toString()),
           username: emailController.text.toString(),
           password: "prismatic123",
@@ -101,7 +101,7 @@ class AddTraineeController extends GetxController
           contact: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address:addressController.text.toString(),
-          role: 3,
+          role: 2,
          //center: selectedCeneter.value.toString(),
          center: 3,
         trainingType: selectedLevel.value.toString(),

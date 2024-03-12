@@ -87,7 +87,7 @@ class ManageTraineeCardItem extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Trainer Name 1 "),
+                        Text("Trainee  Name 1 "),
                         SizedBox(height: 1.h,),
                         Row(
                           children: [
@@ -110,7 +110,7 @@ class ManageTraineeCardItem extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 1.h,),
-                    Text("Slot 1(9am-10am)", style: TextStyle(fontSize: 14.sp),)
+                    Text("Fess Paid", style: TextStyle(fontSize: 14.sp),)
                   ],
                 )
               ],

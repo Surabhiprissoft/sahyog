@@ -64,7 +64,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                         controller.slidingValue.value == 1 ? ListView.builder(
                             itemCount: 10,
                             itemBuilder: (context, index) {
-                              return ManageTraineeCardItem();
+                              return ManageTrainerCardItem();
                             }) : Text("Hello")
                     );
                   })
@@ -120,8 +120,8 @@ class ManageTrainer extends GetView<ManageTrainerController> {
   }
 }
 
-class ManageTraineeCardItem extends StatelessWidget {
-  const ManageTraineeCardItem({
+class ManageTrainerCardItem extends StatelessWidget {
+  const ManageTrainerCardItem({
     super.key,
   });
 

@@ -39,6 +39,7 @@ class LoginController extends GetxController
      emailController.clear();
      passController.clear();
      loginFormKey = GlobalKey<FormState>();
+     update();
      //loginFormKey.currentState!.reset();
  }
   @override
@@ -117,13 +118,13 @@ class LoginController extends GetxController
           print(loginResponseModel.data.isFirsttime);
           if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true)
           {
-            Get.offAll(ChangePassword());
-          //  Get.to(() => ChangePassword());
+           // Get.offAll(ChangePassword());
+            Get.to(() => ChangePassword());
 
           }else
           {
-            Get.offAll(AdminDasboard());
-            //Get.to(() => AdminDasboard());
+            //Get.offAll(AdminDasboard());
+            Get.to(() => AdminDasboard());
           }
         }
         else{

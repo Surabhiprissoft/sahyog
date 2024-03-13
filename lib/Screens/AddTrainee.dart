@@ -246,12 +246,13 @@ class AddTrainee extends GetView<AddTraineeController> {
                       shape: CircleBorder(),
                       child: CircleAvatar(
                         radius: 75,
+                        //foregroundImage: ExactAssetImage("assets/images/demo.jpg"),
                         backgroundImage: addTraineeController.imagePath
                             .isNotEmpty
                             ?
                         FileImage(
                             File(addTraineeController.imagePath.toString()))
-                            : null,
+                            : File("assets/images/demo.jpg") as ImageProvider,
                         child: Stack(
                             children: [
                               Align(

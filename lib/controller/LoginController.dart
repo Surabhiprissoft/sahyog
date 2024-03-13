@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
-import 'package:sahyog/Screens/TraineeDashboard.dart';
-import 'package:sahyog/Screens/TrainerDashboard.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/utils/app_constants.dart';
+import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
@@ -17,7 +17,7 @@ class LoginController extends GetxController
 {
   final UserRepository userRepository;
 
-   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+   late GlobalKey<FormState> loginFormKey;
   late TextEditingController emailController,passController;
   var email='',password='';
   bool shouldValidate = false;
@@ -31,14 +31,16 @@ class LoginController extends GetxController
 
     emailController = TextEditingController();
     passController = TextEditingController();
+    loginFormKey = GlobalKey<FormState>();
   }
 
  void clearcontrollers()
  {
      emailController.clear();
      passController.clear();
-     //loginFormKey = GlobalKey<FormState>();
-     loginFormKey.currentState!.reset();
+     loginFormKey = GlobalKey<FormState>();
+     update();
+     //loginFormKey.currentState!.reset();
  }
   @override
   void onClose() {
@@ -93,7 +95,7 @@ class LoginController extends GetxController
 
         DialogHelper.showLoading();
 
-        /*Future.delayed(Duration(seconds: 3),()
+       /* Future.delayed(Duration(seconds: 3),()
         {
           // Do something
           DialogHelper.hideLoading();
@@ -102,19 +104,27 @@ class LoginController extends GetxController
           clearcontrollers();
 
 
-        });*/
+        })*/;
 
         loginResponseModel= await userRepository.checkLogin(loginRequestModel);
-        if(loginResponseModel.status==200){
+        if(loginResponseModel.status==200)
+        {
+          clearcontrollers();
           DialogHelper.hideLoading();
+
+          PreferenceUtils.setString(AppConstants.USER_TOKEN, loginResponseModel.data.sessionToken!);
+
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
-          if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true){
+          if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true)
+          {
+           // Get.offAll(ChangePassword());
+            Get.to(() => ChangePassword());
 
-            Get.to(ChangePassword());
-          }else{
-            Get.to(AdminDasboard());
-
+          }else
+          {
+            //Get.offAll(AdminDasboard());
+            Get.to(() => AdminDasboard());
           }
         }
         else{

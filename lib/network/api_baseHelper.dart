@@ -12,11 +12,14 @@ class ApiBaseHelper {
 
 
    //office
-  final baseUrl = "http://192.168.0.117:8000/";
+  //final baseUrl = "http://192.168.0.117:8000/";
+  final baseUrl = "http://192.168.0.245:8000/";
 
- // final authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+   late  var authToken="";
+
+
   // final authToken=PreferenceUtils.getString("token");
-  final authToken="";
+ // final authToken="";
   // final authToken="876654fd-3c24-4a7b-9784-ec80256bf995";
 
 
@@ -62,6 +65,39 @@ class ApiBaseHelper {
   Future<dynamic>? post(String url, Map<String, Object?> requestBody) async {
     var responseJson;
 
+    authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+
+    try{
+
+      final Uri uri = Uri.parse(baseUrl + url);
+      print("url is ${baseUrl+url}");
+      print("url is requestBody ${requestBody}");
+      final response = await http.post(uri, body: jsonEncode(requestBody),
+          encoding: Encoding.getByName('utf-8'), headers:{ "Accept": "application/json",
+            "content-type":"application/json","Authorization":'Bearer $authToken'});
+      //request.headers.set('Authorization', authToken,);
+      debugPrint("RESPONSE CODE "+response.statusCode.toString());
+      debugPrint("RESPONSE Body "+response.body);
+
+      String jsonString=response.body.toString();
+
+      responseJson =_returnResponse(response);
+
+
+      return responseJson;
+
+
+      //print("RESPONSE JSON IS"+jsonString);
+
+    }on SocketException{
+      throw FetchDataException(AppConstants.NO_INTERNET);
+    }
+  }
+
+
+  Future<dynamic>? postWithoutToken(String url, Map<String, Object?> requestBody) async {
+    var responseJson;
+
     try{
 
       final Uri uri = Uri.parse(baseUrl + url);
@@ -88,7 +124,6 @@ class ApiBaseHelper {
       throw FetchDataException(AppConstants.NO_INTERNET);
     }
   }
-
 
   Future<dynamic>? postwithoutjson(String url, Map<String, Object?> requestBody) async {
     var responseJson;

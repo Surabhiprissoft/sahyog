@@ -35,6 +35,7 @@ class AddTrainerController extends GetxController
     selectedGender= ''.obs;
   }
   void clearControllers() {
+    trainerFormKey = GlobalKey<FormState>();
     firstNameController.clear();
     lastNameController.clear();
     ageController.clear();
@@ -42,7 +43,6 @@ class AddTrainerController extends GetxController
     emailController.clear();
     yearsofExperienceController.clear();
     addressController.clear();
-    trainerFormKey = GlobalKey<FormState>();
     selectedGender= ''.obs;
   }
 
@@ -74,14 +74,14 @@ class AddTrainerController extends GetxController
         AddTrainerRequestModel addTrainerRequestModel = AddTrainerRequestModel(
           firstName: firstNameController.text.toString(),
           lastName: lastNameController.text.toString(),
-          gender: "Male",
+          gender: selectedGender.value.toString(),
           age: num.tryParse(ageController.text.toString()),
           username: emailController.text.toString(),
           password: "prismatic123",
           contact: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address:addressController.text.toString(),
-          role: 2,
+          role: 1,
           photo: null,
           yearOfExperience:num.tryParse(yearsofExperienceController.text.toString())
 
@@ -93,8 +93,9 @@ class AddTrainerController extends GetxController
           DialogHelper.hideLoading();
           showSnackBar("Trainer Created!", trainerresponseModel.message.toString());
 
-          Get.to(AdminDasboard());
+          Get.to(() => AdminDasboard());
           clearControllers();
+
         }
         else
         {

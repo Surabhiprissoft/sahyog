@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
+import 'package:sahyog/Screens/TraineeDashboard.dart';
+import 'package:sahyog/Screens/TrainerDashboard.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
@@ -91,7 +93,7 @@ class LoginController extends GetxController
 
         DialogHelper.showLoading();
 
-        Future.delayed(Duration(seconds: 3),()
+        /*Future.delayed(Duration(seconds: 3),()
         {
           // Do something
           DialogHelper.hideLoading();
@@ -100,24 +102,25 @@ class LoginController extends GetxController
           clearcontrollers();
 
 
-        });
+        });*/
 
-       /* loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+        loginResponseModel= await userRepository.checkLogin(loginRequestModel);
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
-          if(loginResponseModel.data.role==3 && loginResponseModel.data.isFirsttime==true){
-            print("Inside 20");
+          if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true){
+
             Get.to(ChangePassword());
           }else{
-            print("Helo");
+            Get.to(AdminDasboard());
+
           }
         }
         else{
           showSnackBar("Login Failed", loginResponseModel.message);
           DialogHelper.hideLoading();
-        }*/
+        }
 
         // Construct SingleResponse object from the login response
 

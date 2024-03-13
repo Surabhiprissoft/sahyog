@@ -1,13 +1,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sahyog/Screens/ChangePassword.dart';
+import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../model/ResponseModel/TrainerTraineeResponseModel.dart';
+import '../network/user_repository.dart';
+
 class ChangePasswordController extends GetxController{
+
+
   final GlobalKey<FormState> changePasswordKey = GlobalKey<FormState>();
   late TextEditingController currentPassController,newPassController,confPassController;
   var currentPassword='',newPassword='',confirmPassword='';
   bool shouldValidate = false;
+   late String email="";
+  late TrainerTraineeResponseModel changePasswordResponseModel;
+  final UserRepository userRepository;
+  ChangePasswordController(this.userRepository);
 
 
   void onInit() {
@@ -17,6 +29,10 @@ class ChangePasswordController extends GetxController{
     currentPassController = TextEditingController();
     newPassController = TextEditingController();
     confPassController = TextEditingController();
+
+
+    email= Get.arguments;
+
   }
 
   @override
@@ -58,6 +74,8 @@ class ChangePasswordController extends GetxController{
       }
     }
   }
+
+
 
 
 

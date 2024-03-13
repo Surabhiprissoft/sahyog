@@ -15,6 +15,11 @@ class ChangePasswordRequestModel {
     _newPassword = newPassword;
 }
 
+  @override
+  String toString() {
+    return 'ChangePasswordRequestModel{_email: $_email, _password: $_password, _newPassword: $_newPassword}';
+  }
+
   ChangePasswordRequestModel.fromJson(dynamic json) {
     _email = json['email'];
     _password = json['password'];

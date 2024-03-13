@@ -78,7 +78,7 @@ class UserRepository{
   Future<TrainerTraineeResponseModel> ChangeUserPassword(ChangePasswordRequestModel changePasswordRequestModel) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final changePassword = await apiBaseHelper.post(AppConstants.UPDATEPASSWORD, changePasswordRequestModel.toJson());
+      final changePassword = await apiBaseHelper.patch(AppConstants.UPDATEPASSWORD, changePasswordRequestModel.toJson());
       return TrainerTraineeResponseModel.fromJson(changePassword);
     } catch (error) {
       // Handle any errors that occur during the API call

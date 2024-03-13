@@ -6,6 +6,7 @@ import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
+import 'package:sahyog/Screens/StickyCenters.dart';
 import 'package:sahyog/Screens/TrainerDashboard.dart';
 import 'package:sahyog/bindings/ProjectBindings.dart';
 

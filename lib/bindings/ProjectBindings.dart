@@ -3,6 +3,7 @@ import 'package:sahyog/controller/AddTraineeController.dart';
 import 'package:sahyog/controller/AddTrainerController.dart';
 import 'package:sahyog/controller/LoginController.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
+import 'package:sahyog/controller/ScheduleTrainerController.dart';
 
 import '../network/api_baseHelper.dart';
 import '../network/user_repository.dart';
@@ -17,6 +18,7 @@ class ProjectBindings implements Bindings
     Get.lazyPut<AddTraineeController>(() => AddTraineeController(UserRepository(ApiBaseHelper())), fenix: true);
     //Get.lazyPut<AddTraineeController>(() => LoginPageLogic(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController(UserRepository(ApiBaseHelper())), fenix: true);
+    Get.lazyPut<ScheduleTrainerController>(() => ScheduleTrainerController(), fenix: true);
   }
 
 }

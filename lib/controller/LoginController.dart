@@ -13,6 +13,9 @@ import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../Screens/TraineeDashboard.dart';
+import '../Screens/TrainerDashboard.dart';
+
 class LoginController extends GetxController
 {
   final UserRepository userRepository;
@@ -107,24 +110,25 @@ class LoginController extends GetxController
         })*/;
 
         loginResponseModel= await userRepository.checkLogin(loginRequestModel);
-        if(loginResponseModel.status==200)
-        {
-          clearcontrollers();
+        if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
-
-          PreferenceUtils.setString(AppConstants.USER_TOKEN, loginResponseModel.data.sessionToken!);
-
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
-          if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true)
-          {
-           // Get.offAll(ChangePassword());
-            Get.to(() => ChangePassword());
-
-          }else
-          {
-            //Get.offAll(AdminDasboard());
-            Get.to(() => AdminDasboard());
+          String? email = loginResponseModel.data?.email;
+          if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true){
+            print("inside "+email.toString());
+            Get.to(()=>ChangePassword(),arguments: email);
+          }else{
+            if(loginResponseModel.data.role==1){
+              Get.to(TrainerDashboard());
+            }
+            else if(loginResponseModel.data.role==2)
+            {
+              Get.to(TraineeDashboard());
+            }
+            else{
+              Get.to(AdminDasboard());
+            }
           }
         }
         else{

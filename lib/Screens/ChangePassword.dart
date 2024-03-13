@@ -5,25 +5,27 @@ import 'package:sahyog/controller/ChangePasswordController.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
 
+import '../utils/app_colors.dart';
+
 class ChangePassword extends GetView<ChangePasswordController> {
    ChangePassword({super.key});
 
-  final changePasswordController  = Get.put(ChangePasswordController());
+  final changePasswordController  = Get.find<ChangePasswordController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          const CustomTopBar(titleName: "Change Password"),
+          const CustomTopBar(titleName: ""),
           Positioned  (
               top: 140,
               left: 0,
               right: 0,
               child: Container(
                   height: 100.h,
-                  padding: EdgeInsets.all(2.h),
-                  width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: 13.h,left: 2.h,right: 2.h,),
+                width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -44,6 +46,8 @@ class ChangePassword extends GetView<ChangePasswordController> {
                               autovalidateMode: changePasswordController.shouldValidate ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
                               child: Column(
                                 children: [
+                                  Text("Change Password",style: TextStyle(fontSize: 23.sp,color: AppColors.appThemeColor,fontWeight: FontWeight.w700),),
+                                  const SizedBox(height: 20.0,),
                                   InputTextFormField(label: "Current Password",keyboardType: TextInputType.text,controller: changePasswordController.currentPassController),
                                   const SizedBox(height: 20.0,),
 
@@ -52,12 +56,23 @@ class ChangePassword extends GetView<ChangePasswordController> {
 
                                   InputTextFormField(label: "Confirm Password", keyboardType: TextInputType.text,controller: changePasswordController.confPassController),
                                   const SizedBox(height: 20.0),
-                                  OutlinedButton(
-                                      onPressed: (){
-                                        changePasswordController.onSubmit();
-                                      },
-                                      child: const Text("Submit")
+
+                                  SizedBox(
+                                    width: 100.w,
+                                    child: ElevatedButton(
+                                        onPressed: (){
+                                          changePasswordController.onSubmit();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            backgroundColor: AppColors.appThemeColor
+                                        ),
+                                        child: const Text("Save",style: TextStyle(color: Colors.white),)
+                                    ),
                                   ),
+
 
                                 ],
                               ),
@@ -67,6 +82,26 @@ class ChangePassword extends GetView<ChangePasswordController> {
                   ),
               )
           ),
+          Positioned(
+              top: 70, // Adjust this value to control the position of the card
+              left: 16,
+              right: 16,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child:Center(
+                    child: Card(
+                      elevation: 10.0,
+                      shape: CircleBorder(),
+                      child: CircleAvatar(
+                        radius: 75,
+                        child: Image.asset("assets/images/india_khelenga_logo.png"),
+                      ),
+                    )
+
+                ),
+
+              )
+          )
 
         ],
       ),

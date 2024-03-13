@@ -24,6 +24,7 @@ class AppConstants
   static const LOGIN="login/";
   static const ADDTRAINER="users/";
   static const ADDTRAINEE="users/";
+  static const UPDATEPASSWORD="updatepassword/";
 
 
 

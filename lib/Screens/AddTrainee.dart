@@ -9,6 +9,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/controller/AddTraineeController.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
+import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_validation.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
@@ -97,12 +98,22 @@ class AddTrainee extends GetView<AddTraineeController> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: InputTextFormField(
-                                                label: "Age",
-                                                keyboardType: TextInputType
-                                                    .number,
-                                                controller: addTraineeController
-                                                    .ageController),
+                                            child: TextFormField(
+                                              controller: controller.ageController,
+                                              decoration: const InputDecoration(
+                                                label: Text("DOB"),
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                                ),
+                                                prefixIcon: Icon(Icons.calendar_month_sharp),
+                                              ),
+                                              readOnly: true,
+                                              onTap: ()async{
+                                                var selectedDate = await getDatePicker(context);
+                                                controller.ageController.text = selectedDate.toString();
+                                              },
+
+                                            ),
                                           ),
                                           const SizedBox(width: 15.0,),
                                           Expanded(
@@ -168,6 +179,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                     .mobileNumberController),
 
                                           ),
+                                          const SizedBox(width: 15.0,),
                                           Expanded(
                                               child: Obx(() =>
                                                   DropdownButtonFormField<

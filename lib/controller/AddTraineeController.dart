@@ -120,7 +120,7 @@ class AddTraineeController extends GetxController
         trainingType: selectedLevel.value.toString(),
       );
       print("TRAINEE REQUEST MODEL"+addTraineeRequestModel.toString());
-    /*  traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
+      traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
       if(traineeResponseModel.status==200){
         DialogHelper.hideLoading();
        Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
@@ -130,7 +130,7 @@ class AddTraineeController extends GetxController
         {
           DialogHelper.hideLoading();
           Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-        }*/
+        }
 
     }
 

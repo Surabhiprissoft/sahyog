@@ -75,7 +75,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                                         child: TextFormField(
                                           controller: controller.ageController,
                                           decoration: const InputDecoration(
-                                            label: Text("Date of Birth"),
+                                            label: Text("DOB"),
                                             border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(Radius.circular(20.0)),
                                             ),

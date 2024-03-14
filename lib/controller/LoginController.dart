@@ -105,8 +105,6 @@ class LoginController extends GetxController
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
 
-
-
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
           String? email = loginResponseModel.data?.email;

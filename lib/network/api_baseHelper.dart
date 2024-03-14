@@ -16,8 +16,8 @@ class ApiBaseHelper {
 
 
    //office
-  final baseUrl = "http://192.168.0.118:8000/";
   //final baseUrl = "http://192.168.1.6:8000/";
+  final baseUrl = "http://192.168.1.6:8000/";
 
    late  var authToken="";
 

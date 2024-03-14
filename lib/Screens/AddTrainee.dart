@@ -252,7 +252,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                             ?
                         FileImage(
                             File(addTraineeController.imagePath.toString()))
-                            : File("assets/images/demo.jpg") as ImageProvider,
+                            : null,
                         child: Stack(
                             children: [
                               Align(

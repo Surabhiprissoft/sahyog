@@ -13,22 +13,13 @@ class AppValidation {
     }
     return null;
   }
-  static String? validateResetEmailMobile(String email) {
-    if (email.trim().isEmpty) {
-      return 'Email address or Mobile number is required.';
-    }
-    else if (!RegExp(r'^((([a-zA-Z0-9]){1,}([._-]){0,1}([a-zA-Z0-9]){1,}@([a-zA-Z0-9-]){1,}([.]){1}([a-zA-Z]){2,})|(([0-9]){3}[-\\s]?([0-9]){3}[-\\s]?([0-9]){4}))$')
-        .hasMatch(email!.trim())) {
-      return "Please enter valid email or Mobile number";
 
-    }
-    return null;
-  }
   static String? validateMobileNumber(String value) {
     // Regular expression for mobile number validation
     final regex = RegExp(r'^[0-9]{3}[-\s]?[0-9]{3}[-\s]?[0-9]{4}$');
 
-    if (value.trim().isEmpty) {
+    if (value.trim().isEmpty)
+    {
       return '';
     } else if (!regex.hasMatch(value)) {
       return 'Please enter a valid mobile number (e.g., 123-456-7890).';
@@ -37,42 +28,7 @@ class AppValidation {
     return null; // Mobile number is valid
   }
 
-  static String? validatePrimaryMobileNumber(String value) {
-    // Regular expression for mobile number validation
-    final regex = RegExp(r'^[0-9]{3}[-\s]?[0-9]{3}[-\s]?[0-9]{4}$');
 
-    if (value.trim().isEmpty) {
-      return 'Primary Mobile number is required.';
-    } else if (!regex.hasMatch(value)) {
-      return 'Please enter a valid mobile number (e.g., 123-456-7890).';
-    }
-
-    return null; // Mobile number is valid
-  }
-
-  static String? validateSecondaryMobileNumber(String value) {
-    // Regular expression for mobile number validation
-    final regex = RegExp(r'^[0-9]{3}[-\s]?[0-9]{3}[-\s]?[0-9]{4}$');
-
-    if (value.trim().isEmpty) {
-      return 'Secondary Mobile number is required.';
-    } else if (!regex.hasMatch(value)) {
-      return 'Please enter a valid mobile number (e.g., 123-456-7890).';
-    }
-
-    return null; // Mobile number is valid
-  }
-
-  static String? validateHomeMobileNumber(String value) {
-    // Regular expression for mobile number validation
-    final regex = RegExp(r'^[0-9]{3}[-\s]?[0-9]{3}[-\s]?[0-9]{4}$');
-
-      if (!regex.hasMatch(value)) {
-      return 'Please enter a valid mobile number (e.g., 123-456-7890).';
-    }
-
-    return null; // Mobile number is valid
-  }
 
   static String? validatePassword(String value) {
     // Regular expression for password validation

@@ -12,13 +12,6 @@ class AppConstants
 
   // TOKEN
   static const USER_TOKEN = "UserToken";
-  static const USER_ID = "UserId";
-  static const BOOK_ID = "bookId";
-  static const ROLE = "Role";
-  static const USER_MOBILE = "Mobile";
-  static const USER_EMAIL = "Email";
-  static const PROFILE_UPDATED = "profile";
-
   //ENDPOINT OF API
 
   static const LOGIN="login/";

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -5,6 +8,7 @@ import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 
 class AddTraineeController extends GetxController
@@ -70,7 +74,8 @@ class AddTraineeController extends GetxController
   Future openCamera() async{
     final ImagePicker openCameraPicker = ImagePicker();
     final image = await openCameraPicker.pickImage(source: ImageSource.camera);
-    if(image!=null){
+    if(image!=null)
+    {
       imagePath.value = image.path.toString();
     }
   }
@@ -84,7 +89,6 @@ class AddTraineeController extends GetxController
   }
   Future<TrainerTraineeResponseModel> addTrainee() async
   {
-
     final isValid = traineeFormKey.currentState!.validate();
     if(isValid)
     {
@@ -96,8 +100,8 @@ class AddTraineeController extends GetxController
           gender: selectedGender.value.toString(),
           age: num.parse(ageController.text.toString()),
           username: emailController.text.toString(),
-          password: "prismatic123",
-          photo: null,
+          password: AppCommonMethods().getRandomString(8),
+          photo: imagePath.value!=null?AppCommonMethods().getBase64Image(imagePath.value):null,
           contact: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address:addressController.text.toString(),
@@ -124,4 +128,5 @@ class AddTraineeController extends GetxController
     return traineeResponseModel;
     print("isValid"+isValid.toString());
   }
+
 }

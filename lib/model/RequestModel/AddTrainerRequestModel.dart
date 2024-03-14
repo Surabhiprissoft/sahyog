@@ -1,16 +1,16 @@
 import 'dart:convert';
 /// photo : null
-/// first_name : "Shravan"
-/// last_name : "Kale"
+/// first_name : "Harsh"
+/// last_name : "Nagesh"
 /// gender : "male"
-/// age : 21
-/// username : "shravan"
-/// password : "trainershravan"
-/// contact : "9255674546"
-/// email : "shravan@gmail.com"
-/// address : "shravan house no 45, Pune"
-/// role : 2
-/// year_of_experience : 3
+/// dob : "2001-02-29"
+/// username : "harsh"
+/// password : "prismatic123"
+/// phone : "9255675536"
+/// email : "harsh@gmail.com"
+/// address : "Pune, Maharashtra"
+/// role : 1
+/// year_of_experience : 5
 
 AddTrainerRequestModel addTrainerRequestModelFromJson(String str) => AddTrainerRequestModel.fromJson(json.decode(str));
 String addTrainerRequestModelToJson(AddTrainerRequestModel data) => json.encode(data.toJson());
@@ -20,10 +20,10 @@ class AddTrainerRequestModel {
       String? firstName, 
       String? lastName, 
       String? gender, 
-      num? age, 
+      String? dob, 
       String? username, 
       String? password, 
-      String? contact, 
+      String? phone, 
       String? email, 
       String? address, 
       num? role, 
@@ -32,10 +32,10 @@ class AddTrainerRequestModel {
     _firstName = firstName;
     _lastName = lastName;
     _gender = gender;
-    _age = age;
+    _dob = dob;
     _username = username;
     _password = password;
-    _contact = contact;
+    _phone = phone;
     _email = email;
     _address = address;
     _role = role;
@@ -47,10 +47,10 @@ class AddTrainerRequestModel {
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _gender = json['gender'];
-    _age = json['age'];
+    _dob = json['dob'];
     _username = json['username'];
     _password = json['password'];
-    _contact = json['contact'];
+    _phone = json['phone'];
     _email = json['email'];
     _address = json['address'];
     _role = json['role'];
@@ -60,10 +60,10 @@ class AddTrainerRequestModel {
   String? _firstName;
   String? _lastName;
   String? _gender;
-  num? _age;
+  String? _dob;
   String? _username;
   String? _password;
-  String? _contact;
+  String? _phone;
   String? _email;
   String? _address;
   num? _role;
@@ -72,10 +72,10 @@ AddTrainerRequestModel copyWith({  dynamic photo,
   String? firstName,
   String? lastName,
   String? gender,
-  num? age,
+  String? dob,
   String? username,
   String? password,
-  String? contact,
+  String? phone,
   String? email,
   String? address,
   num? role,
@@ -84,10 +84,10 @@ AddTrainerRequestModel copyWith({  dynamic photo,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   gender: gender ?? _gender,
-  age: age ?? _age,
+  dob: dob ?? _dob,
   username: username ?? _username,
   password: password ?? _password,
-  contact: contact ?? _contact,
+  phone: phone ?? _phone,
   email: email ?? _email,
   address: address ?? _address,
   role: role ?? _role,
@@ -97,10 +97,10 @@ AddTrainerRequestModel copyWith({  dynamic photo,
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
-  num? get age => _age;
+  String? get dob => _dob;
   String? get username => _username;
   String? get password => _password;
-  String? get contact => _contact;
+  String? get phone => _phone;
   String? get email => _email;
   String? get address => _address;
   num? get role => _role;
@@ -112,10 +112,10 @@ AddTrainerRequestModel copyWith({  dynamic photo,
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['gender'] = _gender;
-    map['age'] = _age;
+    map['dob'] = _dob;
     map['username'] = _username;
     map['password'] = _password;
-    map['contact'] = _contact;
+    map['phone'] = _phone;
     map['email'] = _email;
     map['address'] = _address;
     map['role'] = _role;

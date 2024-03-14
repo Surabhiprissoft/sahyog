@@ -1,7 +1,7 @@
 import 'dart:convert';
-/// email : "gajabhrutik@gmail.com"
+/// email : "musad@gmail.com"
 /// password : "prismatic123"
-/// new_password : "trainer123"
+/// new_password : "musad123"
 
 ChangePasswordRequestModel changePasswordRequestModelFromJson(String str) => ChangePasswordRequestModel.fromJson(json.decode(str));
 String changePasswordRequestModelToJson(ChangePasswordRequestModel data) => json.encode(data.toJson());
@@ -14,11 +14,6 @@ class ChangePasswordRequestModel {
     _password = password;
     _newPassword = newPassword;
 }
-
-  @override
-  String toString() {
-    return 'ChangePasswordRequestModel{_email: $_email, _password: $_password, _newPassword: $_newPassword}';
-  }
 
   ChangePasswordRequestModel.fromJson(dynamic json) {
     _email = json['email'];

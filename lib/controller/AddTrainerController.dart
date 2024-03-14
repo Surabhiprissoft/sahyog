@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +24,13 @@ class AddTrainerController extends GetxController
 
   late TrainerTraineeResponseModel trainerresponseModel;
   AddTrainerController(this.userRepository);
+
+  static const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
   void onInit() {
@@ -77,7 +86,7 @@ class AddTrainerController extends GetxController
           gender: selectedGender.value.toString(),
           age: num.tryParse(ageController.text.toString()),
           username: emailController.text.toString(),
-          password: "prismatic123",
+          password: getRandomString(8),
           contact: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address:addressController.text.toString(),
@@ -107,4 +116,6 @@ class AddTrainerController extends GetxController
 
          return trainerresponseModel;
     }
+
+
 }

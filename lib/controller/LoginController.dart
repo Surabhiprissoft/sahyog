@@ -94,24 +94,14 @@ class LoginController extends GetxController
         );
 
         print(loginRequestModel.toString());
-        // Call the login method and await its result
 
         DialogHelper.showLoading();
 
-       /* Future.delayed(Duration(seconds: 3),()
-        {
-          // Do something
-          DialogHelper.hideLoading();
-
-          Get.to(AdminDasboard());
-          clearcontrollers();
-
-
-        })*/;
 
         loginResponseModel= await userRepository.checkLogin(loginRequestModel);
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
+          PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
           String? email = loginResponseModel.data?.email;
@@ -120,36 +110,30 @@ class LoginController extends GetxController
             Get.to(()=>ChangePassword(),arguments: email);
           }else{
             if(loginResponseModel.data.role==1){
-              Get.to(TrainerDashboard());
+              Get.to(()=>TrainerDashboard());
             }
             else if(loginResponseModel.data.role==2)
             {
-              Get.to(TraineeDashboard());
+              Get.to(()=>TraineeDashboard());
             }
             else{
-              Get.to(AdminDasboard());
+              Get.to(()=>AdminDasboard());
             }
           }
+          clearcontrollers();
         }
         else{
           showSnackBar("Login Failed", loginResponseModel.message);
           DialogHelper.hideLoading();
         }
-
-        // Construct SingleResponse object from the login response
-
-
-       // print("LoginResponseModel"+loginResponseModel.)
-        // Navigate to AdminDashboard after successful login
-
-        // Return the SingleResponse object
         return loginResponseModel;
       }
     } catch (error) {
-      // Handle any errors that occurred during the login process
+
+
       print('Error during login: $error');
       DialogHelper.hideLoading();
-      // You can throw the error or return an error response here if needed
+
       throw error;
     }
 

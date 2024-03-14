@@ -7,6 +7,7 @@ import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
@@ -75,11 +76,11 @@ class UserRepository{
     }
   }
 
-  Future<TrainerTraineeResponseModel> ChangeUserPassword(ChangePasswordRequestModel changePasswordRequestModel) async {
+  Future<ChangePasswordResponseModel> ChangeUserPassword(ChangePasswordRequestModel changePasswordRequestModel) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final changePassword = await apiBaseHelper.patch(AppConstants.UPDATEPASSWORD, changePasswordRequestModel.toJson());
-      return TrainerTraineeResponseModel.fromJson(changePassword);
+      final changePassword = await apiBaseHelper.patch(AppConstants.UPDATEPASSWORD,changePasswordRequestModel.toJson());
+      return ChangePasswordResponseModel.fromJson(changePassword);
     } catch (error) {
       // Handle any errors that occur during the API call
       print('Error occurred while updating password: $error');

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
@@ -18,7 +19,7 @@ class ChangePasswordController extends GetxController{
   var currentPassword='',newPassword='',confirmPassword='';
   bool shouldValidate = false;
    late String email="";
-  late TrainerTraineeResponseModel changePasswordResponseModel;
+  late ChangePasswordResponseModel changePasswordResponseModel;
   final UserRepository userRepository;
   ChangePasswordController(this.userRepository);
 
@@ -61,12 +62,13 @@ class ChangePasswordController extends GetxController{
 
 
 
-  Future<TrainerTraineeResponseModel>onSubmit() async{
+  Future<ChangePasswordResponseModel>onSubmit() async{
     final isValid = changePasswordKey.currentState!.validate();
     if (!isValid) {
       showSnackBar("Unable to proceed", "Enter all fields to proceed further");
       shouldValidate = true;
-    } else {
+    } else
+    {
 
       if(newPassController.text.toString()==confPassController.text.toString()){
         DialogHelper.showLoading();
@@ -83,10 +85,14 @@ class ChangePasswordController extends GetxController{
             DialogHelper.hideLoading();
             Get.off(LoginScreen());
           }
+        else
+          {
+             DialogHelper.hideLoading();
+          }
 
       }
       else{
-        DialogHelper.hideLoading();
+
         showSnackBar("Error", "Password does not matches");
       }
     }

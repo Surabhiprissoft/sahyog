@@ -37,7 +37,7 @@ class AdminDasboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
-        bool exit = await _showExitDialog(context);
+        bool exit = await showExitDialog(context);
         return exit;
         // return exit(0);
       },
@@ -377,40 +377,4 @@ Widget _buildCard(String imagePath,String quickAccessName) {
 }
 
 
-
-Future<bool> _showExitDialog(BuildContext context) async {
-  return await showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('Exit App',style: TextStyle(fontFamily: GoogleFonts.archivo().fontFamily,fontWeight: FontWeight.w500),),
-      content: Text('Are you sure you want to exit?',style: TextStyle(fontFamily: GoogleFonts.archivo().fontFamily),),
-      actions: [
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor:AppColors.buttonColors,
-                fixedSize:  Size(22.w, 2.h),
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30))),
-            onPressed: () {
-              exit(0);
-            },
-            child: Text(
-              "Yes".toUpperCase(), style: TextStyle(fontSize: 16.sp,color: Colors.white,fontWeight: FontWeight.w800,fontFamily: GoogleFonts.archivo().fontFamily),)),
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor:AppColors.thirdButtonColors,
-                fixedSize:  Size(20.w, 2.h),
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30))),
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: Text(
-              "no".toUpperCase(), style: TextStyle(fontSize: 16.sp,color: Colors.white,fontWeight: FontWeight.w800,fontFamily: GoogleFonts.archivo().fontFamily),)),
-      ],
-    ),
-  ) ?? false;
-}
 

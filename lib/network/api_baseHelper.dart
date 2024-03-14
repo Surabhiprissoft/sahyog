@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:sahyog/network/app_exception.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 
 
 
@@ -13,18 +14,10 @@ class ApiBaseHelper {
 
    //office
   //final baseUrl = "http://192.168.0.117:8000/";
-  final baseUrl = "http://192.168.1.9:8000/";
+  final baseUrl = "http://192.168.1.6:8000/";
 
    late  var authToken="";
 
-
-  // final authToken=PreferenceUtils.getString("token");
- // final authToken="";
-  // final authToken="876654fd-3c24-4a7b-9784-ec80256bf995";
-
-
-
-  //For all the GET requests
   Future<dynamic> get(String url) async {
 
     var responseJson;
@@ -66,6 +59,7 @@ class ApiBaseHelper {
     var responseJson;
 
     authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+
 
     try{
 
@@ -254,6 +248,8 @@ class ApiBaseHelper {
     var responseJson;
 
     authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+
+    print("AUTH TOKEN"+authToken);
 
     try{
 

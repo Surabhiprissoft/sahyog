@@ -1,143 +1,143 @@
 import 'dart:convert';
-/// photo : null
-/// first_name : "Sujal"
-/// last_name : "Ghuble"
+/// profile_photo : null
+/// first_name : "Shravan"
+/// last_name : "Kale"
 /// gender : "male"
-/// age : 21
-/// username : "sujal"
-/// password : "trainersujal"
-/// contact : "9255674546"
-/// email : "sujal@gmail.com"
-/// address : "sujal house no 45, Pune"
-/// role : 3
+/// dob : "2001-05-20"
+/// username : "shravan"
+/// password : "prismatic123"
+/// phone : "9255675539"
+/// email : "shravan@gmail.com"
+/// address : "Pune, Maharashtra"
+/// role : 2
 /// center : 2
-/// training_type : "Advanced"
-/// fees_paid : "yes"
+/// training_type : "Intermediate"
+/// discount : 10
 
 AddTraineeRequestModel addTraineeRequestModelFromJson(String str) => AddTraineeRequestModel.fromJson(json.decode(str));
 String addTraineeRequestModelToJson(AddTraineeRequestModel data) => json.encode(data.toJson());
 class AddTraineeRequestModel {
   AddTraineeRequestModel({
-      dynamic photo, 
+      dynamic profilePhoto, 
       String? firstName, 
       String? lastName, 
       String? gender, 
-      num? age, 
+      String? dob, 
       String? username, 
       String? password, 
-      String? contact, 
+      String? phone, 
       String? email, 
       String? address, 
       num? role, 
       num? center, 
       String? trainingType, 
-      String? feesPaid,}){
-    _photo = photo;
+      num? discount,}){
+    _profilePhoto = profilePhoto;
     _firstName = firstName;
     _lastName = lastName;
     _gender = gender;
-    _age = age;
+    _dob = dob;
     _username = username;
     _password = password;
-    _contact = contact;
+    _phone = phone;
     _email = email;
     _address = address;
     _role = role;
     _center = center;
     _trainingType = trainingType;
-    _feesPaid = feesPaid;
+    _discount = discount;
 }
 
   AddTraineeRequestModel.fromJson(dynamic json) {
-    _photo = json['photo'];
+    _profilePhoto = json['profile_photo'];
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _gender = json['gender'];
-    _age = json['age'];
+    _dob = json['dob'];
     _username = json['username'];
     _password = json['password'];
-    _contact = json['contact'];
+    _phone = json['phone'];
     _email = json['email'];
     _address = json['address'];
     _role = json['role'];
     _center = json['center'];
     _trainingType = json['training_type'];
-    _feesPaid = json['fees_paid'];
+    _discount = json['discount'];
   }
-  dynamic _photo;
+  dynamic _profilePhoto;
   String? _firstName;
   String? _lastName;
   String? _gender;
-  num? _age;
+  String? _dob;
   String? _username;
   String? _password;
-  String? _contact;
+  String? _phone;
   String? _email;
   String? _address;
   num? _role;
   num? _center;
   String? _trainingType;
-  String? _feesPaid;
-AddTraineeRequestModel copyWith({  dynamic photo,
+  num? _discount;
+AddTraineeRequestModel copyWith({  dynamic profilePhoto,
   String? firstName,
   String? lastName,
   String? gender,
-  num? age,
+  String? dob,
   String? username,
   String? password,
-  String? contact,
+  String? phone,
   String? email,
   String? address,
   num? role,
   num? center,
   String? trainingType,
-  String? feesPaid,
-}) => AddTraineeRequestModel(  photo: photo ?? _photo,
+  num? discount,
+}) => AddTraineeRequestModel(  profilePhoto: profilePhoto ?? _profilePhoto,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   gender: gender ?? _gender,
-  age: age ?? _age,
+  dob: dob ?? _dob,
   username: username ?? _username,
   password: password ?? _password,
-  contact: contact ?? _contact,
+  phone: phone ?? _phone,
   email: email ?? _email,
   address: address ?? _address,
   role: role ?? _role,
   center: center ?? _center,
   trainingType: trainingType ?? _trainingType,
-  feesPaid: feesPaid ?? _feesPaid,
+  discount: discount ?? _discount,
 );
-  dynamic get photo => _photo;
+  dynamic get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
-  num? get age => _age;
+  String? get dob => _dob;
   String? get username => _username;
   String? get password => _password;
-  String? get contact => _contact;
+  String? get phone => _phone;
   String? get email => _email;
   String? get address => _address;
   num? get role => _role;
   num? get center => _center;
   String? get trainingType => _trainingType;
-  String? get feesPaid => _feesPaid;
+  num? get discount => _discount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['photo'] = _photo;
+    map['profile_photo'] = _profilePhoto;
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['gender'] = _gender;
-    map['age'] = _age;
+    map['dob'] = _dob;
     map['username'] = _username;
     map['password'] = _password;
-    map['contact'] = _contact;
+    map['phone'] = _phone;
     map['email'] = _email;
     map['address'] = _address;
     map['role'] = _role;
     map['center'] = _center;
     map['training_type'] = _trainingType;
-    map['fees_paid'] = _feesPaid;
+    map['discount'] = _discount;
     return map;
   }
 

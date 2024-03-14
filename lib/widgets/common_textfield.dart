@@ -12,6 +12,7 @@ import '../utils/app_validation.dart';
 
 class InputTextFormField extends StatelessWidget {
   final String label;
+  final bool readOnlyValue ;
   final TextInputType keyboardType;
   final TextEditingController controller;
   final List<TextInputFormatter> inputFormatters;
@@ -21,6 +22,7 @@ class InputTextFormField extends StatelessWidget {
 
     required this.label,
     this.keyboardType = TextInputType.text,
+    this.readOnlyValue = false,
     this.inputFormatters = const [],
     required this.controller,
   });
@@ -38,6 +40,7 @@ class InputTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       controller: controller,
+      readOnly: readOnlyValue,
       validator: (value) {
         if(label=="Mobile Number")
           {

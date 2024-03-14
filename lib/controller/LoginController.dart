@@ -20,7 +20,7 @@ class LoginController extends GetxController
 {
   final UserRepository userRepository;
 
-   late GlobalKey<FormState> loginFormKey;
+   late GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late TextEditingController emailController,passController;
   var email='',password='';
   bool shouldValidate = false;
@@ -34,14 +34,13 @@ class LoginController extends GetxController
 
     emailController = TextEditingController();
     passController = TextEditingController();
-    loginFormKey = GlobalKey<FormState>();
+   // loginFormKey = GlobalKey<FormState>();
   }
 
  void clearcontrollers()
  {
      emailController.clear();
      passController.clear();
-     loginFormKey = GlobalKey<FormState>();
      update();
      //loginFormKey.currentState!.reset();
  }

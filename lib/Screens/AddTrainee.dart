@@ -14,6 +14,8 @@ import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../utils/AppCommonMethods.dart';
+
 class AddTrainee extends GetView<AddTraineeController> {
   AddTrainee({super.key});
 
@@ -83,8 +85,22 @@ class AddTrainee extends GetView<AddTraineeController> {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: InputTextFormField(
-                                              label: "Age", keyboardType: TextInputType.number,controller: addTraineeController.ageController),
+                                          child: TextFormField(
+                                            controller: controller.ageController,
+                                            decoration: const InputDecoration(
+                                              label: Text("Date of Birth"),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                              ),
+                                              prefixIcon: Icon(Icons.calendar_month_sharp),
+                                            ),
+                                            readOnly: true,
+                                            onTap: ()async{
+                                              var selectedDate = await getDatePicker(context);
+                                              controller.ageController.text = selectedDate.toString();
+                                            },
+
+                                          ),
                                         ),
                                         const SizedBox(width: 15.0,),
                                         Expanded(

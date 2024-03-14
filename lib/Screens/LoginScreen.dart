@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/ForgotPassword.dart';
 import 'package:sahyog/controller/LoginController.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
@@ -91,9 +94,12 @@ class LoginScreen extends GetView<LoginController> {
                                           alignment: Alignment.centerRight,
                                           child: GestureDetector(
                                             onTap: () {
+                                              loginController.clearcontrollers();
+                                              Get.delete();
+                                              Get.to(()=>ForgotPassword());
                                               // Implement your forgot password functionality here
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "Forgot Password?",
                                               textAlign: TextAlign.right,
                                               style: TextStyle(

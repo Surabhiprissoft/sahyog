@@ -106,18 +106,18 @@ class AddTraineeController extends GetxController
           firstName: firstNameController.text.toString(),
           lastName: lastNameController.text.toString(),
           gender: selectedGender.value.toString(),
-          age: num.parse(ageController.text.toString()),
+          dob: ageController.text.toString(),
           username: emailController.text.toString(),
           password: AppCommonMethods().getRandomString(8),
-          photo: imagePath.value!=null?AppCommonMethods().getBase64Image(imagePath.value):null,
-          contact: mobileNumberController.text.toString(),
+          profilePhoto: imagePath.value!=null?AppCommonMethods().getBase64Image(imagePath.value):null,
+          phone: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address:addressController.text.toString(),
           role: 2,
          //center: selectedCeneter.value.toString(),
          center: selectedCenter.value?.id,
+        discount: 0.0,
         trainingType: selectedLevel.value.toString(),
-        feesPaid: "Yes"
       );
       print("TRAINEE REQUEST MODEL"+addTraineeRequestModel.toString());
     /*  traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);

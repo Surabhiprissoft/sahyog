@@ -202,8 +202,8 @@ class AdminDasboard extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  NormalText(sub_header: "68%"),
-                                  NormalText(sub_header: "32%")
+                                  Text("68%"),
+                                  Text("32%")
                                 ],
                               ),
                               SizedBox(height: 5.0),
@@ -218,8 +218,8 @@ class AdminDasboard extends StatelessWidget {
                               const Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  NormalText(sub_header: "Paid"),
-                                  NormalText(sub_header: "Due")
+                                  Text("Paid"),
+                                  Text("Due")
                                 ],
                               ),
                             ],

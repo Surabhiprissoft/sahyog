@@ -16,8 +16,8 @@ class ApiBaseHelper {
 
 
    //office
-  //final baseUrl = "http://192.168.0.117:8000/";
-  final baseUrl = "http://192.168.1.6:8000/";
+  final baseUrl = "http://192.168.0.118:8000/";
+  //final baseUrl = "http://192.168.1.6:8000/";
 
    late  var authToken="";
 
@@ -262,6 +262,39 @@ class ApiBaseHelper {
       final response = await http.patch(uri, body: jsonEncode(requestBody),
           encoding: Encoding.getByName('utf-8'), headers:{ "Accept": "application/json",
             "content-type":"application/json","Authorization":'Bearer $authToken'});
+      //request.headers.set('Authorization', authToken,);
+      debugPrint("RESPONSE CODE "+response.statusCode.toString());
+      debugPrint("RESPONSE Body "+response.body);
+
+      String jsonString=response.body.toString();
+
+      responseJson =_returnResponse(response);
+
+
+      return responseJson;
+
+
+      //print("RESPONSE JSON IS"+jsonString);
+
+    }on SocketException{
+      throw FetchDataException(AppConstants.NO_INTERNET);
+    }
+  }
+
+  Future<dynamic>? patchWithoutToken(String url, Map<String, Object?> requestBody) async {
+    var responseJson;
+
+   // authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+
+
+    try{
+
+      final Uri uri = Uri.parse(baseUrl + url);
+      print("url is ${baseUrl+url}");
+      print("url is requestBody ${requestBody}");
+      final response = await http.patch(uri, body: jsonEncode(requestBody),
+          encoding: Encoding.getByName('utf-8'), headers:{ "Accept": "application/json",
+            "content-type":"application/json"});
       //request.headers.set('Authorization', authToken,);
       debugPrint("RESPONSE CODE "+response.statusCode.toString());
       debugPrint("RESPONSE Body "+response.body);

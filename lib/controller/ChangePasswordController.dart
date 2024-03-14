@@ -14,7 +14,7 @@ import '../network/user_repository.dart';
 class ChangePasswordController extends GetxController{
 
 
-  final GlobalKey<FormState> changePasswordKey = GlobalKey<FormState>();
+   GlobalKey<FormState> changePasswordKey = GlobalKey<FormState>();
   late TextEditingController currentPassController,newPassController,confPassController;
   var currentPassword='',newPassword='',confirmPassword='';
   bool shouldValidate = false;
@@ -83,7 +83,7 @@ class ChangePasswordController extends GetxController{
         if(changePasswordResponseModel.status==200)
           {
             DialogHelper.hideLoading();
-            Get.off(LoginScreen());
+            Get.back();
           }
         else
           {

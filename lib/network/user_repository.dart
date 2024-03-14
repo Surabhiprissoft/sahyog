@@ -7,6 +7,7 @@ import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
+import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
@@ -97,5 +98,16 @@ class UserRepository{
     }
   }
 
+  Future<ChangePasswordResponseModel> ForgotUserPassword(ForgotPasswordRequestModel forgotPasswordRequestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final forgotPassword = await apiBaseHelper.patchWithoutToken(AppConstants.FORGOTPASSWORD,forgotPasswordRequestModel.toJson());
+      return ChangePasswordResponseModel.fromJson(forgotPassword);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while updating password: $error');
+      throw error;
+    }
+  }
 
 }

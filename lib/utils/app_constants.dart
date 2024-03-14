@@ -20,6 +20,7 @@ class AppConstants
   static const ADDTRAINEE="users/";
   static const GETCENTERS="timeslots/centre";
   static const UPDATEPASSWORD="updatepassword/";
+  static const FORGOTPASSWORD="forgotpassword/";
 
 
 

@@ -12,11 +12,13 @@ class AppConstants
 
   // TOKEN
   static const USER_TOKEN = "UserToken";
+  static const LOGGED_USER ="LOGGEDUSER";
   //ENDPOINT OF API
 
   static const LOGIN="login/";
   static const ADDTRAINER="users/";
   static const ADDTRAINEE="users/";
+  static const GETCENTERS="timeslots/centre";
   static const UPDATEPASSWORD="updatepassword/";
 
 

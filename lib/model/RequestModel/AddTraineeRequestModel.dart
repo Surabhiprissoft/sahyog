@@ -48,6 +48,11 @@ class AddTraineeRequestModel {
     _feesPaid = feesPaid;
 }
 
+  @override
+  String toString() {
+    return 'AddTraineeRequestModel{_photo: $_photo, _firstName: $_firstName, _lastName: $_lastName, _gender: $_gender, _age: $_age, _username: $_username, _password: $_password, _contact: $_contact, _email: $_email, _address: $_address, _role: $_role, _center: $_center, _trainingType: $_trainingType, _feesPaid: $_feesPaid}';
+  }
+
   AddTraineeRequestModel.fromJson(dynamic json) {
     _photo = json['photo'];
     _firstName = json['first_name'];

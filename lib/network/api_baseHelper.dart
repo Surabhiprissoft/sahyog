@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/network/app_exception.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 
 
@@ -21,7 +24,7 @@ class ApiBaseHelper {
   Future<dynamic> get(String url) async {
 
     var responseJson;
-      print("AUTH TOKEN IS"+authToken);
+    authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
     try {
       final response = await http.get(Uri.parse(baseUrl + url),headers:{ "Accept": "application/json",
       "content-type":"application/json","Authorization":'Bearer $authToken'});
@@ -290,8 +293,10 @@ class ApiBaseHelper {
         return responseJson;
         //throw BadRequestException(AppConstants.BAD_REQUEST);
       case 401:
-        var responseJson = jsonDecode(utf8.decode(response.bodyBytes));
-        return responseJson;
+
+
+       /* var responseJson = jsonDecode(utf8.decode(response.bodyBytes));
+        return responseJson;*/
        // throw BadRequestException(AppConstants.INVALID_USER);
       case 403:
         throw UnAuthorisedException(AppConstants.INVALID_TOKEN,403);

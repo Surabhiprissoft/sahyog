@@ -5,20 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 class AddTraineeController extends GetxController
 {
   RxString imagePath = "".obs;
 
-  final List<String> centers = ['Center1', 'Center2', 'Ceneter3'];
+ // final List<String> centers = ['Center1', 'Center2', 'Ceneter3'];
 
  // final RxString selectedCeneter= 'Center1'.obs;
-  late final  RxString selectedCeneter;
+
 
   final RxBool isSubmitted = false.obs;
 
@@ -29,10 +32,13 @@ class AddTraineeController extends GetxController
 
   final List<String> level = ['Beginner', 'Intermediate', 'Advanced'];
   late final RxString selectedLevel;
+  late final Rx<CenterResponseModel?> selectedCenter ;
 
   final List<String> Gender = ['Male', 'Female', 'Other'];
   late final RxString selectedGender ;
 
+  late ListResponse<CenterResponseModel> centerResponseModel;
+  List<CenterResponseModel> centerlist=[];
   GlobalKey<FormState> traineeFormKey = GlobalKey<FormState>();
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";
   late TextEditingController firstNameController,lastNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
@@ -44,6 +50,7 @@ class AddTraineeController extends GetxController
 
   @override
   void onInit() {
+    getCenterList();
     firstNameController=TextEditingController();
     lastNameController=TextEditingController();
     ageController=TextEditingController();
@@ -51,9 +58,10 @@ class AddTraineeController extends GetxController
     emailController=TextEditingController();
     yearsofExperienceController=TextEditingController();
     addressController=TextEditingController();
-    selectedCeneter= ''.obs;
+    selectedCenter=Rx<CenterResponseModel?>(null);
     selectedLevel = ''.obs;
     selectedGender = ''.obs;
+
   }
 
   void clearControllers() {
@@ -67,7 +75,7 @@ class AddTraineeController extends GetxController
     traineeFormKey = GlobalKey<FormState>();
     selectedGender= ''.obs;
     selectedLevel = ''.obs;
-    selectedCeneter= ''.obs;
+
 
   }
 
@@ -107,11 +115,12 @@ class AddTraineeController extends GetxController
           address:addressController.text.toString(),
           role: 2,
          //center: selectedCeneter.value.toString(),
-         center: 3,
+         center: selectedCenter.value?.id,
         trainingType: selectedLevel.value.toString(),
         feesPaid: "Yes"
       );
-      traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
+      print("TRAINEE REQUEST MODEL"+addTraineeRequestModel.toString());
+    /*  traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
       if(traineeResponseModel.status==200){
         DialogHelper.hideLoading();
        Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
@@ -121,12 +130,50 @@ class AddTraineeController extends GetxController
         {
           DialogHelper.hideLoading();
           Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-        }
+        }*/
 
     }
 
     return traineeResponseModel;
     print("isValid"+isValid.toString());
+  }
+
+   Future<void> getCenterList() async {
+  //  DialogHelper.showLoading();
+    try {
+      centerResponseModel = await userRepository.getCenters();
+
+      if (centerResponseModel.status == 200) {
+        centerlist = centerResponseModel.data;
+        // Notify listeners about the change in centerlist
+        update();
+
+      }
+      else {
+        DialogHelper.hideLoading();
+        if(centerResponseModel.status==401)
+          {
+            showSnackBar("Session has been Expired !", "");
+          }
+       else
+         {
+           Get.snackbar(
+             "Error",
+             centerResponseModel.message ?? "Failed to fetch center list",
+             snackPosition: SnackPosition.BOTTOM,
+           );
+         }
+
+      }
+    } catch (e) {
+     // DialogHelper.hideLoading();
+      Get.snackbar(
+        "Error",
+        "Failed to fetch center list: ${e.toString()}",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+
   }
 
 }

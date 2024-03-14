@@ -11,6 +11,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
+import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
@@ -37,6 +38,7 @@ class AdminDasboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
+        //getLoggedData();
         bool exit = await showExitDialog(context);
         return exit;
         // return exit(0);
@@ -53,11 +55,14 @@ class AdminDasboard extends StatelessWidget {
           ringDiameter: 320.0,
           children: <Widget>[
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+
+              },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  IconButton(onPressed: (){}, icon: Icon(Icons.account_circle_outlined,size: 8.w,),color: AppColors.appThemeColor,),
+                  IconButton(onPressed: (){
+                  }, icon: Icon(Icons.account_circle_outlined,size: 8.w,),color: AppColors.appThemeColor,),
                   Text("Accounts",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor),),
                 ],
               ),

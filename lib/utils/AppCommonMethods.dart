@@ -10,7 +10,7 @@ class AppCommonMethods
   String getBase64Image(String imagePath)
   {
     String base64Image="";
-    if(imagePath!=null)
+    if(imagePath!=null && imagePath!="")
     {
       final bytes = io.File(imagePath).readAsBytesSync();
       base64Image = base64Encode(bytes);

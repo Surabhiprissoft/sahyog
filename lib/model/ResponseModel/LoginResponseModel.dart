@@ -1,39 +1,41 @@
 import 'dart:convert';
-/// id : 1
+/// id : 14
 /// profile_photo : null
-/// email : "admin@admin.com"
-/// first_name : "john"
-/// last_name : "doe"
-/// username : "admin"
-/// role : 3
-/// center : 1
+/// email : "surabhi@prissoft.net"
+/// first_name : "Surabhi"
+/// last_name : "Loya"
+/// username : "surabhi@prissoft.net"
+/// role : 2
+/// center : 3
 /// phone : null
-/// address : " "
-/// gender : null
+/// address : "pune"
+/// gender : "Female"
+/// dob : null
 /// year_of_experience : 0
-/// training_type : ""
+/// training_type : "Beginner"
 /// discount : "0.00"
-/// is_firsttime : true
-/// created_at : "2024-03-10T15:06:33.553704Z"
-/// updated_at : "2024-03-12T06:53:02.746863Z"
-/// session_token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwMjI2NjgyLCJpYXQiOjE3MTAyMjYzODIsImp0aSI6ImQ1NWQ1YWJkMmE0NzQ3Zjc4YWQzMzFkYzA4YTViMWI0IiwidXNlcl9pZCI6IjEifQ.1mvcmrn3Rf0ECnYv3FpHxOA1mefhYUSJhs0MXouGP8g"
+/// is_firsttime : false
+/// created_at : "2024-03-14T15:29:49.255371+05:30"
+/// updated_at : "2024-03-14T18:25:31.013320+05:30"
+/// session_token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNDIxMjMxLCJpYXQiOjE3MTA0MjA5MzEsImp0aSI6ImE3MTgzNTQ2MDU2NDQxMDlhMWFiMTIzZjU0ZmViYWNjIiwidXNlcl9pZCI6IjE0In0.e09B_NXUXwN4k1d-m1QbSG8XJZMRkiffGiRnqSLOCrw"
 
 LoginResponseModel loginResponseModelFromJson(String str) => LoginResponseModel.fromJson(json.decode(str));
 String loginResponseModelToJson(LoginResponseModel data) => json.encode(data.toJson());
 class LoginResponseModel {
   LoginResponseModel({
-      num? id, 
+      int? id, 
       dynamic profilePhoto, 
       String? email, 
       String? firstName, 
       String? lastName, 
       String? username, 
-      num? role, 
-      num? center, 
+      int? role, 
+      int? center, 
       dynamic phone, 
       String? address, 
-      dynamic gender, 
-      num? yearOfExperience, 
+      String? gender, 
+      dynamic dob, 
+      int? yearOfExperience, 
       String? trainingType, 
       String? discount, 
       bool? isFirsttime, 
@@ -51,6 +53,7 @@ class LoginResponseModel {
     _phone = phone;
     _address = address;
     _gender = gender;
+    _dob = dob;
     _yearOfExperience = yearOfExperience;
     _trainingType = trainingType;
     _discount = discount;
@@ -72,6 +75,7 @@ class LoginResponseModel {
     _phone = json['phone'];
     _address = json['address'];
     _gender = json['gender'];
+    _dob = json['dob'];
     _yearOfExperience = json['year_of_experience'];
     _trainingType = json['training_type'];
     _discount = json['discount'];
@@ -80,36 +84,38 @@ class LoginResponseModel {
     _updatedAt = json['updated_at'];
     _sessionToken = json['session_token'];
   }
-  num? _id;
+  int? _id;
   dynamic _profilePhoto;
   String? _email;
   String? _firstName;
   String? _lastName;
   String? _username;
-  num? _role;
-  num? _center;
+  int? _role;
+  int? _center;
   dynamic _phone;
   String? _address;
-  dynamic _gender;
-  num? _yearOfExperience;
+  String? _gender;
+  dynamic _dob;
+  int? _yearOfExperience;
   String? _trainingType;
   String? _discount;
   bool? _isFirsttime;
   String? _createdAt;
   String? _updatedAt;
   String? _sessionToken;
-LoginResponseModel copyWith({  num? id,
+LoginResponseModel copyWith({  int? id,
   dynamic profilePhoto,
   String? email,
   String? firstName,
   String? lastName,
   String? username,
-  num? role,
-  num? center,
+  int? role,
+  int? center,
   dynamic phone,
   String? address,
-  dynamic gender,
-  num? yearOfExperience,
+  String? gender,
+  dynamic dob,
+  int? yearOfExperience,
   String? trainingType,
   String? discount,
   bool? isFirsttime,
@@ -127,6 +133,7 @@ LoginResponseModel copyWith({  num? id,
   phone: phone ?? _phone,
   address: address ?? _address,
   gender: gender ?? _gender,
+  dob: dob ?? _dob,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
   trainingType: trainingType ?? _trainingType,
   discount: discount ?? _discount,
@@ -135,27 +142,22 @@ LoginResponseModel copyWith({  num? id,
   updatedAt: updatedAt ?? _updatedAt,
   sessionToken: sessionToken ?? _sessionToken,
 );
-  num? get id => _id;
+  int? get id => _id;
   dynamic get profilePhoto => _profilePhoto;
   String? get email => _email;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get username => _username;
-  num? get role => _role;
-  num? get center => _center;
+  int? get role => _role;
+  int? get center => _center;
   dynamic get phone => _phone;
   String? get address => _address;
-  dynamic get gender => _gender;
-  num? get yearOfExperience => _yearOfExperience;
+  String? get gender => _gender;
+  dynamic get dob => _dob;
+  int? get yearOfExperience => _yearOfExperience;
   String? get trainingType => _trainingType;
   String? get discount => _discount;
   bool? get isFirsttime => _isFirsttime;
-
-  @override
-  String toString() {
-    return 'LoginResponseModel{_id: $_id, _profilePhoto: $_profilePhoto, _email: $_email, _firstName: $_firstName, _lastName: $_lastName, _username: $_username, _role: $_role, _center: $_center, _phone: $_phone, _address: $_address, _gender: $_gender, _yearOfExperience: $_yearOfExperience, _trainingType: $_trainingType, _discount: $_discount, _isFirsttime: $_isFirsttime, _createdAt: $_createdAt, _updatedAt: $_updatedAt, _sessionToken: $_sessionToken}';
-  }
-
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   String? get sessionToken => _sessionToken;
@@ -173,6 +175,7 @@ LoginResponseModel copyWith({  num? id,
     map['phone'] = _phone;
     map['address'] = _address;
     map['gender'] = _gender;
+    map['dob'] = _dob;
     map['year_of_experience'] = _yearOfExperience;
     map['training_type'] = _trainingType;
     map['discount'] = _discount;

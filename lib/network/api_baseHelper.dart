@@ -17,8 +17,8 @@ class ApiBaseHelper {
 
 
    //office
+  final baseUrl = "http://192.168.0.117:8000/";
   //final baseUrl = "http://192.168.1.6:8000/";
-  final baseUrl = "http://192.168.1.6:8000/";
 
    late  var authToken="";
 
@@ -328,8 +328,8 @@ class ApiBaseHelper {
         //throw BadRequestException(AppConstants.BAD_REQUEST);
       case 401:
 
-        Get.offAll(() => LoginScreen());
-        showSnackBar('Session has Expired', "");
+        /*Get.offAll(() => LoginScreen());
+        showSnackBar('Session has Expired', "");*/
        /* var responseJson = jsonDecode(utf8.decode(response.bodyBytes));
         return responseJson;*/
        // throw BadRequestException(AppConstants.INVALID_USER);

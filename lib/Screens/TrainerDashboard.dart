@@ -2,6 +2,7 @@ import 'package:fab_circular_menu_plus/fab_circular_menu_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/controller/TrainerDashboardController.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
@@ -33,8 +34,8 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  IconButton(onPressed: (){}, icon: Icon(Icons.account_circle_outlined,size: 8.w,),color: AppColors.appThemeColor,),
-                  Text("Accounts",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor),),
+                  IconButton(onPressed: (){showLogoutDialog(context);}, icon: Icon(Icons.logout_outlined,size: 8.w,),color: AppColors.appThemeColor,),
+                  Text("Logout",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor),),
                 ],
               ),
             ),
@@ -43,7 +44,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  IconButton(onPressed: (){}, icon: Icon(Icons.groups_outlined,size: 8.w,),color: AppColors.appThemeColor),
+                  IconButton(onPressed: (){Get.to(ManageTrainee());}, icon: Icon(Icons.groups_outlined,size: 8.w,),color: AppColors.appThemeColor),
                   Text("Trainee",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor)),
                 ],
               ),

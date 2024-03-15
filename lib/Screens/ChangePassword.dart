@@ -48,13 +48,80 @@ class ChangePassword extends GetView<ChangePasswordController> {
                                 children: [
                                   Text("Change Password",style: TextStyle(fontSize: 23.sp,color: AppColors.appThemeColor,fontWeight: FontWeight.w700),),
                                   const SizedBox(height: 20.0,),
-                                  InputTextFormField(label: "Current Password",keyboardType: TextInputType.text,controller: changePasswordController.currentPassController),
+                                  Obx(() {
+                                    return TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      controller: changePasswordController.currentPassController,
+                                      obscureText: changePasswordController.isOldPassObscure.value, // Access the value using .value
+                                      decoration: InputDecoration(
+                                        labelText: 'Current Password',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            // Choose the icon based on the value of isObscure
+                                            changePasswordController.isOldPassObscure.value ? Icons.visibility : Icons.visibility_off,
+                                            color: AppColors.appThemeColor,
+                                          ),
+                                          onPressed: () {
+                                            // Toggle the value of isObscure
+                                            changePasswordController.isOldPassObscure.toggle();
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  }),
                                   const SizedBox(height: 20.0,),
-
-                                  InputTextFormField(label: "New Password", keyboardType: TextInputType.text,controller: changePasswordController.newPassController),
+                                  Obx(() {
+                                    return TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      controller: changePasswordController.newPassController,
+                                      obscureText: changePasswordController.isNewPassObscure.value, // Access the value using .value
+                                      decoration: InputDecoration(
+                                        labelText: 'New Password',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            // Choose the icon based on the value of isObscure
+                                            changePasswordController.isNewPassObscure.value ? Icons.visibility : Icons.visibility_off,
+                                            color: AppColors.appThemeColor,
+                                          ),
+                                          onPressed: () {
+                                            // Toggle the value of isObscure
+                                            changePasswordController.isNewPassObscure.toggle();
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  }),
                                   const SizedBox(height: 20.0,),
-
-                                  InputTextFormField(label: "Confirm Password", keyboardType: TextInputType.text,controller: changePasswordController.confPassController),
+                                  Obx(() {
+                                    return TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      controller: changePasswordController.confPassController,
+                                      obscureText: changePasswordController.isConfirmPassObscure.value, // Access the value using .value
+                                      decoration: InputDecoration(
+                                        labelText: 'Password',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            // Choose the icon based on the value of isObscure
+                                            changePasswordController.isConfirmPassObscure.value ? Icons.visibility : Icons.visibility_off,
+                                            color: AppColors.appThemeColor,
+                                          ),
+                                          onPressed: () {
+                                            // Toggle the value of isObscure
+                                            changePasswordController.isConfirmPassObscure.toggle();
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  }),
                                   const SizedBox(height: 20.0),
 
                                   SizedBox(

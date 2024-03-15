@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/controller/LoginController.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/app_validation.dart';
@@ -31,7 +32,7 @@ class InputTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -59,6 +60,42 @@ class InputTextFormField extends StatelessWidget {
     );
   }
 }
+
+/*class PasswordTextFormField extends StatelessWidget {
+  final String label;
+  final bool isObscure;
+  final TextEditingController controller;
+
+
+  PasswordTextFormField(
+      this.label, this.isObscure, this.controller);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return TextFormField(
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: Icon(
+
+          ),
+        ),
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+      ),
+
+      obscureText: isObscure,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      controller: controller,
+      validator: (value) {
+        return AppValidation.validatePassword(value!!);
+      },
+
+    );
+  }
+}*/
 
 
 

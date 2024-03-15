@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainee.dart';
+import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
@@ -25,13 +26,11 @@ class AdminDasboard extends StatelessWidget {
     'assets/images/trainer_qa.svg',
     'assets/images/trainer_qa.svg',
     'assets/images/trainer_qa.svg',
-    'assets/images/trainer_qa.svg',
   ];
   List<String> quickAccessMenu =[
     'Schedule Trainer',
     'Add Trainer',
     'Add Trainee',
-    'Add Center',
   ];// List of image paths
 
   @override
@@ -62,8 +61,9 @@ class AdminDasboard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   IconButton(onPressed: (){
-                  }, icon: Icon(Icons.account_circle_outlined,size: 8.w,),color: AppColors.appThemeColor,),
-                  Text("Accounts",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor),),
+                    showLogoutDialog(context);
+                  }, icon: Icon(Icons.logout_outlined,size: 8.w,),color: AppColors.appThemeColor,),
+                  Text("Logout",style: TextStyle(fontSize:14.sp,color: AppColors.appThemeColor),),
                 ],
               ),
             ),
@@ -357,17 +357,30 @@ class AdminDasboard extends StatelessWidget {
 Widget _buildCard(String imagePath,String quickAccessName) {
   return Column(
     children: [
-      Container(
-        margin: EdgeInsets.only(left: 2.w,right: 2.w,bottom: 1.h),
-        child: Card(
-          surfaceTintColor: Colors.white,
-          elevation: 5.0,
-          child: Container(
-              width: 22.w,
-              height: 10.h,
-              padding: EdgeInsets.all(20.0),
-              child: SvgPicture.asset(imagePath)
-          )
+      InkWell(
+      onTap: (){
+        if(quickAccessName=="Schedule Trainer"){
+
+        }else if(quickAccessName=="Add Trainer"){
+          Get.to(()=>AddTrainer());
+        }
+        else{
+          Get.to(()=>AddTrainee());
+        }
+      },
+        child: Container(
+
+          margin: EdgeInsets.only(left: 2.w,right: 2.w,bottom: 1.h),
+          child: Card(
+            surfaceTintColor: Colors.white,
+            elevation: 5.0,
+            child: Container(
+                width: 22.w,
+                height: 10.h,
+                padding: EdgeInsets.all(20.0),
+                child: SvgPicture.asset(imagePath)
+            )
+          ),
         ),
       ),
 

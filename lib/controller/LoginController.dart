@@ -27,6 +27,7 @@ class LoginController extends GetxController
   late TextEditingController emailController,passController;
   var email='',password='';
   bool shouldValidate = false;
+  var isObscure = RxBool(false);
   late SingleResponse<LoginResponseModel> loginResponseModel;
   LoginController(this.userRepository);
 
@@ -104,6 +105,7 @@ class LoginController extends GetxController
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
+          PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
 
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);

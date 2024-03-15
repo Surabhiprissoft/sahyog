@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:sahyog/model/Centers.dart';
 
 class ScheduleTrainerController extends GetxController{
-  var traineenames = ['Name 1', 'Name 2', 'Name 3', 'Name 4'].obs;
+  var traineenames = ['Trainer 1', 'Trainer 2', 'Trainer 3', 'Trainer 4'].obs;
   //var selectedNames = <String>[].obs; //Earlier Assignment
   var selectedNames = <AssignTrainee>[].obs;
 

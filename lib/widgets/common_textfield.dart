@@ -49,7 +49,7 @@ class InputTextFormField extends StatelessWidget {
           }
         else
           {
-            return AppValidation.validateforrequiredfield(value, label);
+            return AppValidation.validateforrequiredfield(value!!, label);
           }
 
 

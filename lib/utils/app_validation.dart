@@ -203,7 +203,7 @@ class AppValidation {
     return null;
   }
 
-  static String? validateforrequiredfield(String? value,String?message){
+  static String? validateforrequiredfield(String value,String?message){
     if(value!.trim().isEmpty){
     /*  return message!+" is required";*/
       return "";

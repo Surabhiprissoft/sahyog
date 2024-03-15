@@ -48,6 +48,8 @@ class AddTraineeRequestModel {
     _discount = discount;
 }
 
+
+
   AddTraineeRequestModel.fromJson(dynamic json) {
     _profilePhoto = json['profile_photo'];
     _firstName = json['first_name'];

@@ -1,5 +1,6 @@
 
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/gestures.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/utils/app_constants.dart';
+import 'package:sahyog/utils/preference_utils.dart';
 
 import '../utils/app_colors.dart';
 
@@ -43,6 +47,20 @@ class SubHeaderText extends StatelessWidget {
   }
 }
 
+
+class NormalText extends StatelessWidget {
+  final String sub_header;
+  const NormalText({super.key, required this.sub_header,});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(sub_header,
+      style: TextStyle(
+        fontSize: 16.sp,fontWeight: FontWeight.w500,fontFamily: GoogleFonts.archivo().fontFamily,
+      ),
+    );
+  }
+}
 
 class RichTextWidget extends StatelessWidget {
   final String mainText;
@@ -107,7 +125,6 @@ showSnackBar(
       margin: const EdgeInsets.all(10.0)
     );
 }
-
 
 
 Future<bool> showExitDialog(BuildContext context) async {

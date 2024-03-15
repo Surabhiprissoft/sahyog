@@ -73,14 +73,18 @@ class AddTrainer extends GetView<AddTrainerController> {
                                     children: [
                                       Expanded(
                                         child: TextFormField(
+                                          autovalidateMode: AutovalidateMode.onUserInteraction,
                                           controller: controller.ageController,
                                           decoration: const InputDecoration(
-                                            label: Text("Date of Birth"),
+                                            label: Text("DOB"),
                                             border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(Radius.circular(20.0)),
                                             ),
                                             prefixIcon: Icon(Icons.calendar_month_sharp),
                                           ),
+                                      validator: (value) {
+                                        return AppValidation.validateforrequiredfield(value!!,"");
+                                      },
                                           readOnly: true,
                                           onTap: ()async{
                                               var selectedDate = await getDatePicker(context);
@@ -105,7 +109,9 @@ class AddTrainer extends GetView<AddTrainerController> {
                                                 errorText: addTrainerController.isSubmitted.value && addTrainerController.selectedGender.value.isEmpty ? "" : null,
                                               ),
                                               onChanged: (String? newValue) {
-                                                if (newValue != null) {
+                                                if (newValue != null)
+                                                {
+
                                                   addTrainerController.selectedGender.value = newValue;
                                                 }
                                               },
@@ -152,11 +158,6 @@ class AddTrainer extends GetView<AddTrainerController> {
                                           onPressed: () {
                                             addTrainerController.isSubmitted.value = true;
                                             addTrainerController.onAddTrainer();
-                                            /*  if (addTrainerController.trainerFormKey.currentState!.validate())
-                              {
-                                addTrainerController.trainerFormKey.currentState!.save();
-                                addTrainerController.onA
-                              }*/
                                           },
 
                                           child: const Text('Add',style: TextStyle(color: AppColors.white),),

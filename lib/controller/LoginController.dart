@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
+import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
@@ -96,14 +99,16 @@ class LoginController extends GetxController
 
         DialogHelper.showLoading();
 
-
         loginResponseModel= await userRepository.checkLogin(loginRequestModel);
+
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
+
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
           String? email = loginResponseModel.data?.email;
+
           if(loginResponseModel.data.role!=3 && loginResponseModel.data.isFirsttime==true){
             print("inside "+email.toString());
             Get.to(()=>ChangePassword(),arguments: email);
@@ -119,20 +124,22 @@ class LoginController extends GetxController
               Get.to(()=>AdminDasboard());
             }
           }
+
           clearcontrollers();
         }
         else{
+
           showSnackBar("Login Failed", loginResponseModel.message);
           DialogHelper.hideLoading();
         }
         return loginResponseModel;
       }
-    } catch (error) {
+    }
+    catch (error) {
 
-
-      print('Error during login: $error');
       DialogHelper.hideLoading();
-
+      print('Error during login: $error');
+      showSnackBar("Login Failed", "Check your Username or Password");
       throw error;
     }
 

@@ -8,8 +8,7 @@ import 'package:sahyog/widgets/other_common_widget.dart';
 
 import '../Screens/LoginScreen.dart';
 
-class ForgotPasswordController extends GetxController{
-
+class ForgotPasswordController extends GetxController {
   final UserRepository userRepository;
 
   late GlobalKey<FormState> forgotPasswordFormKey;
@@ -19,14 +18,12 @@ class ForgotPasswordController extends GetxController{
   bool shouldValidate = false;
   ForgotPasswordController(this.userRepository);
 
-
-
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     emailController = TextEditingController();
-    forgotPasswordFormKey =  GlobalKey<FormState>();
+    forgotPasswordFormKey = GlobalKey<FormState>();
   }
 
   @override
@@ -36,43 +33,43 @@ class ForgotPasswordController extends GetxController{
     emailController.dispose();
   }
 
-  Future<ChangePasswordResponseModel>onEmailSubmit() async{
+  Future<ChangePasswordResponseModel> onEmailSubmit() async {
     final isValid = forgotPasswordFormKey.currentState!.validate();
     if (!isValid) {
       showSnackBar("Unable to proceed", "Enter all fields to proceed further");
       shouldValidate = true;
-    } else
-    {
+    } else {
+      DialogHelper.showLoading();
+      forgotPasswordFormKey.currentState!.save();
+      ForgotPasswordRequestModel forgotPasswordRequestModel =
+          ForgotPasswordRequestModel(
+        email: emailController.text.toString(),
+      );
+      print(forgotPasswordRequestModel.toString());
 
-        DialogHelper.showLoading();
-        forgotPasswordFormKey.currentState!.save();
-        ForgotPasswordRequestModel forgotPasswordRequestModel = ForgotPasswordRequestModel(
-            email: emailController.text.toString(),
-        );
-        print(forgotPasswordRequestModel.toString());
-        forgotPasswordResponseModel = await userRepository.ForgotUserPassword(forgotPasswordRequestModel);
-        if(forgotPasswordResponseModel.status==200)
-        {
+      try {
+        forgotPasswordResponseModel =
+            await userRepository.ForgotUserPassword(forgotPasswordRequestModel);
+        if (forgotPasswordResponseModel.status == 200) {
           DialogHelper.hideLoading();
           Get.back();
-          showSnackBar("Email Sent", "Email containing new password has been sent");
+          showSnackBar(
+              "Email Sent", "Email containing new password has been sent");
           //clearcontrollers();
-
-        }
-        else
-        {
+        } else {
           DialogHelper.hideLoading();
           showSnackBar("Error", forgotPasswordResponseModel.message.toString());
         }
+      } catch (e) {
+        DialogHelper.hideLoading();
+      }
     }
 
     return forgotPasswordResponseModel;
   }
 
-  void clearcontrollers()
-  {
+  void clearcontrollers() {
     emailController.clear();
     forgotPasswordFormKey = GlobalKey<FormState>();
   }
-
 }

@@ -34,6 +34,7 @@ class AddTrainerController extends GetxController {
   late final RxString selectedGender;
 
   late TrainerTraineeResponseModel trainerresponseModel;
+
   AddTrainerController(this.userRepository);
 
   @override
@@ -78,7 +79,7 @@ class AddTrainerController extends GetxController {
 
   Future<TrainerTraineeResponseModel> onAddTrainer() async {
     final isValid = trainerFormKey.currentState!.validate();
-    if (isValid) {
+    if (isValid && formIsValid()) {
       DialogHelper.showLoading();
       trainerFormKey.currentState!.save();
 
@@ -97,24 +98,44 @@ class AddTrainerController extends GetxController {
           address: addressController.text.toString(),
           role: 1,
           yearOfExperience:
-              num.tryParse(yearsofExperienceController.text.toString()));
+          num.tryParse(yearsofExperienceController.text.toString()));
+      try
+      {
+        trainerresponseModel =
+        await userRepository.addTrainer(addTrainerRequestModel);
+        if (trainerresponseModel.status == 200) {
+          DialogHelper.hideLoading();
+          showSnackBar(
+              "Trainer Created!", trainerresponseModel.message.toString());
 
-      print(addTrainerRequestModel);
-      trainerresponseModel =
-          await userRepository.addTrainer(addTrainerRequestModel);
-      if (trainerresponseModel.status == 200) {
-        DialogHelper.hideLoading();
-        showSnackBar(
-            "Trainer Created!", trainerresponseModel.message.toString());
-
-        Get.to(() => AdminDasboard());
-        clearControllers();
-      } else {
-        DialogHelper.hideLoading();
-        showSnackBar(
-            "Something went wrong!", trainerresponseModel.message.toString());
+          Get.to(() => AdminDasboard());
+          clearControllers();
+        } else {
+          DialogHelper.hideLoading();
+          showSnackBar(
+              "Something went wrong!", trainerresponseModel.message.toString());
+        }
       }
+      catch(e)
+    {
+      DialogHelper.hideLoading();
+    }
+
+
+    print(addTrainerRequestModel);
+
     }
     return trainerresponseModel;
+  }
+
+  bool formIsValid() {
+    // Perform form validation logic here
+    // For example, check if all required fields are filled out
+    bool isGenderSelected = selectedGender.value.isNotEmpty;
+
+    // Add more validation as needed
+
+    // Return true only if all conditions are met
+    return isGenderSelected;
   }
 }

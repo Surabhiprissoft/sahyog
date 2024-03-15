@@ -2,12 +2,14 @@
 
 
 import 'package:sahyog/Screens/AddTrainee.dart';
+import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
@@ -20,18 +22,25 @@ class UserRepository{
   UserRepository(this.apiBaseHelper);
 
 
-  Future<LoginResponseModel> login(LoginRequestModel loginRequest) async
-  {
 
-   /* var data = {"emailAddress": loginRequest.email.toString(), "user_password": loginRequest.userPassword.toString()};
-    print("login_data ="+data.toString());*/
-    final user = await apiBaseHelper.post(AppConstants.LOGIN, loginRequest.toJson());
-    print("USER DATA ${user}");
-    return LoginResponseModel.fromJson(user);
+  Future<ListResponse<CenterResponseModel>> getCenters() async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final user = await apiBaseHelper.get(AppConstants.GETCENTERS);
 
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<CenterResponseModel> centerResponse = ListResponse.fromJson(
+          user,
+              (json) => CenterResponseModel.fromJson(json)
+      );
+
+      return centerResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
   }
-
-
 
   Future<SingleResponse<LoginResponseModel>> checkLogin(LoginRequestModel loginRequest) async {
     try {

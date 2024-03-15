@@ -71,10 +71,12 @@ class AddTraineeController extends GetxController
     mobileNumberController.clear();
     emailController.clear();
     yearsofExperienceController.clear();
-    addressController.clear();
-    traineeFormKey = GlobalKey<FormState>();
+    selectedCenter=Rx<CenterResponseModel?>(null);
     selectedGender= ''.obs;
     selectedLevel = ''.obs;
+    addressController.clear();
+    traineeFormKey = GlobalKey<FormState>();
+
 
 
   }
@@ -98,7 +100,7 @@ class AddTraineeController extends GetxController
   Future<TrainerTraineeResponseModel> addTrainee() async
   {
     final isValid = traineeFormKey.currentState!.validate();
-    if(isValid)
+    if(isValid && formIsValid())
     {
       DialogHelper.showLoading();
       traineeFormKey.currentState!.save();
@@ -120,17 +122,25 @@ class AddTraineeController extends GetxController
         trainingType: selectedLevel.value.toString(),
       );
       print("TRAINEE REQUEST MODEL"+addTraineeRequestModel.toString());
-      traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
-      if(traineeResponseModel.status==200){
-        DialogHelper.hideLoading();
-       Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-       Get.to(AdminDasboard());
-      }
-      else
-        {
-          DialogHelper.hideLoading();
-          Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-        }
+
+      try
+          {
+            traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
+            if(traineeResponseModel.status==200){
+              DialogHelper.hideLoading();
+              Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+              Get.off(AdminDasboard());
+            }
+            else
+            {
+              DialogHelper.hideLoading();
+              Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+            }
+          }
+          catch(e)
+    {
+       DialogHelper.hideLoading();
+    }
 
     }
 
@@ -145,6 +155,7 @@ class AddTraineeController extends GetxController
 
       if (centerResponseModel.status == 200) {
         centerlist = centerResponseModel.data;
+        centerlist.removeAt(0);
         // Notify listeners about the change in centerlist
         update();
 
@@ -166,14 +177,27 @@ class AddTraineeController extends GetxController
 
       }
     } catch (e) {
+      DialogHelper.hideLoading();
      // DialogHelper.hideLoading();
-      Get.snackbar(
+    /*  Get.snackbar(
         "Error",
         "Failed to fetch center list: ${e.toString()}",
         snackPosition: SnackPosition.BOTTOM,
-      );
+      );*/
     }
 
+
+  }
+  bool formIsValid() {
+    // Perform form validation logic here
+    // For example, check if all required fields are filled out
+    bool isGenderSelected = selectedGender.value.isNotEmpty;
+    bool isLevelSelected = selectedLevel.value.isNotEmpty;
+    bool isCenterSelected = selectedCenter.value != null;
+    // Add more validation as needed
+
+    // Return true only if all conditions are met
+    return isGenderSelected && isLevelSelected && isCenterSelected;
   }
 
 }

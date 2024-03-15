@@ -140,8 +140,6 @@ class LoginController extends GetxController
       DialogHelper.hideLoading();
       print('Error during login: $error');
       showSnackBar("Login Failed", "Check your Username or Password");
-
-
       throw error;
     }
 

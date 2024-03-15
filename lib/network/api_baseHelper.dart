@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sahyog/Screens/LoginScreen.dart';
+import 'package:sahyog/controller/LoginController.dart';
 import 'package:sahyog/network/app_exception.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
@@ -327,7 +328,8 @@ class ApiBaseHelper {
         //throw BadRequestException(AppConstants.BAD_REQUEST);
       case 401:
 
-
+        Get.offAll(() => LoginScreen());
+        showSnackBar('Session has Expired', "");
        /* var responseJson = jsonDecode(utf8.decode(response.bodyBytes));
         return responseJson;*/
        // throw BadRequestException(AppConstants.INVALID_USER);

@@ -69,7 +69,6 @@ class ChangePasswordController extends GetxController{
       shouldValidate = true;
     } else
     {
-
       if(newPassController.text.toString()==confPassController.text.toString()){
         DialogHelper.showLoading();
         changePasswordKey.currentState!.save();
@@ -79,15 +78,24 @@ class ChangePasswordController extends GetxController{
             newPassword: newPassController.text.toString()
         );
         print(changePasswordRequestModel.toString());
-        changePasswordResponseModel = await userRepository.ChangeUserPassword(changePasswordRequestModel);
-        if(changePasswordResponseModel.status==200)
+
+
+        try
+            {
+              changePasswordResponseModel = await userRepository.ChangeUserPassword(changePasswordRequestModel);
+              if(changePasswordResponseModel.status==200)
+              {
+                DialogHelper.hideLoading();
+                Get.back();
+              }
+              else
+              {
+                DialogHelper.hideLoading();
+              }
+            }
+            catch(e)
           {
             DialogHelper.hideLoading();
-            Get.back();
-          }
-        else
-          {
-             DialogHelper.hideLoading();
           }
 
       }

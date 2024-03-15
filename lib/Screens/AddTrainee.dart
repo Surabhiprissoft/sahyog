@@ -99,6 +99,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                         children: [
                                           Expanded(
                                             child: TextFormField(
+                                              autovalidateMode: AutovalidateMode.onUserInteraction,
                                               controller: controller.ageController,
                                               decoration: const InputDecoration(
                                                 label: Text("DOB"),
@@ -107,6 +108,9 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                 ),
                                                 prefixIcon: Icon(Icons.calendar_month_sharp),
                                               ),
+                                              validator: (value) {
+                                                return AppValidation.validateforrequiredfield(value!,""!);
+                                              },
                                               readOnly: true,
                                               onTap: ()async{
                                                 var selectedDate = await getDatePicker(context);
@@ -223,7 +227,6 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                     }).toList(),
                                                   )
                                               )),
-                                          const SizedBox(width: 15.0,),
 
                                         ],
                                       ),

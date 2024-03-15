@@ -42,6 +42,7 @@ class AddTrainerController extends GetxController {
 
   @override
   void onInit() {
+    imagePath = "".obs;
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
     ageController = TextEditingController();
@@ -64,6 +65,7 @@ class AddTrainerController extends GetxController {
     yearsofExperienceController.clear();
     addressController.clear();
     selectedGender = ''.obs;
+    imagePath="".obs;
   }
 
   Future openCamera() async {
@@ -110,6 +112,8 @@ class AddTrainerController extends GetxController {
         await userRepository.addTrainer(addTrainerRequestModel);
         if (trainerresponseModel.status == 200) {
           DialogHelper.hideLoading();
+          imagePath="".obs;
+          update();
           showSnackBar(
               "Trainer Created!", trainerresponseModel.message.toString());
 

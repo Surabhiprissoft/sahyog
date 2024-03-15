@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
@@ -84,19 +85,46 @@ class LoginScreen extends GetView<LoginController> {
                                                 .emailController),
                                         const SizedBox(height: 20.0,),
 
-                                        InputTextFormField(label: "Password",
+                                        Obx(() {
+                                          return TextFormField(
+                                            keyboardType: TextInputType.text,
+                                            controller: loginController.passController,
+                                            obscureText: loginController.isObscure.value, // Access the value using .value
+                                            decoration: InputDecoration(
+                                              labelText: 'Password',
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                              ),
+                                              suffixIcon: IconButton(
+                                                icon: Icon(
+                                                  // Choose the icon based on the value of isObscure
+                                                  loginController.isObscure.value ? Icons.visibility : Icons.visibility_off,
+                                                  color: AppColors.appThemeColor,
+                                                ),
+                                                onPressed: () {
+                                                  // Toggle the value of isObscure
+                                                  loginController.isObscure.toggle();
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                        }),
+
+
+                                        /*InputTextFormField(label: "Password",
                                             keyboardType: TextInputType.text,
                                             controller: loginController
-                                                .passController),
+                                                .passController),*/
                                         const SizedBox(height: 5.0),
 
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: GestureDetector(
                                             onTap: () {
-                                              loginController.clearcontrollers();
+                                              loginController
+                                                  .clearcontrollers();
                                               Get.delete();
-                                              Get.to(()=>ForgotPassword());
+                                              Get.to(() => ForgotPassword());
                                               // Implement your forgot password functionality here
                                             },
                                             child: const Text(

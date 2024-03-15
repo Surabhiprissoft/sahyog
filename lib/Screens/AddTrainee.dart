@@ -104,7 +104,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                               decoration: const InputDecoration(
                                                 label: Text("DOB"),
                                                 border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                                 ),
                                                 prefixIcon: Icon(Icons.calendar_month_sharp),
                                               ),
@@ -136,7 +136,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                           borderRadius: BorderRadius
                                                               .all(
                                                               Radius.circular(
-                                                                  20.0))
+                                                                  10.0))
                                                       ),
                                                       hintText: "Gender",
 
@@ -196,7 +196,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                           borderRadius: BorderRadius
                                                               .all(
                                                               Radius.circular(
-                                                                  20.0))
+                                                                  10.0))
                                                       ),
                                                       hintText: "Center",
                                                       errorText: addTraineeController
@@ -255,7 +255,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                               border: OutlineInputBorder(
                                                   borderRadius: BorderRadius
                                                       .all(
-                                                      Radius.circular(20.0))
+                                                      Radius.circular(10.0))
                                               ),
                                               hintText: "Training Level",
 

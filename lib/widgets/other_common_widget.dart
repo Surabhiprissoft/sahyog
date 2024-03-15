@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
@@ -162,6 +163,43 @@ Future<bool> showExitDialog(BuildContext context) async {
     ),
   ) ?? false;
 }
+
+Future<bool> showLogoutDialog(BuildContext context) async {
+  return await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Confirm Logout',style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily,fontWeight: FontWeight.w500),),
+      content: Text('Are you sure you want to Logout?',style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor:AppColors.buttonColors,
+                fixedSize:  Size(22.w, 2.h),
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30))),
+            onPressed: () {
+              Get.offAll(LoginScreen());
+            },
+            child: Text(
+              "yes".toUpperCase(), style: TextStyle(fontSize: 16.sp,color: Colors.white,fontWeight: FontWeight.w800,fontFamily: GoogleFonts.archivo().fontFamily),)),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor:AppColors.thirdButtonColors,
+                fixedSize:  Size(20.w, 2.h),
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30))),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: Text(
+              "no".toUpperCase(), style: TextStyle(fontSize: 16.sp,color: Colors.white,fontWeight: FontWeight.w800,fontFamily: GoogleFonts.archivo().fontFamily),)),
+      ],
+    ),
+  ) ?? false;
+}
+
 
 
 

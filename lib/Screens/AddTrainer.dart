@@ -78,7 +78,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                                           decoration: const InputDecoration(
                                             label: Text("DOB"),
                                             border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                             ),
                                             prefixIcon: Icon(Icons.calendar_month_sharp),
                                           ),
@@ -102,7 +102,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                                               decoration: InputDecoration(
                                                 labelText: "Gender",
                                                 border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                                    borderRadius: BorderRadius.all(Radius.circular(10.0))
                                                 ),
                                                 hintText: "Gender",
                                         

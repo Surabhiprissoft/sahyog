@@ -19,7 +19,11 @@ class ChangePasswordController extends GetxController{
   var currentPassword='',newPassword='',confirmPassword='';
   bool shouldValidate = false;
    late String email="";
-  late ChangePasswordResponseModel changePasswordResponseModel;
+   var isOldPassObscure = RxBool(false);
+   var isNewPassObscure = RxBool(false);
+   var isConfirmPassObscure = RxBool(false);
+
+   late ChangePasswordResponseModel changePasswordResponseModel;
   final UserRepository userRepository;
   ChangePasswordController(this.userRepository);
 

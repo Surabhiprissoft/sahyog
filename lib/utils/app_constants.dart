@@ -23,7 +23,7 @@ class AppConstants
   static const FORGOTPASSWORD="forgotpassword/";
 
 
-
+  static const ROLE = "0";
 
 
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
@@ -104,6 +105,16 @@ class LoginController extends GetxController
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
+
+          // Store the data in the Storage
+
+
+          final storage = GetStorage();
+          storage.write('responseModel', loginResponseModel.data.toJson());
+
+
+
+
 
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);

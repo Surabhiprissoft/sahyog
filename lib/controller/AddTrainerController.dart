@@ -2,9 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/AppCommonMethods.dart';
@@ -47,7 +50,9 @@ class AddTrainerController extends GetxController {
     yearsofExperienceController = TextEditingController();
     addressController = TextEditingController();
     selectedGender = ''.obs;
-  }
+
+
+
 
   void clearControllers() {
     trainerFormKey = GlobalKey<FormState>();

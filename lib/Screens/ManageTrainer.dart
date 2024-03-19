@@ -5,13 +5,18 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/StickyCenters.dart';
+import 'package:sahyog/Screens/TrainerProfile.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 
+import '../model/ResponseModel/TrainerListResponseModel.dart';
+
 
 class ManageTrainer extends GetView<ManageTrainerController> {
   ManageTrainer({super.key});
+
+  final manageTrainerController = Get.find<ManageTrainerController>();
 
 
   @override
@@ -62,11 +67,90 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                           ),
                         ),
                         child:
-                        controller.slidingValue.value == 1 ? ListView.builder(
-                            itemCount: 10,
-                            itemBuilder: (context, index) {
-                              return ManageTrainerCardItem();
-                            }) : StickyList()
+                        controller.slidingValue.value == 1 ?
+                        Obx(() {
+                          if (controller.trainerList.isEmpty) {
+                            return Center(
+                              child: SizedBox(
+                                width: 40.0,
+                                height: 40.0,
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          } else {
+                            // Show the list view with data
+                            return ListView.builder(
+                              itemCount: controller.trainerList.length,
+                              itemBuilder: (context, index) {
+                                final trainer = controller.trainerList[index];
+                                return InkWell(
+                                  onTap: (){
+                                    Get.to(() => TrainerProfile(), arguments: trainer);
+                                  },
+                                  child: Card(
+                                    elevation: 10.0,
+                                    surfaceTintColor: Colors.white,
+                                    color: Colors.white,
+                                    child: Container(
+                                      width: 100.w,
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .start,
+                                            children: [
+                                              CircleAvatar(
+                                                backgroundImage: trainer
+                                                    .profilePhoto != null &&
+                                                    trainer.profilePhoto!
+                                                        .isNotEmpty
+                                                    ? NetworkImage(
+                                                    "http://192.168.0.117:8000${trainer
+                                                        .profilePhoto}")
+                                                    : NetworkImage(
+                                                    "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                radius: 3.5.h,
+                                              ),
+                                              SizedBox(width: 2.w),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text("${trainer
+                                                      .firstName} ${trainer
+                                                      .lastName}"),
+                                                  SizedBox(height: 1.h),
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.phone,
+                                                          size: 16.0),
+                                                      Text(trainer.phone ?? "",
+                                                        style: TextStyle(
+                                                            fontSize: 14.sp),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          OutlinedButton(onPressed: () {
+                                            manageTrainerController.slidingValue
+                                                .value = 2;
+                                          }, child: Text("Assign"))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ); // Pass individual trainer data
+                              },
+                            );
+                          }
+                        })
+                            : StickyList()
                     );
                   })
 
@@ -76,39 +160,41 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                 left: 16,
                 right: 16,
                 child: SizedBox(
-                  child: CustomSlidingSegmentedControl<int>(
-                    initialValue: 1,
-                    children: const {
-                      1: Text('Trainer List'),
-                      2: Text('Schedule Trainer'),
-                    },
-                    innerPadding: EdgeInsets.zero,
-                    fixedWidth: 45.w,
-                    decoration: BoxDecoration(
-                      color: CupertinoColors.lightBackgroundGray,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    thumbDecoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.3),
-                          blurRadius: 4.0,
-                          spreadRadius: 1.0,
-                          offset: Offset(
-                            0.0,
-                            2.0,
+                  child: Obx(() {
+                    return CustomSlidingSegmentedControl<int>(
+                      initialValue: controller.slidingValue.value,
+                      children: const {
+                        1: Text('Trainer List'),
+                        2: Text('Schedule Trainer'),
+                      },
+                      innerPadding: EdgeInsets.zero,
+                      fixedWidth: 45.w,
+                      decoration: BoxDecoration(
+                        color: CupertinoColors.lightBackgroundGray,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      thumbDecoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.3),
+                            blurRadius: 4.0,
+                            spreadRadius: 1.0,
+                            offset: Offset(
+                              0.0,
+                              2.0,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    onValueChanged: (v) {
-                      controller.slidingValue.value = v;
-                      print("POSITION" + controller.slidingValue.value
-                          .toString());
-                    },
-                  ),
+                        ],
+                      ),
+                      onValueChanged: (v) {
+                        controller.slidingValue.value = v;
+                        print("POSITION" + controller.slidingValue.value
+                            .toString());
+                      },
+                    );
+                  }),
                 ),
               ),
 
@@ -121,65 +207,69 @@ class ManageTrainer extends GetView<ManageTrainerController> {
   }
 }
 
+
 class ManageTrainerCardItem extends StatelessWidget {
+  final TrainerListResponseModel trainer;
+
   const ManageTrainerCardItem({
-    super.key,
-  });
+    Key? key,
+    required this.trainer,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    final manageTrainerController = Get.find<ManageTrainerController>();
+
+    return
+      Card(
         elevation: 10.0,
         surfaceTintColor: Colors.white,
         color: Colors.white,
         child: Container(
-            width: 100.w,
-            //height: 10.h,
-            padding: EdgeInsets.all(10.0),
-
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/user_img.png"),
-                      radius: 3.5.h,),
-                    SizedBox(width: 2.w,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Trainer Name 1 "),
-                        SizedBox(height: 1.h,),
-                        Row(
-                          children: [
-                            Icon(Icons.phone, size: 16.0,),
-                            Text("+91 1234567890",
-                              style: TextStyle(fontSize: 14.sp),),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.location_on_outlined, size: 16.0,),
-                        Text("Center1"),
-                      ],
-                    ),
-                    SizedBox(height: 1.h,),
-                    Text("Slot 1(9am-10am)", style: TextStyle(fontSize: 14.sp),)
-                  ],
-                )
-              ],
-            )
-
-        )
-    );
+          width: 100.w,
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundImage: trainer.profilePhoto != null &&
+                        trainer.profilePhoto!.isNotEmpty
+                        ? NetworkImage(
+                        "http://192.168.0.117:8000${trainer.profilePhoto}")
+                        : NetworkImage(
+                        "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                    radius: 3.5.h,
+                  ),
+                  SizedBox(width: 2.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${trainer.firstName} ${trainer.lastName}"),
+                      SizedBox(height: 1.h),
+                      Row(
+                        children: [
+                          Icon(Icons.phone, size: 16.0),
+                          Text(trainer.phone ?? "",
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              OutlinedButton(onPressed: () {
+                manageTrainerController.slidingValue.value = 2;
+              }, child: Text("Assign"))
+            ],
+          ),
+        ),
+      );
   }
 }
+
+
+

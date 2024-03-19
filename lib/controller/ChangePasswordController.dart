@@ -91,6 +91,8 @@ class ChangePasswordController extends GetxController{
               {
                 DialogHelper.hideLoading();
                 Get.back();
+                showSnackBar("Password Updated", "Please login again with new password");
+
               }
               else
               {

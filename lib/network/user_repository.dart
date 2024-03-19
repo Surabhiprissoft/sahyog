@@ -2,6 +2,7 @@
 
 
 import 'package:sahyog/Screens/AddTrainee.dart';
+import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
@@ -9,9 +10,12 @@ import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_constants.dart';
@@ -109,5 +113,68 @@ class UserRepository{
       throw error;
     }
   }
+
+
+
+  Future<ListResponse<TrainerListResponseModel>> getTrainerList() async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final trainers = await apiBaseHelper.get(AppConstants.TRAINERLIST);
+
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<TrainerListResponseModel> trainerListResponse = ListResponse.fromJson(
+          trainers,
+              (json) => TrainerListResponseModel.fromJson(json)
+      );
+
+      return trainerListResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching trainer list: $error');
+      throw error;
+    }
+  }
+
+
+  Future<ListResponse<TraineeListResponseModel>> getTraineeList() async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final trainees = await apiBaseHelper.get(AppConstants.TRAINEELIST);
+
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<TraineeListResponseModel> traineeListResponse = ListResponse.fromJson(
+          trainees,
+              (json) => TraineeListResponseModel.fromJson(json)
+      );
+
+      return traineeListResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching trainer list: $error');
+      throw error;
+    }
+  }
+
+
+  Future<SingleResponse<AdminDashboardResponseModel>> getAdminDashboardData() async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final details = await apiBaseHelper.get(AppConstants.ADMINDASHBOARD);
+
+      // Parse the response JSON into a SingleResponse object
+      SingleResponse<AdminDashboardResponseModel> detailList = SingleResponse.fromJson(
+          details,
+              (json) => AdminDashboardResponseModel.fromJson(json)
+      );
+
+      return detailList;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching Dashboard Data: $error');
+      throw error;
+    }
+  }
+
+
 
 }

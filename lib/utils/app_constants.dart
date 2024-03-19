@@ -21,9 +21,12 @@ class AppConstants
   static const GETCENTERS="timeslots/centre";
   static const UPDATEPASSWORD="updatepassword/";
   static const FORGOTPASSWORD="forgotpassword/";
+  static const TRAINERLIST="users/1/";
+  static const TRAINEELIST="users/2/";
+  static const ADMINDASHBOARD="admindashboard/admindash/";
 
 
-  static const ROLE = "0";
+  static const ROLE = "role";
 
 
 }

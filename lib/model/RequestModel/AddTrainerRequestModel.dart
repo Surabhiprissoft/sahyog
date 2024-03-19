@@ -1,5 +1,5 @@
 import 'dart:convert';
-/// photo : null
+/// profile_photo : null
 /// first_name : "Harsh"
 /// last_name : "Nagesh"
 /// gender : "male"
@@ -16,7 +16,7 @@ AddTrainerRequestModel addTrainerRequestModelFromJson(String str) => AddTrainerR
 String addTrainerRequestModelToJson(AddTrainerRequestModel data) => json.encode(data.toJson());
 class AddTrainerRequestModel {
   AddTrainerRequestModel({
-      dynamic photo, 
+      dynamic profilePhoto, 
       String? firstName, 
       String? lastName, 
       String? gender, 
@@ -28,7 +28,7 @@ class AddTrainerRequestModel {
       String? address, 
       num? role, 
       num? yearOfExperience,}){
-    _photo = photo;
+    _profilePhoto = profilePhoto;
     _firstName = firstName;
     _lastName = lastName;
     _gender = gender;
@@ -43,7 +43,7 @@ class AddTrainerRequestModel {
 }
 
   AddTrainerRequestModel.fromJson(dynamic json) {
-    _photo = json['photo'];
+    _profilePhoto = json['profile_photo'];
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _gender = json['gender'];
@@ -56,7 +56,7 @@ class AddTrainerRequestModel {
     _role = json['role'];
     _yearOfExperience = json['year_of_experience'];
   }
-  dynamic _photo;
+  dynamic _profilePhoto;
   String? _firstName;
   String? _lastName;
   String? _gender;
@@ -68,7 +68,7 @@ class AddTrainerRequestModel {
   String? _address;
   num? _role;
   num? _yearOfExperience;
-AddTrainerRequestModel copyWith({  dynamic photo,
+AddTrainerRequestModel copyWith({  dynamic profilePhoto,
   String? firstName,
   String? lastName,
   String? gender,
@@ -80,7 +80,7 @@ AddTrainerRequestModel copyWith({  dynamic photo,
   String? address,
   num? role,
   num? yearOfExperience,
-}) => AddTrainerRequestModel(  photo: photo ?? _photo,
+}) => AddTrainerRequestModel(  profilePhoto: profilePhoto ?? _profilePhoto,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   gender: gender ?? _gender,
@@ -93,7 +93,7 @@ AddTrainerRequestModel copyWith({  dynamic photo,
   role: role ?? _role,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
 );
-  dynamic get photo => _photo;
+  dynamic get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
@@ -108,7 +108,7 @@ AddTrainerRequestModel copyWith({  dynamic photo,
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['photo'] = _photo;
+    map['profile_photo'] = _profilePhoto;
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['gender'] = _gender;

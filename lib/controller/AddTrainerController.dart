@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/ManageTrainer.dart';
+import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
@@ -92,7 +94,7 @@ class AddTrainerController extends GetxController {
           dob: ageController.text.toString(),
           username: emailController.text.toString(),
           password: AppCommonMethods().getRandomString(8),
-          photo: imagePath.value != null
+          profilePhoto: imagePath.value != null
               ? AppCommonMethods().getBase64Image(imagePath.value)
               : null,
           phone: mobileNumberController.text.toString(),
@@ -112,7 +114,9 @@ class AddTrainerController extends GetxController {
           showSnackBar(
               "Trainer Created!", trainerresponseModel.message.toString());
 
-          Get.to(() => AdminDasboard());
+          var controller = Get.find<ManageTrainerController>();
+          controller.getTrainerList();
+          Get.off(() => ManageTrainer());
           clearControllers();
         } else {
           DialogHelper.hideLoading();

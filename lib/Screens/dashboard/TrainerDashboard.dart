@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/ManageTrainee.dart';
-import 'package:sahyog/controller/TrainerDashboardController.dart';
+
+import 'package:sahyog/Screens/Trainee/ManageTrainee.dart';
+import 'package:sahyog/controller/dashboardController/TrainerDashboardController.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';

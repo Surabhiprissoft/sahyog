@@ -4,7 +4,7 @@ import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/dashboard/AdminDashboard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';

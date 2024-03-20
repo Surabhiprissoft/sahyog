@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/AddTrainer.dart';
-import 'package:sahyog/Screens/StickyCenters.dart';
-import 'package:sahyog/Screens/TrainerProfile.dart';
-import 'package:sahyog/controller/ManageTrainerController.dart';
+import 'package:sahyog/Screens/Profile/TrainerProfile.dart';
+import 'package:sahyog/Screens/Trainer/AddTrainer.dart';
+import 'package:sahyog/Screens/Trainer/ScheduleTrainer.dart';
+import 'package:sahyog/controller/trainerController/ManageTrainerController.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 
-import '../model/ResponseModel/TrainerListResponseModel.dart';
+import '../../model/ResponseModel/TrainerListResponseModel.dart';
 
 
 class ManageTrainer extends GetView<ManageTrainerController> {
@@ -150,7 +150,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                             );
                           }
                         })
-                            : StickyList()
+                            : ScheduleTrainer()
                     );
                   })
 

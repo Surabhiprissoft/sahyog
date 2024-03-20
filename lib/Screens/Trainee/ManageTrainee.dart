@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/AddTrainee.dart';
-import 'package:sahyog/Screens/AddTrainer.dart';
-import 'package:sahyog/controller/ManageTraineeController.dart';
+import 'package:sahyog/Screens/Trainee/AddTrainee.dart';
+import 'package:sahyog/controller/traineeController/ManageTraineeController.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';

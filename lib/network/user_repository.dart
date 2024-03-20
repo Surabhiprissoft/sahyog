@@ -1,8 +1,4 @@
 
-
-
-import 'package:sahyog/Screens/AddTrainee.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';

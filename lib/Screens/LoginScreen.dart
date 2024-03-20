@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ForgotPassword.dart';
 import 'package:sahyog/controller/LoginController.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';

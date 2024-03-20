@@ -34,6 +34,7 @@ class TrainerProfileController extends GetxController{
     print(trainer.toString());
     final String recivedGender = trainer.gender.toString();
     imagePath = trainer.profilePhoto.toString().obs;
+
     firstNameController = TextEditingController()..text=trainer.firstName.toString();
     lastNameController = TextEditingController()..text=trainer.lastName.toString();
     ageController = TextEditingController()..text="";

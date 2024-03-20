@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/controller/TrainerProfileController.dart';
+import 'package:sahyog/controller/profileController/TrainerProfileController.dart';
+import 'package:sahyog/utils/AppCommonMethods.dart';
+import 'package:sahyog/utils/app_colors.dart';
+import 'package:sahyog/utils/app_validation.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
+import 'package:sahyog/widgets/common_textfield.dart';
 
-import '../utils/AppCommonMethods.dart';
-import '../utils/app_colors.dart';
-import '../utils/app_validation.dart';
-import '../widgets/common_textfield.dart';
 
 class TrainerProfile extends GetView<TrainerProfileController> {
   TrainerProfile({super.key});

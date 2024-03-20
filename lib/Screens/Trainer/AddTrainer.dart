@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/controller/AddTrainerController.dart';
+import 'package:sahyog/controller/trainerController/AddTrainerController.dart';
 import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_validation.dart';
@@ -158,6 +158,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                                           onPressed: () {
                                             addTrainerController.isSubmitted.value = true;
                                             addTrainerController.onAddTrainer();
+
                                           },
 
                                           child: const Text('Add',style: TextStyle(color: AppColors.white),),

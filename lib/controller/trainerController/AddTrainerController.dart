@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/Trainer/ManageTrainer.dart';
+import 'package:sahyog/controller/trainerController/ManageTrainerController.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
-import 'package:sahyog/Screens/ManageTrainer.dart';
-import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
@@ -53,22 +52,21 @@ class AddTrainerController extends GetxController {
     yearsofExperienceController = TextEditingController();
     addressController = TextEditingController();
     selectedGender = ''.obs;
-
-
-
-
-  void clearControllers() {
-    trainerFormKey = GlobalKey<FormState>();
-    firstNameController.clear();
-    lastNameController.clear();
-    ageController.clear();
-    mobileNumberController.clear();
-    emailController.clear();
-    yearsofExperienceController.clear();
-    addressController.clear();
-    selectedGender = ''.obs;
-    imagePath="".obs;
   }
+
+    void clearControllers() {
+      trainerFormKey = GlobalKey<FormState>();
+      firstNameController.clear();
+      lastNameController.clear();
+      ageController.clear();
+      mobileNumberController.clear();
+      emailController.clear();
+      yearsofExperienceController.clear();
+      addressController.clear();
+      selectedGender = ''.obs;
+      imagePath = "".obs;
+    }
+
 
   Future openCamera() async {
     final ImagePicker openCameraPicker = ImagePicker();

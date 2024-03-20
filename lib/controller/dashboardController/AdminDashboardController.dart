@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
+import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
+import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../model/BaseSingleObjectResponse.dart';
-import '../network/user_repository.dart';
-import '../widgets/other_common_widget.dart';
 
 class AdminDashboardController extends GetxController{
 

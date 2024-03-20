@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/controller/AddTraineeController.dart';
+import 'package:sahyog/controller/traineeController/AddTraineeController.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/utils/app_colors.dart';

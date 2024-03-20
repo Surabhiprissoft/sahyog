@@ -8,18 +8,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/AddTrainee.dart';
-import 'package:sahyog/Screens/AddTrainer.dart';
-import 'package:sahyog/Screens/ManageTrainee.dart';
-import 'package:sahyog/Screens/ManageTrainer.dart';
-import 'package:sahyog/controller/AdminDashboardController.dart';
+import 'package:sahyog/Screens/Trainee/AddTrainee.dart';
+import 'package:sahyog/Screens/Trainee/ManageTrainee.dart';
+import 'package:sahyog/Screens/Trainer/AddTrainer.dart';
+import 'package:sahyog/Screens/Trainer/ManageTrainer.dart';
+import 'package:sahyog/controller/dashboardController/AdminDashboardController.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../widgets/AnimatedCount.dart';
+import '../../widgets/AnimatedCount.dart';
 
 class AdminDasboard extends GetView<AdminDashboardController> {
   AdminDasboard({super.key});

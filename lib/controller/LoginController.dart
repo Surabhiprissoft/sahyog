@@ -4,8 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
+import 'package:sahyog/Screens/dashboard/AdminDashboard.dart';
+import 'package:sahyog/Screens/dashboard/TrainerDashboard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
@@ -17,8 +18,8 @@ import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../Screens/TraineeDashboard.dart';
-import '../Screens/TrainerDashboard.dart';
+import '../Screens/dashboard/TraineeDashboard.dart';
+
 
 class LoginController extends GetxController
 {

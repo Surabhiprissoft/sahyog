@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 
-import '../widgets/other_common_widget.dart';
+import '../../widgets/other_common_widget.dart';
 
 class ManageTraineeController extends GetxController{
 

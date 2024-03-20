@@ -1,21 +1,19 @@
  import 'package:get/get.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
-import 'package:sahyog/Screens/TraineeProfile.dart';
-import 'package:sahyog/Screens/TrainerProfile.dart';
-import 'package:sahyog/controller/AddTraineeController.dart';
-import 'package:sahyog/controller/AddTrainerController.dart';
-import 'package:sahyog/controller/AdminDashboardController.dart';
+
 import 'package:sahyog/controller/ChangePasswordController.dart';
 import 'package:sahyog/controller/ForgotPasswordController.dart';
 import 'package:sahyog/controller/LoginController.dart';
-import 'package:sahyog/controller/ManageTraineeController.dart';
-import 'package:sahyog/controller/ManageTrainerController.dart';
-import 'package:sahyog/controller/ScheduleTrainerController.dart';
-import 'package:sahyog/controller/TraineeProfileController.dart';
-import 'package:sahyog/controller/TrainerProfileController.dart';
-
-import '../network/api_baseHelper.dart';
-import '../network/user_repository.dart';
+import 'package:sahyog/controller/dashboardController/AdminDashboardController.dart';
+import 'package:sahyog/controller/profileController/TraineeProfileController.dart';
+import 'package:sahyog/controller/profileController/TrainerProfileController.dart';
+import 'package:sahyog/controller/traineeController/AddTraineeController.dart';
+import 'package:sahyog/controller/traineeController/ManageTraineeController.dart';
+import 'package:sahyog/controller/trainerController/AddTrainerController.dart';
+import 'package:sahyog/controller/trainerController/ManageTrainerController.dart';
+import 'package:sahyog/controller/trainerController/ScheduleTrainerController.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
+import 'package:sahyog/network/user_repository.dart';
 
 class ProjectBindings implements Bindings
 {

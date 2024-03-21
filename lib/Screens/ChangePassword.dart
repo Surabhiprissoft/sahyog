@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/controller/ChangePasswordController.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
 
 import '../utils/app_colors.dart';
+import '../widgets/other_common_widget.dart';
 
 class ChangePassword extends GetView<ChangePasswordController> {
    ChangePassword({super.key});

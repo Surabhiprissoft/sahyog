@@ -164,6 +164,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                           child: Obx(() {
                             return ListView.builder(
                               shrinkWrap: true,
+                              padding: EdgeInsets.zero,
                               itemCount: adminDashboardController.centerList
                                   .length,
                               scrollDirection: Axis.horizontal,
@@ -176,7 +177,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                             );
                           }),
                         ),
-                        SizedBox(height: 3.0),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -451,7 +452,7 @@ class CenterWiseCard extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             backgroundImage: AssetImage(
-                                ""),
+                                "assets/images/user_img.png"),
                             radius: 3.5.h,),
                           Text("Trainer"),
                         ],
@@ -465,7 +466,7 @@ class CenterWiseCard extends StatelessWidget {
 
         ),
         Text(center.name.toString(), style: TextStyle(
-            fontWeight: FontWeight.w600),),
+            fontWeight: FontWeight.w600,fontSize: 14.sp),),
       ],
     );
   }

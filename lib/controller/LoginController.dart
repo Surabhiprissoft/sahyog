@@ -27,13 +27,14 @@ class LoginController extends GetxController
   late TextEditingController emailController,passController;
   var email='',password='';
   bool shouldValidate = false;
-  var isObscure = RxBool(false);
+  var isObscure = RxBool(true);
   late SingleResponse<LoginResponseModel> loginResponseModel;
   LoginController(this.userRepository);
 
+
+
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
 
     emailController = TextEditingController();
@@ -43,43 +44,45 @@ class LoginController extends GetxController
 
  void clearcontrollers()
  {
+     loginFormKey = GlobalKey<FormState>();
+     shouldValidate=false;
      emailController.clear();
      passController.clear();
      update();
-     //loginFormKey.currentState!.reset();
  }
   @override
   void onClose() {
     // TODO: implement onClose
     super.onClose();
 
+    loginFormKey.currentState!.reset();
     emailController.dispose();
     passController.dispose();
+    shouldValidate=false;
+
   }
 
 
 
-  /*String? validateEmail(String value)
+  String? validateEmail(String? value)
   {
-    if(!GetUtils.isEmail(value))
-    {
+    if (value == null || value.isEmpty) {
+      return "Please enter registered email ID";
+    } else if (!GetUtils.isEmail(value)) {
       return "Enter valid email";
     }
     return null;
-  }*/
-
-  String? validatePass(String value)
-  {
-    if(!GetUtils.isGreaterThan(value.length, 6))
-    {
-      return "Password must be 7 character long";
-    }
-    else
-      {
-        return null;
-      }
-
   }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter a password";
+    } else if (value.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    return null;
+  }
+
 
 
 

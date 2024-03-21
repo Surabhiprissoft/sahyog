@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/ManageTrainee.dart';
+import 'package:sahyog/Screens/TraineeDashboard.dart';
+import 'package:sahyog/Screens/TrainerDashBoard.dart';
+import 'package:sahyog/controller/AdminDashboardController.dart';
+import 'package:sahyog/controller/ManageTraineeController.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
@@ -13,6 +18,10 @@ import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
+
+import '../Screens/LoginScreen.dart';
+import '../utils/app_constants.dart';
+import '../utils/preference_utils.dart';
 
 class AddTraineeController extends GetxController
 {
@@ -129,7 +138,29 @@ class AddTraineeController extends GetxController
             if(traineeResponseModel.status==200){
               DialogHelper.hideLoading();
               Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-              Get.off(AdminDasboard());
+              var controller = Get.find<ManageTraineeController>();
+              controller.getTraineeList();
+              var adminController = Get.find<AdminDashboardController>();
+              adminController.centerList.clear();
+              adminController.getAdminDashboardData();
+
+              int? role = PreferenceUtils.getInt(AppConstants.ROLE);
+              print("Role from PreferenceUtils: $role"); // Add this debug print
+              if (role != null) {
+                if (role == 1) {
+                  Get.off(()=>TrainerDashboard());
+                } else if(role==3) {
+                  Get.off(()=>AdminDasboard());
+                }
+                else{
+                  Get.off(LoginScreen());
+                }
+              }
+              else{
+                Get.off(LoginScreen());
+              }
+
+              clearControllers();
             }
             else
             {
@@ -188,6 +219,8 @@ class AddTraineeController extends GetxController
 
 
   }
+
+
   bool formIsValid() {
     // Perform form validation logic here
     // For example, check if all required fields are filled out

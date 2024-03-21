@@ -19,9 +19,9 @@ class ChangePasswordController extends GetxController{
   var currentPassword='',newPassword='',confirmPassword='';
   bool shouldValidate = false;
    late String email="";
-   var isOldPassObscure = RxBool(false);
-   var isNewPassObscure = RxBool(false);
-   var isConfirmPassObscure = RxBool(false);
+   var isOldPassObscure = RxBool(true);
+   var isNewPassObscure = RxBool(true);
+   var isConfirmPassObscure = RxBool(true);
 
    late ChangePasswordResponseModel changePasswordResponseModel;
   final UserRepository userRepository;
@@ -67,6 +67,7 @@ class ChangePasswordController extends GetxController{
 
 
   Future<ChangePasswordResponseModel>onSubmit() async{
+
     final isValid = changePasswordKey.currentState!.validate();
     if (!isValid) {
       showSnackBar("Unable to proceed", "Enter all fields to proceed further");
@@ -90,13 +91,14 @@ class ChangePasswordController extends GetxController{
               if(changePasswordResponseModel.status==200)
               {
                 DialogHelper.hideLoading();
-                Get.back();
+                Get.offAll(()=>LoginScreen());
                 showSnackBar("Password Updated", "Please login again with new password");
 
               }
               else
               {
                 DialogHelper.hideLoading();
+                showSnackBar("Error", changePasswordResponseModel.message.toString());
               }
             }
             catch(e)

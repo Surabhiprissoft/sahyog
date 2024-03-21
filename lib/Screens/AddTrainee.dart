@@ -171,78 +171,13 @@ class AddTrainee extends GetView<AddTraineeController> {
                                         ],
                                       ),
                                       const SizedBox(height: 20.0,),
-                                      Row(
-                                        children: [
-
-                                          Expanded(
-                                            child: InputTextFormField(
-                                                label: "Mobile Number",
-                                                keyboardType: TextInputType
-                                                    .number,
-                                                controller: addTraineeController
-                                                    .mobileNumberController),
-
-                                          ),
-                                          const SizedBox(width: 15.0,),
-                                          Expanded(
-                                              child: Obx(() =>
-                                                  DropdownButtonFormField<
-                                                      CenterResponseModel>(
-                                                    value: addTraineeController
-                                                        .selectedCenter.value,
-                                                    decoration: InputDecoration(
-                                                      labelText: "Center",
-                                                      border: OutlineInputBorder(
-                                                          borderRadius: BorderRadius
-                                                              .all(
-                                                              Radius.circular(
-                                                                  10.0))
-                                                      ),
-                                                      hintText: "Center",
-                                                      errorText: addTraineeController
-                                                          .isSubmitted.value &&
-                                                          addTraineeController
-                                                              .selectedCenter
-                                                              .value == null
-                                                          ? ""
-                                                          : null,
-                                                    ),
-                                                    onChanged: (
-                                                        CenterResponseModel? newValue) {
-                                                      addTraineeController
-                                                          .selectedCenter
-                                                          .value = newValue;
-                                                    },
-                                                    items: addTraineeController
-                                                        .centerlist.map<
-                                                        DropdownMenuItem<
-                                                            CenterResponseModel>>((
-                                                        CenterResponseModel center) {
-                                                      return DropdownMenuItem<
-                                                          CenterResponseModel>(
-                                                        value: center,
-                                                        child: Text(center!
-                                                            .name!),
-                                                      );
-                                                    }).toList(),
-                                                  )
-                                              )),
-
-                                        ],
-                                      ),
-                                      const SizedBox(height: 20.0,),
-                                      InputTextFormField(label: "Email ID",
+                                      InputTextFormField(
+                                          label: "Mobile Number",
                                           keyboardType: TextInputType
-                                              .emailAddress,
+                                              .number,
                                           controller: addTraineeController
-                                              .emailController),
+                                              .mobileNumberController),
                                       const SizedBox(height: 20.0,),
-                                      InputTextFormField(label: "Address",
-                                          keyboardType: TextInputType.multiline,
-                                          controller: addTraineeController
-                                              .addressController),
-                                      const SizedBox(height: 20.0,),
-
                                       Obx(() =>
                                           DropdownButtonFormField<String>(
                                             value: addTraineeController
@@ -251,13 +186,13 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                 : addTraineeController
                                                 .selectedLevel.value,
                                             decoration: InputDecoration(
-                                              labelText: "Training Level",
+                                              labelText: "Level",
                                               border: OutlineInputBorder(
                                                   borderRadius: BorderRadius
                                                       .all(
                                                       Radius.circular(10.0))
                                               ),
-                                              hintText: "Training Level",
+                                              hintText: "Level",
 
                                               errorText: addTraineeController
                                                   .isSubmitted.value &&
@@ -281,6 +216,61 @@ class AddTrainee extends GetView<AddTraineeController> {
                                               );
                                             }).toList(),
                                           )),
+                                      const SizedBox(height: 20.0,),
+                                      InputTextFormField(label: "Email ID",
+                                          keyboardType: TextInputType
+                                              .emailAddress,
+                                          controller: addTraineeController
+                                              .emailController),
+                                      const SizedBox(height: 20.0,),
+                                      InputTextFormField(label: "Address",
+                                          keyboardType: TextInputType.multiline,
+                                          controller: addTraineeController
+                                              .addressController),
+                                      const SizedBox(height: 20.0,),
+
+                                      Obx(() =>
+                                        DropdownButtonFormField<
+                                            CenterResponseModel>(
+                                          value: addTraineeController
+                                              .selectedCenter.value,
+                                          decoration: InputDecoration(
+                                            labelText: "Center",
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius
+                                                    .all(
+                                                    Radius.circular(
+                                                        10.0))
+                                            ),
+                                            hintText: "Center",
+                                            errorText: addTraineeController
+                                                .isSubmitted.value &&
+                                                addTraineeController
+                                                    .selectedCenter
+                                                    .value == null
+                                                ? ""
+                                                : null,
+                                          ),
+                                          onChanged: (
+                                              CenterResponseModel? newValue) {
+                                            addTraineeController
+                                                .selectedCenter
+                                                .value = newValue;
+                                          },
+                                          items: addTraineeController
+                                              .centerlist.map<
+                                              DropdownMenuItem<
+                                                  CenterResponseModel>>((
+                                              CenterResponseModel center) {
+                                            return DropdownMenuItem<
+                                                CenterResponseModel>(
+                                              value: center,
+                                              child: Text(center!
+                                                  .name!),
+                                            );
+                                          }).toList(),
+                                        ) ),
+                                      
 
                                       /*Row(
                                       mainAxisAlignment: MainAxisAlignment.center,

@@ -13,6 +13,8 @@ import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import 'AdminDashboardController.dart';
+
 class AddTrainerController extends GetxController {
   RxString imagePath = "".obs;
 
@@ -116,6 +118,9 @@ class AddTrainerController extends GetxController {
 
           var controller = Get.find<ManageTrainerController>();
           controller.getTrainerList();
+          var adminController = Get.find<AdminDashboardController>();
+          adminController.centerList.clear();
+          adminController.getAdminDashboardData();
           Get.off(() => ManageTrainer());
           clearControllers();
         } else {

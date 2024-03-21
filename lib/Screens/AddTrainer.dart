@@ -131,7 +131,7 @@ class AddTrainer extends GetView<AddTrainerController> {
                                     children: [
                                       Expanded(child: InputTextFormField(label: "Mobile Number",keyboardType: TextInputType.number,controller:addTrainerController.mobileNumberController)),
                                       const SizedBox(width: 15.0,),
-                                      Expanded(child: InputTextFormField(label: "Experience",keyboardType: TextInputType.number,controller:addTrainerController.yearsofExperienceController)),
+                                      Expanded(child: InputTextFormField(label: "Experience(Yrs)",keyboardType: TextInputType.number,controller:addTrainerController.yearsofExperienceController)),
                                     ],
                                   ),
                                   const SizedBox(height: 20.0,),

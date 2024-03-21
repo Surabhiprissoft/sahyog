@@ -114,14 +114,14 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                                                     "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                                                 radius: 3.5.h,
                                               ),
-                                              SizedBox(width: 2.w),
+                                              SizedBox(width: 1.w),
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment
                                                     .start,
                                                 children: [
                                                   Text("${trainer
                                                       .firstName} ${trainer
-                                                      .lastName}"),
+                                                      .lastName}",style: TextStyle(fontSize: 15.sp),),
                                                   SizedBox(height: 1.h),
                                                   Row(
                                                     children: [

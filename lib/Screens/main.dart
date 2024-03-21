@@ -2,12 +2,14 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
+import 'package:sahyog/Screens/SplashPageView.dart';
 import 'package:sahyog/Screens/StickyCenters.dart';
 import 'package:sahyog/Screens/TraineeDashboard.dart';
 import 'package:sahyog/Screens/TraineeProfile.dart';
@@ -49,13 +51,12 @@ class MyApp extends StatelessWidget {
             fontFamily: "Poppins",
             useMaterial3: true,
           ),
-          home: SizedBox(
+          home: SplashPageView() /*SizedBox(
             height: 100.h,
             width: 100.w,
             child: AnimatedSplashScreen.withScreenFunction(
               splash: "assets/images/splash.gif",
               splashIconSize: double.infinity,
-              backgroundColor: Colors.white,
               animationDuration: Duration(seconds: 3),
               screenFunction: () async {
                 int? role = PreferenceUtils.getInt(AppConstants.ROLE);
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
                 }
               },
             ),
-          )
+          )*/
 
         );
 

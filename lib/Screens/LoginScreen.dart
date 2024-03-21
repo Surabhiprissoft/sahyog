@@ -16,6 +16,9 @@ import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
 
+import '../utils/app_validation.dart';
+import 'ChangePassword.dart';
+
 class LoginScreen extends GetView<LoginController> {
   LoginScreen({super.key});
 
@@ -78,17 +81,31 @@ class LoginScreen extends GetView<LoginController> {
                                             color: AppColors.appThemeColor,
                                             fontWeight: FontWeight.w700),),
                                         const SizedBox(height: 25.0,),
-                                        InputTextFormField(label: "Email ID",
+                                        /*InputTextFormField(label: "Email ID",
                                             keyboardType: TextInputType
                                                 .emailAddress,
                                             controller: loginController
-                                                .emailController),
+                                                .emailController),*/
+                                    TextFormField(
+                                      decoration: InputDecoration(
+                                        labelText: "Email ",
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        ),
+                                      ),
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                                      keyboardType: TextInputType.emailAddress,
+                                      controller: loginController.emailController,
+                                      validator: loginController.validateEmail,
+                                    ),
                                         const SizedBox(height: 20.0,),
 
                                         Obx(() {
                                           return TextFormField(
                                             keyboardType: TextInputType.text,
                                             controller: loginController.passController,
+                                            validator: loginController.validatePassword,
+
                                             obscureText: loginController.isObscure.value, // Access the value using .value
                                             decoration: InputDecoration(
                                               labelText: 'Password',

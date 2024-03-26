@@ -45,13 +45,16 @@ class AddTraineeController extends GetxController
 
   final List<String> Gender = ['Male', 'Female', 'Other'];
   late final RxString selectedGender ;
+  late bool isApproved=false,isActive=false;
+
 
   late ListResponse<CenterResponseModel> centerResponseModel;
   List<CenterResponseModel> centerlist=[];
   GlobalKey<FormState> traineeFormKey = GlobalKey<FormState>();
   String fullName="",age="",mobileNumber="",email="",yearsofExperience="",address="";
   late TextEditingController firstNameController,lastNameController,ageController,mobileNumberController,emailController,yearsofExperienceController,addressController;
-  late TrainerTraineeResponseModel traineeResponseModel;
+  late TrainerTraineeResponseModel traineeResponseModel= TrainerTraineeResponseModel();
+
   final UserRepository userRepository;
 
 
@@ -70,6 +73,29 @@ class AddTraineeController extends GetxController
     selectedCenter=Rx<CenterResponseModel?>(null);
     selectedLevel = ''.obs;
     selectedGender = ''.obs;
+
+
+    int? role = PreferenceUtils.getInt(AppConstants.ROLE);
+    print("Role from PreferenceUtils: $role"); // Add this debug print
+    if (role != null) {
+      if (role == 1 || role == 3) {
+        isApproved=true;
+        isActive=true;
+        //Get.off(()=>TrainerDashboard());
+      }
+      else{
+        isApproved=false;
+        isActive=false;
+      }
+    }
+    else{
+      isApproved=false;
+      isActive=false;
+    }
+
+    print("approved :$isApproved");
+    print("actice :$isActive");
+
 
   }
 
@@ -129,49 +155,74 @@ class AddTraineeController extends GetxController
          center: selectedCenter.value?.id,
         discount: 0.0,
         trainingType: selectedLevel.value.toString(),
+        isActive: isActive,
+        isApprove: isApproved,
       );
       print("TRAINEE REQUEST MODEL"+addTraineeRequestModel.toString());
 
       try
           {
-            traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
-            if(traineeResponseModel.status==200){
-              DialogHelper.hideLoading();
-              Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-              var controller = Get.find<ManageTraineeController>();
-              controller.getTraineeList();
-              var adminController = Get.find<AdminDashboardController>();
-              adminController.centerList.clear();
-              adminController.getAdminDashboardData();
 
-              int? role = PreferenceUtils.getInt(AppConstants.ROLE);
-              print("Role from PreferenceUtils: $role"); // Add this debug print
-              if (role != null) {
-                if (role == 1) {
-                  Get.off(()=>TrainerDashboard());
-                } else if(role==3) {
-                  Get.off(()=>AdminDasboard());
+
+            if(PreferenceUtils.getInt(AppConstants.ROLE)==0)
+            {
+              traineeResponseModel= await userRepository.traineeSelfRegistration(addTraineeRequestModel);
+              if(traineeResponseModel.status==200){
+                DialogHelper.hideLoading();
+                final success = await selfRegisteredSuccessDialog();
+                if (success) {
+                  // Navigate to the login screen
+                  Get.offAll(() => LoginScreen());
+                }
+                clearControllers();
+              }
+              else
+              {
+                DialogHelper.hideLoading();
+                Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+              }
+            }
+            else{
+              traineeResponseModel= await userRepository.addTrainee(addTraineeRequestModel);
+              if(traineeResponseModel.status==200){
+                DialogHelper.hideLoading();
+                Get.snackbar("Trainee Created!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+                var controller = Get.find<ManageTraineeController>();
+                controller.getTraineeList();
+                var adminController = Get.find<AdminDashboardController>();
+                adminController.centerList.clear();
+                adminController.getAdminDashboardData();
+
+                int? role = PreferenceUtils.getInt(AppConstants.ROLE);
+                print("Role from PreferenceUtils: $role"); // Add this debug print
+                if (role != null) {
+                  if (role == 1) {
+                    Get.off(()=>TrainerDashboard());
+                  } else if(role==3) {
+                    Get.off(()=>AdminDasboard());
+                  }
+                  else{
+                    Get.off(LoginScreen());
+                  }
                 }
                 else{
                   Get.off(LoginScreen());
                 }
-              }
-              else{
-                Get.off(LoginScreen());
-              }
 
-              clearControllers();
+                clearControllers();
+              }
+              else
+              {
+                DialogHelper.hideLoading();
+                Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
+              }
             }
-            else
-            {
-              DialogHelper.hideLoading();
-              Get.snackbar("Something went wrong!",traineeResponseModel.message.toString(),snackPosition: SnackPosition.BOTTOM);
-            }
+
           }
           catch(e)
-    {
-       DialogHelper.hideLoading();
-    }
+          {
+             DialogHelper.hideLoading();
+          }
 
     }
 

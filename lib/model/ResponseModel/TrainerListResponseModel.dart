@@ -1,18 +1,20 @@
 import 'dart:convert';
-/// id : 2
-/// username : "trainer1"
-/// email : "trainer1"
+/// id : 37
+/// username : "sunil@gmail.com"
+/// email : "sunil@gmail.com"
 /// role : "trainer"
-/// profile_photo : "/media/trainer1-free-nature-images.jpg"
-/// first_name : ""
-/// last_name : ""
-/// gender : null
-/// phone : null
-/// address : " "
+/// profile_photo : "/media/sunilgmail.com-51cf4cf8-c3c1-45ee-b3fc-d047bc21af36.jpg"
+/// first_name : "Sunil"
+/// last_name : "Sahbhaag"
+/// gender : "Male"
+/// dob : "2000-03-01"
+/// phone : "9454638801"
+/// address : "Pune, Maharashtra"
 /// center : "NoCenter"
-/// created_at : "2024-03-10T15:13:07.853545Z"
-/// modified_at : "2024-03-10T15:13:07.853545Z"
-/// year_of_experience : 0
+/// is_active : true
+/// created_at : "2024-03-19T06:51:08.707782Z"
+/// modified_at : "2024-03-19T06:51:08.707809Z"
+/// year_of_experience : 5
 /// training_type : ""
 /// discount : "0.00"
 
@@ -27,10 +29,12 @@ class TrainerListResponseModel {
       String? profilePhoto, 
       String? firstName, 
       String? lastName, 
-      dynamic gender, 
-      dynamic phone, 
+      String? gender, 
+      String? dob, 
+      String? phone, 
       String? address, 
       String? center, 
+      bool? isActive, 
       String? createdAt, 
       String? modifiedAt, 
       num? yearOfExperience, 
@@ -44,20 +48,17 @@ class TrainerListResponseModel {
     _firstName = firstName;
     _lastName = lastName;
     _gender = gender;
+    _dob = dob;
     _phone = phone;
     _address = address;
     _center = center;
+    _isActive = isActive;
     _createdAt = createdAt;
     _modifiedAt = modifiedAt;
     _yearOfExperience = yearOfExperience;
     _trainingType = trainingType;
     _discount = discount;
 }
-
-  @override
-  String toString() {
-    return 'TrainerListResponseModel{_id: $_id, _username: $_username, _email: $_email, _role: $_role, _profilePhoto: $_profilePhoto, _firstName: $_firstName, _lastName: $_lastName, _gender: $_gender, _phone: $_phone, _address: $_address, _center: $_center, _createdAt: $_createdAt, _modifiedAt: $_modifiedAt, _yearOfExperience: $_yearOfExperience, _trainingType: $_trainingType, _discount: $_discount}';
-  }
 
   TrainerListResponseModel.fromJson(dynamic json) {
     _id = json['id'];
@@ -68,9 +69,11 @@ class TrainerListResponseModel {
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _gender = json['gender'];
+    _dob = json['dob'];
     _phone = json['phone'];
     _address = json['address'];
     _center = json['center'];
+    _isActive = json['is_active'];
     _createdAt = json['created_at'];
     _modifiedAt = json['modified_at'];
     _yearOfExperience = json['year_of_experience'];
@@ -84,10 +87,12 @@ class TrainerListResponseModel {
   String? _profilePhoto;
   String? _firstName;
   String? _lastName;
-  dynamic _gender;
-  dynamic _phone;
+  String? _gender;
+  String? _dob;
+  String? _phone;
   String? _address;
   String? _center;
+  bool? _isActive;
   String? _createdAt;
   String? _modifiedAt;
   num? _yearOfExperience;
@@ -100,10 +105,12 @@ TrainerListResponseModel copyWith({  num? id,
   String? profilePhoto,
   String? firstName,
   String? lastName,
-  dynamic gender,
-  dynamic phone,
+  String? gender,
+  String? dob,
+  String? phone,
   String? address,
   String? center,
+  bool? isActive,
   String? createdAt,
   String? modifiedAt,
   num? yearOfExperience,
@@ -117,9 +124,11 @@ TrainerListResponseModel copyWith({  num? id,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   gender: gender ?? _gender,
+  dob: dob ?? _dob,
   phone: phone ?? _phone,
   address: address ?? _address,
   center: center ?? _center,
+  isActive: isActive ?? _isActive,
   createdAt: createdAt ?? _createdAt,
   modifiedAt: modifiedAt ?? _modifiedAt,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
@@ -133,10 +142,12 @@ TrainerListResponseModel copyWith({  num? id,
   String? get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
-  dynamic get gender => _gender;
-  dynamic get phone => _phone;
+  String? get gender => _gender;
+  String? get dob => _dob;
+  String? get phone => _phone;
   String? get address => _address;
   String? get center => _center;
+  bool? get isActive => _isActive;
   String? get createdAt => _createdAt;
   String? get modifiedAt => _modifiedAt;
   num? get yearOfExperience => _yearOfExperience;
@@ -153,9 +164,11 @@ TrainerListResponseModel copyWith({  num? id,
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['gender'] = _gender;
+    map['dob'] = _dob;
     map['phone'] = _phone;
     map['address'] = _address;
     map['center'] = _center;
+    map['is_active'] = _isActive;
     map['created_at'] = _createdAt;
     map['modified_at'] = _modifiedAt;
     map['year_of_experience'] = _yearOfExperience;

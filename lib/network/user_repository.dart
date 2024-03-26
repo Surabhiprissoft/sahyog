@@ -10,6 +10,7 @@ import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
@@ -30,7 +31,7 @@ class UserRepository{
   Future<ListResponse<CenterResponseModel>> getCenters() async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final user = await apiBaseHelper.get(AppConstants.GETCENTERS);
+      final user = await apiBaseHelper.getWithoutToken(AppConstants.GETCENTERS);
 
       // Parse the response JSON into a SingleResponse object
       ListResponse<CenterResponseModel> centerResponse = ListResponse.fromJson(
@@ -73,7 +74,19 @@ class UserRepository{
       return TrainerTraineeResponseModel.fromJson(trainertrainee);
     } catch (error) {
       // Handle any errors that occur during the API call
-      print('Error occurred while checking login: $error');
+      print('Error occurred while Creating Trainer: $error');
+      throw error;
+    }
+  }
+
+  Future<TrainerTraineeResponseModel> trainerSelfRegistration(AddTrainerRequestModel addTrainerRequestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final trainertrainee = await apiBaseHelper.postWithoutToken(AppConstants.SELFREGISTERED, addTrainerRequestModel.toJson());
+      return TrainerTraineeResponseModel.fromJson(trainertrainee);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while Registration: $error');
       throw error;
     }
   }
@@ -82,6 +95,18 @@ class UserRepository{
     try {
       // Make an asynchronous API call to fetch the login response
       final trainertrainee = await apiBaseHelper.post(AppConstants.ADDTRAINEE, addTraineeRequestModel.toJson());
+      return TrainerTraineeResponseModel.fromJson(trainertrainee);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
+
+  Future<TrainerTraineeResponseModel> traineeSelfRegistration(AddTraineeRequestModel addTraineeRequestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final trainertrainee = await apiBaseHelper.postWithoutToken(AppConstants.SELFREGISTERED, addTraineeRequestModel.toJson());
       return TrainerTraineeResponseModel.fromJson(trainertrainee);
     } catch (error) {
       // Handle any errors that occur during the API call
@@ -135,6 +160,26 @@ class UserRepository{
     }
   }
 
+  Future<ListResponse<TrainerListResponseModel>> getUnApprovedTrainerList() async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final unApprovedTrainers = await apiBaseHelper.get(AppConstants.UNAPPROVEDRTAINERLIST);
+
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<TrainerListResponseModel> trainerListResponse = ListResponse.fromJson(
+          unApprovedTrainers,
+              (json) => TrainerListResponseModel.fromJson(json)
+      );
+
+      return trainerListResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching unapproved trainer list: $error');
+      throw error;
+    }
+  }
+
+
 
   Future<ListResponse<TraineeListResponseModel>> getTraineeList() async {
     try {
@@ -151,6 +196,38 @@ class UserRepository{
     } catch (error) {
       // Handle any errors that occur during the API call
       print('Error occurred while fetching trainer list: $error');
+      throw error;
+    }
+  }
+
+  Future<ListResponse<TraineeListResponseModel>> getUnApprovedTraineeList() async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final unApprovedTrainees = await apiBaseHelper.get(AppConstants.UNAPPROVEDTRAINEELIST);
+
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<TraineeListResponseModel> traineeListResponse = ListResponse.fromJson(
+          unApprovedTrainees,
+              (json) => TraineeListResponseModel.fromJson(json)
+      );
+
+      return traineeListResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching trainer list: $error');
+      throw error;
+    }
+  }
+
+  Future<TrainerTraineeResponseModel> actionOnRegistrationRequest(RegistrationUpdateRequestModel registrationRequest,int userId) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final response = await apiBaseHelper.patch("user/$userId/", registrationRequest.toJson());
+      return TrainerTraineeResponseModel.fromJson(response);
+
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
       throw error;
     }
   }

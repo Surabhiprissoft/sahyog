@@ -85,7 +85,7 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                   bottom: 1,
                   child: Container(
                       height: 100.h,
-                      padding: EdgeInsets.all(2.h),
+                      padding: EdgeInsets.only(top: 10.h),
                       width: MediaQuery
                           .of(context)
                           .size
@@ -104,8 +104,7 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                 return Form(
                                   key: traineeProfileController.profileTraineeFormKey,
                                   child: Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0, bottom: 20.0),
+                                    margin: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                                     width: MediaQuery
                                         .of(context)
                                         .size
@@ -232,66 +231,58 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                           ],
                                         ),
                                         const SizedBox(height: 20.0,),
-                                        Row(
-                                          children: [
+                                        InputTextFormField(
+                                            label: "Mobile Number",
+                                            keyboardType: TextInputType
+                                                .number,
+                                            controller: traineeProfileController
+                                                .mobileNumberController),
 
-                                            Expanded(
-                                              child: InputTextFormField(
-                                                  label: "Mobile Number",
-                                                  keyboardType: TextInputType
-                                                      .number,
-                                                  controller: traineeProfileController
-                                                      .mobileNumberController),
+                                        const SizedBox(height: 20.0,),
 
-                                            ),
-                                            const SizedBox(width: 15.0,),
-                                            Expanded(
-                                                child: Obx(() =>
-                                                    DropdownButtonFormField<
-                                                        CenterResponseModel>(
-                                                      value: traineeProfileController
-                                                          .selectedCenter.value,
-                                                      decoration: InputDecoration(
-                                                        labelText: "Center",
-                                                        border: OutlineInputBorder(
-                                                            borderRadius: BorderRadius
-                                                                .all(
-                                                                Radius.circular(
-                                                                    10.0))
-                                                        ),
-                                                        hintText: "Center",
-                                                        errorText: traineeProfileController
-                                                            .isSubmitted
-                                                            .value &&
-                                                            traineeProfileController
-                                                                .selectedCenter
-                                                                .value == null
-                                                            ? ""
-                                                            : null,
-                                                      ),
-                                                      onChanged: (
-                                                          CenterResponseModel? newValue) {
-                                                        traineeProfileController
-                                                            .selectedCenter
-                                                            .value = newValue;
-                                                      },
-                                                      items: traineeProfileController
-                                                          .centerlist.map<
-                                                          DropdownMenuItem<
-                                                              CenterResponseModel>>((
-                                                          CenterResponseModel center) {
-                                                        return DropdownMenuItem<
-                                                            CenterResponseModel>(
-                                                          value: center,
-                                                          child: Text(center!
-                                                              .name!),
-                                                        );
-                                                      }).toList(),
-                                                    )
-                                                )),
+                                        Obx(() =>
+                                            DropdownButtonFormField<
+                                                CenterResponseModel>(
+                                              value: traineeProfileController
+                                                  .selectedCenter.value,
+                                              decoration: InputDecoration(
+                                                labelText: "Center",
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius
+                                                        .all(
+                                                        Radius.circular(
+                                                            10.0))
+                                                ),
+                                                hintText: "Center",
+                                                errorText: traineeProfileController
+                                                    .isSubmitted
+                                                    .value &&
+                                                    traineeProfileController
+                                                        .selectedCenter
+                                                        .value == null
+                                                    ? ""
+                                                    : null,
+                                              ),
+                                              onChanged: (
+                                                  CenterResponseModel? newValue) {
+                                                traineeProfileController
+                                                    .selectedCenter
+                                                    .value = newValue;
+                                              },
+                                              items: traineeProfileController
+                                                  .centerlist.map<
+                                                  DropdownMenuItem<
+                                                      CenterResponseModel>>((
+                                                  CenterResponseModel center) {
+                                                return DropdownMenuItem<
+                                                    CenterResponseModel>(
+                                                  value: center,
+                                                  child: Text(center!
+                                                      .name!),
+                                                );
+                                              }).toList(),
+                                            )),
 
-                                          ],
-                                        ),
                                         const SizedBox(height: 20.0,),
                                         InputTextFormField(label: "Email ID",
                                             keyboardType: TextInputType
@@ -377,7 +368,7 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                                         .addTrainee();*/
                                                   },
 
-                                                  child: const Text('Add',
+                                                  child: const Text('Update',
                                                     style: TextStyle(
                                                         color: AppColors
                                                             .white),),

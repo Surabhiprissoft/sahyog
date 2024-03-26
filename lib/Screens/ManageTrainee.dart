@@ -65,7 +65,7 @@ class ManageTrainee extends GetView<ManageTraineeController> {
                               final trainee = controller.traineeList[index];
                               return InkWell(
                                 onTap: (){
-                                  //Get.to(() => TraineeProfile(), arguments: trainee);
+                                  Get.to(() => TraineeProfile(), arguments: trainee);
                                 },
                                 child: Card(
                                   elevation: 10.0,

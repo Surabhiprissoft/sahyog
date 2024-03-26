@@ -47,4 +47,6 @@ class AppColors
   static const gradiantcolor3=Color(0xffFE6CFC);
   static const successgradiantcolor1=Color(0xff01A1F6);
   static const successgradiantcolor2=Color(0xff1756A7);
+
+  static const cardBack = Color(0xffF0EEFF);
 }

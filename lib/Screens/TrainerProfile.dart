@@ -54,24 +54,31 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                               fontWeight: FontWeight.w400,
                             )
                         ),
-                        IconButton(onPressed: () {
-                          if (trainerProfileController.isReadOnly.value) {
-                            trainerProfileController.isReadOnly.value = false;
-                            trainerProfileController.update();
-                          } else {
-                            trainerProfileController.isReadOnly.value = true;
-                            trainerProfileController.update();
-                          }
-                        },
-                            icon: Icon(
-                              Icons.edit, color: Colors.white, size: 25.0,)
-                        ),
-                        IconButton(onPressed: () {
+                        Row(
+                          children: [
 
-                        },
-                            icon: Icon(
-                              Icons.notifications_none, color: Colors.white,
-                              size: 25.0,)
+                            IconButton(
+                                onPressed: () {
+                              if (trainerProfileController.isReadOnly.value) {
+                                trainerProfileController.isReadOnly.value = false;
+                                trainerProfileController.update();
+                              } else {
+                                trainerProfileController.isReadOnly.value = true;
+                                trainerProfileController.update();
+                              }
+                            },
+                                icon: Icon(
+                                  Icons.edit, color: Colors.white, size: 25.0,)
+                            ),
+                            IconButton(
+                                onPressed: () {
+
+                            },
+                                icon: Icon(
+                                  Icons.notifications_none, color: Colors.white,
+                                  size: 25.0,)
+                            ),
+                          ],
                         ),
 
                       ],
@@ -107,7 +114,7 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                           return Form(
                             key: trainerProfileController.trainerProfileFormKey,
                             child: Container(
-                              margin: const EdgeInsets.only(top: 35.0,
+                              margin: const EdgeInsets.only(top: 10.0,
                                   left: 20.0,
                                   right: 20.0,
                                   bottom: 20.0),
@@ -117,6 +124,31 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                   .width,
                               child: Column(
                                 children: [
+                                  trainerProfileController.isReadOnly.value?
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Text("Status"),
+                                        SizedBox(width: 10.0,),
+                                        ElevatedButton(onPressed: (){}, child: Text(trainerProfileController.trainerStatus.value ? "ACTIVE":"INACTIVE",style: TextStyle(color: Colors.white),),style: ButtonStyle(backgroundColor: trainerProfileController.trainerStatus.value ? MaterialStateProperty.all<Color>(Colors.green):MaterialStateProperty.all<Color>(Colors.red)),)
+                                      ],
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                    ),
+                                  ):Container(child:Row(
+                                    children: [
+                                      Text("INACTIVE"),
+                                      Switch(
+                                            value: true,
+                                            onChanged: (value) {
+                                              setState() {
+
+                                              }
+
+                                      }),
+                                      Text("ACTIVE"),
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  )),
                                   const SizedBox(height: 30.0,),
                                   Row(
                                     children: [
@@ -167,8 +199,8 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10.0)),
                                             ),
-                                            prefixIcon: Icon(
-                                                Icons.calendar_month_sharp),
+                                            /*prefixIcon: Icon(
+                                                Icons.calendar_month_sharp),*/
                                           ),
                                           validator: (value) {
                                             return AppValidation

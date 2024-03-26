@@ -80,9 +80,77 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
         ),
         body: Stack(
           children: [
-            CustomTopBar(titleName: "Welcome Back, Trainer"),
+
+              Positioned(
+              top: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                //height: 30.h,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/Top_bg.png'),
+                      fit: BoxFit.cover, // Adjust the BoxFit as needed
+                    ),
+                    color: Colors.blue
+                ),
+                child:  Padding(
+                  padding: EdgeInsets.only(top:5.h,left:6.w,bottom: 16.h,right: 6.w),
+                  child:
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                              "Dashboard",
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontStyle: FontStyle.normal,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              )
+                          ),
+                          IconButton(onPressed: (){
+
+                          },
+                              icon:Icon(Icons.notifications_none,color: Colors.white,size: 25.0,)
+                          ),
+
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 35.0,
+                          ),
+                          Column(
+                            children: [
+                              Text("Welcome Back,",style: TextStyle(
+                                fontSize: 18.sp,
+                                fontStyle: FontStyle.normal,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              )),
+                              Text(trainerdashBoardController.userName,style: TextStyle(
+                                fontSize: 18.sp,
+                                fontStyle: FontStyle.normal,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              )),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+
+
+              )
+            ),
             Positioned(
-                top: 140,
+                top: 170,
                 left: 0,
                 right: 0,
                 child: Container(

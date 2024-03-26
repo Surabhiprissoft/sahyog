@@ -19,6 +19,7 @@ class ApiBaseHelper {
    //office
   final baseUrl = "http://192.168.0.117:8000/";
   //final baseUrl = "http://192.168.1.6:8000/";
+  //final baseUrl = "http://192.168.0.245:8000/";
 
    late  var authToken="";
 
@@ -38,6 +39,24 @@ class ApiBaseHelper {
       throw FetchDataException(AppConstants.NO_INTERNET);
     }
   }
+
+  Future<dynamic> getWithoutToken(String url) async {
+
+    var responseJson;
+    authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+    try {
+      final response = await http.get(Uri.parse(baseUrl + url),headers:{ "Accept": "application/json",
+        "content-type":"application/json"});
+      print("the url is ${baseUrl+url}");
+      responseJson =_returnResponse(response);
+      print(responseJson);
+      print("the url is ${baseUrl+url}");
+      return responseJson;
+    } on SocketException {
+      throw FetchDataException(AppConstants.NO_INTERNET);
+    }
+  }
+
 
   //For all the POST form url encoded requests
   Future<dynamic>?formPost(String url, Map<String, String> body) async {
@@ -328,8 +347,8 @@ class ApiBaseHelper {
         //throw BadRequestException(AppConstants.BAD_REQUEST);
       case 401:
 
-        /*Get.offAll(() => LoginScreen());
-        showSnackBar('Session has Expired', "");*/
+        Get.offAll(() => LoginScreen());
+        showSnackBar('Session has Expired', "Please Login again to continue using app");
        /* var responseJson = jsonDecode(utf8.decode(response.bodyBytes));
         return responseJson;*/
        // throw BadRequestException(AppConstants.INVALID_USER);

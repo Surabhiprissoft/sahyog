@@ -13,6 +13,7 @@ import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_validation.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 class AddTrainer extends GetView<AddTrainerController> {
    AddTrainer({super.key});

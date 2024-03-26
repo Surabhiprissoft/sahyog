@@ -1,19 +1,21 @@
 import 'dart:convert';
-/// id : 9
-/// username : "musad@gmail.com"
-/// email : "musad@gmail.com"
+/// id : 47
+/// username : "musadsarguru@prissoft.net"
+/// email : "musadsarguru@prissoft.net"
 /// role : "trainee"
-/// profile_photo : null
+/// profile_photo : "/media/musadsarguruprissoft.net-2846f789-464b-4e94-92ab-68bb35e2d453.jpg"
 /// first_name : "Musad"
 /// last_name : "Sarguru"
 /// gender : "Male"
-/// phone : null
-/// address : "pune"
-/// center : "NoCenter"
-/// created_at : "2024-03-12T07:35:52.238633Z"
-/// modified_at : "2024-03-13T10:36:20.496319Z"
-/// year_of_experience : 2
-/// training_type : ""
+/// dob : "2000-03-15"
+/// phone : "9436786138"
+/// address : "Pune, Maharashtra"
+/// center : "Sahabhag Hall"
+/// is_active : true
+/// created_at : "2024-03-19T11:06:29.114444Z"
+/// modified_at : "2024-03-19T14:03:04.807917Z"
+/// year_of_experience : 0
+/// training_type : "Intermediate"
 /// discount : "0.00"
 
 TraineeListResponseModel traineeListResponseModelFromJson(String str) => TraineeListResponseModel.fromJson(json.decode(str));
@@ -24,13 +26,15 @@ class TraineeListResponseModel {
       String? username, 
       String? email, 
       String? role, 
-      dynamic profilePhoto, 
+      String? profilePhoto, 
       String? firstName, 
       String? lastName, 
       String? gender, 
-      dynamic phone, 
+      String? dob, 
+      String? phone, 
       String? address, 
       String? center, 
+      bool? isActive, 
       String? createdAt, 
       String? modifiedAt, 
       num? yearOfExperience, 
@@ -44,9 +48,11 @@ class TraineeListResponseModel {
     _firstName = firstName;
     _lastName = lastName;
     _gender = gender;
+    _dob = dob;
     _phone = phone;
     _address = address;
     _center = center;
+    _isActive = isActive;
     _createdAt = createdAt;
     _modifiedAt = modifiedAt;
     _yearOfExperience = yearOfExperience;
@@ -63,9 +69,11 @@ class TraineeListResponseModel {
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _gender = json['gender'];
+    _dob = json['dob'];
     _phone = json['phone'];
     _address = json['address'];
     _center = json['center'];
+    _isActive = json['is_active'];
     _createdAt = json['created_at'];
     _modifiedAt = json['modified_at'];
     _yearOfExperience = json['year_of_experience'];
@@ -76,13 +84,15 @@ class TraineeListResponseModel {
   String? _username;
   String? _email;
   String? _role;
-  dynamic _profilePhoto;
+  String? _profilePhoto;
   String? _firstName;
   String? _lastName;
   String? _gender;
-  dynamic _phone;
+  String? _dob;
+  String? _phone;
   String? _address;
   String? _center;
+  bool? _isActive;
   String? _createdAt;
   String? _modifiedAt;
   num? _yearOfExperience;
@@ -92,13 +102,15 @@ TraineeListResponseModel copyWith({  num? id,
   String? username,
   String? email,
   String? role,
-  dynamic profilePhoto,
+  String? profilePhoto,
   String? firstName,
   String? lastName,
   String? gender,
-  dynamic phone,
+  String? dob,
+  String? phone,
   String? address,
   String? center,
+  bool? isActive,
   String? createdAt,
   String? modifiedAt,
   num? yearOfExperience,
@@ -112,9 +124,11 @@ TraineeListResponseModel copyWith({  num? id,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   gender: gender ?? _gender,
+  dob: dob ?? _dob,
   phone: phone ?? _phone,
   address: address ?? _address,
   center: center ?? _center,
+  isActive: isActive ?? _isActive,
   createdAt: createdAt ?? _createdAt,
   modifiedAt: modifiedAt ?? _modifiedAt,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
@@ -125,13 +139,15 @@ TraineeListResponseModel copyWith({  num? id,
   String? get username => _username;
   String? get email => _email;
   String? get role => _role;
-  dynamic get profilePhoto => _profilePhoto;
+  String? get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
-  dynamic get phone => _phone;
+  String? get dob => _dob;
+  String? get phone => _phone;
   String? get address => _address;
   String? get center => _center;
+  bool? get isActive => _isActive;
   String? get createdAt => _createdAt;
   String? get modifiedAt => _modifiedAt;
   num? get yearOfExperience => _yearOfExperience;
@@ -148,9 +164,11 @@ TraineeListResponseModel copyWith({  num? id,
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['gender'] = _gender;
+    map['dob'] = _dob;
     map['phone'] = _phone;
     map['address'] = _address;
     map['center'] = _center;
+    map['is_active'] = _isActive;
     map['created_at'] = _createdAt;
     map['modified_at'] = _modifiedAt;
     map['year_of_experience'] = _yearOfExperience;

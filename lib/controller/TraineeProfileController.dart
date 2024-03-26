@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 
 import '../model/BaseListResponse.dart';
 import '../model/ResponseModel/CenterResponseModel.dart';
@@ -38,17 +39,20 @@ class TraineeProfileController extends GetxController{
 
 
   void onInit() {
+    TraineeListResponseModel trainee = Get.arguments;
+    final String recivedGender = trainee.gender.toString();
+    final String recivedLevel = trainee.trainingType.toString();
     getCenterList();
-    firstNameController=TextEditingController();
-    lastNameController=TextEditingController();
-    ageController=TextEditingController();
-    mobileNumberController=TextEditingController();
-    emailController=TextEditingController();
+    firstNameController=TextEditingController()..text = trainee.firstName.toString();
+    lastNameController=TextEditingController()..text = trainee.lastName.toString();
+    ageController=TextEditingController()..text = trainee.dob.toString();
+    mobileNumberController=TextEditingController()..text = trainee.phone.toString();
+    emailController=TextEditingController()..text = trainee.email.toString();
     yearsofExperienceController=TextEditingController();
-    addressController=TextEditingController();
+    addressController=TextEditingController()..text = trainee.address.toString();
     selectedCenter=Rx<CenterResponseModel?>(null);
-    selectedLevel = ''.obs;
-    selectedGender = ''.obs;
+    selectedLevel = recivedLevel.obs;
+    selectedGender = recivedGender.obs;
 
   }
 
@@ -79,20 +83,7 @@ class TraineeProfileController extends GetxController{
 
       }
       else {
-        DialogHelper.hideLoading();
-        if(centerResponseModel.status==401)
-        {
-          showSnackBar("Session has been Expired !", "");
-        }
-        else
-        {
-          Get.snackbar(
-            "Error",
-            centerResponseModel.message ?? "Failed to fetch center list",
-            snackPosition: SnackPosition.BOTTOM,
-          );
-        }
-
+          showSnackBar("Error", centerResponseModel.message ?? "Failed to fetch center list",);
       }
     } catch (e) {
       DialogHelper.hideLoading();

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
@@ -13,6 +14,8 @@ import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../utils/app_constants.dart';
+import '../utils/preference_utils.dart';
 import 'AdminDashboardController.dart';
 
 class AddTrainerController extends GetxController {
@@ -36,8 +39,10 @@ class AddTrainerController extends GetxController {
   final RxBool isSubmitted = false.obs;
   final List<String> Gender = ['Male', 'Female', 'Other'];
   late final RxString selectedGender;
+  late bool isApproved=false,isActive=false;
 
-  late TrainerTraineeResponseModel trainerresponseModel;
+  late TrainerTraineeResponseModel trainerresponseModel = TrainerTraineeResponseModel();
+
 
   AddTrainerController(this.userRepository);
 
@@ -52,6 +57,28 @@ class AddTrainerController extends GetxController {
     yearsofExperienceController = TextEditingController();
     addressController = TextEditingController();
     selectedGender = ''.obs;
+
+    int? role = PreferenceUtils.getInt(AppConstants.ROLE);
+    print("Role from PreferenceUtils: $role"); // Add this debug print
+    if (role != null) {
+      if (role == 1 || role == 3) {
+        isApproved=true;
+        isActive=true;
+        //Get.off(()=>TrainerDashboard());
+      }
+      else{
+        isApproved=false;
+        isActive=false;
+      }
+    }
+    else{
+      isApproved=false;
+      isActive=false;
+    }
+
+    print("approved :$isApproved");
+    print("actice :$isActive");
+
   }
 
   void clearControllers() {
@@ -102,32 +129,62 @@ class AddTrainerController extends GetxController {
           phone: mobileNumberController.text.toString(),
           email: emailController.text.toString(),
           address: addressController.text.toString(),
+          isActive: isActive,
+          isApprove: isApproved,
           role: 1,
           yearOfExperience:
           num.tryParse(yearsofExperienceController.text.toString()));
+
       try
       {
-        trainerresponseModel =
-        await userRepository.addTrainer(addTrainerRequestModel);
-        if (trainerresponseModel.status == 200) {
-          DialogHelper.hideLoading();
-          imagePath="".obs;
-          update();
-          showSnackBar(
-              "Trainer Created!", trainerresponseModel.message.toString());
-
-          var controller = Get.find<ManageTrainerController>();
-          controller.getTrainerList();
-          var adminController = Get.find<AdminDashboardController>();
-          adminController.centerList.clear();
-          adminController.getAdminDashboardData();
-          Get.off(() => ManageTrainer());
-          clearControllers();
-        } else {
-          DialogHelper.hideLoading();
-          showSnackBar(
-              "Something went wrong!", trainerresponseModel.message.toString());
+        if(PreferenceUtils.getInt(AppConstants.ROLE)==0)
+        {
+          print("Inside Self registration");
+          trainerresponseModel =
+          await userRepository.trainerSelfRegistration(addTrainerRequestModel);
+          if (trainerresponseModel.status == 200) {
+            DialogHelper.hideLoading();
+            imagePath="".obs;
+            //update();
+            final success = await selfRegisteredSuccessDialog();
+            if (success) {
+              // Navigate to the login screen
+              Get.offAll(() => LoginScreen());
+            }
+            clearControllers();
+          } else {
+            DialogHelper.hideLoading();
+            showSnackBar(
+                "Something went wrong!", trainerresponseModel.message.toString());
+          }
         }
+        else{
+          print("Inside Admin");
+          trainerresponseModel =
+          await userRepository.addTrainer(addTrainerRequestModel);
+          if (trainerresponseModel.status == 200) {
+            DialogHelper.hideLoading();
+            imagePath="".obs;
+            update();
+            showSnackBar(
+                "Trainer Created!", trainerresponseModel.message.toString());
+            var controller = Get.find<ManageTrainerController>();
+            controller.getTrainerList();
+            var adminController = Get.find<AdminDashboardController>();
+            adminController.centerList.clear();
+            adminController.getAdminDashboardData();
+            Get.off(()=>ManageTrainer());
+
+            clearControllers();
+          } else {
+            DialogHelper.hideLoading();
+            showSnackBar(
+                "Something went wrong!", trainerresponseModel.message.toString());
+          }
+        }
+
+
+
       }
       catch(e)
     {

@@ -1,24 +1,26 @@
 import 'dart:convert';
-/// profile_photo : null
-/// first_name : "Shravan"
-/// last_name : "Kale"
+/// profile_photo : ""
+/// first_name : "trainee"
+/// last_name : "testing"
 /// gender : "male"
-/// dob : "2001-05-20"
-/// username : "shravan"
+/// dob : "2001-05-22"
+/// username : "trainee"
 /// password : "prismatic123"
-/// phone : "9255675539"
-/// email : "shravan@gmail.com"
+/// phone : "9255275469"
+/// email : "hrutik.2406@gmail.com"
 /// address : "Pune, Maharashtra"
 /// role : 2
-/// center : 2
+/// center : 5
 /// training_type : "Intermediate"
 /// discount : 10
+/// is_approve : true
+/// is_active : true
 
 AddTraineeRequestModel addTraineeRequestModelFromJson(String str) => AddTraineeRequestModel.fromJson(json.decode(str));
 String addTraineeRequestModelToJson(AddTraineeRequestModel data) => json.encode(data.toJson());
 class AddTraineeRequestModel {
   AddTraineeRequestModel({
-      dynamic profilePhoto, 
+      String? profilePhoto, 
       String? firstName, 
       String? lastName, 
       String? gender, 
@@ -31,7 +33,9 @@ class AddTraineeRequestModel {
       num? role, 
       num? center, 
       String? trainingType, 
-      num? discount,}){
+      num? discount, 
+      bool? isApprove, 
+      bool? isActive,}){
     _profilePhoto = profilePhoto;
     _firstName = firstName;
     _lastName = lastName;
@@ -46,9 +50,9 @@ class AddTraineeRequestModel {
     _center = center;
     _trainingType = trainingType;
     _discount = discount;
+    _isApprove = isApprove;
+    _isActive = isActive;
 }
-
-
 
   AddTraineeRequestModel.fromJson(dynamic json) {
     _profilePhoto = json['profile_photo'];
@@ -65,8 +69,10 @@ class AddTraineeRequestModel {
     _center = json['center'];
     _trainingType = json['training_type'];
     _discount = json['discount'];
+    _isApprove = json['is_approve'];
+    _isActive = json['is_active'];
   }
-  dynamic _profilePhoto;
+  String? _profilePhoto;
   String? _firstName;
   String? _lastName;
   String? _gender;
@@ -80,7 +86,9 @@ class AddTraineeRequestModel {
   num? _center;
   String? _trainingType;
   num? _discount;
-AddTraineeRequestModel copyWith({  dynamic profilePhoto,
+  bool? _isApprove;
+  bool? _isActive;
+AddTraineeRequestModel copyWith({  String? profilePhoto,
   String? firstName,
   String? lastName,
   String? gender,
@@ -94,6 +102,8 @@ AddTraineeRequestModel copyWith({  dynamic profilePhoto,
   num? center,
   String? trainingType,
   num? discount,
+  bool? isApprove,
+  bool? isActive,
 }) => AddTraineeRequestModel(  profilePhoto: profilePhoto ?? _profilePhoto,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
@@ -108,8 +118,10 @@ AddTraineeRequestModel copyWith({  dynamic profilePhoto,
   center: center ?? _center,
   trainingType: trainingType ?? _trainingType,
   discount: discount ?? _discount,
+  isApprove: isApprove ?? _isApprove,
+  isActive: isActive ?? _isActive,
 );
-  dynamic get profilePhoto => _profilePhoto;
+  String? get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
@@ -123,6 +135,8 @@ AddTraineeRequestModel copyWith({  dynamic profilePhoto,
   num? get center => _center;
   String? get trainingType => _trainingType;
   num? get discount => _discount;
+  bool? get isApprove => _isApprove;
+  bool? get isActive => _isActive;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -140,6 +154,8 @@ AddTraineeRequestModel copyWith({  dynamic profilePhoto,
     map['center'] = _center;
     map['training_type'] = _trainingType;
     map['discount'] = _discount;
+    map['is_approve'] = _isApprove;
+    map['is_active'] = _isActive;
     return map;
   }
 

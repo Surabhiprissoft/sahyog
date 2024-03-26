@@ -12,6 +12,7 @@ import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
+import 'package:sahyog/Screens/RegistrationRequests.dart';
 import 'package:sahyog/controller/AdminDashboardController.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
@@ -107,7 +108,9 @@ class AdminDasboard extends GetView<AdminDashboardController> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.to(RegistrationRequest());
+              },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -504,7 +507,6 @@ Widget _buildCard(String imagePath, String quickAccessName) {
       ),
 
       Column(
-
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: quickAccessName.split(' ')

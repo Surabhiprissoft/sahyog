@@ -15,6 +15,7 @@ import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 import '../utils/app_validation.dart';
 import 'ChangePassword.dart';
@@ -56,9 +57,10 @@ class LoginScreen extends GetView<LoginController> {
                       ),
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                            height: Get.height * 0.9, //With Getx
+                            height: 60.h,
                             width: MediaQuery
                                 .of(context)
                                 .size
@@ -183,6 +185,11 @@ class LoginScreen extends GetView<LoginController> {
                                 }
                             )
                         ),
+                        Container(
+                          child: ElevatedButton(onPressed: (){
+                            selfRegisterDialog(context);
+                          },child: Text("Register Here"),),
+                        )
                       ],
                     ),
                   )

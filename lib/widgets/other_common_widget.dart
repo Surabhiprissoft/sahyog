@@ -5,15 +5,18 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
 
+import '../Screens/AddTrainee.dart';
 import '../utils/app_colors.dart';
 
 
@@ -179,6 +182,7 @@ Future<bool> showLogoutDialog(BuildContext context) async {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30))),
             onPressed: () {
+              PreferenceUtils.clearAll();
               Get.offAll(LoginScreen());
             },
             child: Text(
@@ -199,6 +203,155 @@ Future<bool> showLogoutDialog(BuildContext context) async {
     ),
   ) ?? false;
 }
+
+Future<bool> selfRegisterDialog(BuildContext context) async {
+  return await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      surfaceTintColor: Colors.white,
+      insetPadding: EdgeInsets.symmetric(horizontal: 16.0),
+      contentPadding: EdgeInsets.zero,
+      title: Center(
+        child: Text(
+          'Choose from below',
+          style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+        ),
+      ),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pop(false);
+                Get.to(() => AddTrainee());
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 1.h,top: 2.h),
+                child: Card(
+                  surfaceTintColor: AppColors.cardBack,
+                  elevation: 5.0,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 25.w,
+                        height: 10.h,
+                        padding: EdgeInsets.all(20.0),
+                        child: SvgPicture.asset("assets/images/trainee_dialoge.svg"),
+                      ),
+                      Text("Trainee",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+                      SizedBox(height: 1.h,)
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pop(false);
+                Get.to(() => AddTrainer());
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 3.h,top: 1.h),
+                child: Card(
+                  surfaceTintColor: Colors.white,
+                  elevation: 5.0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 25.w,
+                        height: 10.h,
+                        padding: EdgeInsets.all(20.0),
+                        child: SvgPicture.asset("assets/images/trainer_dialoge.svg"),
+                      ),
+                      Text("Trainer",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+                      SizedBox(height: 1.h,)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ) ?? false;
+}
+
+//content: Text('Thank you for registering on KHELO INDIA. We have received your registration request and forward it to the admin. upon reviewing your application we will notify you on your registered mail address.',style: TextStyle(fontFamily: GoogleFonts.poppins().fontFamily),),
+
+Future<bool> selfRegisteredSuccessDialog() async {
+  return await Get.defaultDialog(
+      title: 'Registered Successfully',
+      titlePadding: EdgeInsets.all(20.0),
+      contentPadding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
+      content: Text('Thank you for registering on KHELO INDIA. We have received your registration request and forward it to the admin. upon reviewing your application we will notify you on your registered mail address.'),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Get.offAll(()=>LoginScreen()); // Close the dialog
+                },
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius
+                          .circular(10.0),
+                    ),
+                    backgroundColor: AppColors
+                        .appThemeColor
+                ),
+                child: const Text("Okay",
+                  style: TextStyle(
+                      color: Colors.white),)
+            ),
+          ],
+        ),
+      ],
+      barrierDismissible: false// Make the barrier transparent
+  )
+      ?? false;
+}
+
+
+
+
+Future<bool> showSessionExpiredDialog() async {
+  return await Get.defaultDialog(
+    title: 'Session Expired',
+    titlePadding: EdgeInsets.all(20.0),
+    contentPadding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
+    content: Text('Your session has been expired, Please login again to continue using app'),
+    actions: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              Get.offAll(()=>LoginScreen()); // Close the dialog
+            },
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius
+                      .circular(10.0),
+                ),
+                backgroundColor: AppColors
+                    .appThemeColor
+            ),
+            child: const Text("Login",
+              style: TextStyle(
+                  color: Colors.white),)
+          ),
+        ],
+      ),
+    ],
+    barrierDismissible: false// Make the barrier transparent
+  )
+  ?? false;
+}
+
 
 
 

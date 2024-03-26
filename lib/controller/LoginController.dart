@@ -39,7 +39,7 @@ class LoginController extends GetxController
 
     emailController = TextEditingController();
     passController = TextEditingController();
-   // loginFormKey = GlobalKey<FormState>();
+    loginFormKey = GlobalKey<FormState>();
   }
 
  void clearcontrollers()
@@ -109,6 +109,7 @@ class LoginController extends GetxController
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
           PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
+          PreferenceUtils.setString(AppConstants.USERNAME,loginResponseModel.data.firstName.toString());
 
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);
@@ -133,9 +134,8 @@ class LoginController extends GetxController
           clearcontrollers();
         }
         else{
-
-          showSnackBar("Login Failed", loginResponseModel.message);
           DialogHelper.hideLoading();
+          showSnackBar("Login Failed", loginResponseModel.message);
         }
         return loginResponseModel;
       }

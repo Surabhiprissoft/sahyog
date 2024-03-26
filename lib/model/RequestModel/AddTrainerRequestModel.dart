@@ -1,22 +1,24 @@
 import 'dart:convert';
-/// profile_photo : null
-/// first_name : "Harsh"
-/// last_name : "Nagesh"
+/// profile_photo : ""
+/// first_name : "trainee"
+/// last_name : "testing"
 /// gender : "male"
-/// dob : "2001-02-29"
-/// username : "harsh"
+/// dob : "2001-05-22"
+/// username : "trainee"
 /// password : "prismatic123"
-/// phone : "9255675536"
-/// email : "harsh@gmail.com"
+/// phone : "9255275469"
+/// email : "hrutik.2406@gmail.com"
 /// address : "Pune, Maharashtra"
-/// role : 1
+/// role : 2
 /// year_of_experience : 5
+/// is_approve : true
+/// is_active : true
 
 AddTrainerRequestModel addTrainerRequestModelFromJson(String str) => AddTrainerRequestModel.fromJson(json.decode(str));
 String addTrainerRequestModelToJson(AddTrainerRequestModel data) => json.encode(data.toJson());
 class AddTrainerRequestModel {
   AddTrainerRequestModel({
-      dynamic profilePhoto, 
+      String? profilePhoto, 
       String? firstName, 
       String? lastName, 
       String? gender, 
@@ -27,7 +29,9 @@ class AddTrainerRequestModel {
       String? email, 
       String? address, 
       num? role, 
-      num? yearOfExperience,}){
+      num? yearOfExperience, 
+      bool? isApprove, 
+      bool? isActive,}){
     _profilePhoto = profilePhoto;
     _firstName = firstName;
     _lastName = lastName;
@@ -40,6 +44,8 @@ class AddTrainerRequestModel {
     _address = address;
     _role = role;
     _yearOfExperience = yearOfExperience;
+    _isApprove = isApprove;
+    _isActive = isActive;
 }
 
   AddTrainerRequestModel.fromJson(dynamic json) {
@@ -55,8 +61,10 @@ class AddTrainerRequestModel {
     _address = json['address'];
     _role = json['role'];
     _yearOfExperience = json['year_of_experience'];
+    _isApprove = json['is_approve'];
+    _isActive = json['is_active'];
   }
-  dynamic _profilePhoto;
+  String? _profilePhoto;
   String? _firstName;
   String? _lastName;
   String? _gender;
@@ -68,7 +76,9 @@ class AddTrainerRequestModel {
   String? _address;
   num? _role;
   num? _yearOfExperience;
-AddTrainerRequestModel copyWith({  dynamic profilePhoto,
+  bool? _isApprove;
+  bool? _isActive;
+AddTrainerRequestModel copyWith({  String? profilePhoto,
   String? firstName,
   String? lastName,
   String? gender,
@@ -80,6 +90,8 @@ AddTrainerRequestModel copyWith({  dynamic profilePhoto,
   String? address,
   num? role,
   num? yearOfExperience,
+  bool? isApprove,
+  bool? isActive,
 }) => AddTrainerRequestModel(  profilePhoto: profilePhoto ?? _profilePhoto,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
@@ -92,8 +104,10 @@ AddTrainerRequestModel copyWith({  dynamic profilePhoto,
   address: address ?? _address,
   role: role ?? _role,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
+  isApprove: isApprove ?? _isApprove,
+  isActive: isActive ?? _isActive,
 );
-  dynamic get profilePhoto => _profilePhoto;
+  String? get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
@@ -105,6 +119,8 @@ AddTrainerRequestModel copyWith({  dynamic profilePhoto,
   String? get address => _address;
   num? get role => _role;
   num? get yearOfExperience => _yearOfExperience;
+  bool? get isApprove => _isApprove;
+  bool? get isActive => _isActive;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -120,6 +136,8 @@ AddTrainerRequestModel copyWith({  dynamic profilePhoto,
     map['address'] = _address;
     map['role'] = _role;
     map['year_of_experience'] = _yearOfExperience;
+    map['is_approve'] = _isApprove;
+    map['is_active'] = _isActive;
     return map;
   }
 

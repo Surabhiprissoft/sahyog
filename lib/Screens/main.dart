@@ -30,6 +30,7 @@ const Version running = version == "lazy" ? Version.lazy : Version.wait;
 void main() async {
   ProjectBindings().dependencies();
   WidgetsFlutterBinding.ensureInitialized();
+
   await PreferenceUtils.init();
   runApp(const MyApp());
 }

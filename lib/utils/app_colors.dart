@@ -49,4 +49,5 @@ class AppColors
   static const successgradiantcolor2=Color(0xff1756A7);
 
   static const cardBack = Color(0xffF0EEFF);
+  static const slotCardBackground = Color(0xffFFAEAD);
 }

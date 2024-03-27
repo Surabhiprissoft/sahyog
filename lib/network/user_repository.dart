@@ -11,10 +11,12 @@ import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
+import 'package:sahyog/model/RequestModel/TimeSlotRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
@@ -252,6 +254,23 @@ class UserRepository{
     }
   }
 
+  Future<ListResponse<TimeSlotResponseModel>> getTimeSlots(TimeSlotRequestModel timeSlotRequestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final user = await apiBaseHelper.getWithBody(AppConstants.GETTIMESLOTS,timeSlotRequestModel.toJson());
 
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<TimeSlotResponseModel> timeslotresponse = ListResponse.fromJson(
+          user,
+              (json) => TimeSlotResponseModel.fromJson(json)
+      );
+
+      return timeslotresponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
 
 }

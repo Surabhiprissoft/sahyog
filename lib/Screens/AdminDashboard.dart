@@ -114,10 +114,12 @@ class AdminDasboard extends GetView<AdminDashboardController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  IconButton(onPressed: () {},
-                    icon: Icon(Icons.home_outlined, size: 8.w,),
+                  IconButton(onPressed: () {
+                    Get.to(RegistrationRequest());
+                  },
+                    icon: Icon(Icons.approval_sharp, size: 8.w,),
                     color: AppColors.appThemeColor,),
-                  Text("Home", style: TextStyle(
+                  Text("Request", style: TextStyle(
                       fontSize: 14.sp, color: AppColors.appThemeColor)),
                 ],
               ),

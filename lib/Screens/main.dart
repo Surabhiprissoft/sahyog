@@ -51,34 +51,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "Poppins",
             useMaterial3: true,
           ),
-          home: SplashPageView() /*SizedBox(
-            height: 100.h,
-            width: 100.w,
-            child: AnimatedSplashScreen.withScreenFunction(
-              splash: "assets/images/splash.gif",
-              splashIconSize: double.infinity,
-              animationDuration: Duration(seconds: 3),
-              screenFunction: () async {
-                int? role = PreferenceUtils.getInt(AppConstants.ROLE);
-                print("Role from PreferenceUtils: $role"); // Add this debug print
-                if (role != null) {
-                  if (role == 1) {
-                    return await Get.to(TrainerDashboard());
-                  } else if (role == 2) {
-                    return await Get.to(TraineeDashboard());
-                  } else if(role==3) {
-                    return await Get.to(()=>AdminDasboard());
-                  }
-                  else{
-                    return await Get.to(LoginScreen());
-                  }
-                }
-                else{
-                  return await Get.to(LoginScreen());
-                }
-              },
-            ),
-          )*/
+          home:  StickyList()//SplashPageView()
 
         );
 

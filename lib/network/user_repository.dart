@@ -11,6 +11,7 @@ import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
+import 'package:sahyog/model/RequestModel/UpdateTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
@@ -222,7 +223,7 @@ class UserRepository{
   Future<TrainerTraineeResponseModel> actionOnRegistrationRequest(RegistrationUpdateRequestModel registrationRequest,int userId) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final response = await apiBaseHelper.patch("user/$userId/", registrationRequest.toJson());
+      final response = await apiBaseHelper.patch("approveuser/$userId/", registrationRequest.toJson());
       return TrainerTraineeResponseModel.fromJson(response);
 
     } catch (error) {
@@ -232,6 +233,18 @@ class UserRepository{
     }
   }
 
+  Future<TrainerTraineeResponseModel> updateTrainerData(UpdateTrainerRequestModel trainerUpdateRequest,int userId) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final response = await apiBaseHelper.put("updateuser/$userId/", trainerUpdateRequest.toJson());
+      return TrainerTraineeResponseModel.fromJson(response);
+
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
 
   Future<SingleResponse<AdminDashboardResponseModel>> getAdminDashboardData() async {
     try {

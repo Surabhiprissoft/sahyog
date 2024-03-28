@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:math';
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 
@@ -25,6 +27,15 @@ class AppCommonMethods
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
+  Future<String> getImageBase64FromUrl(String imageUrl) async {
+    final response = await http.get(Uri.parse(imageUrl));
+    if (response.statusCode == 200) {
+      final Uint8List bytes = response.bodyBytes;
+      return base64Encode(bytes);
+    } else {
+      throw Exception('Failed to load image');
+    }
+  }
 }
 
 Future<String> getDatePicker(BuildContext context) async {
@@ -43,3 +54,4 @@ Future<String> getDatePicker(BuildContext context) async {
   }
   return selectedDate;
 }
+

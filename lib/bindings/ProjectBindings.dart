@@ -32,7 +32,7 @@ class ProjectBindings implements Bindings
     //Get.lazyPut<AddTraineeController>(() => LoginPageLogic(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<ScheduleTrainerController>(() => ScheduleTrainerController(), fenix: true);
-    Get.lazyPut<TrainerProfileController>(() => TrainerProfileController(), fenix: true);
+    Get.lazyPut<TrainerProfileController>(() => TrainerProfileController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<TraineeProfileController>(() => TraineeProfileController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<AdminDashboardController>(() => AdminDashboardController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<RegistrationRequestsController>(() => RegistrationRequestsController(UserRepository(ApiBaseHelper())), fenix: true);

@@ -41,18 +41,20 @@ class TrainerProfileController extends GetxController{
   late final RxBool trainerStatus;
   RxString userProfileImage ="".obs;
   late final userId;
+  String currentImageBase= "";
 
   final UserRepository userRepository;
   TrainerProfileController(this.userRepository);
 
   @override
-  void onInit() {
+  void onInit() async{
     TrainerListResponseModel trainer = Get.arguments;
     print(trainer.toString());
     final String recivedGender = trainer.gender.toString();
     final bool? recivedStatus = trainer.isActive;
 
-   // imagePath = trainer.profilePhoto.toString().obs;
+    print("Trainer: ${trainer.profilePhoto.toString()}");
+    imagePath = trainer.profilePhoto.toString().obs;
     firstNameController = TextEditingController()..text=trainer.firstName.toString();
     lastNameController = TextEditingController()..text=trainer.lastName.toString();
     ageController = TextEditingController()..text=trainer.dob.toString();
@@ -64,6 +66,9 @@ class TrainerProfileController extends GetxController{
     trainerStatus = recivedStatus!.obs;
     userProfileImage = "http://192.168.0.117:8000${trainer.profilePhoto.toString()}".obs;
     userId=trainer.id;
+    print("UserId: $userId");
+    currentImageBase = await AppCommonMethods().getImageBase64FromUrl(userProfileImage.value);
+
   }
 
   Future openCamera() async {
@@ -93,8 +98,8 @@ class TrainerProfileController extends GetxController{
           lastName: lastNameController.text.toString(),
           gender: selectedGender.value.toString(),
           dob: ageController.text.toString(),
-          profilePhoto: imagePath.value == null
-              ? await AppCommonMethods().getImageBase64FromUrl(userProfileImage.value)
+          profilePhoto: imagePath.value == ""
+              ? currentImageBase.toString()
               : AppCommonMethods().getBase64Image(imagePath.value),
 
           phone: mobileNumberController.text.toString(),
@@ -103,7 +108,6 @@ class TrainerProfileController extends GetxController{
           isActive: trainerStatus.value,
           yearOfExperience:
           num.tryParse(yearsofExperienceController.text.toString()));
-
 
         final response = await  userRepository.updateTrainerData(updateTrainerData,userId);
         if(response.status==200){

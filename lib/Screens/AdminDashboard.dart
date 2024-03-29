@@ -31,13 +31,13 @@ class AdminDasboard extends GetView<AdminDashboardController> {
   var totalCenterCount = 1;
   List<String> imagePaths = [
     'assets/images/schedule_qa.svg',
-    'assets/images/trainer_qa.svg',
     'assets/images/trainee_qa.svg',
+    'assets/images/trainer_qa.svg',
   ];
   List<String> quickAccessMenu = [
     'Schedule Trainer',
+    'Registration Requests',
     'Add Trainer',
-    'Add Trainee',
   ]; // List of image paths
 
   @override
@@ -109,17 +109,16 @@ class AdminDasboard extends GetView<AdminDashboardController> {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(RegistrationRequest());
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   IconButton(onPressed: () {
-                    Get.to(RegistrationRequest());
+
                   },
-                    icon: Icon(Icons.approval_sharp, size: 8.w,),
+                    icon: Icon(Icons.home_outlined, size: 8.w,),
                     color: AppColors.appThemeColor,),
-                  Text("Request", style: TextStyle(
+                  Text("Home", style: TextStyle(
                       fontSize: 14.sp, color: AppColors.appThemeColor)),
                 ],
               ),
@@ -166,6 +165,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                         Container(
                           width: 100.w,
                           height: 30.h,
+                          margin: EdgeInsets.zero,
                           child: Obx(() {
                             return ListView.builder(
                               shrinkWrap: true,
@@ -182,7 +182,6 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                             );
                           }),
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -241,14 +240,14 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                         ),
                         SizedBox(height: 12.0),
                         SubHeaderText(sub_header: "Quick Access"),
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
+                        Center(
+                          child: Container(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: List.generate(
                                   imagePaths.length, (index) =>
                                   _buildCard(
@@ -257,7 +256,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20.h),
+                        //SizedBox(height: 20.h),
 
                       ],
                     ),
@@ -489,7 +488,7 @@ Widget _buildCard(String imagePath, String quickAccessName) {
             Get.to(() => AddTrainer());
           }
           else {
-            Get.to(() => AddTrainee());
+            Get.to(() => RegistrationRequest());
           }
         },
         child: Container(
@@ -500,8 +499,8 @@ Widget _buildCard(String imagePath, String quickAccessName) {
               elevation: 5.0,
               child: Container(
                   width: 22.w,
-                  height: 10.h,
-                  padding: EdgeInsets.all(20.0),
+                  height: 9.h,
+                  padding: EdgeInsets.all(15.0),
                   child: SvgPicture.asset(imagePath)
               )
           ),

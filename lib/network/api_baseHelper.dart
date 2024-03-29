@@ -17,7 +17,7 @@ class ApiBaseHelper {
 
 
    //office
-  final baseUrl = "http://192.168.1.13:8000/";
+  final baseUrl = "http://192.168.1.12:8000/";
   //final baseUrl = "http://192.168.1.6:8000/";
   //final baseUrl = "http://192.168.0.245:8000/";
 
@@ -366,24 +366,6 @@ class ApiBaseHelper {
   }
 
 
-  Future<dynamic> getWithBody(String url,Map<String, Object?> requestBody) async {
 
-    var responseJson;
-    print(requestBody.toString());
-    authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
-    try {
-     /* final response = await http.get(Uri.parse(baseUrl + url),headers:{ "Accept": "application/json",
-        "content-type":"application/json","Authorization":'Bearer $authToken'});*/
-
-      final response = await http.get(Uri.parse(baseUrl + url),headers:{ "Accept": "application/json",
-        "content-type":"application/json"});
-      print("the url is ${baseUrl+url}");
-      responseJson =_returnResponse(response);
-      print(responseJson);
-      return responseJson;
-    } on SocketException {
-      throw FetchDataException(AppConstants.NO_INTERNET);
-    }
-  }
 
 }

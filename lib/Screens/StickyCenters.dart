@@ -9,7 +9,7 @@ import 'package:sahyog/controller/ScheduleTrainerController.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/utils/app_colors.dart';
 
-class StickyList extends StatelessWidget {
+/*class StickyList extends StatelessWidget {
   // Sample list of centers
   final List<CenterModel> centers = [
     CenterModel('Center 1',
@@ -170,12 +170,12 @@ class StickyList extends StatelessWidget {
                                             return Column(
                                               children: controller.traineenames.map((name) {
                                                 // Check for the presence of AssignTrainee object
-                                                AssignTrainee trainee = AssignTrainee(name, centers[index].name, centers[index].timeSlots[slotIndex]);
+                                                AssignTrainee trainee = AssignTrainee(name.firstName!, centers[index].name, centers[index].timeSlots[slotIndex]);
                                                 return CheckboxListTile(
-                                                  title: Text(name),
+                                                  title: Text(name.firstName!),
                                                   value: controller.selectedNames.contains(trainee),
                                                   onChanged: (value) {
-                                                    controller.toggleSelection(name, centers[index].name, centers[index].timeSlots[slotIndex], index);
+                                                    controller.toggleSelection(name.firstName!, centers[index].name, centers[index].timeSlots[slotIndex], index);
                                                   },
                                                 );
                                               }).toList(),
@@ -217,5 +217,5 @@ class StickyList extends StatelessWidget {
         )
       );
   }
-}
+}*/
 

@@ -1,36 +1,57 @@
+import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
+import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/model/RequestModel/TimeSlotRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/utils/app_constants.dart';
 
-class ScheduleTrainerController extends GetxController{
-  var traineenames = ['Trainer 1', 'Trainer 2', 'Trainer 3', 'Trainer 4'].obs;
+class ScheduleTrainerController extends GetxController {
+
+  // var traineenames = ['Trainer 1', 'Trainer 2', 'Trainer 3', 'Trainer 4'].obs;
   //var selectedNames = <String>[].obs; //Earlier Assignment
   var selectedNames = <AssignTrainee>[].obs;
   final UserRepository userRepository;
 
   ScheduleTrainerController(this.userRepository);
 
-  late List<CenterModel> centers=[];
+  late RxList<CenterModel> centers = <CenterModel>[].obs;
+
+  DateFormat format12Hour = DateFormat("h:mm a");
 
   /*CenterModel center1 = CenterModel('Center 1', ['7:00-9:00', '9:00-11:00', '2:00-4:00']);
   CenterModel center2 = CenterModel('Center 2', ['7:00-9:00', '9:00-11:00', '2:00-4:00']);
   CenterModel center3 = CenterModel('Center 3',['7:00-9:00', '9:00-11:00', '2:00-4:00']);*/
 
   late ListResponse<TimeSlotResponseModel> timeslotResponseModel;
+  late RxList<TimeSlotResponseModel> timeslotList = <TimeSlotResponseModel>[]
+      .obs;
+  late RxList<TrainerListResponseModel> traineenames = <
+      TrainerListResponseModel>[].obs;
 
   @override
-  void onInit() {
+  void onInit() async {
+    getTimeslotData(DateTime.now());
+    var trainercontroller = Get.find<ManageTrainerController>();
+    var data = await trainercontroller.getTrainerList();
+    traineenames.addAll(data);
+
+    print("TraineeNames" + traineenames.length.toString());
+    update();
     //centers = [center1, center2, center3];
-    getData();
+    // getData();
+    //getTimeslotData();
   } // Add Center objects to a list
 
- /* void toggleSelection(String name) {
+  /* void toggleSelection(String name) {
     if (selectedNames.contains(name)) {
       selectedNames.remove(name);
     } else {
@@ -39,7 +60,7 @@ class ScheduleTrainerController extends GetxController{
   }*/
 // Earlier Selection Code.
 
- /* void toggleSelection(String name, String centerName, String selectedtimeslot, int index) {
+  /* void toggleSelection(String name, String centerName, String selectedtimeslot, int index) {
     // Create an AssignTrainee object to check for selection
     AssignTrainee trainee = AssignTrainee(name, centerName, selectedtimeslot);
 
@@ -50,7 +71,8 @@ class ScheduleTrainerController extends GetxController{
     }
   }*/
 
-  void toggleSelection(String name, String centerName, String selectedTimeSlot, int index) {
+  void toggleSelection(String name, String centerName, String selectedTimeSlot,
+      int index,int trainerid) {
     // Check if the trainee is already assigned to a similar time slot in another center
     bool alreadyAssigned = selectedNames.any((trainee) =>
     trainee.traineeName == name &&
@@ -68,7 +90,7 @@ class ScheduleTrainerController extends GetxController{
     }
 
     // Create an AssignTrainee object to check for selection
-    AssignTrainee trainee = AssignTrainee(name, centerName, selectedTimeSlot);
+    AssignTrainee trainee = AssignTrainee(name, centerName, selectedTimeSlot,centers[index].centerId,trainerid);
 
     if (selectedNames.contains(trainee)) {
       selectedNames.remove(trainee);
@@ -77,291 +99,77 @@ class ScheduleTrainerController extends GetxController{
     }
   }
 
-  void getTimeslotData() async
+
+
+  void getTimeslotData(DateTime dateTime) async
   {
 
-     TimeSlotRequestModel timeSlotRequestModel= TimeSlotRequestModel(date:"2024-83-23");
-     print(timeSlotRequestModel.toString());
-    timeslotResponseModel=await userRepository.getTimeSlots(timeSlotRequestModel);
-    if(timeslotResponseModel.status==200)
-      {
-         print("HELLO");
-      }
-  }
+    /* TimeSlotRequestModel timeSlotRequestModel= TimeSlotRequestModel(date:"2024-83-23");
+     print(timeSlotRequestModel.toString());*/
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(dateTime);
 
-  void getData()
-  {
-    List<Map<String, dynamic>> responseData =[
-      {
-        "id": 1,
-        "ctable": {
-          "id": 4,
-          "name": "SP",
-          "address": "SP Prasarakh Mandali, SP College, Tilak Road",
-          "total_trainees": 4
-        },
-        "ttable": {
-          "id": 1,
-          "start_timme": "18:30:00",
-          "end_time": "20:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 2,
-        "ctable": {
-          "id": 4,
-          "name": "SP",
-          "address": "SP Prasarakh Mandali, SP College, Tilak Road",
-          "total_trainees": 4
-        },
-        "ttable": {
-          "id": 16,
-          "start_timme": "20:00:00",
-          "end_time": "21:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 3,
-        "ctable": {
-          "id": 5,
-          "name": "Race",
-          "address": "Salunke Vihar Road",
-          "total_trainees": 2
-        },
-        "ttable": {
-          "id": 3,
-          "start_timme": "08:00:00",
-          "end_time": "10:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 4,
-        "ctable": {
-          "id": 5,
-          "name": "Race",
-          "address": "Salunke Vihar Road",
-          "total_trainees": 2
-        },
-        "ttable": {
-          "id": 4,
-          "start_timme": "17:00:00",
-          "end_time": "20:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 5,
-        "ctable": {
-          "id": 6,
-          "name": "Sahabhag Hall",
-          "address": "Somvar Peth",
-          "total_trainees": 2
-        },
-        "ttable": {
-          "id": 2,
-          "start_timme": "19:00:00",
-          "end_time": "20:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 6,
-        "ctable": {
-          "id": 7,
-          "name": "Symbiosis School",
-          "address": "Prabhat Road",
-          "total_trainees": 1
-        },
-        "ttable": {
-          "id": 5,
-          "start_timme": "07:30:00",
-          "end_time": "10:30:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 7,
-        "ctable": {
-          "id": 7,
-          "name": "Symbiosis School",
-          "address": "Prabhat Road",
-          "total_trainees": 1
-        },
-        "ttable": {
-          "id": 6,
-          "start_timme": "10:30:00",
-          "end_time": "13:30:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 8,
-        "ctable": {
-          "id": 7,
-          "name": "Symbiosis School",
-          "address": "Prabhat Road",
-          "total_trainees": 1
-        },
-        "ttable": {
-          "id": 7,
-          "start_timme": "14:30:00",
-          "end_time": "16:30:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 9,
-        "ctable": {
-          "id": 7,
-          "name": "Symbiosis School",
-          "address": "Prabhat Road",
-          "total_trainees": 1
-        },
-        "ttable": {
-          "id": 8,
-          "start_timme": "18:00:00",
-          "end_time": "21:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 10,
-        "ctable": {
-          "id": 8,
-          "name": "Jnana Prabodhini",
-          "address": "Sadashiv Peth",
-          "total_trainees": 0
-        },
-        "ttable": {
-          "id": 9,
-          "start_timme": "09:45:00",
-          "end_time": "11:45:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 11,
-        "ctable": {
-          "id": 8,
-          "name": "Jnana Prabodhini",
-          "address": "Sadashiv Peth",
-          "total_trainees": 0
-        },
-        "ttable": {
-          "id": 10,
-          "start_timme": "16:00:00",
-          "end_time": "20:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 12,
-        "ctable": {
-          "id": 9,
-          "name": "RCBC",
-          "address": "Bund garden road",
-          "total_trainees": 0
-        },
-        "ttable": {
-          "id": 8,
-          "start_timme": "18:00:00",
-          "end_time": "21:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 13,
-        "ctable": {
-          "id": 9,
-          "name": "RCBC",
-          "address": "Bund garden road",
-          "total_trainees": 0
-        },
-        "ttable": {
-          "id": 11,
-          "start_timme": "10:00:00",
-          "end_time": "12:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 14,
-        "ctable": {
-          "id": 10,
-          "name": "Pawar public school",
-          "address": "Nanded City",
-          "total_trainees": 0
-        },
-        "ttable": {
-          "id": 12,
-          "start_timme": "17:00:00",
-          "end_time": "18:00:00"
-        },
-        "date": "2024-03-23"
-      },
-      {
-        "id": 15,
-        "ctable": {
-          "id": 11,
-          "name": "Versatile school",
-          "address": "Sinhagad road",
-          "total_trainees": 1
-        },
-        "ttable": {
-          "id": 13,
-          "start_timme": "12:00:00",
-          "end_time": "14:00:00"
-        },
-        "date": "2024-03-23"
-      },
-    ];
+    print(formatted);
+    timeslotResponseModel = await userRepository.getTimeSlots(
+        AppConstants.GETTIMESLOTS + formatted + "/");
 
-    List<TimeSlotResponseModel>timeslotlist=[];
+/*    timeslotResponseModel = await userRepository.getTimeSlots(
+        AppConstants.GETTIMESLOTS + "2024-03-26" + "/");*/
+    if (timeslotResponseModel.status == 200) {
+      //timeslotList.clear();
+      //timeslotList.assignAll(timeslotResponseModel.data);
+      centers.clear();
+      selectedNames.clear();
 
+      for (var data in timeslotResponseModel.data)
+      {
+        DateFormat format24Hour = DateFormat("HH:mm:ss");
 
-    for (var data in responseData) {
-      var id = data['id'];
-      var ctable = ctableFromJson(json.encode(data['ctable']));
-      var ttable = ttableFromJson(json.encode(data['ttable']));
-      var date = data['date'];
+        var centerId=data.id;
+        var centerName = data.ctable!.name;
+        var startTime = format24Hour.parse(data.ttable!.startTimme!);
+        var endTime =   format24Hour.parse(data!.ttable!.endTime!);
 
-      var timeSlotResponseModel = TimeSlotResponseModel(
-        id: id,
-        ctable: ctable,
-        ttable: ttable,
-        date: date,
-      );
+        // Check if the center already exists in the centers list
+        var existingCenterIndex = centers.indexWhere((center) =>
+        center.name == centerName);
 
-      timeslotlist.add(timeSlotResponseModel);
-      print(timeslotlist.length);
+        // If the center doesn't exist, add it to the list
+        if (existingCenterIndex == -1) {
+          centers.add(CenterModel(centerId!.toInt(),centerName!,[
+           /* '${startTime!.substring(0, 5)} am - ${endTime!.substring(0, 5)} am',
+            format12Hour.format(startTime!)*/
 
-
-
-      // Processing response data
-      for (var data in responseData) {
-        var centerName = data['ctable']['name'];
-        var startTime = data['ttable']['start_timme'];
-        var endTime = data['ttable']['end_time'];
-
-        var existingCenter = centers.firstWhere(
-              (center) => center.name == centerName,
-          orElse: () => CenterModel('Default Center', []),
-        );
-
-        if (existingCenter.name == 'Default Center') {
-          centers.add(CenterModel(centerName, ['${startTime.substring(0, 5)} am - ${endTime.substring(0, 5)} am']));
+          ]));
         } else {
-          existingCenter.timeSlots.add('${startTime.substring(0, 5)} am - ${endTime.substring(0, 5)} am');
+          // If the center exists, check if the time slot is already added
+          var existingCenter = centers[existingCenterIndex];
+          if (!existingCenter.timeSlots.contains(
+              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}')) {
+            existingCenter.timeSlots.add(
+                '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}');
+          }
+        }
+
+        if (data.assignedTrainers != null &&
+            data.assignedTrainers!.isNotEmpty) {
+          // Iterate over assigned trainers and extract trainer names
+          for (var trainer in data.assignedTrainers!)
+          {
+
+            String trainerName = trainer.firstname!;
+            // Add the trainer name to your selectedList
+            selectedNames.add(AssignTrainee(
+              trainerName,
+              data.ctable!.name!,
+              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',data.id!.toInt(),trainer.id!.toInt()
+            ));
+
+          }
+          update();
         }
       }
-
-      // Printing formatted output
-      for (var center in centers) {
-        print("Formatted Output"+center.toString());
-      }
+      print("SIZEOFSELECTED"+selectedNames.toString());
     }
   }
 }

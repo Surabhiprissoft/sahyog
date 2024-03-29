@@ -59,7 +59,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                         child:
                         controller.slidingValue.value == 1 ?
                         TrainerList(manageTrainerController: manageTrainerController)
-                            : StickyList()
+                            : StickyListDemo()
                     );
                   })
 

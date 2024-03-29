@@ -8,14 +8,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/LoginScreen.dart';
+import 'package:sahyog/Screens/TraineeDashboard.dart';
+import 'package:sahyog/Screens/TrainerDashBoard.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
+import 'package:sahyog/utils/app_constants.dart';
+import 'package:sahyog/utils/preference_utils.dart';
 
-import '../utils/app_constants.dart';
-import '../utils/preference_utils.dart';
-import 'LoginScreen.dart';
-import 'TraineeDashboard.dart';
-import 'TrainerDashBoard.dart';
+
 
 
 class SplashPageView extends StatefulWidget {

@@ -2,22 +2,20 @@
 
 class CenterModel {
   final String name;
+  final int centerId;
   final List<String> timeSlots;
 
-  @override
-  String toString() {
-    return 'CenterModel{name: $name, timeSlots: $timeSlots}';
-  }
-
-  CenterModel(this.name, this.timeSlots);
+  CenterModel(this.centerId,this.name, this.timeSlots);
 }
 
 class AssignTrainee {
   final String traineeName;
   final String centerName;
   final String timeslot;
+  final int centerId;
+  final int userId;
 
-  AssignTrainee(this.traineeName, this.centerName, this.timeslot);
+  AssignTrainee(this.traineeName, this.centerName, this.timeslot, this.centerId, this.userId);
 
   @override
   bool operator ==(Object other) {
@@ -27,6 +25,12 @@ class AssignTrainee {
         other.traineeName == traineeName &&
         other.centerName == centerName &&
         other.timeslot == timeslot;
+  }
+
+
+  @override
+  String toString() {
+    return 'AssignTrainee{traineeName: $traineeName, centerName: $centerName, timeslot: $timeslot, centerId: $centerId, userId: $userId}';
   }
 
   @override

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
+import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../model/ResponseModel/TraineeListResponseModel.dart';
-import '../model/ResponseModel/TrainerListResponseModel.dart';
-import '../network/user_repository.dart';
-import '../widgets/other_common_widget.dart';
 import 'AdminDashboardController.dart';
 
 class RegistrationRequestsController extends GetxController{

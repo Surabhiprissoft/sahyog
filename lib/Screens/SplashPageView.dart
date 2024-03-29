@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 
 import 'package:flutter/cupertino.dart';
@@ -6,13 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/Screens/LoginScreen.dart';
+import 'package:sahyog/Screens/TraineeDashboard.dart';
+import 'package:sahyog/Screens/TrainerDashBoard.dart';
+import 'package:sahyog/model/Centers.dart';
+import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
+import 'package:sahyog/utils/app_constants.dart';
+import 'package:sahyog/utils/preference_utils.dart';
 
-import '../utils/app_constants.dart';
-import '../utils/preference_utils.dart';
-import 'AdminDashboard.dart';
-import 'LoginScreen.dart';
-import 'TraineeDashboard.dart';
-import 'TrainerDashBoard.dart';
+
 
 
 class SplashPageView extends StatefulWidget {
@@ -28,8 +32,6 @@ class _SplashPageViewState extends State<SplashPageView> {
     super.initState();
 
     Timer(const Duration(seconds: 3), () {
-
-
 
         int? role = PreferenceUtils.getInt(AppConstants.ROLE);
         print("Role from PreferenceUtils: $role"); // Add this debug print
@@ -81,6 +83,8 @@ class _SplashPageViewState extends State<SplashPageView> {
 
 
   }
+
+
 
   @override
   Widget build(BuildContext context) {

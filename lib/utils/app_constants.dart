@@ -27,8 +27,8 @@ class AppConstants
   static const UNAPPROVEDTRAINEELIST="unapprovedusers/2/";
   static const TRAINEELIST="users/2/";
   static const ADMINDASHBOARD="admindashboard/admindash/";
-
-
+  static const GETTIMESLOTS="timeslots/centretimeslot/";
+  static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const ROLE = "role";
 
 

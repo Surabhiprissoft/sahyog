@@ -10,7 +10,6 @@ import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/Screens/SplashPageView.dart';
-import 'package:sahyog/Screens/StickyCenters.dart';
 import 'package:sahyog/Screens/TraineeDashboard.dart';
 import 'package:sahyog/Screens/TraineeProfile.dart';
 import 'package:sahyog/Screens/TrainerDashboard.dart';
@@ -30,6 +29,7 @@ const Version running = version == "lazy" ? Version.lazy : Version.wait;
 void main() async {
   ProjectBindings().dependencies();
   WidgetsFlutterBinding.ensureInitialized();
+
   await PreferenceUtils.init();
   runApp(const MyApp());
 }
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "Poppins",
             useMaterial3: true,
           ),
-          home:  SplashPageView()
+          home:SplashPageView()//SplashPageView()
 
         );
 

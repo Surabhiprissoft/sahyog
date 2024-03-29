@@ -19,7 +19,7 @@ class ManageTrainerController extends GetxController {
     getTrainerList();
   }
 
-  Future<void> getTrainerList() async {
+  Future<List<TrainerListResponseModel>> getTrainerList() async {
     final response = await userRepository.getTrainerList();
     if (response.status == 200) {
       trainerList.assignAll(response.data);
@@ -27,5 +27,7 @@ class ManageTrainerController extends GetxController {
     } else {
       showSnackBar("Something went wrong", "Unable to fetch trainer list at the moment");
     }
+
+    return trainerList;
   }
 }

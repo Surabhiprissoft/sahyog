@@ -1,9 +1,14 @@
-import 'package:get/get.dart';
-import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
+import 'dart:convert';
 
-import '../model/BaseSingleObjectResponse.dart';
-import '../network/user_repository.dart';
-import '../widgets/other_common_widget.dart';
+import 'package:get/get.dart';
+import 'package:sahyog/model/BaseSingleObjectResponse.dart';
+import 'package:sahyog/model/Centers.dart';
+import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
+import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
+
+
 
 class AdminDashboardController extends GetxController{
 
@@ -20,6 +25,7 @@ class AdminDashboardController extends GetxController{
     super.onInit();
     print("Started Init");
     getAdminDashboardData();
+
     update();
   }
 
@@ -38,4 +44,6 @@ class AdminDashboardController extends GetxController{
     }
     return adminDashboardResponse;
   }
+
+
 }

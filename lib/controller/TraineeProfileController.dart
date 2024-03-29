@@ -1,13 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sahyog/model/BaseListResponse.dart';
+import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
+import 'package:sahyog/network/user_repository.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../model/BaseListResponse.dart';
-import '../model/ResponseModel/CenterResponseModel.dart';
-import '../network/user_repository.dart';
-import '../widgets/DialogHelper.dart';
-import '../widgets/other_common_widget.dart';
+
 
 class TraineeProfileController extends GetxController{
 

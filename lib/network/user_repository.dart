@@ -1,6 +1,8 @@
 
 
 
+import 'dart:convert';
+
 import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
@@ -11,11 +13,13 @@ import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
+import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/UpdateTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
@@ -265,6 +269,41 @@ class UserRepository{
     }
   }
 
+  Future<ListResponse<TimeSlotResponseModel>> getTimeSlots(String url) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final user = await apiBaseHelper.getWithoutToken(url);
 
+      // Parse the response JSON into a SingleResponse object
+      ListResponse<TimeSlotResponseModel> timeslotresponse = ListResponse.fromJson(
+          user,
+              (json) => TimeSlotResponseModel.fromJson(json)
+      );
+
+      return timeslotresponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
+
+  Future<TrainerTraineeResponseModel> scheduleTrainer(List<ScheduleTrainerRequestModel> scheduleTrainerRequestModels) async {
+    try {
+      // Convert the list of ScheduleTrainerRequestModel objects to JSON
+    /*  List<Map<String, dynamic>> requestDataList = scheduleTrainerRequestModels.map((model) => model.toJson()).toList();
+      String jsonData = jsonEncode(requestDataList);*/
+
+      // Make an asynchronous API call to send the entire list of data
+      final trainertrainee = await apiBaseHelper.postScheduleTrainers(AppConstants.SCHEDULETRAINERS,scheduleTrainerRequestModels);
+
+      // Parse the response and return the result
+      return TrainerTraineeResponseModel.fromJson(trainertrainee);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while scheduling trainers: $error');
+      throw error;
+    }
+  }
 
 }

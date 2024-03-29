@@ -2,20 +2,24 @@
 
 class CenterModel {
   final String name;
+  final int centerId;
   final List<String> timeSlots;
 
-  CenterModel(this.name, this.timeSlots);
+  CenterModel(this.centerId,this.name, this.timeSlots);
 }
 
 class AssignTrainee {
   final String traineeName;
   final String centerName;
   final String timeslot;
+  final int centerId;
+  final int userId;
   final int number_days;
   final int interval;
   final String CurrentDate;
 
-  AssignTrainee(this.traineeName, this.centerName, this.timeslot, this.number_days, this.interval, this.CurrentDate);
+  AssignTrainee(this.traineeName, this.centerName, this.timeslot,this.centerId, this.userId, this.number_days, this.interval, this.CurrentDate);
+
 
   @override
   bool operator ==(Object other) {
@@ -27,9 +31,10 @@ class AssignTrainee {
         other.timeslot == timeslot;
   }
 
+
   @override
   String toString() {
-    return 'AssignTrainee{traineeName: $traineeName, centerName: $centerName, timeslot: $timeslot, number_days: $number_days, interval: $interval, CurrentDate: $CurrentDate}';
+    return 'AssignTrainee{traineeName: $traineeName, centerName: $centerName, timeslot: $timeslot, centerId: $centerId, userId: $userId, number_days: $number_days, interval: $interval, CurrentDate: $CurrentDate}';
   }
 
   @override

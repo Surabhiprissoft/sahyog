@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
-import 'package:sahyog/Screens/StickyCenters.dart';
+import 'package:sahyog/Screens/ScheduleTrainer.dart';
 import 'package:sahyog/Screens/TrainerProfile.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/utils/app_colors.dart';
@@ -58,7 +58,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                         child:
                         controller.slidingValue.value == 1 ?
                         TrainerList(manageTrainerController: manageTrainerController)
-                            : StickyList()
+                            : ScheduleTrainer()
                     );
                   })
 

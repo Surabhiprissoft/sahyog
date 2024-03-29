@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
+import 'package:sahyog/Screens/TrainerDashBoard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
+import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
@@ -17,7 +20,7 @@ import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
 import '../Screens/TraineeDashboard.dart';
-import '../Screens/TrainerDashboard.dart';
+
 
 class LoginController extends GetxController
 {
@@ -29,6 +32,8 @@ class LoginController extends GetxController
   bool shouldValidate = false;
   var isObscure = RxBool(true);
   late SingleResponse<LoginResponseModel> loginResponseModel;
+
+
   LoginController(this.userRepository);
 
 
@@ -40,6 +45,7 @@ class LoginController extends GetxController
     emailController = TextEditingController();
     passController = TextEditingController();
     loginFormKey = GlobalKey<FormState>();
+
   }
 
  void clearcontrollers()
@@ -160,4 +166,6 @@ class LoginController extends GetxController
     loginFormKey.currentState!.reset();
 
   }
+
+
 }

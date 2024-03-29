@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/controller/LoginController.dart';
+import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/network/app_exception.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
@@ -17,7 +18,7 @@ class ApiBaseHelper {
 
 
    //office
-  final baseUrl = "http://192.168.1.12:8000/";
+  final baseUrl = "http://192.168.1.5:8000/";
   //final baseUrl = "http://192.168.1.6:8000/";
   //final baseUrl = "http://192.168.0.245:8000/";
 
@@ -299,6 +300,38 @@ class ApiBaseHelper {
       //print("RESPONSE JSON IS"+jsonString);
 
     }on SocketException{
+      throw FetchDataException(AppConstants.NO_INTERNET);
+    }
+  }
+
+  Future<dynamic>? postScheduleTrainers(String url, List<ScheduleTrainerRequestModel> requestBody) async {
+    var responseJson;
+
+    try {
+      final Uri uri = Uri.parse(baseUrl + url);
+      print("URL is ${baseUrl + url}");
+      print("Request body is $requestBody");
+
+      // Serialize the list of ScheduleTrainerRequestModel objects to JSON
+      final List<Map<String, dynamic>> requestBodyJson = requestBody.map((model) => model.toJson()).toList();
+
+      final response = await http.post(
+        uri,
+        body: jsonEncode(requestBodyJson),
+        encoding: Encoding.getByName('utf-8'),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json", // Specify content type as JSON
+        },
+      );
+
+      debugPrint("RESPONSE CODE " + response.statusCode.toString());
+      debugPrint("RESPONSE Body " + response.body);
+
+      responseJson = _returnResponse(response);
+
+      return responseJson;
+    } on SocketException {
       throw FetchDataException(AppConstants.NO_INTERNET);
     }
   }

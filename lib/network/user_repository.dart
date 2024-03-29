@@ -1,6 +1,8 @@
 
 
 
+import 'dart:convert';
+
 import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
@@ -11,7 +13,7 @@ import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
-import 'package:sahyog/model/RequestModel/TimeSlotRequestModel.dart';
+import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/UpdateTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
@@ -282,6 +284,24 @@ class UserRepository{
     } catch (error) {
       // Handle any errors that occur during the API call
       print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
+
+  Future<TrainerTraineeResponseModel> scheduleTrainer(List<ScheduleTrainerRequestModel> scheduleTrainerRequestModels) async {
+    try {
+      // Convert the list of ScheduleTrainerRequestModel objects to JSON
+    /*  List<Map<String, dynamic>> requestDataList = scheduleTrainerRequestModels.map((model) => model.toJson()).toList();
+      String jsonData = jsonEncode(requestDataList);*/
+
+      // Make an asynchronous API call to send the entire list of data
+      final trainertrainee = await apiBaseHelper.postScheduleTrainers(AppConstants.SCHEDULETRAINERS,scheduleTrainerRequestModels);
+
+      // Parse the response and return the result
+      return TrainerTraineeResponseModel.fromJson(trainertrainee);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while scheduling trainers: $error');
       throw error;
     }
   }

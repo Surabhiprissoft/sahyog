@@ -8,9 +8,10 @@ import 'package:intl/intl.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/Centers.dart';
-import 'package:sahyog/model/RequestModel/TimeSlotRequestModel.dart';
+import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
 
@@ -27,11 +28,21 @@ class ScheduleTrainerController extends GetxController {
 
   DateFormat format12Hour = DateFormat("h:mm a");
 
+  RxBool isChecked = true.obs;
+  bool alreadyAssigned = false;
+
+  var showCustomDaysTextField = false.obs;
+  var showIntervalDaysTextField = false.obs;
+  RxInt selectedScheduleDays = 1.obs;
+  RxInt selectedInterval = 1.obs;
+  var selectedDate="";
+
   /*CenterModel center1 = CenterModel('Center 1', ['7:00-9:00', '9:00-11:00', '2:00-4:00']);
   CenterModel center2 = CenterModel('Center 2', ['7:00-9:00', '9:00-11:00', '2:00-4:00']);
   CenterModel center3 = CenterModel('Center 3',['7:00-9:00', '9:00-11:00', '2:00-4:00']);*/
 
   late ListResponse<TimeSlotResponseModel> timeslotResponseModel;
+  late TrainerTraineeResponseModel trainerTraineeResponseModel;
   late RxList<TimeSlotResponseModel> timeslotList = <TimeSlotResponseModel>[]
       .obs;
   late RxList<TrainerListResponseModel> traineenames = <
@@ -71,10 +82,11 @@ class ScheduleTrainerController extends GetxController {
     }
   }*/
 
-  void toggleSelection(String name, String centerName, String selectedTimeSlot,
-      int index,int trainerid) {
+  bool toggleSelection(String name, String centerName, String selectedTimeSlot,
+      int index)
+  {
     // Check if the trainee is already assigned to a similar time slot in another center
-    bool alreadyAssigned = selectedNames.any((trainee) =>
+   /* bool alreadyAssigned = selectedNames.any((trainee) =>
     trainee.traineeName == name &&
         trainee.timeslot == selectedTimeSlot &&
         trainee.centerName != centerName);
@@ -96,13 +108,48 @@ class ScheduleTrainerController extends GetxController {
       selectedNames.remove(trainee);
     } else {
       selectedNames.add(trainee);
+    }*/
+
+    alreadyAssigned = selectedNames.any((trainee) =>
+    trainee.traineeName == name &&
+        trainee.timeslot == selectedTimeSlot &&
+        trainee.centerName != centerName);
+
+
+    if (alreadyAssigned) {
+      // Show snackbar indicating that the trainee is already selected for similar time slot
+      print("Already Assigned :$alreadyAssigned");
+      Get.snackbar(
+        'Already Selected',
+        '$name is already assigned to a similar time slot in another center.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
+
+
+    // Create an AssignTrainee object to check for selection
+    return alreadyAssigned;
   }
 
 
 
+  void AssignedTrainer(String name, String centerName, String selectedTimeSlot, int index,int trainerId,int number_day, int interval, String currentDate) {
+
+    AssignTrainee trainee = AssignTrainee(name, centerName, selectedTimeSlot,centers[index].centerId,trainerId,number_day,interval,currentDate);
+
+    if (selectedNames.contains(trainee)) {
+      selectedNames.remove(trainee);
+      isChecked.value = true;
+    } else {
+      selectedNames.add(trainee);
+      isChecked.value = false;
+    }
+  }
+
   void getTimeslotData(DateTime dateTime) async
   {
+    var newFormat = DateFormat("yyyy-MM-dd");
+    selectedDate = newFormat.format(dateTime);
 
     /* TimeSlotRequestModel timeSlotRequestModel= TimeSlotRequestModel(date:"2024-83-23");
      print(timeSlotRequestModel.toString());*/
@@ -111,7 +158,7 @@ class ScheduleTrainerController extends GetxController {
 
     print(formatted);
     timeslotResponseModel = await userRepository.getTimeSlots(
-        AppConstants.GETTIMESLOTS + formatted + "/");
+        AppConstants.GETTIMESLOTS + formatted);
 
 /*    timeslotResponseModel = await userRepository.getTimeSlots(
         AppConstants.GETTIMESLOTS + "2024-03-26" + "/");*/
@@ -137,10 +184,7 @@ class ScheduleTrainerController extends GetxController {
         // If the center doesn't exist, add it to the list
         if (existingCenterIndex == -1) {
           centers.add(CenterModel(centerId!.toInt(),centerName!,[
-           /* '${startTime!.substring(0, 5)} am - ${endTime!.substring(0, 5)} am',
-            format12Hour.format(startTime!)*/
-
-          ]));
+            '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}']));
         } else {
           // If the center exists, check if the time slot is already added
           var existingCenter = centers[existingCenterIndex];
@@ -162,14 +206,40 @@ class ScheduleTrainerController extends GetxController {
             selectedNames.add(AssignTrainee(
               trainerName,
               data.ctable!.name!,
-              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',data.id!.toInt(),trainer.id!.toInt()
+              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',data.id!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!
             ));
-
           }
           update();
         }
       }
       print("SIZEOFSELECTED"+selectedNames.toString());
     }
+  }
+
+  Future<void> assigntrainers() async
+  {
+
+    late List<ScheduleTrainerRequestModel> assigntrainess = <ScheduleTrainerRequestModel>[];
+
+    //ScheduleTrainerRequestModel scheduleTrainerRequestModel = ScheduleTrainerRequestModel();
+
+    for(var trainer in selectedNames)
+      {
+         assigntrainess.add(ScheduleTrainerRequestModel(ctId: trainer.centerId,userId: trainer.userId,noOfDays: trainer.number_days,date: selectedDate,interval: trainer.interval));
+      }
+
+    List<Map<String, dynamic>> jsonDataList = assigntrainess.map((model) => model.toJson()).toList();
+    String jsonData = jsonEncode(jsonDataList);
+
+    print("Assign Trainees ->"+assigntrainess.toString());
+
+
+   // scheduleTrainerRequestModel=assigntrainess.toString();
+
+    trainerTraineeResponseModel=await userRepository.scheduleTrainer(assigntrainess);
+    if(trainerTraineeResponseModel.status==200)
+      {
+         print("Data Saved Successfully");
+      }
   }
 }

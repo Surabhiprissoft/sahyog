@@ -173,6 +173,8 @@ class ApiBaseHelper {
   //For all the PUT requests
   Future<dynamic>? put(String url,Map<String,Object?>? body) async {
     var responseJson;
+    authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
+
     try{
       final Uri uri = Uri.parse(baseUrl + url);
       print("url is ${baseUrl+url}");

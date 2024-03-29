@@ -14,7 +14,11 @@ class AssignTrainee {
   final String timeslot;
   final int centerId;
   final int userId;
+  final int number_days;
+  final int interval;
+  final String CurrentDate;
 
+  AssignTrainee(this.traineeName, this.centerName, this.timeslot, this.number_days, this.interval, this.CurrentDate);
   AssignTrainee(this.traineeName, this.centerName, this.timeslot, this.centerId, this.userId);
 
   @override
@@ -31,6 +35,11 @@ class AssignTrainee {
   @override
   String toString() {
     return 'AssignTrainee{traineeName: $traineeName, centerName: $centerName, timeslot: $timeslot, centerId: $centerId, userId: $userId}';
+  }
+
+  @override
+  String toString() {
+    return 'AssignTrainee{traineeName: $traineeName, centerName: $centerName, timeslot: $timeslot, number_days: $number_days, interval: $interval, CurrentDate: $CurrentDate}';
   }
 
   @override

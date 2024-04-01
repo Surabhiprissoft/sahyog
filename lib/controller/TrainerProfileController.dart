@@ -40,21 +40,22 @@ class TrainerProfileController extends GetxController{
 
   late final RxBool trainerStatus;
   RxString userProfileImage ="".obs;
+  late String imageInBaseValue = "";
   late final userId;
   String currentImageBase= "";
-
+  TrainerListResponseModel trainer = TrainerListResponseModel();
   final UserRepository userRepository;
   TrainerProfileController(this.userRepository);
 
   @override
   void onInit() async{
-    TrainerListResponseModel trainer = Get.arguments;
+    trainer = Get.arguments;
     print(trainer.toString());
     final String recivedGender = trainer.gender.toString();
     final bool? recivedStatus = trainer.isActive;
 
     print("Trainer: ${trainer.profilePhoto.toString()}");
-    imagePath = trainer.profilePhoto.toString().obs;
+    //imagePath = trainer.profilePhoto.toString().obs;
     firstNameController = TextEditingController()..text=trainer.firstName.toString();
     lastNameController = TextEditingController()..text=trainer.lastName.toString();
     ageController = TextEditingController()..text=trainer.dob.toString();
@@ -64,10 +65,14 @@ class TrainerProfileController extends GetxController{
     addressController = TextEditingController()..text=trainer.address.toString();
     selectedGender = recivedGender.obs;
     trainerStatus = recivedStatus!.obs;
-    userProfileImage = "http://192.168.0.117:8000${trainer.profilePhoto.toString()}".obs;
     userId=trainer.id;
     print("UserId: $userId");
-    currentImageBase = await AppCommonMethods().getImageBase64FromUrl(userProfileImage.value);
+
+    if(trainer.profilePhoto!=null)
+    {
+      userProfileImage = "http://192.168.235.136:8000${trainer.profilePhoto.toString()}".obs;
+      imageInBaseValue = await AppCommonMethods().getImageBase64FromUrl(userProfileImage.value);
+    }
 
   }
 
@@ -76,6 +81,7 @@ class TrainerProfileController extends GetxController{
     final image = await openCameraPicker.pickImage(source: ImageSource.camera);
     if (image != null) {
       imagePath.value = image.path.toString();
+      imageInBaseValue = await AppCommonMethods().getImageBase64FromUrl(image.path.toString());
     }
   }
 
@@ -84,6 +90,7 @@ class TrainerProfileController extends GetxController{
     final image = await openCameraPicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       imagePath.value = image.path.toString();
+      imageInBaseValue = await AppCommonMethods().getImageBase64FromUrl(image.path.toString());
     }
   }
 
@@ -98,9 +105,9 @@ class TrainerProfileController extends GetxController{
           lastName: lastNameController.text.toString(),
           gender: selectedGender.value.toString(),
           dob: ageController.text.toString(),
-          profilePhoto: imagePath.value == ""
-              ? currentImageBase.toString()
-              : AppCommonMethods().getBase64Image(imagePath.value),
+          profilePhoto: imagePath.value,/*trainer.profilePhoto.toString() == null
+              ? null
+              : AppCommonMethods().getBase64Image(imagePath.value),*/
 
           phone: mobileNumberController.text.toString(),
           email: emailController.text.toString(),

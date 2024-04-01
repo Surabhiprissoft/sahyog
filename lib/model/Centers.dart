@@ -2,8 +2,13 @@
 
 class CenterModel {
   final String name;
-  final int centerId;
+  final List<int> centerId;
   final List<String> timeSlots;
+
+  @override
+  String toString() {
+    return 'CenterModel{name: $name, centerId: $centerId, timeSlots: $timeSlots}';
+  }
 
   CenterModel(this.centerId,this.name, this.timeSlots);
 }

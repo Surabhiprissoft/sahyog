@@ -65,7 +65,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                     IconButton(onPressed: () {},
                         icon: Icon(Icons.content_paste_go)),
                     ElevatedButton(onPressed: () {
-
+                      print(controller.selectedNames.toString());
                     controller.assigntrainers();
                     }, child: Text("Save"))
                   ],
@@ -176,7 +176,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                         return Container(
                                                           padding: const EdgeInsets
                                                               .all(2.0),
-                                                          child: Chip(
+                                                          child: controller.selectedDateTime.isAfter(DateTime.now().subtract(Duration(days: 1))) ? Chip(
                                                             deleteIconColor: Colors
                                                                 .white,
                                                             label: Text(trainee
@@ -200,8 +200,18 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                       .centers[index].name,
                                                                   controller
                                                                       .centers[index]
-                                                                      .timeSlots[slotIndex],index,trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
+                                                                      .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
                                                             },
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius
+                                                                  .circular(
+                                                                  20), // Adjust the radius as needed
+                                                            ),
+                                                          ):Chip(
+                                                            label: Text(trainee
+                                                                .traineeName),
+                                                            backgroundColor: AppColors
+                                                                .redRacket,
                                                             shape: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius
                                                                   .circular(
@@ -221,7 +231,8 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                           ),
                                         ),
                                       ),
-                                      InkWell(
+
+                                       InkWell(
                                         onTap: () {
                                           Get.defaultDialog(
                                             title: 'Trainer List',
@@ -236,7 +247,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                           .centers[index].name,
                                                       controller
                                                           .centers[index]
-                                                          .timeSlots[slotIndex],1,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,"2024-03-29");
+                                                          .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,"2024-03-29");
                                                   return CheckboxListTile(
                                                     title: Text(
                                                         name.firstName!),
@@ -394,7 +405,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                             .centerName,
                                                                         trainee
                                                                             .timeslot,
-                                                                        index,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
+                                                                        trainee.centerId,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
                                                                     Get.back();
                                                                     print(controller.selectedNames);
                                                                   },
@@ -430,12 +441,12 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                             ],
                                           );
                                         },
-                                        child: Container(
+                                        child: controller.selectedDateTime.isAfter(DateTime.now().subtract(Duration(days: 1))) ? Container(
                                             margin: EdgeInsets.only(top: 3.0),
                                             child: Icon(
                                               Icons.add_circle_outline,
                                               color: AppColors.appThemeColor,
-                                              size: 30.0,)),
+                                              size: 30.0,)):Container(),
                                       )
                                     ],
                                   ),

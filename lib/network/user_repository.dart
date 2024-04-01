@@ -272,7 +272,7 @@ class UserRepository{
   Future<ListResponse<TimeSlotResponseModel>> getTimeSlots(String url) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final user = await apiBaseHelper.getWithoutToken(url);
+      final user = await apiBaseHelper.get(url);
 
       // Parse the response JSON into a SingleResponse object
       ListResponse<TimeSlotResponseModel> timeslotresponse = ListResponse.fromJson(

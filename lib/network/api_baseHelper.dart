@@ -18,9 +18,11 @@ class ApiBaseHelper {
 
 
    //office
-  final baseUrl = "http://192.168.1.5:8000/";
-  //final baseUrl = "http://192.168.1.6:8000/";
+  //final baseUrl = "http://192.168.1.5:8000/";
+  final baseUrl = "http://192.168.235.136:8000/";
   //final baseUrl = "http://192.168.0.245:8000/";
+
+  final imageBaseUrl = "http://192.168.235.136:8000";
 
    late  var authToken="";
 
@@ -306,6 +308,7 @@ class ApiBaseHelper {
 
   Future<dynamic>? postScheduleTrainers(String url, List<ScheduleTrainerRequestModel> requestBody) async {
     var responseJson;
+    authToken=PreferenceUtils.getString(AppConstants.USER_TOKEN);
 
     try {
       final Uri uri = Uri.parse(baseUrl + url);
@@ -321,7 +324,8 @@ class ApiBaseHelper {
         encoding: Encoding.getByName('utf-8'),
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json", // Specify content type as JSON
+          "Content-Type": "application/json",
+          "Authorization":'Bearer $authToken'// Specify content type as JSON
         },
       );
 

@@ -177,7 +177,7 @@ class TrainerList extends StatelessWidget {
                                   trainer.profilePhoto!
                                       .isNotEmpty
                                   ? NetworkImage(
-                                  "http://192.168.0.117:8000${trainer
+                                  "http://192.168.235.136:8000${trainer
                                       .profilePhoto}")
                                   : NetworkImage(
                                   "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
@@ -254,7 +254,7 @@ class ManageTrainerCardItem extends StatelessWidget {
                     backgroundImage: trainer.profilePhoto != null &&
                         trainer.profilePhoto!.isNotEmpty
                         ? NetworkImage(
-                        "http://192.168.0.117:8000${trainer.profilePhoto}")
+                        "http://192.168.235.136:8000${trainer.profilePhoto}")
                         : NetworkImage(
                         "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                     radius: 3.5.h,

@@ -9,6 +9,7 @@ import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
@@ -36,6 +37,7 @@ class ScheduleTrainerController extends GetxController {
   RxInt selectedScheduleDays = 1.obs;
   RxInt selectedInterval = 1.obs;
   var selectedDate="";
+  late DateTime selectedDateTime;
 
   /*CenterModel center1 = CenterModel('Center 1', ['7:00-9:00', '9:00-11:00', '2:00-4:00']);
   CenterModel center2 = CenterModel('Center 2', ['7:00-9:00', '9:00-11:00', '2:00-4:00']);
@@ -133,9 +135,9 @@ class ScheduleTrainerController extends GetxController {
 
 
 
-  void AssignedTrainer(String name, String centerName, String selectedTimeSlot, int index,int trainerId,int number_day, int interval, String currentDate) {
+  void AssignedTrainer(String name, String centerName, String selectedTimeSlot, int centerId,int trainerId,int number_day, int interval, String currentDate) {
 
-    AssignTrainee trainee = AssignTrainee(name, centerName, selectedTimeSlot,centers[index].centerId,trainerId,number_day,interval,currentDate);
+    AssignTrainee trainee = AssignTrainee(name, centerName, selectedTimeSlot,centerId,trainerId,number_day,interval,currentDate);
 
     if (selectedNames.contains(trainee)) {
       selectedNames.remove(trainee);
@@ -148,6 +150,7 @@ class ScheduleTrainerController extends GetxController {
 
   void getTimeslotData(DateTime dateTime) async
   {
+    selectedDateTime = dateTime;
     var newFormat = DateFormat("yyyy-MM-dd");
     selectedDate = newFormat.format(dateTime);
 
@@ -183,7 +186,7 @@ class ScheduleTrainerController extends GetxController {
 
         // If the center doesn't exist, add it to the list
         if (existingCenterIndex == -1) {
-          centers.add(CenterModel(centerId!.toInt(),centerName!,[
+          centers.add(CenterModel([centerId!.toInt()],centerName!,[
             '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}']));
         } else {
           // If the center exists, check if the time slot is already added
@@ -192,6 +195,7 @@ class ScheduleTrainerController extends GetxController {
               '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}')) {
             existingCenter.timeSlots.add(
                 '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}');
+            existingCenter.centerId.add(centerId!.toInt());
           }
         }
 
@@ -206,9 +210,11 @@ class ScheduleTrainerController extends GetxController {
             selectedNames.add(AssignTrainee(
               trainerName,
               data.ctable!.name!,
-              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',data.id!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!
+              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',centerId!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!
             ));
           }
+
+          selectedNames.value = removeDuplicates(selectedNames);
           update();
         }
       }
@@ -240,6 +246,25 @@ class ScheduleTrainerController extends GetxController {
     if(trainerTraineeResponseModel.status==200)
       {
          print("Data Saved Successfully");
+         assigntrainess.clear();
+         selectedNames.clear();
+         getTimeslotData(selectedDateTime);
       }
+  }
+
+  List<AssignTrainee> removeDuplicates(List<AssignTrainee> list) {
+    Set<String> uniqueKeys = Set<String>();
+    List<AssignTrainee> uniqueList = [];
+
+    list.forEach((element) {
+      String key = '${element.traineeName}_${element.centerName}_${element.timeslot}';
+      if (!uniqueKeys.contains(key)) {
+        uniqueList.add(element);
+        uniqueKeys.add(key)
+        ;
+      }
+    });
+
+    return uniqueList;
   }
 }

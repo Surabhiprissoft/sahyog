@@ -22,7 +22,7 @@ class AppConstants
   static const GETCENTERS="timeslots/center";
   static const UPDATEPASSWORD="updatepassword/";
   static const FORGOTPASSWORD="forgotpassword/";
-  static const TRAINERLIST="users/1/";
+  static const TRAINERLIST="users/1";
   static const UNAPPROVEDRTAINERLIST="unapprovedusers/1/";
   static const UNAPPROVEDTRAINEELIST="unapprovedusers/2/";
   static const TRAINEELIST="users/2/";
@@ -30,6 +30,4 @@ class AppConstants
   static const GETTIMESLOTS="timeslots/centretimeslot/";
   static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const ROLE = "role";
-
-
 }

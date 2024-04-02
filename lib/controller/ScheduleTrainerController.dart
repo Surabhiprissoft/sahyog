@@ -23,9 +23,11 @@ class ScheduleTrainerController extends GetxController {
   var selectedNames = <AssignTrainee>[].obs;
   final UserRepository userRepository;
 
+
   ScheduleTrainerController(this.userRepository);
 
   late RxList<CenterModel> centers = <CenterModel>[].obs;
+  RxBool ispreviousdataselected = false.obs;
 
   DateFormat format12Hour = DateFormat("h:mm a");
 
@@ -204,14 +206,27 @@ class ScheduleTrainerController extends GetxController {
           // Iterate over assigned trainers and extract trainer names
           for (var trainer in data.assignedTrainers!)
           {
+            /*String date="";
 
+            if(ispreviousdataselected.value)
+              {
+                print("Selected DateTime"+selectedDateTime.toString());
+                var newFormat = DateFormat("yyyy-MM-dd");
+                selectedDate = newFormat.format(selectedDateTime);
+                 date=selectedDate;
+              }
+            else
+              {
+                 date=trainer.date!;
+              }*/
             String trainerName = trainer.firstname!;
             // Add the trainer name to your selectedList
             selectedNames.add(AssignTrainee(
               trainerName,
               data.ctable!.name!,
-              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',centerId!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!
+              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',centerId!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!,
             ));
+
           }
 
           selectedNames.value = removeDuplicates(selectedNames);

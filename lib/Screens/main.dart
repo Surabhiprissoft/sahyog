@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "Poppins",
             useMaterial3: true,
           ),
-          home:TrainerDashboard()//SplashPageView()
+          home:SplashPageView()//SplashPageView()
 
         );
 

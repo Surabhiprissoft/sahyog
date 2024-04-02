@@ -66,7 +66,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                         icon: Icon(Icons.content_paste_go)),
                     ElevatedButton(onPressed: () {
                       print(controller.selectedNames.toString());
-                    controller.assigntrainers();
+                      controller.assigntrainers();
                     }, child: Text("Save"))
                   ],
                 )

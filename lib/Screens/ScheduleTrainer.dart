@@ -180,9 +180,9 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                             deleteIconColor: Colors
                                                                 .white,
                                                             label: Text(trainee
-                                                                .traineeName),
+                                                                .traineeName,style: TextStyle(color: Colors.white),),
                                                             backgroundColor: AppColors
-                                                                .redRacket,
+                                                                .appThemeColor,
                                                             onDeleted: () {
                                                              /* controller
                                                                   .toggleSelection(
@@ -209,9 +209,9 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                             ),
                                                           ):Chip(
                                                             label: Text(trainee
-                                                                .traineeName),
+                                                                .traineeName,style: TextStyle(color: Colors.white)),
                                                             backgroundColor: AppColors
-                                                                .redRacket,
+                                                                .appThemeColor,
                                                             shape: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius
                                                                   .circular(

@@ -2,6 +2,7 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:fab_circular_menu_plus/fab_circular_menu_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
@@ -124,19 +125,21 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                           CircleAvatar(
                             radius: 35.0,
                           ),
+                          SizedBox(width: 8.0,),
                           Column(
                             children: [
                               Text("Welcome Back,",style: TextStyle(
-                                fontSize: 18.sp,
+                                fontSize: 17.sp,
                                 fontStyle: FontStyle.normal,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
                               )),
-                              Text(trainerdashBoardController.userName,style: TextStyle(
-                                fontSize: 18.sp,
+                              SizedBox(height: 5.0,),
+                              Text("Trainer Name",style: TextStyle(
+                                fontSize: 17.sp,
                                 fontStyle: FontStyle.normal,
                                 color: Colors.white,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w700,
                               )),
                             ],
                           )
@@ -168,6 +171,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                       ),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CalendarTimeline(
                           initialDate: DateTime.now(),
@@ -186,152 +190,17 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                           locale: 'en_ISO',
                         ),
 
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          //height: 30.h,
-                          margin: EdgeInsets.only(top: 3.h),
-                          child: Card(
-                            surfaceTintColor: Colors.white,
-                            elevation: 10.0,
-                            child: Container(
-                              margin: EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Obx(() {
-                                            return Text(
-                                                trainerdashBoardController
-                                                    .SelectedDate.value,
-                                                style: TextStyle(
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight
-                                                        .w500));
-                                          }),
-                                          Text(" MARCH", style: TextStyle(
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.w700),)
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("OUT "),
-                                          Obx(() {
-                                            return Switch(
-                                                value: trainerdashBoardController
-                                                    .switchValue.value,
-                                                onChanged: (value) {
-                                                  setState() {
-                                                    trainerdashBoardController
-                                                        .switchValue
-                                                        .value = value;
-                                                  }
-                                                });
-                                          }),
-                                          Text(" IN"),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(height: 20.0,),
-                                      Icon(Icons.timer_sharp),
-                                      SizedBox(width: 10.0,),
-                                      Text("7 : 00 am - 9 : 00 am")
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.0,),
-                                  Text("Center Name 1", style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w700),
-                                    textAlign: TextAlign.start,)
-                                ],
-                              ),
-                            ),
-                          ),
+                        SizedBox(height: 20.0,),
+                        Row(
+                          children: [
+                            Icon(Icons.location_on,color: AppColors.appThemeColor,),
+                            Text("Center Name",style: TextStyle(color: AppColors.appThemeColor,fontSize: 18.sp,fontWeight: FontWeight.w700),),
+                          ],
                         ),
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          //height: 30.h,
-                          margin: EdgeInsets.only(top: 1.h),
-                          child: Card(
-                            surfaceTintColor: Colors.white,
-                            elevation: 10.0,
-                            child: Container(
-                              margin: EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Obx(() {
-                                            return Text(
-                                                trainerdashBoardController
-                                                    .SelectedDate.value,
-                                                style: TextStyle(
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight
-                                                        .w500));
-                                          }),
-                                          Text(" MARCH", style: TextStyle(
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.w700),)
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("OUT "),
-                                          Obx(() {
-                                            return Switch(
-                                                value: trainerdashBoardController
-                                                    .switchValue.value,
-                                                onChanged: (value) {
-                                                  setState() {
-                                                    trainerdashBoardController
-                                                        .switchValue
-                                                        .value = value;
-                                                  }
-                                                });
-                                          }),
-                                          Text(" IN"),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(height: 20.0,),
-                                      Icon(Icons.timer_sharp),
-                                      SizedBox(width: 10.0,),
-                                      Text("6 : 00 pm - 8 : 00 pm")
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.0,),
-                                  Text("Center Name 2", style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w700),
-                                    textAlign: TextAlign.start,)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+
+                        SingleTrainerSlot(slotTiming: "8:00 - 9:00",locationStatus: "Arrived",),
+                        SingleTrainerSlot(slotTiming: "10:00 - 12:00",locationStatus: "Awaiting Arrival",),
+
                       ],
                     )
                 )
@@ -341,6 +210,81 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
         ),
 
       ),
+    );
+  }
+}
+
+class SingleTrainerSlot extends StatelessWidget {
+  final String locationStatus;
+  final String slotTiming;
+
+  const SingleTrainerSlot({
+    super.key,
+    required this.slotTiming,
+    required this.locationStatus
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+      children: [
+        Expanded(
+          flex:2,
+          child: Card(
+            elevation: 10.0,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                color: AppColors
+                    .slotCardBackground,
+                border: Border.all(
+                    color: Colors.white,
+                    width: 2),
+                borderRadius: BorderRadius
+                    .circular(10),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          slotTiming,
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.normal,
+                              color: AppColors
+                                  .appThemeColor),
+                        ),
+                      ),
+                      SizedBox(width: 15.0),
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 10.0,),
+        Expanded(
+            flex:1,
+            child: Row(
+              children: [
+                locationStatus=="Arrived"? Icon(Icons.location_on_sharp,color: Colors.green,):Icon(Icons.not_listed_location_outlined,color: Colors.yellow,),
+                Text(
+                    locationStatus,
+                  style: TextStyle(fontSize:13.sp,color: locationStatus=="Arrived" ? Colors.green : Colors.yellow),
+                ),
+              ],
+            )
+        )
+      ],
     );
   }
 }

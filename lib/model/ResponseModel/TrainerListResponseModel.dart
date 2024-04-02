@@ -1,22 +1,23 @@
 import 'dart:convert';
-/// id : 37
-/// username : "sunil@gmail.com"
-/// email : "sunil@gmail.com"
+/// id : 45
+/// username : "parag@gmail.com"
+/// email : "parag@gmail.com"
 /// role : "trainer"
-/// profile_photo : "/media/sunilgmail.com-51cf4cf8-c3c1-45ee-b3fc-d047bc21af36.jpg"
-/// first_name : "Sunil"
+/// profile_photo : null
+/// first_name : "Parag"
 /// last_name : "Sahbhaag"
 /// gender : "Male"
-/// dob : "2000-03-01"
-/// phone : "9454638801"
+/// dob : "2000-03-09"
+/// phone : "9756345823"
 /// address : "Pune, Maharashtra"
 /// center : "NoCenter"
 /// is_active : true
-/// created_at : "2024-03-19T06:51:08.707782Z"
-/// modified_at : "2024-03-19T06:51:08.707809Z"
-/// year_of_experience : 5
+/// created_at : "2024-03-19T10:02:40.385027Z"
+/// modified_at : "2024-03-29T06:43:33.003657Z"
+/// year_of_experience : 3
 /// training_type : ""
 /// discount : "0.00"
+/// schedule : [{"date":"2024-04-01","center":"Race","start_timme":"17:00:00","end_time":"20:00:00","user_id":45}]
 
 TrainerListResponseModel trainerListResponseModelFromJson(String str) => TrainerListResponseModel.fromJson(json.decode(str));
 String trainerListResponseModelToJson(TrainerListResponseModel data) => json.encode(data.toJson());
@@ -26,7 +27,7 @@ class TrainerListResponseModel {
       String? username, 
       String? email, 
       String? role, 
-      String? profilePhoto, 
+      dynamic profilePhoto, 
       String? firstName, 
       String? lastName, 
       String? gender, 
@@ -39,7 +40,8 @@ class TrainerListResponseModel {
       String? modifiedAt, 
       num? yearOfExperience, 
       String? trainingType, 
-      String? discount,}){
+      String? discount, 
+      List<Schedule>? schedule,}){
     _id = id;
     _username = username;
     _email = email;
@@ -58,6 +60,7 @@ class TrainerListResponseModel {
     _yearOfExperience = yearOfExperience;
     _trainingType = trainingType;
     _discount = discount;
+    _schedule = schedule;
 }
 
   TrainerListResponseModel.fromJson(dynamic json) {
@@ -79,12 +82,18 @@ class TrainerListResponseModel {
     _yearOfExperience = json['year_of_experience'];
     _trainingType = json['training_type'];
     _discount = json['discount'];
+    if (json['schedule'] != null) {
+      _schedule = [];
+      json['schedule'].forEach((v) {
+        _schedule?.add(Schedule.fromJson(v));
+      });
+    }
   }
   num? _id;
   String? _username;
   String? _email;
   String? _role;
-  String? _profilePhoto;
+  dynamic _profilePhoto;
   String? _firstName;
   String? _lastName;
   String? _gender;
@@ -98,11 +107,12 @@ class TrainerListResponseModel {
   num? _yearOfExperience;
   String? _trainingType;
   String? _discount;
+  List<Schedule>? _schedule;
 TrainerListResponseModel copyWith({  num? id,
   String? username,
   String? email,
   String? role,
-  String? profilePhoto,
+  dynamic profilePhoto,
   String? firstName,
   String? lastName,
   String? gender,
@@ -116,6 +126,7 @@ TrainerListResponseModel copyWith({  num? id,
   num? yearOfExperience,
   String? trainingType,
   String? discount,
+  List<Schedule>? schedule,
 }) => TrainerListResponseModel(  id: id ?? _id,
   username: username ?? _username,
   email: email ?? _email,
@@ -134,12 +145,13 @@ TrainerListResponseModel copyWith({  num? id,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
   trainingType: trainingType ?? _trainingType,
   discount: discount ?? _discount,
+  schedule: schedule ?? _schedule,
 );
   num? get id => _id;
   String? get username => _username;
   String? get email => _email;
   String? get role => _role;
-  String? get profilePhoto => _profilePhoto;
+  dynamic get profilePhoto => _profilePhoto;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get gender => _gender;
@@ -153,6 +165,7 @@ TrainerListResponseModel copyWith({  num? id,
   num? get yearOfExperience => _yearOfExperience;
   String? get trainingType => _trainingType;
   String? get discount => _discount;
+  List<Schedule>? get schedule => _schedule;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -174,6 +187,72 @@ TrainerListResponseModel copyWith({  num? id,
     map['year_of_experience'] = _yearOfExperience;
     map['training_type'] = _trainingType;
     map['discount'] = _discount;
+    if (_schedule != null) {
+      map['schedule'] = _schedule?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+/// date : "2024-04-01"
+/// center : "Race"
+/// start_timme : "17:00:00"
+/// end_time : "20:00:00"
+/// user_id : 45
+
+Schedule scheduleFromJson(String str) => Schedule.fromJson(json.decode(str));
+String scheduleToJson(Schedule data) => json.encode(data.toJson());
+class Schedule {
+  Schedule({
+      String? date, 
+      String? center, 
+      String? startTimme, 
+      String? endTime, 
+      num? userId,}){
+    _date = date;
+    _center = center;
+    _startTimme = startTimme;
+    _endTime = endTime;
+    _userId = userId;
+}
+
+  Schedule.fromJson(dynamic json) {
+    _date = json['date'];
+    _center = json['center'];
+    _startTimme = json['start_timme'];
+    _endTime = json['end_time'];
+    _userId = json['user_id'];
+  }
+  String? _date;
+  String? _center;
+  String? _startTimme;
+  String? _endTime;
+  num? _userId;
+Schedule copyWith({  String? date,
+  String? center,
+  String? startTimme,
+  String? endTime,
+  num? userId,
+}) => Schedule(  date: date ?? _date,
+  center: center ?? _center,
+  startTimme: startTimme ?? _startTimme,
+  endTime: endTime ?? _endTime,
+  userId: userId ?? _userId,
+);
+  String? get date => _date;
+  String? get center => _center;
+  String? get startTimme => _startTimme;
+  String? get endTime => _endTime;
+  num? get userId => _userId;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['date'] = _date;
+    map['center'] = _center;
+    map['start_timme'] = _startTimme;
+    map['end_time'] = _endTime;
+    map['user_id'] = _userId;
     return map;
   }
 

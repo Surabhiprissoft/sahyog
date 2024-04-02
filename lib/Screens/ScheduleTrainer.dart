@@ -78,13 +78,15 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                 child: SizedBox(
                   height: 60.h,
                   child: Obx(() {
-                    return controller.centers.length!=0?ListView.builder(
+                    return controller.centers.length!=0?
+                    ListView.builder(
                       itemCount: controller.centers.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       // physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
+                      itemBuilder: (context, index)
+                      {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,

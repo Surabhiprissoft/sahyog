@@ -17,7 +17,7 @@ class PreferenceUtils {
   }*/
 
   static String getString(String key, [String? defValue]) {
-    return _prefsInstance!.getString(AppConstants.USER_TOKEN) ?? defValue ?? "";
+    return _prefsInstance!.getString(key) ?? defValue ?? "";
   }
   static Future<bool> setString(String key, String value) async {
     var prefs = await _instance;

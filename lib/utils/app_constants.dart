@@ -9,6 +9,7 @@ class AppConstants
   static const USER_EXISTS = "User already exists";
   static const INVALID_USER = "Invalid username or password";
   static const USERNAME = "Username";
+  static const USERID = "UserID";
 
   // TOKEN
   static const USER_TOKEN = "UserToken";
@@ -30,4 +31,5 @@ class AppConstants
   static const GETTIMESLOTS="timeslots/centretimeslot/";
   static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const ROLE = "role";
+  static const TRAINERDASHBOARD = "user/";
 }

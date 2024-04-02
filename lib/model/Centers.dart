@@ -5,6 +5,7 @@ class CenterModel {
   final List<int> centerId;
   final List<String> timeSlots;
 
+
   @override
   String toString() {
     return 'CenterModel{name: $name, centerId: $centerId, timeSlots: $timeSlots}';

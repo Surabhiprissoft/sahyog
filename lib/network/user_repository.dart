@@ -21,6 +21,7 @@ import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
@@ -302,6 +303,25 @@ class UserRepository{
     } catch (error) {
       // Handle any errors that occur during the API call
       print('Error occurred while scheduling trainers: $error');
+      throw error;
+    }
+  }
+
+  Future<SingleResponse<TrainerDashboardResponseModel>> getTrainerDashboardData(int userId,String currentDate) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final details = await apiBaseHelper.get(AppConstants.TRAINERDASHBOARD+userId.toString()+"/"+currentDate);
+
+      // Parse the response JSON into a SingleResponse object
+      SingleResponse<TrainerDashboardResponseModel> detailList = SingleResponse.fromJson(
+          details,
+              (json) => TrainerDashboardResponseModel.fromJson(json)
+      );
+
+      return detailList;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching Dashboard Data: $error');
       throw error;
     }
   }

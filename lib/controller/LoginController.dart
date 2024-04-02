@@ -116,6 +116,7 @@ class LoginController extends GetxController
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
           PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
           PreferenceUtils.setString(AppConstants.USERNAME,loginResponseModel.data.firstName.toString());
+          PreferenceUtils.setInt(AppConstants.USERID,loginResponseModel.data.id!);
 
           print(loginResponseModel.data.role);
           print(loginResponseModel.data.isFirsttime);

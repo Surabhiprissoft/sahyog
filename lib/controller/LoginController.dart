@@ -111,6 +111,7 @@ class LoginController extends GetxController
 
         loginResponseModel= await userRepository.checkLogin(loginRequestModel);
 
+        print("status ${loginResponseModel.status}");
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
@@ -151,7 +152,7 @@ class LoginController extends GetxController
 
       DialogHelper.hideLoading();
       print('Error during login: $error');
-      showSnackBar("Login Failed", "Check your Username or Password");
+      showSnackBar("Login Failed", error.toString());
       throw error;
     }
 

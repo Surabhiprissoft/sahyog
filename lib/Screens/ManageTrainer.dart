@@ -2,6 +2,7 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/ScheduleTrainer.dart';
@@ -17,6 +18,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
   ManageTrainer({super.key});
 
   final manageTrainerController = Get.find<ManageTrainerController>();
+
 
 
   @override
@@ -39,7 +41,7 @@ class ManageTrainer extends GetView<ManageTrainerController> {
                   // Adjust this value to control the position of the card
                   left: 0,
                   right: 0,
-                  bottom: 1,
+                 // bottom: 1,
                   child: Obx(() {
                     return Container(
                         height: 100.h,
@@ -190,7 +192,7 @@ class TrainerList extends StatelessWidget {
                               children: [
                                 Text("${trainer
                                     .firstName} ${trainer
-                                    .lastName}",style: TextStyle(fontSize: 15.sp),),
+                                    .lastName}",style: TextStyle(fontSize: 14.sp),),
                                 SizedBox(height: 1.h),
                                 Row(
                                   children: [
@@ -206,10 +208,28 @@ class TrainerList extends StatelessWidget {
                             ),
                           ],
                         ),
-                        OutlinedButton(onPressed: () {
+                        trainer.schedule!.isEmpty ?
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
+                          onPressed: () {
                           manageTrainerController.slidingValue
                               .value = 2;
-                        }, child: Text("Assign"))
+                        }, child: Text("Assign",style: TextStyle(fontSize: 14.sp),))
+                            :
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.location_on_outlined,size: 15.0,),
+                                Text("${trainer.schedule![0].center}",style: TextStyle(fontSize: 15.sp)),
+                              ],
+                            ),
+                            SizedBox(height: 7.0,),
+                            Text("${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].startTimme!))} - ${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].endTime!))}",style: TextStyle(fontSize: 13.sp),),
+                          ],
+                        )
                       ],
                     ),
                   ),

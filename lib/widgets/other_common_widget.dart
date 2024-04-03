@@ -315,7 +315,39 @@ Future<bool> selfRegisteredSuccessDialog() async {
       ?? false;
 }
 
-
+Future<bool> noInternetConnectivityDialog() async {
+  return await Get.defaultDialog(
+      title: 'No Internet',
+      titlePadding: EdgeInsets.all(20.0),
+      contentPadding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
+      content: Text('No Internet connection found.Check you internet connection or try again.'),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Get.back(); // Close the dialog
+                },
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius
+                          .circular(10.0),
+                    ),
+                    backgroundColor: AppColors
+                        .appThemeColor
+                ),
+                child: const Text("try again",
+                  style: TextStyle(
+                      color: Colors.white),)
+            ),
+          ],
+        ),
+      ],
+      barrierDismissible: false// Make the barrier transparent
+  )
+      ?? false;
+}
 
 
 Future<bool> showSessionExpiredDialog() async {

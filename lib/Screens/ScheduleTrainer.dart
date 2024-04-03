@@ -1,6 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -51,10 +52,12 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
               monthColor: Colors.blueGrey,
               dayColor: Colors.teal[200],
               activeDayColor: Colors.white,
+              leftMargin:10.0,
               activeBackgroundDayColor: Colors.redAccent[100],
               dotsColor: Color(0xFF333A47),
               locale: 'en_ISO',
             ),
+            SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -237,210 +240,212 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                        InkWell(
                                         onTap: () {
                                           Get.defaultDialog(
-                                            title: 'Trainer List',
+                                            title: "Trainer List",
+                                            textCancel: "Close",
+                                            radius: 15.0,
+                                            titleStyle: TextStyle(fontSize: 18.sp),
                                             content: Obx(() {
-                                              return Column(
-                                                children: controller
-                                                    .traineenames.map((name) {
-                                                  // Check for the presence of AssignTrainee object
-                                                  AssignTrainee trainee = AssignTrainee(
-                                                      name.firstName!,
-                                                      controller
-                                                          .centers[index].name,
-                                                      controller
-                                                          .centers[index]
-                                                          .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,"2024-03-29");
-                                                  return CheckboxListTile(
-                                                    title: Text(
-                                                        name.firstName!),
-                                                    value: controller
-                                                        .selectedNames
-                                                        .contains(trainee),
-                                                    onChanged: (value) {
+                                              return Container(
+                                                height: 50.h,
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: controller
+                                                        .traineenames.map((name) {
+                                                      // Check for the presence of AssignTrainee object
+                                                      AssignTrainee trainee = AssignTrainee(
+                                                          name.firstName!,
+                                                          controller
+                                                              .centers[index].name,
+                                                          controller
+                                                              .centers[index]
+                                                              .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,"2024-03-29");
+                                                      return CheckboxListTile(
+                                                        title: Text(
+                                                            name.firstName!),
+                                                        value: controller
+                                                            .selectedNames
+                                                            .contains(trainee),
+                                                        onChanged: (value) {
+                                                                                          
+                                                          if (value != null) {
+                                                                                          
+                                                            if (value) {
+                                                              controller.selectedScheduleDays.value=1;
+                                                              controller.showCustomDaysTextField.value = false;
+                                                              controller.showIntervalDaysTextField.value = false;
+                                                                                          
+                                                                                          
+                                                              if(controller.toggleSelection(trainee
+                                                                  .traineeName,
+                                                                  trainee
+                                                                      .centerName,
+                                                                  trainee
+                                                                      .timeslot,
+                                                                  index)==false){
 
-                                                      if (value != null) {
+                                                                Get.defaultDialog(
+                                                                  title: "Choose slot scheduling",
+                                                                  radius: 15.0,
+                                                                  titlePadding: EdgeInsets.all(20.0),
+                                                                  titleStyle: TextStyle(fontSize: 18.sp),
+                                                                  content: Obx(() {
+                                                                    return SingleChildScrollView(
+                                                                      child: Container(
+                                                                        child: Column(
+                                                                          children: [
+                                                                            RadioListTile<int>(
+                                                                              title: Text('Single Day'),
+                                                                              value: 1,
+                                                                              groupValue: controller.selectedScheduleDays.value,
+                                                                              onChanged: (value) {
+                                                                                controller.showCustomDaysTextField.value = false;
+                                                                                controller.showIntervalDaysTextField.value = false;// Hide custom days text field
+                                                                                controller.selectedScheduleDays.value = value!;
+                                                                                controller.selectedInterval.value=1;
+                                                                              },
+                                                                            ),
+                                                                            RadioListTile<int>(
+                                                                              title: Text('By Week'),
+                                                                              value: 7,
+                                                                              groupValue: controller.selectedScheduleDays.value,
+                                                                              onChanged: (value) {
+                                                                                controller.showCustomDaysTextField.value = false; // Hide custom days text field
+                                                                                controller.showIntervalDaysTextField.value = false; // Hide custom days text field
+                                                                                controller.selectedScheduleDays.value = value!;
+                                                                                controller.selectedInterval.value=1;
+                                                                              },
+                                                                            ),
+                                                                            RadioListTile<int>(
+                                                                              title: Text('By Month'),
+                                                                              value: 30,
+                                                                              groupValue: controller.selectedScheduleDays.value,
+                                                                              onChanged: (value) {
+                                                                                controller.showCustomDaysTextField.value = false;
+                                                                                controller.showIntervalDaysTextField.value = false;// Hide custom days text field
+                                                                                controller.selectedScheduleDays.value = value!;
+                                                                                controller.selectedInterval.value=1;
+                                                                              },
+                                                                            ),
 
-                                                        if (value) {
-                                                          controller.selectedScheduleDays.value=1;
-                                                          controller.showCustomDaysTextField.value = false;
-                                                          controller.showIntervalDaysTextField.value = false;
+                                                                            RadioListTile<int>(
+                                                                              title: Text('Custom Days'),
+                                                                              value: -1, // Use a unique value to represent custom days
+                                                                              groupValue: controller.selectedScheduleDays.value,
+                                                                              onChanged: (value) {
+                                                                                controller.selectedInterval.value=2;
+                                                                                if (value == -1) {
+                                                                                  // Show custom days text field
+                                                                                  controller.showCustomDaysTextField.value = true;
+                                                                                } else {
+                                                                                  // Hide custom days text field
+                                                                                  controller.showCustomDaysTextField.value = false;
+                                                                                }
+                                                                                controller.showIntervalDaysTextField.value = false;
+                                                                                controller.selectedScheduleDays.value = value!;
+                                                                              },
+                                                                            ),
+                                                                            // Text field for custom days
+                                                                            Obx(() {
+                                                                              return controller.showCustomDaysTextField.value
+                                                                                  ? TextField(
+                                                                                decoration: InputDecoration(
+                                                                                  labelText: "Enter Number of days",
+                                                                                  border: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                                                                  ),
+                                                                                ),
+                                                                                keyboardType: TextInputType.number,
+                                                                                onChanged: (value) {
+                                                                                  print("Entered value :$value");
+                                                                                  int? parsedValue = int.tryParse(value);
+                                                                                  controller.selectedScheduleDays.value=parsedValue!;
+                                                                                },
+                                                                              )
+                                                                                  : SizedBox.shrink();
+                                                                            }),
 
 
-                                                          if(controller.toggleSelection(trainee
-                                                              .traineeName,
-                                                              trainee
-                                                                  .centerName,
-                                                              trainee
-                                                                  .timeslot,
-                                                              index)==false){
-                                                            Get.defaultDialog(
-                                                              title: "Choose slot scheduling",
-                                                              content: Obx(() {
-                                                                return Column(
-                                                                  children: [
-                                                                    RadioListTile<int>(
-                                                                      title: Text('Single Day'),
-                                                                      value: 1,
-                                                                      groupValue: controller.selectedScheduleDays.value,
-                                                                      onChanged: (value) {
-                                                                        controller.showCustomDaysTextField.value = false;
-                                                                        controller.showIntervalDaysTextField.value = false;// Hide custom days text field
-                                                                        controller.selectedScheduleDays.value = value!;
-                                                                        controller.selectedInterval.value=1;
-                                                                      },
-                                                                    ),
-                                                                    RadioListTile<int>(
-                                                                      title: Text('By Week'),
-                                                                      value: 7,
-                                                                      groupValue: controller.selectedScheduleDays.value,
-                                                                      onChanged: (value) {
-                                                                        controller.showCustomDaysTextField.value = false; // Hide custom days text field
-                                                                        controller.showIntervalDaysTextField.value = false; // Hide custom days text field
-                                                                        controller.selectedScheduleDays.value = value!;
-                                                                        controller.selectedInterval.value=1;
-                                                                      },
-                                                                    ),
-                                                                    RadioListTile<int>(
-                                                                      title: Text('By Month'),
-                                                                      value: 30,
-                                                                      groupValue: controller.selectedScheduleDays.value,
-                                                                      onChanged: (value) {
-                                                                        controller.showCustomDaysTextField.value = false;
-                                                                        controller.showIntervalDaysTextField.value = false;// Hide custom days text field
-                                                                        controller.selectedScheduleDays.value = value!;
-                                                                        controller.selectedInterval.value=1;
-                                                                      },
-                                                                    ),
-
-                                                                    RadioListTile<int>(
-                                                                      title: Text('Custom Days'),
-                                                                      value: -1, // Use a unique value to represent custom days
-                                                                      groupValue: controller.selectedScheduleDays.value,
-                                                                      onChanged: (value) {
-                                                                        controller.selectedInterval.value=2;
-                                                                        if (value == -1) {
-                                                                          // Show custom days text field
-                                                                          controller.showCustomDaysTextField.value = true;
-                                                                        } else {
-                                                                          // Hide custom days text field
-                                                                          controller.showCustomDaysTextField.value = false;
-                                                                        }
-                                                                        controller.showIntervalDaysTextField.value = false;
-                                                                        controller.selectedScheduleDays.value = value!;
-                                                                      },
-                                                                    ),
-                                                                    // Text field for custom days
-                                                                    Obx(() {
-                                                                      return controller.showCustomDaysTextField.value
-                                                                          ? TextField(
-                                                                        decoration: InputDecoration(
-                                                                          labelText: "Enter Number of days",
-                                                                          border: OutlineInputBorder(
-                                                                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                                          ),
+                                                                            RadioListTile<int>(
+                                                                              title: Text('Interval'),
+                                                                              value: -2, // Use a unique value to represent custom days
+                                                                              groupValue: controller.selectedScheduleDays.value,
+                                                                              onChanged: (value) {
+                                                                                controller.selectedInterval.value=2;
+                                                                                if (value == -2) {
+                                                                                  // Show custom days text field
+                                                                                  controller.showIntervalDaysTextField.value = true;
+                                                                                } else {
+                                                                                  // Hide custom days text field
+                                                                                  controller.showIntervalDaysTextField.value = false;
+                                                                                }
+                                                                                controller.showCustomDaysTextField.value = false;
+                                                                                controller.selectedScheduleDays.value = value!;
+                                                                              },
+                                                                            ),
+                                                                            // Text field for custom days
+                                                                            Obx(() {
+                                                                              return controller.showIntervalDaysTextField.value
+                                                                                  ? TextField(
+                                                                                decoration: InputDecoration(
+                                                                                  labelText: "Number of days for interval",
+                                                                                  border: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                                                                  ),
+                                                                                ),
+                                                                                keyboardType: TextInputType.number,
+                                                                                onChanged: (value) {
+                                                                                  print("Entered value :$value");
+                                                                                  int? parsedValue = int.tryParse(value);
+                                                                                  controller.selectedScheduleDays.value=parsedValue!;
+                                                                                },
+                                                                              )
+                                                                                  : SizedBox.shrink();
+                                                                            }),
+                                                                          ],
                                                                         ),
-                                                                        keyboardType: TextInputType.number,
-                                                                        onChanged: (value) {
-                                                                          print("Entered value :$value");
-                                                                          int? parsedValue = int.tryParse(value);
-                                                                          controller.selectedScheduleDays.value=parsedValue!;
-                                                                        },
-                                                                      )
-                                                                          : SizedBox.shrink();
-                                                                    }),
-
-
-                                                                    RadioListTile<int>(
-                                                                      title: Text('Interval'),
-                                                                      value: -2, // Use a unique value to represent custom days
-                                                                      groupValue: controller.selectedScheduleDays.value,
-                                                                      onChanged: (value) {
-                                                                        controller.selectedInterval.value=2;
-                                                                        if (value == -2) {
-                                                                          // Show custom days text field
-                                                                          controller.showIntervalDaysTextField.value = true;
-                                                                        } else {
-                                                                          // Hide custom days text field
-                                                                          controller.showIntervalDaysTextField.value = false;
-                                                                        }
-                                                                        controller.showCustomDaysTextField.value = false;
-                                                                        controller.selectedScheduleDays.value = value!;
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                                  actions: [
+                                                                    ElevatedButton(
+                                                                      onPressed: () {
+                                                                        Get.back();
                                                                       },
+                                                                      child: Text('Close'),
                                                                     ),
-                                                                    // Text field for custom days
-                                                                    Obx(() {
-                                                                      return controller.showIntervalDaysTextField.value
-                                                                          ? TextField(
-                                                                        decoration: InputDecoration(
-                                                                          labelText: "Number of days for interval",
-                                                                          border: OutlineInputBorder(
-                                                                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                                          ),
-                                                                        ),
-                                                                        keyboardType: TextInputType.number,
-                                                                        onChanged: (value) {
-                                                                          print("Entered value :$value");
-                                                                          int? parsedValue = int.tryParse(value);
-                                                                          controller.selectedScheduleDays.value=parsedValue!;
-                                                                        },
-                                                                      )
-                                                                          : SizedBox.shrink();
-                                                                    }),
+                                                                    ElevatedButton(
+                                                                      onPressed: () {
+                                                                                          
+                                                                        controller
+                                                                            .AssignedTrainer(
+                                                                            trainee
+                                                                                .traineeName,
+                                                                            trainee
+                                                                                .centerName,
+                                                                            trainee
+                                                                                .timeslot,
+                                                                            trainee.centerId,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
+                                                                        Get.back();
+                                                                        print(controller.selectedNames);
+                                                                      },
+                                                                      child: Text('Assign'),
+                                                                    ),
                                                                   ],
                                                                 );
-                                                              }),
-                                                              actions: [
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-                                                                    Get.back();
-                                                                  },
-                                                                  child: Text('Close'),
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () {
-
-                                                                    controller
-                                                                        .AssignedTrainer(
-                                                                        trainee
-                                                                            .traineeName,
-                                                                        trainee
-                                                                            .centerName,
-                                                                        trainee
-                                                                            .timeslot,
-                                                                        trainee.centerId,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
-                                                                    Get.back();
-                                                                    print(controller.selectedNames);
-                                                                  },
-                                                                  child: Text('Assign'),
-                                                                ),
-                                                              ],
-                                                            );
-
+                                                                                          
+                                                              }
+                                                                                          
+                                                            }
                                                           }
-
-                                                        }
-                                                      }
-
-                                                    },
-                                                  );
-                                                }).toList(),
+                                                                                          
+                                                        },
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
                                               );
                                             }),
-                                            actions: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: Text('Close'),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  print(controller
-                                                      .selectedNames);
-                                                },
-                                                child: Text('Assign'),
-                                              ),
-                                            ],
                                           );
                                         },
                                         child: controller.selectedDateTime.isAfter(DateTime.now().subtract(Duration(days: 1))) ? Container(

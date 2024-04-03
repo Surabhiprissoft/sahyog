@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
@@ -10,6 +11,8 @@ class ManageTrainerController extends GetxController {
 
   var  slidingValue=1.obs;
   late  RxList<TrainerListResponseModel> trainerList = <TrainerListResponseModel>[].obs;
+  DateFormat format12Hour = DateFormat("h:mm a");
+  DateFormat format24Hour = DateFormat("HH:mm:ss");
 
   ManageTrainerController(this.userRepository);
 

@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/controller/FeeStatusResponseModel.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
@@ -12,6 +13,7 @@ import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/RequestModel/MarkFeeStatusRequestModel.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/UpdateTrainerRequestModel.dart';
@@ -52,6 +54,25 @@ class UserRepository{
     }
   }
 
+  Future<SingleResponse<FeeStatusResponseModel>> getFeeData(int userId,int year) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final fees = await apiBaseHelper.get(AppConstants.FEESTATUS+userId.toString()+"/"+year.toString());
+
+      // Parse the response JSON into a SingleResponse object
+      SingleResponse<FeeStatusResponseModel> feeResponse = SingleResponse.fromJson(
+          fees,
+              (json) => FeeStatusResponseModel.fromJson(json)
+      );
+
+      return feeResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while getting fees data: $error');
+      throw error;
+    }
+  }
+
   Future<SingleResponse<LoginResponseModel>> checkLogin(LoginRequestModel loginRequest) async {
     try {
       // Make an asynchronous API call to fetch the login response
@@ -71,6 +92,21 @@ class UserRepository{
     }
   }
 
+
+  Future<TrainerTraineeResponseModel> markFeeStatus(MarkFeeStatusRequestModel requestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final feeUpdate = await apiBaseHelper.put(AppConstants.MARKFEE, requestModel.toJson());
+
+      // Parse the response JSON into a SingleResponse object
+      return TrainerTraineeResponseModel.fromJson(feeUpdate);
+
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
 
   Future<TrainerTraineeResponseModel> addTrainer(AddTrainerRequestModel addTrainerRequestModel) async {
     try {

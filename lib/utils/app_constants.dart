@@ -15,19 +15,21 @@ class AppConstants
   static const LOGGED_USER ="LOGGEDUSER";
   //ENDPOINT OF API
 
-  static const LOGIN="login/";
-  static const ADDTRAINER="users/";
-  static const ADDTRAINEE="users/";
-  static const SELFREGISTERED="registeruser/";
+  static const LOGIN="login";
+  static const MARKFEE="fees/mark_fees";
+  static const ADDTRAINER="users";
+  static const ADDTRAINEE="users";
+  static const SELFREGISTERED="registeruser";
   static const GETCENTERS="timeslots/center";
-  static const UPDATEPASSWORD="updatepassword/";
-  static const FORGOTPASSWORD="forgotpassword/";
+  static const UPDATEPASSWORD="updatepassword";
+  static const FORGOTPASSWORD="forgotpassword";
   static const TRAINERLIST="users/1";
   static const UNAPPROVEDRTAINERLIST="unapprovedusers/1";
   static const UNAPPROVEDTRAINEELIST="unapprovedusers/2";
-  static const TRAINEELIST="users/2/";
-  static const ADMINDASHBOARD="admindashboard/admindash/";
-  static const GETTIMESLOTS="timeslots/centretimeslot/";
+  static const TRAINEELIST="users/2";
+  static const FEESTATUS="fees/fees_status/";
+  static const ADMINDASHBOARD="admindashboard/admindash";
+  static const GETTIMESLOTS="timeslots/centretimeslot";
   static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const ROLE = "role";
 

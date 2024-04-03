@@ -20,6 +20,7 @@ import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../utils/AppCommonMethods.dart';
 import '../widgets/AnimatedCount.dart';
 
 class AdminDasboard extends GetView<AdminDashboardController> {
@@ -108,8 +109,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-              },
+              onTap: () {},
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -125,7 +125,8 @@ class AdminDasboard extends GetView<AdminDashboardController> {
             ),
           ],
         ),
-        body: Stack(
+        body:
+        Stack(
           children: [
             CustomTopBar(titleName: "Admin Dashboard"),
             Positioned(
@@ -208,23 +209,33 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: [
-                                        Text("68%"),
-                                        Text("32%")
-                                      ],
-                                    ),
+                                    Obx(() {
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Text("${controller.feePercent
+                                              .toInt()}%"),
+                                          Text("${100 -
+                                              controller.feePercent.value
+                                                  .toInt()}%")
+                                        ],
+                                      );
+                                    }),
                                     SizedBox(height: 5.0),
-                                    LinearProgressIndicator(
-                                      value: 0.6,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.green),
-                                      minHeight: 7.0,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      backgroundColor: Colors.redAccent,
-                                    ),
+                                    Obx(() {
+                                      return LinearProgressIndicator(
+                                        value: controller.feePercent.value /
+                                            100,
+                                        valueColor: AlwaysStoppedAnimation<
+                                            Color>(
+                                            Colors.green),
+                                        minHeight: 7.0,
+                                        borderRadius: BorderRadius.circular(
+                                            10.0),
+                                        backgroundColor: Colors.redAccent,
+                                      );
+                                    }),
                                     SizedBox(height: 5.0),
                                     const Row(
                                       mainAxisAlignment: MainAxisAlignment
@@ -294,7 +305,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                       child: Center(child: Obx(() {
                                         return Text(adminDashboardController
                                             .totalTraineeCount.value
-                                            .toString(),style: TextStyle(
+                                            .toString(), style: TextStyle(
                                             fontSize: 22.sp,
                                             fontWeight: FontWeight.w700,
                                             color: AppColors.goldenText
@@ -348,7 +359,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                       child: Center(child: Obx(() {
                                         return Text(adminDashboardController
                                             .totalTrainerCount.value
-                                            .toString(),style: TextStyle(
+                                            .toString(), style: TextStyle(
                                             fontSize: 22.sp,
                                             fontWeight: FontWeight.w700,
                                             color: AppColors.goldenText
@@ -427,11 +438,12 @@ class CenterWiseCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment
                             .center,
                         children: [
-                          Text(center.totalTrainees.toString(),style: TextStyle(
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.goldenText
-                          ),),
+                          Text(center.totalTrainees.toString(),
+                            style: TextStyle(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.goldenText
+                            ),),
                           Text("trainees")
                         ],
                       ))),
@@ -470,7 +482,7 @@ class CenterWiseCard extends StatelessWidget {
 
         ),
         Text(center.name.toString(), style: TextStyle(
-            fontWeight: FontWeight.w600,fontSize: 14.sp),),
+            fontWeight: FontWeight.w600, fontSize: 14.sp),),
       ],
     );
   }

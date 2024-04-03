@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -56,12 +55,4 @@ Future<String> getDatePicker(BuildContext context) async {
   return selectedDate;
 }
 
-Future<bool> hasInternetConnection() async {
-  var connectivityResult = await Connectivity().checkConnectivity();
-  if (connectivityResult == ConnectivityResult.none) {
-    return false; // No internet connection
-  }else {
-    return true;
-  }// There is internet connection
-}
 

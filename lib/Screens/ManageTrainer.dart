@@ -24,7 +24,17 @@ class ManageTrainer extends GetView<ManageTrainerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add, color: Colors.white,),
+        shape: CircleBorder(),
+        backgroundColor: AppColors.appThemeColor,
+        elevation: 10.0,
+        onPressed: () {
+          /* var controller = Get.find<AddTrainerController>();
+          controller.clearControllers();*/
+          Get.to(() => AddTrainer());
+        },
+      ),
       body: GetBuilder<ManageTrainerController>(
         assignId: true,
         builder: (controller) {
@@ -150,92 +160,95 @@ class TrainerList extends StatelessWidget {
           );
         } else {
           // Show the list view with data
-          return ListView.builder(
-            itemCount: manageTrainerController.trainerList.length,
-            itemBuilder: (context, index) {
-              final trainer = manageTrainerController.trainerList[index];
-              return InkWell(
-                onTap: (){
-                  Get.to(() => TrainerProfile(), arguments: trainer);
-                },
-                child: Card(
-                  elevation: 10.0,
-                  surfaceTintColor: Colors.white,
-                  color: Colors.white,
-                  child: Container(
-                    width: 100.w,
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment
-                              .start,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: trainer
-                                  .profilePhoto != null &&
-                                  trainer.profilePhoto!
-                                      .isNotEmpty
-                                  ? NetworkImage(
-                                  "http://192.168.235.136:8000${trainer
-                                      .profilePhoto}")
-                                  : NetworkImage(
-                                  "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                              radius: 3.5.h,
-                            ),
-                            SizedBox(width: 1.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .start,
-                              children: [
-                                Text("${trainer
-                                    .firstName} ${trainer
-                                    .lastName}",style: TextStyle(fontSize: 14.sp),),
-                                SizedBox(height: 1.h),
-                                Row(
-                                  children: [
-                                    Icon(Icons.phone,
-                                        size: 16.0),
-                                    Text(trainer.phone ?? "",
-                                      style: TextStyle(
-                                          fontSize: 14.sp),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        trainer.schedule!.isEmpty ?
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
-                          onPressed: () {
-                          manageTrainerController.slidingValue
-                              .value = 2;
-                        }, child: Text("Assign",style: TextStyle(fontSize: 14.sp),))
-                            :
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.location_on_outlined,size: 15.0,),
-                                Text("${trainer.schedule![0].center}",style: TextStyle(fontSize: 15.sp)),
-                              ],
-                            ),
-                            SizedBox(height: 7.0,),
-                            Text("${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].startTimme!))} - ${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].endTime!))}",style: TextStyle(fontSize: 13.sp),),
-                          ],
-                        )
-                      ],
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: ListView.builder(
+              itemCount: manageTrainerController.trainerList.length,
+              itemBuilder: (context, index) {
+                final trainer = manageTrainerController.trainerList[index];
+                return InkWell(
+                  onTap: (){
+                    Get.to(() => TrainerProfile(), arguments: trainer);
+                  },
+                  child: Card(
+                    elevation: 10.0,
+                    surfaceTintColor: Colors.white,
+                    color: Colors.white,
+                    child: Container(
+                      width: 100.w,
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .start,
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: trainer
+                                    .profilePhoto != null &&
+                                    trainer.profilePhoto!
+                                        .isNotEmpty
+                                    ? NetworkImage(
+                                    "http://192.168.235.136:8000${trainer
+                                        .profilePhoto}")
+                                    : NetworkImage(
+                                    "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                radius: 3.5.h,
+                              ),
+                              SizedBox(width: 1.w),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start,
+                                children: [
+                                  Text("${trainer
+                                      .firstName} ${trainer
+                                      .lastName}",style: TextStyle(fontSize: 14.sp),),
+                                  SizedBox(height: 1.h),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.phone,
+                                          size: 16.0),
+                                      Text(trainer.phone ?? "",
+                                        style: TextStyle(
+                                            fontSize: 14.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          trainer.schedule!.isEmpty ?
+                          OutlinedButton(
+                            style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
+                            onPressed: () {
+                            manageTrainerController.slidingValue
+                                .value = 2;
+                          }, child: Text("Assign",style: TextStyle(fontSize: 14.sp),))
+                              :
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.location_on_outlined,size: 15.0,),
+                                  Text("${trainer.schedule![0].center}",style: TextStyle(fontSize: 15.sp)),
+                                ],
+                              ),
+                              SizedBox(height: 7.0,),
+                              Text("${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].startTimme!))} - ${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].endTime!))}",style: TextStyle(fontSize: 13.sp),),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ); // Pass individual trainer data
-            },
+                ); // Pass individual trainer data
+              },
+            ),
           );
         }
       }),

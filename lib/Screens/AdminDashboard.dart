@@ -285,21 +285,26 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                           height: 15.h,
                           child: Column(
                             children: [
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: 0.55 * 15.h, // 70% of the parent's height
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 1.h),
-                                      child: Center(child: Obx(() {
-                                        return Text(adminDashboardController
-                                            .totalTraineeCount.value
-                                            .toString(),style: TextStyle(
-                                            fontSize: 22.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.goldenText
-                                        ),);
-                                      }))),
+                              InkWell(
+                                onTap:(){
+                                   Get.to(ManageTrainee());
+                                },
+                                child: Expanded(
+                                  flex: 1,
+                                  child: SizedBox(
+                                    //height: 0.55 * 15.h, // 70% of the parent's height
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 1.h),
+                                        child: Center(child: Obx(() {
+                                          return Text(adminDashboardController
+                                              .totalTraineeCount.value
+                                              .toString(),style: TextStyle(
+                                              fontSize: 22.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.goldenText
+                                          ),);
+                                        }))),
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -339,21 +344,26 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                           height: 15.h,
                           child: Column(
                             children: [
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: 0.55 * 15.h, // 70% of the parent's height
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 1.h),
-                                      child: Center(child: Obx(() {
-                                        return Text(adminDashboardController
-                                            .totalTrainerCount.value
-                                            .toString(),style: TextStyle(
-                                            fontSize: 22.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.goldenText
-                                        ),);
-                                      }))),
+                              InkWell(
+                                onTap:(){
+                                  Get.to(ManageTrainer());
+                                },
+                                child: Expanded(
+                                  flex: 1,
+                                  child: SizedBox(
+                                    //height: 0.55 * 15.h, // 70% of the parent's height
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 1.h),
+                                        child: Center(child: Obx(() {
+                                          return Text(adminDashboardController
+                                              .totalTrainerCount.value
+                                              .toString(),style: TextStyle(
+                                              fontSize: 22.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.goldenText
+                                          ),);
+                                        }))),
+                                  ),
                                 ),
                               ),
                               Expanded(

@@ -46,3 +46,9 @@ class AssignTrainee {
   @override
   int get hashCode => traineeName.hashCode ^ centerName.hashCode ^ timeslot.hashCode;
 }
+
+class Tuple<X, Y> {
+  final X item1;
+  final Y item2;
+  Tuple(this.item1, this.item2);
+}

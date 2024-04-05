@@ -45,6 +45,7 @@ class AddTraineeController extends GetxController
 
   final List<String> Gender = ['Male', 'Female', 'Other'];
   late final RxString selectedGender ;
+
   late bool isApproved=false,isActive=false;
 
 

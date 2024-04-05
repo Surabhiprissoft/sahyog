@@ -1,4 +1,3 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -6,6 +5,7 @@ import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
+import 'package:sahyog/Screens/LocationDemo.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/ManageTrainee.dart';
 import 'package:sahyog/Screens/ManageTrainer.dart';

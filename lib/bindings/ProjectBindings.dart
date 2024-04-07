@@ -12,6 +12,7 @@ import 'package:sahyog/controller/ManageTraineeController.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/controller/RegistrationRequestsController.dart';
 import 'package:sahyog/controller/ScheduleTrainerController.dart';
+import 'package:sahyog/controller/TraineeDashboardController.dart';
 import 'package:sahyog/controller/TraineeProfileController.dart';
 import 'package:sahyog/controller/TrainerProfileController.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
@@ -35,6 +36,7 @@ class ProjectBindings implements Bindings
     Get.lazyPut<ScheduleTrainerController>(() => ScheduleTrainerController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<TrainerProfileController>(() => TrainerProfileController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<TraineeProfileController>(() => TraineeProfileController(UserRepository(ApiBaseHelper())), fenix: true);
+    Get.lazyPut<TraineeDashboardController>(() => TraineeDashboardController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<AdminDashboardController>(() => AdminDashboardController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<RegistrationRequestsController>(() => RegistrationRequestsController(UserRepository(ApiBaseHelper())), fenix: true);
 

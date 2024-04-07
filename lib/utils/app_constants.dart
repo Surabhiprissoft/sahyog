@@ -29,9 +29,11 @@ class AppConstants
   static const TRAINEELIST="users/2";
   static const FEESTATUS="fees/fees_status/";
   static const ADMINDASHBOARD="admindashboard/admindash";
-  static const GETTIMESLOTS="timeslots/centretimeslot";
+  static const TRAINEEDASHBOARD="traineedashboard/traineedash/";
+  static const GETTIMESLOTS="timeslots/centretimeslot/";
   static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const ROLE = "role";
+  static const USERID = "userid";
 
 
 }

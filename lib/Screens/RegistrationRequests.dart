@@ -49,9 +49,7 @@ class RegistrationRequest extends StatelessWidget {
                       if (registrationRequestsController.unApprovedTrainerList.isEmpty) {
                         return Center(
                           child: SizedBox(
-                            width: 40.0,
-                            height: 40.0,
-                            child: CircularProgressIndicator(),
+                              child: Text("No trainer registration request has pending"),
                           ),
                         );
                       } else {
@@ -210,7 +208,7 @@ class RegistrationRequest extends StatelessWidget {
                                                   children: [
                                                     Text("Applied Center :",style: TextStyle(fontWeight: FontWeight.w500),),
                                                     SizedBox(width: 5.0,),
-                                                    Text(trainee.center.toString(), style: TextStyle(fontSize: 16.sp),),
+                                                    Text(trainee.centerName.toString(), style: TextStyle(fontSize: 16.sp),),
                                                   ],
                                                 ),
                                                 SizedBox(height: 5.0,),

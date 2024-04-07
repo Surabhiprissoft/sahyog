@@ -116,6 +116,7 @@ class LoginController extends GetxController
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
           PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
+          PreferenceUtils.setInt(AppConstants.USERID,loginResponseModel.data.id!!);
           PreferenceUtils.setString(AppConstants.USERNAME,loginResponseModel.data.firstName.toString());
 
           print(loginResponseModel.data.role);
@@ -131,6 +132,7 @@ class LoginController extends GetxController
             }
             else if(loginResponseModel.data.role==2)
             {
+              //Get.to(()=>TraineeDashboard(),arguments: loginResponseModel.data.id);
               Get.to(()=>TraineeDashboard());
             }
             else{

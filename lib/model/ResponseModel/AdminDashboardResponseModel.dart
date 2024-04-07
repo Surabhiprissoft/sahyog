@@ -83,7 +83,7 @@ class AssignedTrainers {
   String? scheduledDate;
   String? currentDate;
   String? firstName;
-  Null? profilePhoto;
+  String? profilePhoto;
   String? timeslotStartTime;
   String? timeslotEndTime;
 

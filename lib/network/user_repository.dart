@@ -29,6 +29,8 @@ import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_constants.dart';
 
+import '../model/RequestModel/DeleteTraineeRequestModel.dart';
+
 class UserRepository{
   final ApiBaseHelper apiBaseHelper;
 

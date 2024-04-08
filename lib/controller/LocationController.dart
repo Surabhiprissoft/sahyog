@@ -83,16 +83,27 @@ class LocationController extends GetxController {
 
   }
 
-  void handleLocationUpdate(double latitude, double longitude)
-  {
+  void handleLocationUpdate(double latitude, double longitude) {
+    void startPrintingHello() {
+      // Repeat the process every 10 seconds
+      print("COUNTVALUE"+count.toString());
+      Timer.periodic(Duration(seconds: 10), (Timer timer) {
+      // Initialize count inside the callback function
 
-    const Duration twoMinutes = Duration(seconds: 5);
-     Timer _timer = Timer.periodic(twoMinutes, (Timer timer)
-     {
-      print('Printing...');
-      count--;
-      print("COUNT"+count.toString());
-    });
+        // Print "Hello" 5 times
+        for (int i = 0; i < 5; i++) {
+          print("Hello");
+          count++;
+
+          // If count reaches 5, print "It's over" and cancel the timer
+          if (count == 5) {
+            print("It's over");
+            timer.cancel(); // Stop the timer
+            break; // Exit the loop
+          }
+        }
+      });
+    }
   }
 
 

@@ -21,110 +21,114 @@ class ManageTrainer extends GetView<ManageTrainerController> {
   final manageTrainerController = Get.find<ManageTrainerController>();
 
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add, color: Colors.white,),
-        shape: CircleBorder(),
-        backgroundColor: AppColors.appThemeColor,
-        elevation: 10.0,
-        onPressed: () {
-          /* var controller = Get.find<AddTrainerController>();
+    return Obx(() {
+      return Scaffold(
+        floatingActionButton: manageTrainerController.slidingValue.value == 1
+            ? FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.white,),
+          shape: CircleBorder(),
+          backgroundColor: AppColors.appThemeColor,
+          elevation: 10.0,
+          onPressed: () {
+            /* var controller = Get.find<AddTrainerController>();
           controller.clearControllers();*/
-          Get.to(() => AddTrainer());
-        },
-      ),
-      body: GetBuilder<ManageTrainerController>(
-        assignId: true,
-        builder: (controller) {
-          /*  WidgetsBinding.instance.addPostFrameCallback((_)
+            Get.to(() => AddTrainer());
+          },
+        )
+            : null,
+        body: GetBuilder<ManageTrainerController>(
+          assignId: true,
+          builder: (controller) {
+            /*  WidgetsBinding.instance.addPostFrameCallback((_)
           {
             Get.snackbar("Hello", "1");
           });*/
 
-          return Stack(
-            children: [
-              CustomTopBar(titleName: "Manage Trainer"),
-              Positioned(
-                  top: 140,
-                  // Adjust this value to control the position of the card
-                  left: 0,
-                  right: 0,
-                  //bottom: 1,
-                  child: Obx(() {
-                    return Container(
-                        height: 100.h,
-                        padding: EdgeInsets.all(2.h),
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
-                          ),
-                        ),
-                        child:
-                        controller.slidingValue.value == 1 ?
-                        TrainerList(manageTrainerController: manageTrainerController)
-                            : ScheduleTrainer()
-                    );
-                  })
-
-              ),
-              Positioned(
-                top: 85,
-                left: 16,
-                right: 16,
-                child: SizedBox(
-                  child: Obx(() {
-                    return CustomSlidingSegmentedControl<int>(
-                      initialValue: controller.slidingValue.value,
-                      children: const {
-                        1: Text('Trainer List'),
-                        2: Text('Schedule Trainer'),
-                      },
-                      innerPadding: EdgeInsets.zero,
-                      fixedWidth: 45.w,
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.lightBackgroundGray,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      thumbDecoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.3),
-                            blurRadius: 4.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(
-                              0.0,
-                              2.0,
+            return Stack(
+              children: [
+                CustomTopBar(titleName: "Manage Trainer"),
+                Positioned(
+                    top: 140,
+                    // Adjust this value to control the position of the card
+                    left: 0,
+                    right: 0,
+                    //bottom: 1,
+                    child: Obx(() {
+                      return Container(
+                          height: 100.h,
+                          padding: EdgeInsets.all(2.h),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
                             ),
                           ),
-                        ],
-                      ),
-                      onValueChanged: (v) {
-                        controller.slidingValue.value = v;
-                        print("POSITION" + controller.slidingValue.value
-                            .toString());
-                      },
-                    );
-                  }),
+                          child:
+                          controller.slidingValue.value == 1 ?
+                          TrainerList(
+                              manageTrainerController: manageTrainerController)
+                              : ScheduleTrainer()
+                      );
+                    })
+
                 ),
-              ),
+                Positioned(
+                  top: 85,
+                  left: 16,
+                  right: 16,
+                  child: SizedBox(
+                    child: Obx(() {
+                      return CustomSlidingSegmentedControl<int>(
+                        initialValue: controller.slidingValue.value,
+                        children: const {
+                          1: Text('Trainer List'),
+                          2: Text('Schedule Trainer'),
+                        },
+                        innerPadding: EdgeInsets.zero,
+                        fixedWidth: 45.w,
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.lightBackgroundGray,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        thumbDecoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(.3),
+                              blurRadius: 4.0,
+                              spreadRadius: 1.0,
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onValueChanged: (v) {
+                          controller.slidingValue.value = v;
+                          print("POSITION" + controller.slidingValue.value
+                              .toString());
+                        },
+                      );
+                    }),
+                  ),
+                ),
 
-            ],
+              ],
 
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    });
   }
 }
 
@@ -139,17 +143,17 @@ class TrainerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+     /* floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add, color: Colors.white,),
         shape: CircleBorder(),
         backgroundColor: AppColors.appThemeColor,
         elevation: 10.0,
         onPressed: () {
-          /* var controller = Get.find<AddTrainerController>();
-          controller.clearControllers();*/
+          *//* var controller = Get.find<AddTrainerController>();
+          controller.clearControllers();*//*
           Get.to(() => AddTrainer());
         },
-      ),
+      ),*/
       body: Obx(() {
         if (manageTrainerController.trainerList.isEmpty) {
           return Center(
@@ -168,7 +172,7 @@ class TrainerList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final trainer = manageTrainerController.trainerList[index];
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
                     Get.to(() => TrainerProfile(), arguments: trainer);
                   },
                   child: Card(
@@ -205,7 +209,8 @@ class TrainerList extends StatelessWidget {
                                 children: [
                                   Text("${trainer
                                       .firstName} ${trainer
-                                      .lastName}",style: TextStyle(fontSize: 14.sp),),
+                                      .lastName}",
+                                    style: TextStyle(fontSize: 14.sp),),
                                   SizedBox(height: 1.h),
                                   Row(
                                     children: [
@@ -223,11 +228,14 @@ class TrainerList extends StatelessWidget {
                           ),
                           trainer.schedule!.isEmpty ?
                           OutlinedButton(
-                            style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
-                            onPressed: () {
-                            manageTrainerController.slidingValue
-                                .value = 2;
-                          }, child: Text("Assign",style: TextStyle(fontSize: 14.sp),))
+                              style: OutlinedButton.styleFrom(
+                                  padding: EdgeInsets.zero),
+                              onPressed: () {
+                                manageTrainerController.slidingValue
+                                    .value = 2;
+                              },
+                              child: Text(
+                                "Assign", style: TextStyle(fontSize: 14.sp),))
                               :
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -235,12 +243,21 @@ class TrainerList extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.location_on_outlined,size: 15.0,),
-                                  Text("${trainer.schedule![0].center}",style: TextStyle(fontSize: 15.sp)),
+                                  Icon(Icons.location_on_outlined, size: 15.0,),
+                                  Text("${trainer.schedule![0].center}",
+                                      style: TextStyle(fontSize: 15.sp)),
                                 ],
                               ),
                               SizedBox(height: 7.0,),
-                              Text("${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].startTimme!))} - ${manageTrainerController.format12Hour.format(manageTrainerController.format24Hour.parse(trainer.schedule![0].endTime!))}",style: TextStyle(fontSize: 13.sp),),
+                              Text(
+                                "${manageTrainerController.format12Hour.format(
+                                    manageTrainerController.format24Hour.parse(
+                                        trainer.schedule![0]
+                                            .startTimme!))} - ${manageTrainerController
+                                    .format12Hour.format(
+                                    manageTrainerController.format24Hour.parse(
+                                        trainer.schedule![0].endTime!))}",
+                                style: TextStyle(fontSize: 13.sp),),
                             ],
                           )
                         ],
@@ -288,7 +305,8 @@ class ManageTrainerCardItem extends StatelessWidget {
                     backgroundImage: trainer.profilePhoto != null &&
                         trainer.profilePhoto!.isNotEmpty
                         ? NetworkImage(
-                        ApiBaseHelper().imageBaseUrl+trainer.profilePhoto.toString())
+                        ApiBaseHelper().imageBaseUrl +
+                            trainer.profilePhoto.toString())
                         : NetworkImage(
                         "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                     radius: 3.5.h,

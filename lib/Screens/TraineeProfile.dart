@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/controller/TraineeProfileController.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
+import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_validation.dart';
 import 'package:sahyog/widgets/common_textfield.dart';

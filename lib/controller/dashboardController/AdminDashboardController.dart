@@ -32,6 +32,7 @@ class AdminDashboardController extends GetxController{
 
 
   Future<SingleResponse<AdminDashboardResponseModel>> getAdminDashboardData() async {
+    centerList.clear();
     adminDashboardResponse = await userRepository.getAdminDashboardData();
     print(adminDashboardResponse.data.toString());
     if (adminDashboardResponse.status == 200) {

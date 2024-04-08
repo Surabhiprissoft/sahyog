@@ -200,13 +200,65 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                       .timeslot,
                                                                   index);*/
 
-                                                              controller.AssignedTrainer(
-                                                                  trainee.traineeName!,
-                                                                  controller
-                                                                      .centers[index].name,
-                                                                  controller
-                                                                      .centers[index]
-                                                                      .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate,true);
+                                                              Get.defaultDialog(
+                                                                  title: 'Delete Assigned Trainer',
+                                                                  titlePadding: EdgeInsets.all(20.0),
+                                                                  contentPadding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
+                                                                  content: Text('Do you really want to delete ${trainee.traineeName} for ${trainee.centerName} @ ${trainee.timeslot}?'),
+                                                                  actions: [
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                      children: [
+                                                                        ElevatedButton(
+                                                                            onPressed: () {
+
+                                                                              controller.AssignedTrainer(
+                                                                                  trainee.traineeName!,
+                                                                                  controller
+                                                                                      .centers[index].name,
+                                                                                  controller
+                                                                                      .centers[index]
+                                                                                      .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate,true);
+
+                                                                              Get.back();
+                                                                            },
+                                                                            style: ElevatedButton.styleFrom(
+                                                                                shape: RoundedRectangleBorder(
+                                                                                  borderRadius: BorderRadius
+                                                                                      .circular(10.0),
+                                                                                ),
+                                                                                backgroundColor: AppColors
+                                                                                    .appThemeColor
+                                                                            ),
+                                                                            child: const Text("Delete",
+                                                                              style: TextStyle(
+                                                                                  color: Colors.white),)
+                                                                        ),
+                                                                        SizedBox(width: 10),
+                                                                        ElevatedButton(
+                                                                            onPressed: () {
+                                                                              // Close the dialog
+                                                                              Get.back();
+                                                                            },
+                                                                            style: ElevatedButton.styleFrom(
+                                                                                shape: RoundedRectangleBorder(
+                                                                                  borderRadius: BorderRadius
+                                                                                      .circular(10.0),
+                                                                                ),
+                                                                                backgroundColor: AppColors
+                                                                                    .appThemeColor
+                                                                            ),
+                                                                            child: const Text("Cancel",
+                                                                              style: TextStyle(
+                                                                                  color: Colors.white),)
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                  barrierDismissible: false// Make the barrier transparent
+                                                              );
+
+
                                                             },
                                                             shape: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius
@@ -288,11 +340,12 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                 Get.defaultDialog(
                                                                   title: "Choose slot scheduling",
                                                                   radius: 15.0,
-                                                                  titlePadding: EdgeInsets.all(20.0),
+                                                                  titlePadding: EdgeInsets.only(top:10.0),
                                                                   titleStyle: TextStyle(fontSize: 18.sp),
                                                                   content: Obx(() {
                                                                     return SingleChildScrollView(
-                                                                      child: Container(
+                                                                      physics: NeverScrollableScrollPhysics(),
+                                                                      child: SizedBox(
                                                                         child: Column(
                                                                           children: [
                                                                             RadioListTile<int>(
@@ -388,19 +441,19 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                             Obx(() {
                                                                               return controller.showIntervalDaysTextField.value
                                                                                   ? TextField(
-                                                                                decoration: InputDecoration(
+                                                                                                                                                                  decoration: InputDecoration(
                                                                                   labelText: "Number of days for interval",
                                                                                   border: OutlineInputBorder(
                                                                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                                                                   ),
-                                                                                ),
-                                                                                keyboardType: TextInputType.number,
-                                                                                onChanged: (value) {
+                                                                                                                                                                  ),
+                                                                                                                                                                  keyboardType: TextInputType.number,
+                                                                                                                                                                  onChanged: (value) {
                                                                                   print("Entered value :$value");
                                                                                   int? parsedValue = int.tryParse(value);
                                                                                   controller.selectedScheduleDays.value=parsedValue!;
-                                                                                },
-                                                                              )
+                                                                                                                                                                  },
+                                                                                                                                                                )
                                                                                   : SizedBox.shrink();
                                                                             }),
                                                                           ],

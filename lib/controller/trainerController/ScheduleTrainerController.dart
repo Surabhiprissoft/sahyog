@@ -16,6 +16,7 @@ import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+import 'package:sahyog/widgets/other_common_widget.dart';
 
 import 'ManageTrainerController.dart';
 
@@ -148,20 +149,24 @@ class ScheduleTrainerController extends GetxController {
     if (selectedNames.contains(trainee))
     {
       print(selectedListfordelete.toString()+""+selectedListfordelete.length.toString());
+
       if(isdeleted && selectedListfordelete.contains(trainee))
         {
           DeleteTraineeRequestModel deleteTraineeRequestModel = DeleteTraineeRequestModel(ct:trainee.centerId,user: trainee.userId,date:currentDate);
            deleteTrainnee(deleteTraineeRequestModel);
-           print("Yes you can delete it from api");
+          // print("Yes you can delete it from api");
+          selectedNames.remove(trainee);
+          isChecked.value = true;
 
         }
       else
         {
-           print("it is from local db");
+          // print("it is from local db");
+          showSnackBar("Deleted Trainee", "Trainee Deleted Successfully!");
            selectedNames.remove(trainee);
+           isChecked.value = true;
         }
-      selectedNames.remove(trainee);
-      isChecked.value = true;
+
     } else {
       selectedNames.add(trainee);
       isChecked.value = false;
@@ -289,6 +294,7 @@ class ScheduleTrainerController extends GetxController {
       {
          DialogHelper.hideLoading();
          print("Data Saved Successfully");
+         showSnackBar("Saved Trainer", "Trainer Scheduled Successfully!");
          assigntrainess.clear();
          selectedNames.clear();
          getTimeslotData(selectedDateTime);
@@ -322,8 +328,9 @@ class ScheduleTrainerController extends GetxController {
     DialogHelper.showLoading();
     if(trainerTraineeResponseModel.status==200)
     {
+
       DialogHelper.hideLoading();
-      print("Data Saved Successfully");
+      showSnackBar("Deleted Trainee", "Trainee Deleted Successfully!");
       selectedNames.clear();
       selectedListfordelete.clear();
       getTimeslotData(selectedDateTime);

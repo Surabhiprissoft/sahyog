@@ -11,13 +11,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
-import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/Screens/Trainee/AddTrainee.dart';
+import 'package:sahyog/Screens/Trainer/AddTrainer.dart';
+import 'package:sahyog/utils/app_colors.dart';
+
+
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
-
-import '../Screens/Trainee/AddTrainee.dart';
-import '../Screens/Trainer/AddTrainer.dart';
-import '../utils/app_colors.dart';
 
 
 class HeaderText extends StatelessWidget {

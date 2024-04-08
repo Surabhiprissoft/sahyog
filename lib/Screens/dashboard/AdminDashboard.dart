@@ -115,6 +115,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                 children: <Widget>[
                   IconButton(onPressed: () {
 
+                    controller.getAdminDashboardData();
                   },
                     icon: Icon(Icons.home_outlined, size: 8.w,),
                     color: AppColors.appThemeColor,),
@@ -436,113 +437,123 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Card(
-                        elevation: 10.0,
-                        surfaceTintColor: Colors.white,
-                        child: Container(
-                          width: 40.w,
-                          height: 15.h,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: 0.55 * 15.h, // 70% of the parent's height
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 1.h),
-                                      child: Center(child: Obx(() {
-                                        return Text(adminDashboardController
-                                            .totalTraineeCount.value
-                                            .toString(), style: TextStyle(
-                                            fontSize: 22.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.goldenText
-                                        ),);
-                                      }))),
+                      InkWell(
+                      onTap: (){
+                      Get.to(() => ManageTrainee());
+                      },
+                        child: Card(
+                          elevation: 10.0,
+                          surfaceTintColor: Colors.white,
+                          child: Container(
+                            width: 40.w,
+                            height: 15.h,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(
+                                    //height: 0.55 * 15.h, // 70% of the parent's height
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 1.h),
+                                        child: Center(child: Obx(() {
+                                          return Text(adminDashboardController
+                                              .totalTraineeCount.value
+                                              .toString(), style: TextStyle(
+                                              fontSize: 22.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.goldenText
+                                          ),);
+                                        }))),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: 0.438 * 15.h, // 30% of the parent's height
-                                  child: Container(
-                                    margin: const EdgeInsets.all(3),
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.blueRacket,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10.0),
-                                        bottomRight: Radius.circular(10.0),
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(
+                                    //height: 0.438 * 15.h, // 30% of the parent's height
+                                    child: Container(
+                                      margin: const EdgeInsets.all(3),
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.blueRacket,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      // color: Colors.lightBlueAccent,
+                                      child: Center(
+                                          child: Text(
+                                            "Total Trainees",
+                                            style: TextStyle(fontSize: 17.sp,
+                                                fontWeight: FontWeight.w500),
+                                          )
                                       ),
                                     ),
-                                    // color: Colors.lightBlueAccent,
-                                    child: Center(
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Get.to(() => ManageTrainer());
+                        },
+                        child: Card(
+                          elevation: 10.0,
+                          surfaceTintColor: Colors.white,
+                          child: Container(
+                            width: 40.w,
+                            height: 15.h,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(
+                                    //height: 0.55 * 15.h, // 70% of the parent's height
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 1.h),
+                                        child: Center(child: Obx(() {
+                                          return Text(adminDashboardController
+                                              .totalTrainerCount.value
+                                              .toString(), style: TextStyle(
+                                              fontSize: 22.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.goldenText
+                                          ),);
+                                        }))),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(
+                                    // height: 0.438 * 15.h, // 30% of the parent's height
+                                    child: Container(
+                                      margin: const EdgeInsets.all(3),
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.redRacket,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      // color: Colors.lightBlueAccent,
+                                      child: Center(
                                         child: Text(
-                                          "Total Trainees",
+                                          "Total Trainers",
                                           style: TextStyle(fontSize: 17.sp,
                                               fontWeight: FontWeight.w500),
-                                        )
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                      ),
-                      Card(
-                        elevation: 10.0,
-                        surfaceTintColor: Colors.white,
-                        child: Container(
-                          width: 40.w,
-                          height: 15.h,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: 0.55 * 15.h, // 70% of the parent's height
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 1.h),
-                                      child: Center(child: Obx(() {
-                                        return Text(adminDashboardController
-                                            .totalTrainerCount.value
-                                            .toString(), style: TextStyle(
-                                            fontSize: 22.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.goldenText
-                                        ),);
-                                      }))),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  // height: 0.438 * 15.h, // 30% of the parent's height
-                                  child: Container(
-                                    margin: const EdgeInsets.all(3),
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.redRacket,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10.0),
-                                        bottomRight: Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    // color: Colors.lightBlueAccent,
-                                    child: Center(
-                                      child: Text(
-                                        "Total Trainers",
-                                        style: TextStyle(fontSize: 17.sp,
-                                            fontWeight: FontWeight.w500),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
 
+                        ),
                       ),
                     ],
                   ),

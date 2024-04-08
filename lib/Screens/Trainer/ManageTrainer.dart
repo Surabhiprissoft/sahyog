@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/AddTrainer.dart';
+import 'package:sahyog/Screens/Profile/TrainerProfile.dart';
 import 'package:sahyog/Screens/ScheduleTrainer.dart';
-import 'package:sahyog/Screens/TrainerProfile.dart';
-import 'package:sahyog/controller/ManageTrainerController.dart';
+import 'package:sahyog/Screens/Trainer/AddTrainer.dart';
+import 'package:sahyog/controller/trainerController/ManageTrainerController.dart';
+import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_colors.dart';
+import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 
-import '../model/ResponseModel/TrainerListResponseModel.dart';
+
 
 
 class ManageTrainer extends GetView<ManageTrainerController> {
@@ -196,8 +198,7 @@ class TrainerList extends StatelessWidget {
                                     trainer.profilePhoto!
                                         .isNotEmpty
                                     ? NetworkImage(
-                                    "http://192.168.235.136:8000${trainer
-                                        .profilePhoto}")
+                                     ApiBaseHelper().imageBaseUrl+trainer.profilePhoto.toString())
                                     : NetworkImage(
                                     "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                                 radius: 3.5.h,
@@ -245,7 +246,7 @@ class TrainerList extends StatelessWidget {
                                 children: [
                                   Icon(Icons.location_on_outlined, size: 15.0,),
                                   Text("${trainer.schedule![0].center}",
-                                      style: TextStyle(fontSize: 15.sp)),
+                                      style: TextStyle(fontSize: 14.sp)),
                                 ],
                               ),
                               SizedBox(height: 7.0,),
@@ -257,7 +258,7 @@ class TrainerList extends StatelessWidget {
                                     .format12Hour.format(
                                     manageTrainerController.format24Hour.parse(
                                         trainer.schedule![0].endTime!))}",
-                                style: TextStyle(fontSize: 13.sp),),
+                                style: TextStyle(fontSize: 14.sp),),
                             ],
                           )
                         ],

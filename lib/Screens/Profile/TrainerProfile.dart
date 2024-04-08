@@ -361,6 +361,9 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                             child: OutlinedButton(
                                               onPressed: () {
                                                 //TODO
+                                                controller.isReadOnly
+                                                    .value = true;
+                                                controller.update();
                                               },
                                               child: const Text('Cancel'),
                                             ),

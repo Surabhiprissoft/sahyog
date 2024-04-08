@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sahyog/controller/LocationController.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/model/ResponseModel/TrainerDashboardResponseModel.dart';
@@ -41,7 +42,7 @@ class TrainerDashboardController extends GetxController{
       DateFormat format12Hour = DateFormat("h:mm a");
       if (trainerdashboardResponseModel.status == 200) {
 
-        centers.clear();
+         centers.clear();
          myList=trainerdashboardResponseModel.data.schedule!;
         for (var data in myList) {
           DateFormat format24Hour = DateFormat("HH:mm:ss");
@@ -80,61 +81,7 @@ class TrainerDashboardController extends GetxController{
         // Print the sorted list
         centers.forEach((center) => print(center.name));
         print("Centers Are"+centers.toString());
-
-        DateTime now = DateTime.now();
-
-        // Create a DateFormat object with the desired format
-        DateFormat formatter = DateFormat('h:mm a');
-
-        // Format the current time using the formatter
-        String formattedTime = formatter.format(now);
-        print("formatted time"+formattedTime);
-
-
-        List<Map<String, String>> statusList=[];
-        //print(statusList.toString());
-        centers.forEach((center) {
-          bool isAbsent = true;
-          // Iterate over each time slot for the center
-          for (String timeSlot in center.timeSlots) {
-            // Split the time slot into start and end times
-            List<String> times = timeSlot.split(" - ");
-
-            // Extract the start time
-            String startTime = times[0]
-                .trim(); // Remove leading/trailing spaces
-
-            DateTime formattedTimeDt = formatter.parse(formattedTime);
-            DateTime startTimeDt = DateFormat('h:mm a').parse(startTime);
-
-// Compare formattedTimeDt with startTimeDt
-            int comparison = startTimeDt.compareTo(formattedTimeDt);
-
-// Check the comparison result
-            if (comparison >= 0) {
-              print("after");
-              // formattedTimeDt is equal to or after startTimeDt
-              // This means the current time is equal to or after the start time
-              // You may want to handle this case accordingly
-              statusList.add({'center_name': center.name, 'status': "after"});
-            } else {
-
-              print("before");
-              // formattedTimeDt is before startTimeDt
-              // This means the current time is before the start time
-              // You can print "Absent" or any other action you desire
-              statusList.add({'center_name': center.name, 'status': "before"});
-            }
-            print(startTime);
-            print(statusList);
-            // Compare the start time with the current time
-          }
-        });
-
-
-
-        //List<Map<String, String>> statusList = getStatusList(centers);
-
+        sendGeoLocations();
         update();
       } else {
         showSnackBar("Something went wrong", "Unable to fetch Center list at the moment");
@@ -151,6 +98,57 @@ class TrainerDashboardController extends GetxController{
 
     // Compare the start times
     return startTimeA.compareTo(startTimeB);
+  }
+
+  void sendGeoLocations()
+  {
+    DateTime now = DateTime.now();
+
+    // Create a DateFormat object with the desired format
+    DateFormat formatter = DateFormat('h:mm a');
+
+    // Format the current time using the formatter
+    String formattedTime = formatter.format(now);
+    print("formatted time"+formattedTime);
+
+
+    List<Map<String, String>> statusList=[];
+    //print(statusList.toString());
+    centers.forEach((center) {
+
+      for (String timeSlot in center.timeSlots) {
+        // Split the time slot into start and end times
+        List<String> times = timeSlot.split(" - ");
+
+        // Extract the start time
+        String startTime = times[0]
+            .trim(); // Remove leading/trailing spaces
+
+        DateTime formattedTimeDt = formatter.parse(formattedTime);
+        DateTime startTimeDt = DateFormat('h:mm a').parse(startTime);
+
+// Compare formattedTimeDt with startTimeDt
+        int comparison = startTimeDt.compareTo(formattedTimeDt);
+
+// Check the comparison result
+
+        var controller=Get.find<LocationController>();
+        //controller.initPlatformState();
+        controller.startLocationService();
+        if (comparison >= 0)
+        {
+          print("after");
+          statusList.add({'center_name': center.name, 'status': "after"});
+        } else
+        {
+          print("before");
+          statusList.add({'center_name': center.name, 'status': "before"});
+        }
+        print(startTime);
+        print(statusList);
+      }
+    });
+
   }
 
   // Sort the list using the sortByStartTime function

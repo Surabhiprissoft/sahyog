@@ -16,6 +16,7 @@ class LocationController extends GetxController {
 
 
   var currentPosition = "".obs;
+  int count=5;
   static const String _isolateName = "LocatorIsolate";
   ReceivePort port = ReceivePort();
   @override
@@ -85,6 +86,13 @@ class LocationController extends GetxController {
   void handleLocationUpdate(double latitude, double longitude)
   {
 
+    const Duration twoMinutes = Duration(seconds: 5);
+     Timer _timer = Timer.periodic(twoMinutes, (Timer timer)
+     {
+      print('Printing...');
+      count--;
+      print("COUNT"+count.toString());
+    });
   }
 
 

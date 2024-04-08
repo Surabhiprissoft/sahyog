@@ -35,7 +35,7 @@ class AppConstants
   static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const ROLE = "role";
   static const TRAINERDASHBOARD = "user/";
-  static const USERID = "userid";
+
 
 
 }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:sahyog/controller/ManageTraineeController.dart';
+import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/UpdateTraineeDataRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/FeeStatusResponseModel.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
@@ -16,7 +17,7 @@ import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../model/BaseSingleObjectResponse.dart';
+
 import '../utils/AppCommonMethods.dart';
 import 'AdminDashboardController.dart';
 

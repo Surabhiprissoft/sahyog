@@ -73,14 +73,20 @@ class TraineeDashboardController extends GetxController
         centerAddress.value = response.data.centerAddress.toString();
         phone.value = response.data.phone.toString();
         dueCount.value = response.data.feesStatusFalseCount!.toInt();
-        traineeProfile.value = ApiBaseHelper().imageBaseUrl+response.data.traineeProfilephoto.toString();
-
+        print("VALUE_PHOTO"+response.data.traineeProfilephoto.toString());
+        if(response.data.traineeProfilephoto!=null)
+          {
+            print("YES");
+            traineeProfile.value = ApiBaseHelper().imageBaseUrl+response.data.traineeProfilephoto.toString();
+          }
+        else
+          {
+            print("NO");
+          }
         assignedTrainers.addAll(response.data.assignedTrainers!.toList());
         feesStatus.addAll(response.data.feesStatusByMonth!.toList());
 
-
-
-
+        print("photo"+traineeProfile.value);
        // unApprovedTrainerList.value = unApprovedTrainerList.reversed.toList();
       } else {
         showSnackBar("Something went wrong", "Unable to fetch trainer list at the moment");

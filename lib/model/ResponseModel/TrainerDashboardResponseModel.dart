@@ -5,18 +5,18 @@ import 'dart:convert';
 /// role : "trainer"
 /// profile_photo : null
 /// first_name : "Surabhi"
-/// last_name : "Loya"
+/// last_name : "Jain"
 /// gender : "Female"
-/// dob : "2012-03-01"
-/// phone : "8329988291"
-/// address : "Wagholi"
-/// center : "NoCenter"
-/// created_at : "2024-04-02T10:54:06.190730Z"
-/// updated_at : "2024-04-02T10:56:56.193710Z"
+/// dob : "1995-04-01"
+/// phone : "9860038135"
+/// address : "Pune"
+/// center : 1
+/// created_at : "2024-04-08T04:25:00.872170Z"
+/// updated_at : "2024-04-08T04:30:56.589485Z"
 /// year_of_experience : 5
 /// training_type : ""
 /// discount : "0.00"
-/// schedule : [{"scheduled_date":"2024-04-02","provided_date":"2024-04-02","center":"SP","start_timme":"18:30:00","end_time":"20:00:00","user_id":75},{"scheduled_date":"2024-04-02","provided_date":"2024-04-02","center":"Race","start_timme":"08:00:00","end_time":"10:00:00","user_id":75},{"scheduled_date":"2024-04-02","provided_date":"2024-04-02","center":"Race","start_timme":"17:00:00","end_time":"20:00:00","user_id":75},{"scheduled_date":"2024-04-02","provided_date":"2024-04-02","center":"Symbiosis School","start_timme":"07:30:00","end_time":"10:30:00","user_id":75}]
+/// schedule : [{"scheduled_date":"2024-04-08","provided_date":"2024-04-08","center":"SP","start_timme":"18:30:00","end_time":"20:00:00","user_id":75},{"scheduled_date":"2024-04-08","provided_date":"2024-04-08","center":"SP","start_timme":"20:00:00","end_time":"21:00:00","user_id":75},{"scheduled_date":"2024-04-08","provided_date":"2024-04-08","center":"Race","start_timme":"08:00:00","end_time":"10:00:00","user_id":75}]
 
 TrainerDashboardResponseModel trainerDashboardResponseModelFromJson(String str) => TrainerDashboardResponseModel.fromJson(json.decode(str));
 String trainerDashboardResponseModelToJson(TrainerDashboardResponseModel data) => json.encode(data.toJson());
@@ -33,7 +33,7 @@ class TrainerDashboardResponseModel {
       String? dob, 
       String? phone, 
       String? address, 
-      String? center, 
+      num? center, 
       String? createdAt, 
       String? updatedAt, 
       num? yearOfExperience, 
@@ -96,7 +96,7 @@ class TrainerDashboardResponseModel {
   String? _dob;
   String? _phone;
   String? _address;
-  String? _center;
+  num? _center;
   String? _createdAt;
   String? _updatedAt;
   num? _yearOfExperience;
@@ -114,7 +114,7 @@ TrainerDashboardResponseModel copyWith({  num? id,
   String? dob,
   String? phone,
   String? address,
-  String? center,
+  num? center,
   String? createdAt,
   String? updatedAt,
   num? yearOfExperience,
@@ -151,7 +151,7 @@ TrainerDashboardResponseModel copyWith({  num? id,
   String? get dob => _dob;
   String? get phone => _phone;
   String? get address => _address;
-  String? get center => _center;
+  num? get center => _center;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   num? get yearOfExperience => _yearOfExperience;
@@ -186,8 +186,8 @@ TrainerDashboardResponseModel copyWith({  num? id,
 
 }
 
-/// scheduled_date : "2024-04-02"
-/// provided_date : "2024-04-02"
+/// scheduled_date : "2024-04-08"
+/// provided_date : "2024-04-08"
 /// center : "SP"
 /// start_timme : "18:30:00"
 /// end_time : "20:00:00"

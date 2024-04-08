@@ -8,20 +8,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/AddTrainee.dart';
-import 'package:sahyog/Screens/AddTrainer.dart';
-import 'package:sahyog/Screens/ManageTrainee.dart';
-import 'package:sahyog/Screens/ManageTrainer.dart';
 import 'package:sahyog/Screens/RegistrationRequests.dart';
-import 'package:sahyog/controller/AdminDashboardController.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../utils/AppCommonMethods.dart';
-import '../widgets/AnimatedCount.dart';
+import '../../controller/dashboardController/AdminDashboardController.dart';
+import '../Trainee/ManageTrainee.dart';
+import '../Trainer/AddTrainer.dart';
+import '../Trainer/ManageTrainer.dart';
+
+
 
 class AdminDasboard extends GetView<AdminDashboardController> {
   AdminDasboard({super.key});
@@ -178,7 +178,155 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                 final center = adminDashboardController
                                     .centerList[index];
 
-                                return CenterWiseCard(center: center);
+                                return Column(
+                                  children: [
+                                    Card(
+                                      surfaceTintColor: Colors.white,
+                                      elevation: 10.0,
+                                      child: Container(
+                                        width: 30.w,
+                                        height: 25.h,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 0.5 * 25.h,
+                                              // 70% of the parent's height
+                                              child: Container(
+                                                  margin: EdgeInsets.only(top: 1.h),
+                                                  child: Center(child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      Text(center.totalTrainees.toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 22.sp,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: AppColors.goldenText
+                                                        ),),
+                                                      Text("trainees")
+                                                    ],
+                                                  ))),
+                                            ),
+                                            SizedBox(
+                                              height: 0.5 * 25.h,
+                                              // 30% of the parent's height
+                                              child: Container(
+                                                margin: const EdgeInsets.all(3),
+                                                decoration: const BoxDecoration(
+                                                  color: AppColors.blueRacket,
+                                                  borderRadius: BorderRadius.only(
+                                                    bottomLeft: Radius.circular(10.0),
+                                                    bottomRight: Radius.circular(10.0),
+                                                  ),
+                                                ),
+                                                // color: Colors.lightBlueAccent,
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .center,
+
+                                                    children: [
+
+                                                  Container(
+                                                    //padding: EdgeInsets.only(top: 8.0),
+                                                    width: 80.0,
+                                                    child: center.trainersAssigned!.isEmpty
+                                                    ? CircleAvatar(
+                                                        backgroundImage: NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                    radius: 3.5.h,
+                                                                                                    )
+                                                        : center.trainersAssigned!.length > 1
+                                                                                                  ? Stack(
+                                                                                                  children: [
+                                                                                                  // First image
+                                                          CircleAvatar(
+                                                          backgroundImage: center.trainersAssigned![0].profilePhoto != null
+                                                          ? NetworkImage(ApiBaseHelper().imageBaseUrl +
+                                                              center.trainersAssigned![0].profilePhoto!)
+                                                          : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                            radius: 3.5.h,
+                                                          ),
+                                                                                        // Second image
+                                                    Positioned(
+                                                      top: 0, // Adjust as needed to half the height of the first image
+                                                      left: 20, // Adjust as needed
+                                                      child: CircleAvatar(
+                                                        backgroundImage: center.trainersAssigned![1].profilePhoto != null
+                                                            ? NetworkImage(ApiBaseHelper().imageBaseUrl +
+                                                            center.trainersAssigned![1].profilePhoto!)
+                                                            : NetworkImage(
+                                                            "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                        radius: 3.5.h,
+                                                      ),
+                                                    ),
+                                                                                      ],
+                                                                                    )
+                                                                                        : CircleAvatar(
+                                                                                    backgroundImage: center.trainersAssigned![0].profilePhoto != null
+                                                                                    ? NetworkImage(ApiBaseHelper().imageBaseUrl +
+                                                                                    center.trainersAssigned![0].profilePhoto!)
+                                                                                        : null, // Assign null if profilePhoto is null
+                                                                                    radius: 3.5.h,
+                                                                                    ),
+                                                  ),
+                                                  SizedBox(height: 6.0,),
+                                                  Container(
+                                                    margin: EdgeInsets.only(left: 5.0,right: 5.0),
+                                                    child: center.trainersAssigned!.length==0?
+                                                            Text("Not assign") :
+                                                        center.trainersAssigned!.length>1 ? InkWell(onTap:(){
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) {
+                                                                return AlertDialog(
+                                                                  title: Center(child: Text(
+                                                                    "Assigned Trainers",
+                                                                    style: TextStyle(fontSize: 18.sp),)),
+                                                                  content: Container(
+                                                                    width: double.maxFinite,
+                                                                    height: 300,
+                                                                    child: ListView.builder(
+                                                                      itemCount: center.trainersAssigned?.length,
+                                                                      itemBuilder: (context, index) {
+                                                                        return Card(
+                                                                          elevation: 6.0,
+                                                                          margin: EdgeInsets.only(
+                                                                          bottom: 15.0),
+                                                                          child: Padding(padding: const EdgeInsets.all(15.0),
+                                                                          child: Text(center.trainersAssigned![index].firstName!),
+                                                                        ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                          );
+                                                        },child: Text(
+                                                          "${center.trainersAssigned![0].firstName!} & ${center.trainersAssigned!.length - 1} more",
+                                                          overflow: TextOverflow.ellipsis, // Add ellipsis if text is too long
+                                                          maxLines: 1, // Limit to 1 line
+                                                        ),
+                                                        ) :
+                                                            Text(center.trainersAssigned![0].firstName!),
+                                                  )
+
+                                                      //Text(controller.trainerAssigned![index].firstName)
+                                                      ,
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                    ),
+                                    Text(center.name.toString(), style: TextStyle(
+                                        fontWeight: FontWeight.w600, fontSize: 14.sp),),
+                                  ],
+                                );;
                               },
                             );
                           }),
@@ -470,7 +618,38 @@ class CenterWiseCard extends StatelessWidget {
                             backgroundImage: AssetImage(
                                 "assets/images/user_img.png"),
                             radius: 3.5.h,),
-                          Text("Trainer"),
+                          TextButton(onPressed:(){
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Center(child: Text(
+                                      "Assigned Trainers",
+                                      style: TextStyle(fontSize: 18.sp),)),
+                                    content: Container(
+                                      width: double.maxFinite,
+                                      height: 300,
+                                      child: ListView.builder(
+                                        itemCount: center.trainersAssigned?.length,
+                                        itemBuilder: (context, index) {
+
+                                          return Card(
+                                            elevation: 6.0,
+                                            margin: EdgeInsets.only(
+                                                bottom: 15.0),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                  6.0),
+                                              child: Text(""),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                }
+                            );
+                          },child: Text("Trainer")),
                         ],
                       ),
                     ),

@@ -8,13 +8,14 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/controller/TraineeProfileController.dart';
 
-import '../model/ResponseModel/CenterResponseModel.dart';
-import '../utils/AppCommonMethods.dart';
-import '../utils/app_colors.dart';
-import '../utils/app_validation.dart';
-import '../widgets/common_textfield.dart';
+import '../../controller/profileController/TraineeProfileController.dart';
+import '../../model/ResponseModel/CenterResponseModel.dart';
+import '../../utils/AppCommonMethods.dart';
+import '../../utils/app_colors.dart';
+import '../../utils/app_validation.dart';
+import '../../widgets/common_textfield.dart';
+
 
 class TraineeProfile extends GetView<TraineeProfileController> {
   TraineeProfile({super.key});

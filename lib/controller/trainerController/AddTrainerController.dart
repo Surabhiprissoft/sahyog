@@ -3,10 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
-import 'package:sahyog/Screens/ManageTrainer.dart';
-import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
@@ -14,9 +11,12 @@ import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../utils/app_constants.dart';
-import '../utils/preference_utils.dart';
-import 'AdminDashboardController.dart';
+import '../../Screens/Trainer/ManageTrainer.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/preference_utils.dart';
+import '../dashboardController/AdminDashboardController.dart';
+import 'ManageTrainerController.dart';
+
 
 class AddTrainerController extends GetxController {
   RxString imagePath = "".obs;

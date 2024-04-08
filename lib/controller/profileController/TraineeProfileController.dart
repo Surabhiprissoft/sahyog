@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:sahyog/controller/ManageTraineeController.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/UpdateTraineeDataRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/FeeStatusResponseModel.dart';
@@ -17,9 +16,10 @@ import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../../utils/AppCommonMethods.dart';
+import '../dashboardController/AdminDashboardController.dart';
+import '../traineeController/ManageTraineeController.dart';
 
-import '../utils/AppCommonMethods.dart';
-import 'AdminDashboardController.dart';
 
 
 
@@ -238,7 +238,7 @@ class TraineeProfileController extends GetxController{
           address: addressController.text.toString(),
           isActive: traineeStatus.value,
           trainingType: selectedLevel.value.toString(),
-          center: 4
+          center: selectedCenter.value?.id
       );
 
       final response = await  userRepository.updateTraineeData(updateTraineeData,userId);

@@ -9,7 +9,8 @@ import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../utils/preference_utils.dart';
+import '../../utils/preference_utils.dart';
+
 
 class TrainerDashboardController extends GetxController{
 

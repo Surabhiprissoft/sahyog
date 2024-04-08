@@ -4,12 +4,6 @@ import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
-import 'package:sahyog/Screens/ManageTrainee.dart';
-import 'package:sahyog/Screens/TraineeDashboard.dart';
-import 'package:sahyog/Screens/TrainerDashBoard.dart';
-import 'package:sahyog/controller/AdminDashboardController.dart';
-import 'package:sahyog/controller/ManageTraineeController.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
@@ -19,9 +13,14 @@ import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../Screens/LoginScreen.dart';
-import '../utils/app_constants.dart';
-import '../utils/preference_utils.dart';
+import '../../Screens/LoginScreen.dart';
+import '../../Screens/dashboard/AdminDashboard.dart';
+import '../../Screens/dashboard/TrainerDashboard.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/preference_utils.dart';
+import '../dashboardController/AdminDashboardController.dart';
+import 'ManageTraineeController.dart';
+
 
 class AddTraineeController extends GetxController
 {

@@ -15,6 +15,7 @@ class AdminDashboardController extends GetxController{
   RxInt totalTrainerCount = 0.obs;
   RxInt totalTraineeCount = 0.obs;
   late RxList<Centers> centerList= <Centers>[].obs;
+  late RxList<TrainersAssigned> trainerAssigned = <TrainersAssigned>[].obs;
   late SingleResponse<AdminDashboardResponseModel> adminDashboardResponse;
   RxDouble feePercent = 0.0.obs;
   final UserRepository userRepository;

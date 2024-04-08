@@ -3,8 +3,6 @@
 
 import 'dart:convert';
 
-import 'package:sahyog/Screens/AddTrainee.dart';
-import 'package:sahyog/Screens/AdminDashboard.dart';
 import 'package:sahyog/model/RequestModel/UpdateTraineeDataRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/FeeStatusResponseModel.dart';
 import 'package:sahyog/model/BaseListResponse.dart';

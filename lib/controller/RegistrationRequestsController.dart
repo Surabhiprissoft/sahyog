@@ -6,7 +6,8 @@ import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import 'AdminDashboardController.dart';
+import 'dashboardController/AdminDashboardController.dart';
+
 
 class RegistrationRequestsController extends GetxController{
 

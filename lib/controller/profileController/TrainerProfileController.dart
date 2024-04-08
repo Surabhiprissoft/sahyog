@@ -8,12 +8,12 @@ import 'package:sahyog/model/RequestModel/UpdateTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../model/RequestModel/AddTrainerRequestModel.dart';
-import '../model/ResponseModel/TrainerTraineeResponseModel.dart';
-import '../network/api_baseHelper.dart';
-import '../network/user_repository.dart';
-import '../utils/AppCommonMethods.dart';
-import '../widgets/DialogHelper.dart';
+import '../../network/api_baseHelper.dart';
+import '../../network/user_repository.dart';
+import '../../utils/AppCommonMethods.dart';
+import '../../widgets/DialogHelper.dart';
+
+
 
 class TrainerProfileController extends GetxController{
   RxString imagePath = "".obs;

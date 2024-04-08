@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/Screens/ManageTrainee.dart';
-import 'package:sahyog/controller/TrainerDashboardController.dart';
+
+import 'package:sahyog/Screens/Trainee/ManageTrainee.dart';
+import 'package:sahyog/controller/dashboardController/TrainerDashboardController.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_constants.dart';

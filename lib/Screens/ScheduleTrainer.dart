@@ -65,8 +65,8 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                     fontSize: 16.sp, fontWeight: FontWeight.w700),),
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: Icon(Icons.content_paste_go)),
+                   /* IconButton(onPressed: () {},
+                        icon: Icon(Icons.content_paste_go)),*/
                     ElevatedButton(onPressed: () {
                       print(controller.selectedNames.toString());
                       controller.assigntrainers();
@@ -205,7 +205,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                       .centers[index].name,
                                                                   controller
                                                                       .centers[index]
-                                                                      .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
+                                                                      .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate,true);
                                                             },
                                                             shape: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius
@@ -425,7 +425,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                                 .centerName,
                                                                             trainee
                                                                                 .timeslot,
-                                                                            trainee.centerId,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
+                                                                            trainee.centerId,name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate,false);
                                                                         Get.back();
                                                                         print(controller.selectedNames);
                                                                       },

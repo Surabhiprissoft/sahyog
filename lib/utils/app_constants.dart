@@ -21,6 +21,7 @@ class AppConstants
   static const ADDTRAINER="users";
   static const ADDTRAINEE="users";
   static const SELFREGISTERED="registeruser";
+
   static const GETCENTERS="timeslots/center";
   static const UPDATEPASSWORD="updatepassword";
   static const FORGOTPASSWORD="forgotpassword";
@@ -33,6 +34,7 @@ class AppConstants
   static const TRAINEEDASHBOARD="traineedashboard/traineedash/";
   static const GETTIMESLOTS="timeslots/centretimeslot/";
   static const SCHEDULETRAINERS="timeslots/mapschedule";
+  static const DELETESCHEDULE="timeslots/removeschedule";
   static const ROLE = "role";
   static const TRAINERDASHBOARD = "user/";
 

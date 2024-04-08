@@ -396,5 +396,15 @@ class UserRepository{
       throw error;
     }
   }
-
+  Future<TrainerTraineeResponseModel> deletSchedule(DeleteTraineeRequestModel deleteTraineeRequestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final trainertrainee = await apiBaseHelper.post(AppConstants.DELETESCHEDULE, deleteTraineeRequestModel.toJson());
+      return TrainerTraineeResponseModel.fromJson(trainertrainee);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
 }

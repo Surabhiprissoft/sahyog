@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/Centers.dart';
+import 'package:sahyog/model/RequestModel/DeleteTraineeRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/model/ResponseModel/AdminDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
@@ -14,6 +15,7 @@ import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 
 import 'ManageTrainerController.dart';
 
@@ -22,6 +24,7 @@ class ScheduleTrainerController extends GetxController {
   // var traineenames = ['Trainer 1', 'Trainer 2', 'Trainer 3', 'Trainer 4'].obs;
   //var selectedNames = <String>[].obs; //Earlier Assignment
   var selectedNames = <AssignTrainee>[].obs;
+  var selectedListfordelete = <AssignTrainee>[].obs;
   final UserRepository userRepository;
 
 
@@ -138,17 +141,32 @@ class ScheduleTrainerController extends GetxController {
 
 
 
-  void AssignedTrainer(String name, String centerName, String selectedTimeSlot, int centerId,int trainerId,int number_day, int interval, String currentDate) {
+  void AssignedTrainer(String name, String centerName, String selectedTimeSlot, int centerId,int trainerId,int number_day, int interval, String currentDate,bool isdeleted) {
 
     AssignTrainee trainee = AssignTrainee(name, centerName, selectedTimeSlot,centerId,trainerId,number_day,interval,currentDate);
 
-    if (selectedNames.contains(trainee)) {
+    if (selectedNames.contains(trainee))
+    {
+      print(selectedListfordelete.toString()+""+selectedListfordelete.length.toString());
+      if(isdeleted && selectedListfordelete.contains(trainee))
+        {
+          DeleteTraineeRequestModel deleteTraineeRequestModel = DeleteTraineeRequestModel(ct:trainee.centerId,user: trainee.userId,date:currentDate);
+           deleteTrainnee(deleteTraineeRequestModel);
+           print("Yes you can delete it from api");
+
+        }
+      else
+        {
+           print("it is from local db");
+           selectedNames.remove(trainee);
+        }
       selectedNames.remove(trainee);
       isChecked.value = true;
     } else {
       selectedNames.add(trainee);
       isChecked.value = false;
     }
+
   }
 
   void getTimeslotData(DateTime dateTime) async
@@ -173,6 +191,7 @@ class ScheduleTrainerController extends GetxController {
       //timeslotList.assignAll(timeslotResponseModel.data);
       centers.clear();
       selectedNames.clear();
+      selectedListfordelete.clear();
 
       for (var data in timeslotResponseModel.data)
       {
@@ -227,10 +246,16 @@ class ScheduleTrainerController extends GetxController {
               data.ctable!.name!,
               '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',centerId!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!,
             ));
+            selectedListfordelete.add(AssignTrainee(
+              trainerName,
+              data.ctable!.name!,
+              '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}',centerId!.toInt(),trainer.id!.toInt(),trainer.noOfDays!.toInt(),trainer.interval!.toInt(),trainer.date!,
+            ));
 
           }
 
           selectedNames.value = removeDuplicates(selectedNames);
+          selectedListfordelete.value = removeDuplicates(selectedNames);
           update();
         }
       }
@@ -258,13 +283,20 @@ class ScheduleTrainerController extends GetxController {
 
    // scheduleTrainerRequestModel=assigntrainess.toString();
 
+    DialogHelper.showLoading();
     trainerTraineeResponseModel=await userRepository.scheduleTrainer(assigntrainess);
     if(trainerTraineeResponseModel.status==200)
       {
+         DialogHelper.hideLoading();
          print("Data Saved Successfully");
          assigntrainess.clear();
          selectedNames.clear();
          getTimeslotData(selectedDateTime);
+      }
+
+    else
+      {
+        DialogHelper.hideLoading();
       }
   }
 
@@ -282,5 +314,23 @@ class ScheduleTrainerController extends GetxController {
     });
 
     return uniqueList;
+  }
+
+  Future<void> deleteTrainnee(DeleteTraineeRequestModel deleteTraineeRequestModel) async
+  {
+    trainerTraineeResponseModel=await userRepository.deletSchedule(deleteTraineeRequestModel);
+    DialogHelper.showLoading();
+    if(trainerTraineeResponseModel.status==200)
+    {
+      DialogHelper.hideLoading();
+      print("Data Saved Successfully");
+      selectedNames.clear();
+      selectedListfordelete.clear();
+      getTimeslotData(selectedDateTime);
+    }
+    else
+      {
+         DialogHelper.hideLoading();
+      }
   }
 }

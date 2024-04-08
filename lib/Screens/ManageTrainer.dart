@@ -8,6 +8,7 @@ import 'package:sahyog/Screens/AddTrainer.dart';
 import 'package:sahyog/Screens/ScheduleTrainer.dart';
 import 'package:sahyog/Screens/TrainerProfile.dart';
 import 'package:sahyog/controller/ManageTrainerController.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 
@@ -161,7 +162,7 @@ class TrainerList extends StatelessWidget {
         } else {
           // Show the list view with data
           return Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 30.0),
             child: ListView.builder(
               itemCount: manageTrainerController.trainerList.length,
               itemBuilder: (context, index) {
@@ -287,7 +288,7 @@ class ManageTrainerCardItem extends StatelessWidget {
                     backgroundImage: trainer.profilePhoto != null &&
                         trainer.profilePhoto!.isNotEmpty
                         ? NetworkImage(
-                        "http://192.168.235.136:8000${trainer.profilePhoto}")
+                        ApiBaseHelper().imageBaseUrl+trainer.profilePhoto.toString())
                         : NetworkImage(
                         "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                     radius: 3.5.h,

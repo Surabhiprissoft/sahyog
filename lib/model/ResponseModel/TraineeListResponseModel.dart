@@ -10,13 +10,16 @@ import 'dart:convert';
 /// dob : "2000-03-15"
 /// phone : "9436786138"
 /// address : "Pune, Maharashtra"
-/// center : "Sahabhag Hall"
+/// center_id : 6
+/// center_name : "Sahabhag Hall"
+/// center_address : "Somvar Peth"
 /// is_active : true
 /// created_at : "2024-03-19T11:06:29.114444Z"
-/// modified_at : "2024-03-19T14:03:04.807917Z"
+/// modified_at : "2024-03-26T06:59:15.492637Z"
 /// year_of_experience : 0
 /// training_type : "Intermediate"
 /// discount : "0.00"
+/// fees_status_false_count : 2
 
 TraineeListResponseModel traineeListResponseModelFromJson(String str) => TraineeListResponseModel.fromJson(json.decode(str));
 String traineeListResponseModelToJson(TraineeListResponseModel data) => json.encode(data.toJson());
@@ -33,13 +36,16 @@ class TraineeListResponseModel {
       String? dob, 
       String? phone, 
       String? address, 
-      String? center, 
+      num? centerId, 
+      String? centerName, 
+      String? centerAddress, 
       bool? isActive, 
       String? createdAt, 
       String? modifiedAt, 
       num? yearOfExperience, 
       String? trainingType, 
-      String? discount,}){
+      String? discount, 
+      num? feesStatusFalseCount,}){
     _id = id;
     _username = username;
     _email = email;
@@ -51,13 +57,16 @@ class TraineeListResponseModel {
     _dob = dob;
     _phone = phone;
     _address = address;
-    _center = center;
+    _centerId = centerId;
+    _centerName = centerName;
+    _centerAddress = centerAddress;
     _isActive = isActive;
     _createdAt = createdAt;
     _modifiedAt = modifiedAt;
     _yearOfExperience = yearOfExperience;
     _trainingType = trainingType;
     _discount = discount;
+    _feesStatusFalseCount = feesStatusFalseCount;
 }
 
   TraineeListResponseModel.fromJson(dynamic json) {
@@ -72,13 +81,16 @@ class TraineeListResponseModel {
     _dob = json['dob'];
     _phone = json['phone'];
     _address = json['address'];
-    _center = json['center'];
+    _centerId = json['center_id'];
+    _centerName = json['center_name'];
+    _centerAddress = json['center_address'];
     _isActive = json['is_active'];
     _createdAt = json['created_at'];
     _modifiedAt = json['modified_at'];
     _yearOfExperience = json['year_of_experience'];
     _trainingType = json['training_type'];
     _discount = json['discount'];
+    _feesStatusFalseCount = json['fees_status_false_count'];
   }
   num? _id;
   String? _username;
@@ -91,13 +103,16 @@ class TraineeListResponseModel {
   String? _dob;
   String? _phone;
   String? _address;
-  String? _center;
+  num? _centerId;
+  String? _centerName;
+  String? _centerAddress;
   bool? _isActive;
   String? _createdAt;
   String? _modifiedAt;
   num? _yearOfExperience;
   String? _trainingType;
   String? _discount;
+  num? _feesStatusFalseCount;
 TraineeListResponseModel copyWith({  num? id,
   String? username,
   String? email,
@@ -109,13 +124,16 @@ TraineeListResponseModel copyWith({  num? id,
   String? dob,
   String? phone,
   String? address,
-  String? center,
+  num? centerId,
+  String? centerName,
+  String? centerAddress,
   bool? isActive,
   String? createdAt,
   String? modifiedAt,
   num? yearOfExperience,
   String? trainingType,
   String? discount,
+  num? feesStatusFalseCount,
 }) => TraineeListResponseModel(  id: id ?? _id,
   username: username ?? _username,
   email: email ?? _email,
@@ -127,13 +145,16 @@ TraineeListResponseModel copyWith({  num? id,
   dob: dob ?? _dob,
   phone: phone ?? _phone,
   address: address ?? _address,
-  center: center ?? _center,
+  centerId: centerId ?? _centerId,
+  centerName: centerName ?? _centerName,
+  centerAddress: centerAddress ?? _centerAddress,
   isActive: isActive ?? _isActive,
   createdAt: createdAt ?? _createdAt,
   modifiedAt: modifiedAt ?? _modifiedAt,
   yearOfExperience: yearOfExperience ?? _yearOfExperience,
   trainingType: trainingType ?? _trainingType,
   discount: discount ?? _discount,
+  feesStatusFalseCount: feesStatusFalseCount ?? _feesStatusFalseCount,
 );
   num? get id => _id;
   String? get username => _username;
@@ -146,13 +167,16 @@ TraineeListResponseModel copyWith({  num? id,
   String? get dob => _dob;
   String? get phone => _phone;
   String? get address => _address;
-  String? get center => _center;
+  num? get centerId => _centerId;
+  String? get centerName => _centerName;
+  String? get centerAddress => _centerAddress;
   bool? get isActive => _isActive;
   String? get createdAt => _createdAt;
   String? get modifiedAt => _modifiedAt;
   num? get yearOfExperience => _yearOfExperience;
   String? get trainingType => _trainingType;
   String? get discount => _discount;
+  num? get feesStatusFalseCount => _feesStatusFalseCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -167,13 +191,16 @@ TraineeListResponseModel copyWith({  num? id,
     map['dob'] = _dob;
     map['phone'] = _phone;
     map['address'] = _address;
-    map['center'] = _center;
+    map['center_id'] = _centerId;
+    map['center_name'] = _centerName;
+    map['center_address'] = _centerAddress;
     map['is_active'] = _isActive;
     map['created_at'] = _createdAt;
     map['modified_at'] = _modifiedAt;
     map['year_of_experience'] = _yearOfExperience;
     map['training_type'] = _trainingType;
     map['discount'] = _discount;
+    map['fees_status_false_count'] = _feesStatusFalseCount;
     return map;
   }
 

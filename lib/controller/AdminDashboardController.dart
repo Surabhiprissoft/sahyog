@@ -16,7 +16,7 @@ class AdminDashboardController extends GetxController{
   RxInt totalTraineeCount = 0.obs;
   late RxList<Centers> centerList= <Centers>[].obs;
   late SingleResponse<AdminDashboardResponseModel> adminDashboardResponse;
-
+  RxDouble feePercent = 0.0.obs;
   final UserRepository userRepository;
   AdminDashboardController(this.userRepository);
 
@@ -37,6 +37,8 @@ class AdminDashboardController extends GetxController{
       totalTrainerCount.value = adminDashboardResponse.data.trainerCount!.toInt();
       totalTraineeCount.value = adminDashboardResponse.data.traineeCount!.toInt();
       centerList.addAll(adminDashboardResponse.data.centers!.toList());
+      feePercent.value = (adminDashboardResponse.data.feesStatusCounts!.trueCount!.toInt() / totalTraineeCount.value ) * 100;
+      print("Fee ${feePercent}");
       centerList.removeAt(0);
       update();
     } else {

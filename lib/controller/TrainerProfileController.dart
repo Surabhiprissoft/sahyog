@@ -10,6 +10,7 @@ import 'package:sahyog/widgets/other_common_widget.dart';
 
 import '../model/RequestModel/AddTrainerRequestModel.dart';
 import '../model/ResponseModel/TrainerTraineeResponseModel.dart';
+import '../network/api_baseHelper.dart';
 import '../network/user_repository.dart';
 import '../utils/AppCommonMethods.dart';
 import '../widgets/DialogHelper.dart';
@@ -70,7 +71,9 @@ class TrainerProfileController extends GetxController{
 
     if(trainer.profilePhoto!=null)
     {
-      userProfileImage = "http://192.168.235.136:8000${trainer.profilePhoto.toString()}".obs;
+      String concatenatedString = ApiBaseHelper().imageBaseUrl.toString() + trainer.profilePhoto.toString();
+      userProfileImage.value = concatenatedString; //"http://192.168.235.136:8000${trainer.profilePhoto.toString()}".obs;
+      imagePath.value = concatenatedString; //"http://192.168.235.136:8000${trainer.profilePhoto.toString()}".obs;
       imageInBaseValue = await AppCommonMethods().getImageBase64FromUrl(userProfileImage.value);
     }
 
@@ -81,7 +84,7 @@ class TrainerProfileController extends GetxController{
     final image = await openCameraPicker.pickImage(source: ImageSource.camera);
     if (image != null) {
       imagePath.value = image.path.toString();
-      imageInBaseValue = await AppCommonMethods().getImageBase64FromUrl(image.path.toString());
+      imageInBaseValue =  AppCommonMethods().getBase64Image(image.path.toString());
     }
   }
 
@@ -90,7 +93,7 @@ class TrainerProfileController extends GetxController{
     final image = await openCameraPicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       imagePath.value = image.path.toString();
-      imageInBaseValue = await AppCommonMethods().getImageBase64FromUrl(image.path.toString());
+      imageInBaseValue = await AppCommonMethods().getBase64Image(image.path.toString());
     }
   }
 
@@ -105,7 +108,7 @@ class TrainerProfileController extends GetxController{
           lastName: lastNameController.text.toString(),
           gender: selectedGender.value.toString(),
           dob: ageController.text.toString(),
-          profilePhoto: imagePath.value,/*trainer.profilePhoto.toString() == null
+          profilePhoto: imageInBaseValue,/*trainer.profilePhoto.toString() == null
               ? null
               : AppCommonMethods().getBase64Image(imagePath.value),*/
 

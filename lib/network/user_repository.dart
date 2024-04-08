@@ -5,6 +5,8 @@ import 'dart:convert';
 
 import 'package:sahyog/Screens/AddTrainee.dart';
 import 'package:sahyog/Screens/AdminDashboard.dart';
+import 'package:sahyog/model/RequestModel/UpdateTraineeDataRequestModel.dart';
+import 'package:sahyog/model/ResponseModel/FeeStatusResponseModel.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/RequestModel/AddTraineeRequestModel.dart';
@@ -12,6 +14,7 @@ import 'package:sahyog/model/RequestModel/AddTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ChangePasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ForgotPasswordRequestModel.dart';
 import 'package:sahyog/model/RequestModel/LoginRequestModel.dart';
+import 'package:sahyog/model/RequestModel/MarkFeeStatusRequestModel.dart';
 import 'package:sahyog/model/RequestModel/RegistrationUpdateRequestModel.dart';
 import 'package:sahyog/model/RequestModel/ScheduleTrainerRequestModel.dart';
 import 'package:sahyog/model/RequestModel/UpdateTrainerRequestModel.dart';
@@ -20,6 +23,7 @@ import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/ChangePasswordResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/LoginResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TimeSlotResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TraineeDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
@@ -53,6 +57,25 @@ class UserRepository{
     }
   }
 
+  Future<SingleResponse<FeeStatusResponseModel>> getFeeData(int userId) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final fees = await apiBaseHelper.get(AppConstants.FEESTATUS+userId.toString());
+
+      // Parse the response JSON into a SingleResponse object
+      SingleResponse<FeeStatusResponseModel> feeResponse = SingleResponse.fromJson(
+          fees,
+              (json) => FeeStatusResponseModel.fromJson(json)
+      );
+
+      return feeResponse;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while getting fees data: $error');
+      throw error;
+    }
+  }
+
   Future<SingleResponse<LoginResponseModel>> checkLogin(LoginRequestModel loginRequest) async {
     try {
       // Make an asynchronous API call to fetch the login response
@@ -72,6 +95,21 @@ class UserRepository{
     }
   }
 
+
+  Future<TrainerTraineeResponseModel> markFeeStatus(MarkFeeStatusRequestModel requestModel) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final feeUpdate = await apiBaseHelper.put(AppConstants.MARKFEE, requestModel.toJson());
+
+      // Parse the response JSON into a SingleResponse object
+      return TrainerTraineeResponseModel.fromJson(feeUpdate);
+
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
 
   Future<TrainerTraineeResponseModel> addTrainer(AddTrainerRequestModel addTrainerRequestModel) async {
     try {
@@ -241,7 +279,7 @@ class UserRepository{
   Future<TrainerTraineeResponseModel> updateTrainerData(UpdateTrainerRequestModel trainerUpdateRequest,int userId) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final response = await apiBaseHelper.put("updateuser/$userId/", trainerUpdateRequest.toJson());
+      final response = await apiBaseHelper.put("updateuser/$userId", trainerUpdateRequest.toJson());
       return TrainerTraineeResponseModel.fromJson(response);
 
     } catch (error) {
@@ -250,6 +288,21 @@ class UserRepository{
       throw error;
     }
   }
+
+
+  Future<TrainerTraineeResponseModel> updateTraineeData(UpdateTraineeDataRequestModel traineeUpdateRequest,int userId) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final response = await apiBaseHelper.put("updateuser/$userId", traineeUpdateRequest.toJson());
+      return TrainerTraineeResponseModel.fromJson(response);
+
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while checking login: $error');
+      throw error;
+    }
+  }
+
 
   Future<SingleResponse<AdminDashboardResponseModel>> getAdminDashboardData() async {
     try {
@@ -266,6 +319,26 @@ class UserRepository{
     } catch (error) {
       // Handle any errors that occur during the API call
       print('Error occurred while fetching Dashboard Data: $error');
+      throw error;
+    }
+  }
+
+
+  Future<SingleResponse<TraineeDashboardResponseModel>> getTraineeDashboardData(int userId) async {
+    try {
+      // Make an asynchronous API call to fetch the login response
+      final details = await apiBaseHelper.get(AppConstants.TRAINEEDASHBOARD+userId.toString());
+
+      // Parse the response JSON into a SingleResponse object
+      SingleResponse<TraineeDashboardResponseModel> detailList = SingleResponse.fromJson(
+          details,
+              (json) => TraineeDashboardResponseModel.fromJson(json)
+      );
+
+      return detailList;
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      print('Error occurred while fetching Trainee Dashboard Data: $error');
       throw error;
     }
   }

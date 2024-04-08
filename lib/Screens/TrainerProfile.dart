@@ -98,14 +98,14 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                     )
                 ),
                 Positioned(
-                    top: 150,
+                    top: 160,
                     // Adjust this value to control the position of the card
                     left: 0,
                     right: 0,
                     bottom: 1,
                     child: Container(
                       height: 100.h,
-                      padding: EdgeInsets.all(2.h),
+                      //padding: EdgeInsets.all(2.h),
                       width: MediaQuery
                           .of(context)
                           .size
@@ -179,7 +179,8 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                                   .end,
                                             ));
                                       }),
-                                      const SizedBox(height: 30.0,),
+
+                                      const SizedBox(height:50.0),
                                       Row(
                                         children: [
                                           Expanded(
@@ -415,7 +416,10 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                             shape: CircleBorder(),
                             child: CircleAvatar(
                               radius: 75,
-                              //foregroundImage: NetworkImage(trainerProfileController.userProfileImage.value),
+                              foregroundImage: trainerProfileController.imagePath.value.isNotEmpty
+                                  ?NetworkImage(trainerProfileController.imagePath.value)
+                                    : NetworkImage(
+                                  "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                               backgroundImage: trainerProfileController.imagePath.isNotEmpty
                                   ? FileImage(File(trainerProfileController.imagePath.value.toString()))
                                   : null,

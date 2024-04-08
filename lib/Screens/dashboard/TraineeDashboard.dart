@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../controller/TraineeDashboardController.dart';
+import '../../controller/dashboardController/TraineeDashboardController.dart';
+
 
 class TraineeDashboard extends GetView<TraineeDashboardController> {
   TraineeDashboard({super.key});
@@ -254,7 +256,7 @@ class TraineeDashboard extends GetView<TraineeDashboardController> {
                                   );
                                 } else {
                                   return Container(
-                                    padding: EdgeInsets.all(20.0),
+
                                     child: ListView.builder(
                                       itemCount: controller.assignedTrainers
                                           .length,
@@ -266,7 +268,6 @@ class TraineeDashboard extends GetView<TraineeDashboardController> {
                                           surfaceTintColor: Colors.white,
                                           color: Colors.white,
                                           child: Container(
-                                            width: 100.w,
                                             padding: EdgeInsets.all(10.0),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment
@@ -276,19 +277,18 @@ class TraineeDashboard extends GetView<TraineeDashboardController> {
                                                   mainAxisAlignment: MainAxisAlignment
                                                       .start,
                                                   children: [
-                                                    /*CircleAvatar(
+                                                    CircleAvatar(
                                                   backgroundImage: trainer
                                                       .profilePhoto != null &&
                                                       trainer.profilePhoto!
                                                           .isNotEmpty
                                                       ? NetworkImage(
-                                                      "http://192.168.235.136:8000${trainer
-                                                          .profilePhoto}")
+                                                      ApiBaseHelper().imageBaseUrl+trainer.profilePhoto)
                                                       : NetworkImage(
                                                       "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                                                   radius: 3.5.h,
-                                                ),*/
-                                                    SizedBox(width: 1.w),
+                                                ),
+                                                    SizedBox(width: 3.w),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment
                                                           .start,

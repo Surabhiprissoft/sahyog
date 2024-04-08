@@ -12,11 +12,12 @@ import 'package:intl/intl.dart';
 import 'package:sahyog/model/ResponseModel/TraineeDashboardResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
 
-import '../network/user_repository.dart';
-import '../utils/app_constants.dart';
-import '../utils/preference_utils.dart';
-import '../widgets/other_common_widget.dart';
 import 'package:get/get.dart';
+
+import '../../network/user_repository.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/preference_utils.dart';
+import '../../widgets/other_common_widget.dart';
 
 
 class TraineeDashboardController extends GetxController

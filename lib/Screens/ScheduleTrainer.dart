@@ -6,10 +6,11 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:sahyog/controller/ScheduleTrainerController.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/widgets/CustomCalendarControl.dart';
+
+import '../controller/trainerController/ScheduleTrainerController.dart';
 
 class ScheduleTrainer extends GetView<ScheduleTrainerController> {
   // Sample list of centers

@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:sahyog/controller/ManageTrainerController.dart';
 import 'package:sahyog/model/BaseListResponse.dart';
 import 'package:sahyog/model/Centers.dart';
 import 'package:sahyog/model/RequestModel/DeleteTraineeRequestModel.dart';
@@ -17,6 +16,8 @@ import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
+
+import 'ManageTrainerController.dart';
 
 class ScheduleTrainerController extends GetxController {
 

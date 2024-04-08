@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../model/BaseListResponse.dart';
-import '../network/user_repository.dart';
+import '../../model/BaseListResponse.dart';
+import '../../network/user_repository.dart';
 
 class ManageTrainerController extends GetxController {
   final UserRepository userRepository;

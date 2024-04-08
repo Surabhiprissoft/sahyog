@@ -43,24 +43,24 @@ class Centers {
   String? name;
   String? address;
   int? totalTrainees;
-  List<AssignedTrainers>? assignedTrainers;
+  List<TrainersAssigned>? trainersAssigned;
 
   Centers(
       {this.id,
         this.name,
         this.address,
         this.totalTrainees,
-        this.assignedTrainers});
+        this.trainersAssigned});
 
   Centers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     address = json['address'];
     totalTrainees = json['total_trainees'];
-    if (json['assigned_trainers'] != null) {
-      assignedTrainers = <AssignedTrainers>[];
-      json['assigned_trainers'].forEach((v) {
-        assignedTrainers!.add(new AssignedTrainers.fromJson(v));
+    if (json['trainers_assigned'] != null) {
+      trainersAssigned = <TrainersAssigned>[];
+      json['trainers_assigned'].forEach((v) {
+        trainersAssigned!.add(new TrainersAssigned.fromJson(v));
       });
     }
   }
@@ -71,15 +71,15 @@ class Centers {
     data['name'] = this.name;
     data['address'] = this.address;
     data['total_trainees'] = this.totalTrainees;
-    if (this.assignedTrainers != null) {
-      data['assigned_trainers'] =
-          this.assignedTrainers!.map((v) => v.toJson()).toList();
+    if (this.trainersAssigned != null) {
+      data['trainers_assigned'] =
+          this.trainersAssigned!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class AssignedTrainers {
+class TrainersAssigned {
   String? scheduledDate;
   String? currentDate;
   String? firstName;
@@ -87,7 +87,7 @@ class AssignedTrainers {
   String? timeslotStartTime;
   String? timeslotEndTime;
 
-  AssignedTrainers(
+  TrainersAssigned(
       {this.scheduledDate,
         this.currentDate,
         this.firstName,
@@ -95,7 +95,7 @@ class AssignedTrainers {
         this.timeslotStartTime,
         this.timeslotEndTime});
 
-  AssignedTrainers.fromJson(Map<String, dynamic> json) {
+  TrainersAssigned.fromJson(Map<String, dynamic> json) {
     scheduledDate = json['scheduled_date'];
     currentDate = json['current_date'];
     firstName = json['first_name'];

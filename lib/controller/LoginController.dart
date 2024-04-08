@@ -115,7 +115,7 @@ class LoginController extends GetxController
         if(loginResponseModel.status==200){
           DialogHelper.hideLoading();
           PreferenceUtils.setString(AppConstants.USER_TOKEN,loginResponseModel.data.sessionToken.toString());
-          PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
+
           PreferenceUtils.setInt(AppConstants.USERID,loginResponseModel.data.id!!);
           PreferenceUtils.setString(AppConstants.USERNAME,loginResponseModel.data.firstName.toString());
           PreferenceUtils.setInt(AppConstants.USERID,loginResponseModel.data.id!);
@@ -129,15 +129,18 @@ class LoginController extends GetxController
             Get.to(()=>ChangePassword(),arguments: email);
           }else{
             if(loginResponseModel.data.role==1){
+              PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
               Get.to(()=>TrainerDashboard());
             }
             else if(loginResponseModel.data.role==2)
             {
               //Get.to(()=>TraineeDashboard(),arguments: loginResponseModel.data.id);
               Get.to(()=>TraineeDashboard());
+              PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
             }
             else{
               Get.to(()=>AdminDasboard());
+              PreferenceUtils.setInt(AppConstants.ROLE,loginResponseModel.data.role!!);
             }
           }
 

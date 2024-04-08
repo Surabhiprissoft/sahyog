@@ -81,18 +81,67 @@ class TrainerDashboardController extends GetxController{
         centers.forEach((center) => print(center.name));
         print("Centers Are"+centers.toString());
 
+        DateTime now = DateTime.now();
 
-        List<Map<String, String>> statusList = getStatusList(centers);
-        print(statusList.toString());
+        // Create a DateFormat object with the desired format
+        DateFormat formatter = DateFormat('h:mm a');
+
+        // Format the current time using the formatter
+        String formattedTime = formatter.format(now);
+        print("formatted time"+formattedTime);
+
+
+        List<Map<String, String>> statusList=[];
+        //print(statusList.toString());
+        centers.forEach((center) {
+          bool isAbsent = true;
+          // Iterate over each time slot for the center
+          for (String timeSlot in center.timeSlots) {
+            // Split the time slot into start and end times
+            List<String> times = timeSlot.split(" - ");
+
+            // Extract the start time
+            String startTime = times[0]
+                .trim(); // Remove leading/trailing spaces
+
+            DateTime formattedTimeDt = formatter.parse(formattedTime);
+            DateTime startTimeDt = DateFormat('h:mm a').parse(startTime);
+
+// Compare formattedTimeDt with startTimeDt
+            int comparison = startTimeDt.compareTo(formattedTimeDt);
+
+// Check the comparison result
+            if (comparison >= 0) {
+              print("after");
+              // formattedTimeDt is equal to or after startTimeDt
+              // This means the current time is equal to or after the start time
+              // You may want to handle this case accordingly
+              statusList.add({'center_name': center.name, 'status': "after"});
+            } else {
+
+              print("before");
+              // formattedTimeDt is before startTimeDt
+              // This means the current time is before the start time
+              // You can print "Absent" or any other action you desire
+              statusList.add({'center_name': center.name, 'status': "before"});
+            }
+            print(startTime);
+            print(statusList);
+            // Compare the start time with the current time
+          }
+        });
+
+
+
+        //List<Map<String, String>> statusList = getStatusList(centers);
+
         update();
       } else {
         showSnackBar("Something went wrong", "Unable to fetch Center list at the moment");
       }
       return trainerdashboardResponseModel;
     }
-  DateTime getStartTime(String slot) {
-    return DateFormat('hh:mm a').parse(slot.split(' - ')[0]);
-  }
+
 
   // Custom comparator function
   int sortByStartTime(CenterModel a, CenterModel b) {
@@ -105,44 +154,7 @@ class TrainerDashboardController extends GetxController{
   }
 
   // Sort the list using the sortByStartTime function
-  String getStatus(TimeOfDay currentTime, TimeOfDay startTime) {
 
-
-    if (startTime.hour < currentTime.hour)
-    {
-      return "Absent";
-    }
-    else {
-      return "not yet started";
-    }
-  }
-
-  List<Map<String, String>> getStatusList(List<CenterModel> centers) {
-    TimeOfDay currentTime = TimeOfDay.now();
-    List<Map<String, String>> statusList = [];
-
-    for (var center in centers) {
-      for (var timeSlot in center.timeSlots) {
-        var timeRangeParts = timeSlot.split(" - ");
-
-        var startTime = _parseTimeOfDay(timeRangeParts[0]);
-        print("STARTTIME"+startTime.toString());
-        print("CURRENTTIME"+currentTime.toString());
-        String status = getStatus(currentTime, startTime);
-
-        statusList.add({'center_name': center.name, 'status': status});
-      }
-    }
-    return statusList;
-  }
-
-  TimeOfDay _parseTimeOfDay(String timeString) {
-    String formattedTime = timeString.replaceAll(RegExp(r'(:? AM|:? PM)'), '');
-    List<String> parts = formattedTime.split(":");
-    int hour = int.parse(parts[0]);
-    int minute = int.parse(parts[1]);
-    return TimeOfDay(hour: hour, minute: minute);
-  }
 
 
 }

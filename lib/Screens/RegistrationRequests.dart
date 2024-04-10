@@ -49,7 +49,7 @@ class RegistrationRequest extends StatelessWidget {
                       if (registrationRequestsController.unApprovedTrainerList.isEmpty) {
                         return Center(
                           child: SizedBox(
-                              child: Text("No trainer registration request has pending"),
+                              child: Text("No Trainer registration request has pending"),
                           ),
                         );
                       } else {
@@ -154,11 +154,9 @@ class RegistrationRequest extends StatelessWidget {
                     })
                         : Obx(() {
                       if (registrationRequestsController.traineeList.isEmpty) {
-                        return Center(
+                        return  Center(
                           child: SizedBox(
-                            width: 40.0, // Adjust the width as needed
-                            height: 40.0,
-                            child: CircularProgressIndicator(),
+                            child: Text("No Trainee registration request has pending"),
                           ),
                         );// Show loading indicator while data is being fetched
                       } else {

@@ -160,9 +160,7 @@ class TrainerList extends StatelessWidget {
         if (manageTrainerController.trainerList.isEmpty) {
           return Center(
             child: SizedBox(
-              width: 40.0,
-              height: 40.0,
-              child: CircularProgressIndicator(),
+              child: Text("No Trainer found"),
             ),
           );
         } else {

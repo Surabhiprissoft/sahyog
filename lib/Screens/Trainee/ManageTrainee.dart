@@ -51,13 +51,11 @@ class ManageTrainee extends GetView<ManageTraineeController> {
                 ),
                 child: Obx(() {
                         if (manageTraineeController.traineeList.isEmpty) {
-                          return Center(
+                         return Center(
                             child: SizedBox(
-                              width: 40.0, // Adjust the width as needed
-                              height: 40.0,
-                              child: CircularProgressIndicator(),
+                              child: Text("No Trainee found"),
                             ),
-                          );// Show loading indicator while data is being fetched
+                          );;// Show loading indicator while data is being fetched
                         } else {
                           // Show the list view with data
                           return ListView.builder(

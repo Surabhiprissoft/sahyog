@@ -220,58 +220,69 @@ Future<bool> selfRegisterDialog(BuildContext context) async {
       content: SingleChildScrollView(
         child: Column(
           children: [
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pop(false);
-                Get.to(() => AddTrainee());
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 1.h,top: 2.h),
-                child: Card(
-                  surfaceTintColor: AppColors.cardBack,
-                  elevation: 5.0,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 25.w,
-                        height: 10.h,
-                        padding: EdgeInsets.all(20.0),
-                        child: SvgPicture.asset("assets/images/trainee_dialoge.svg"),
-                      ),
-                      Text("Trainee",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
-                      SizedBox(height: 1.h,)
-
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            SizedBox(height: 2.h,),
             InkWell(
               onTap: () {
                 Navigator.of(context).pop(false);
                 Get.to(() => AddTrainer());
               },
-              child: Container(
-                margin: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 3.h,top: 1.h),
-                child: Card(
-                  surfaceTintColor: Colors.white,
-                  elevation: 5.0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 25.w,
-                        height: 10.h,
-                        padding: EdgeInsets.all(20.0),
-                        child: SvgPicture.asset("assets/images/trainer_dialoge.svg"),
-                      ),
-                      Text("Trainer",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
-                      SizedBox(height: 1.h,)
-                    ],
+              child: Card(
+                surfaceTintColor: Colors.white,
+                elevation: 10.0,
+                child: Container(
+                 // margin: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 1.h,top: 2.h),
+                  padding: EdgeInsets.zero,
+                  child: Card(
+                    surfaceTintColor: AppColors.appThemeColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 25.w,
+                          height: 10.h,
+                          padding: EdgeInsets.all(10.0),
+                          child: SvgPicture.asset("assets/images/trainer_dialoge.svg"),
+                        ),
+                        Text("Trainer",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
+            SizedBox(height: 2.h,),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pop(false);
+                Get.to(() => AddTrainee());
+              },
+              child: Card(
+                surfaceTintColor: Colors.white,
+                elevation: 10.0,
+                child: Container(
+                  // margin: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 1.h,top: 2.h),
+                  padding: EdgeInsets.zero,
+                  child: Card(
+                    surfaceTintColor: AppColors.appThemeColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 25.w,
+                          height: 10.h,
+                          padding: EdgeInsets.all(10.0),
+                          child: SvgPicture.asset("assets/images/trainee_dialoge.svg"),
+                        ),
+                        Text("Trainee",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500),),
+
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 3.h,),
           ],
         ),
       ),

@@ -16,7 +16,43 @@ class ForgotPassword extends GetView<ForgotPasswordController> {
     return Scaffold(
       body: Stack(
         children: [
-          CustomTopBar(titleName: ""),
+          Positioned(
+              top: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 30.h,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/Top_bg.png'),
+                      fit: BoxFit.cover, // Adjust the BoxFit as needed
+                    ),
+                    color: Colors.blue
+                ),
+                child:  Padding(
+                  padding: EdgeInsets.only(left:6.w,bottom: 16.h,right: 6.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          "",
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            fontStyle: FontStyle.normal,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          )
+                      ),
+
+
+                    ],
+                  ),
+                ),
+
+
+              )
+          ),
+
           Positioned(
               top: 140,
               left: 0,

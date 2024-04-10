@@ -22,7 +22,6 @@ import '../Trainer/AddTrainer.dart';
 import '../Trainer/ManageTrainer.dart';
 
 
-
 class AdminDasboard extends GetView<AdminDashboardController> {
   AdminDasboard({super.key});
 
@@ -114,7 +113,6 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   IconButton(onPressed: () {
-
                     controller.getAdminDashboardData();
                   },
                     icon: Icon(Icons.home_outlined, size: 8.w,),
@@ -155,11 +153,10 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                         SizedBox(height: 7.5.h,),
                         Row(
                           children: [
-                            SubHeaderText(sub_header: "Total Centers "),
                             Obx(() {
                               return SubHeaderText(
-                                  sub_header: adminDashboardController
-                                      .centerList.length.toString());
+                                  sub_header: "Total Centers ( ${adminDashboardController
+                                      .centerList.length.toString()} )");
                             }),
                           ],
                         ),
@@ -193,16 +190,20 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                               height: 0.5 * 25.h,
                                               // 70% of the parent's height
                                               child: Container(
-                                                  margin: EdgeInsets.only(top: 1.h),
+                                                  margin: EdgeInsets.only(
+                                                      top: 1.h),
                                                   child: Center(child: Column(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .center,
                                                     children: [
-                                                      Text(center.totalTrainees.toString(),
+                                                      Text(center.totalTrainees
+                                                          .toString(),
                                                         style: TextStyle(
                                                             fontSize: 22.sp,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: AppColors.goldenText
+                                                            fontWeight: FontWeight
+                                                                .w700,
+                                                            color: AppColors
+                                                                .goldenText
                                                         ),),
                                                       Text("trainees")
                                                     ],
@@ -215,9 +216,12 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                                 margin: const EdgeInsets.all(3),
                                                 decoration: const BoxDecoration(
                                                   color: AppColors.blueRacket,
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(10.0),
-                                                    bottomRight: Radius.circular(10.0),
+                                                  borderRadius: BorderRadius
+                                                      .only(
+                                                    bottomLeft: Radius.circular(
+                                                        10.0),
+                                                    bottomRight: Radius
+                                                        .circular(10.0),
                                                   ),
                                                 ),
                                                 // color: Colors.lightBlueAccent,
@@ -228,89 +232,153 @@ class AdminDasboard extends GetView<AdminDashboardController> {
 
                                                     children: [
 
-                                                  Container(
-                                                    //padding: EdgeInsets.only(top: 8.0),
-                                                    width: 80.0,
-                                                    child: center.trainersAssigned!.isEmpty
-                                                    ? CircleAvatar(
-                                                        backgroundImage: NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                                                    radius: 3.5.h,
-                                                                                                    )
-                                                        : center.trainersAssigned!.length > 1
-                                                                                                  ? Stack(
-                                                                                                  children: [
-                                                                                                  // First image
-                                                          CircleAvatar(
-                                                          backgroundImage: center.trainersAssigned![0].profilePhoto != null
-                                                          ? NetworkImage(ApiBaseHelper().imageBaseUrl +
-                                                              center.trainersAssigned![0].profilePhoto!)
-                                                          : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                                                            radius: 3.5.h,
-                                                          ),
-                                                                                        // Second image
-                                                    Positioned(
-                                                      top: 0, // Adjust as needed to half the height of the first image
-                                                      left: 20, // Adjust as needed
-                                                      child: CircleAvatar(
-                                                        backgroundImage: center.trainersAssigned![1].profilePhoto != null
-                                                            ? NetworkImage(ApiBaseHelper().imageBaseUrl +
-                                                            center.trainersAssigned![1].profilePhoto!)
-                                                            : NetworkImage(
-                                                            "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                                                        radius: 3.5.h,
+                                                      Container(
+                                                        //padding: EdgeInsets.only(top: 8.0),
+                                                        width: 80.0,
+                                                        child: center
+                                                            .trainersAssigned!
+                                                            .isEmpty
+                                                            ? CircleAvatar(
+                                                          backgroundImage: NetworkImage(
+                                                              "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                          radius: 3.5.h,
+                                                        )
+                                                            : center
+                                                            .trainersAssigned!
+                                                            .length > 1
+                                                            ? Stack(
+                                                          children: [
+                                                            // First image
+                                                            CircleAvatar(
+                                                              backgroundImage: center
+                                                                  .trainersAssigned![0]
+                                                                  .profilePhoto !=
+                                                                  null
+                                                                  ? NetworkImage(
+                                                                  ApiBaseHelper()
+                                                                      .imageBaseUrl +
+                                                                      center
+                                                                          .trainersAssigned![0]
+                                                                          .profilePhoto!)
+                                                                  : NetworkImage(
+                                                                  "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                              radius: 3.5.h,
+                                                            ),
+                                                            // Second image
+                                                            Positioned(
+                                                              top: 0,
+                                                              // Adjust as needed to half the height of the first image
+                                                              left: 20,
+                                                              // Adjust as needed
+                                                              child: CircleAvatar(
+                                                                backgroundImage: center
+                                                                    .trainersAssigned![1]
+                                                                    .profilePhoto !=
+                                                                    null
+                                                                    ? NetworkImage(
+                                                                    ApiBaseHelper()
+                                                                        .imageBaseUrl +
+                                                                        center
+                                                                            .trainersAssigned![1]
+                                                                            .profilePhoto!)
+                                                                    : NetworkImage(
+                                                                    "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                                radius: 3.5.h,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                            : CircleAvatar(
+                                                          backgroundImage: center
+                                                              .trainersAssigned![0]
+                                                              .profilePhoto !=
+                                                              null
+                                                              ? NetworkImage(
+                                                              ApiBaseHelper()
+                                                                  .imageBaseUrl +
+                                                                  center
+                                                                      .trainersAssigned![0]
+                                                                      .profilePhoto!)
+                                                              : null,
+                                                          // Assign null if profilePhoto is null
+                                                          radius: 3.5.h,
+                                                        ),
                                                       ),
-                                                    ),
-                                                                                      ],
-                                                                                    )
-                                                                                        : CircleAvatar(
-                                                                                    backgroundImage: center.trainersAssigned![0].profilePhoto != null
-                                                                                    ? NetworkImage(ApiBaseHelper().imageBaseUrl +
-                                                                                    center.trainersAssigned![0].profilePhoto!)
-                                                                                        : null, // Assign null if profilePhoto is null
-                                                                                    radius: 3.5.h,
-                                                                                    ),
-                                                  ),
-                                                  SizedBox(height: 6.0,),
-                                                  Container(
-                                                    margin: EdgeInsets.only(left: 5.0,right: 5.0),
-                                                    child: center.trainersAssigned!.length==0?
-                                                            Text("Not assign") :
-                                                        center.trainersAssigned!.length>1 ? InkWell(onTap:(){
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext context) {
-                                                                return AlertDialog(
-                                                                  title: Center(child: Text(
-                                                                    "Assigned Trainers",
-                                                                    style: TextStyle(fontSize: 18.sp),)),
-                                                                  content: Container(
-                                                                    width: double.maxFinite,
-                                                                    height: 300,
-                                                                    child: ListView.builder(
-                                                                      itemCount: center.trainersAssigned?.length,
-                                                                      itemBuilder: (context, index) {
-                                                                        return Card(
-                                                                          elevation: 6.0,
-                                                                          margin: EdgeInsets.only(
-                                                                          bottom: 15.0),
-                                                                          child: Padding(padding: const EdgeInsets.all(15.0),
-                                                                          child: Text(center.trainersAssigned![index].firstName!),
-                                                                        ),
-                                                                        );
-                                                                      },
+                                                      SizedBox(height: 6.0,),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 5.0,
+                                                            right: 5.0),
+                                                        child: center
+                                                            .trainersAssigned!
+                                                            .length == 0 ?
+                                                        Text("Not assign") :
+                                                        center.trainersAssigned!
+                                                            .length > 1
+                                                            ? InkWell(
+                                                          onTap: () {
+                                                            showDialog(
+                                                                context: context,
+                                                                builder: (
+                                                                    BuildContext context) {
+                                                                  return AlertDialog(
+                                                                    title: Center(
+                                                                        child: Text(
+                                                                          "Assigned Trainers",
+                                                                          style: TextStyle(
+                                                                              fontSize: 18
+                                                                                  .sp),)),
+                                                                    content: Container(
+                                                                      width: double
+                                                                          .maxFinite,
+                                                                      height: 300,
+                                                                      child: ListView
+                                                                          .builder(
+                                                                        itemCount: center
+                                                                            .trainersAssigned
+                                                                            ?.length,
+                                                                        itemBuilder: (
+                                                                            context,
+                                                                            index) {
+                                                                          return Card(
+                                                                            elevation: 6.0,
+                                                                            margin: EdgeInsets
+                                                                                .only(
+                                                                                bottom: 15.0),
+                                                                            child: Padding(
+                                                                              padding: const EdgeInsets
+                                                                                  .all(
+                                                                                  15.0),
+                                                                              child: Text(
+                                                                                  center
+                                                                                      .trainersAssigned![index]
+                                                                                      .firstName!),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                          );
-                                                        },child: Text(
-                                                          "${center.trainersAssigned![0].firstName!} & ${center.trainersAssigned!.length - 1} more",
-                                                          overflow: TextOverflow.ellipsis, // Add ellipsis if text is too long
+                                                                  );
+                                                                }
+                                                            );
+                                                          }, child: Text(
+                                                          "${center
+                                                              .trainersAssigned![0]
+                                                              .firstName!} & ${center
+                                                              .trainersAssigned!
+                                                              .length -
+                                                              1} more",
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          // Add ellipsis if text is too long
                                                           maxLines: 1, // Limit to 1 line
                                                         ),
-                                                        ) :
-                                                            Text(center.trainersAssigned![0].firstName!),
-                                                  )
+                                                        )
+                                                            :
+                                                        Text(center
+                                                            .trainersAssigned![0]
+                                                            .firstName!),
+                                                      )
 
                                                       //Text(controller.trainerAssigned![index].firstName)
                                                       ,
@@ -324,28 +392,17 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                       ),
 
                                     ),
-                                    Text(center.name.toString(), style: TextStyle(
-                                        fontWeight: FontWeight.w600, fontSize: 14.sp),),
+                                    Text(
+                                      center.name.toString(), style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14.sp),),
                                   ],
                                 );;
                               },
                             );
                           }),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SubHeaderText(sub_header: "Fees Status "),
-                            TextButton(onPressed: () {},
-                                style: ButtonStyle(
-                                    padding: MaterialStateProperty.all<
-                                        EdgeInsetsGeometry>(EdgeInsets.zero,)),
-                                child: Text("View", style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w400),))
-                          ],
-                        ),
+                        SubHeaderText(sub_header: "Fees Status "),
                         Card(
                             elevation: 10.0,
                             surfaceTintColor: Colors.white,
@@ -416,7 +473,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                             ),
                           ),
                         ),
-                        //SizedBox(height: 20.h),
+                      SizedBox(height: 20.h),
 
                       ],
                     ),
@@ -438,9 +495,9 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                      onTap: (){
-                      Get.to(() => ManageTrainee());
-                      },
+                        onTap: () {
+                          Get.to(() => ManageTrainee());
+                        },
                         child: Card(
                           elevation: 10.0,
                           surfaceTintColor: Colors.white,
@@ -497,7 +554,7 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Get.to(() => ManageTrainer());
                         },
                         child: Card(
@@ -629,7 +686,7 @@ class CenterWiseCard extends StatelessWidget {
                             backgroundImage: AssetImage(
                                 "assets/images/user_img.png"),
                             radius: 3.5.h,),
-                          TextButton(onPressed:(){
+                          TextButton(onPressed: () {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -641,9 +698,9 @@ class CenterWiseCard extends StatelessWidget {
                                       width: double.maxFinite,
                                       height: 300,
                                       child: ListView.builder(
-                                        itemCount: center.trainersAssigned?.length,
+                                        itemCount: center.trainersAssigned
+                                            ?.length,
                                         itemBuilder: (context, index) {
-
                                           return Card(
                                             elevation: 6.0,
                                             margin: EdgeInsets.only(
@@ -660,7 +717,7 @@ class CenterWiseCard extends StatelessWidget {
                                   );
                                 }
                             );
-                          },child: Text("Trainer")),
+                          }, child: Text("Trainer")),
                         ],
                       ),
                     ),
@@ -685,7 +742,7 @@ Widget _buildCard(String imagePath, String quickAccessName) {
       InkWell(
         onTap: () {
           if (quickAccessName == "Schedule Trainer") {
-
+            Get.to(() => ManageTrainer(), arguments: 'schedule');
           } else if (quickAccessName == "Add Trainer") {
             Get.to(() => AddTrainer());
           }

@@ -19,6 +19,10 @@ class ManageTrainerController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    if(Get.arguments!=null)
+      {
+        slidingValue.value=2;
+      }
     getTrainerList();
   }
 

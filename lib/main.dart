@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/ChangePassword.dart';
@@ -20,7 +21,9 @@ const Version running = version == "lazy" ? Version.lazy : Version.wait;
 void main() async {
   ProjectBindings().dependencies();
   WidgetsFlutterBinding.ensureInitialized();
-
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   await PreferenceUtils.init();
   runApp(const MyApp());
 }

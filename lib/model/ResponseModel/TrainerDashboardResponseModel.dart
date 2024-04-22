@@ -1,7 +1,7 @@
 import 'dart:convert';
 /// id : 75
-/// username : "mailto:surabhi@prissoft.net"
-/// email : "mailto:surabhi@prissoft.net"
+/// username : "surabhi@prissoft.net"
+/// email : "surabhi@prissoft.net"
 /// role : "trainer"
 /// profile_photo : null
 /// first_name : "Surabhi"
@@ -22,24 +22,24 @@ TrainerDashboardResponseModel trainerDashboardResponseModelFromJson(String str) 
 String trainerDashboardResponseModelToJson(TrainerDashboardResponseModel data) => json.encode(data.toJson());
 class TrainerDashboardResponseModel {
   TrainerDashboardResponseModel({
-    num? id,
-    String? username,
-    String? email,
-    String? role,
-    dynamic profilePhoto,
-    String? firstName,
-    String? lastName,
-    String? gender,
-    String? dob,
-    String? phone,
-    String? address,
-    num? center,
-    String? createdAt,
-    String? updatedAt,
-    num? yearOfExperience,
-    String? trainingType,
-    String? discount,
-    List<Schedule>? schedule,}){
+      num? id, 
+      String? username, 
+      String? email, 
+      String? role, 
+      dynamic profilePhoto, 
+      String? firstName, 
+      String? lastName, 
+      String? gender, 
+      String? dob, 
+      String? phone, 
+      String? address, 
+      num? center, 
+      String? createdAt, 
+      String? updatedAt, 
+      num? yearOfExperience, 
+      String? trainingType, 
+      String? discount, 
+      List<Schedule>? schedule,}){
     _id = id;
     _username = username;
     _email = email;
@@ -58,7 +58,7 @@ class TrainerDashboardResponseModel {
     _trainingType = trainingType;
     _discount = discount;
     _schedule = schedule;
-  }
+}
 
   TrainerDashboardResponseModel.fromJson(dynamic json) {
     _id = json['id'];
@@ -103,43 +103,43 @@ class TrainerDashboardResponseModel {
   String? _trainingType;
   String? _discount;
   List<Schedule>? _schedule;
-  TrainerDashboardResponseModel copyWith({  num? id,
-    String? username,
-    String? email,
-    String? role,
-    dynamic profilePhoto,
-    String? firstName,
-    String? lastName,
-    String? gender,
-    String? dob,
-    String? phone,
-    String? address,
-    num? center,
-    String? createdAt,
-    String? updatedAt,
-    num? yearOfExperience,
-    String? trainingType,
-    String? discount,
-    List<Schedule>? schedule,
-  }) => TrainerDashboardResponseModel(  id: id ?? _id,
-    username: username ?? _username,
-    email: email ?? _email,
-    role: role ?? _role,
-    profilePhoto: profilePhoto ?? _profilePhoto,
-    firstName: firstName ?? _firstName,
-    lastName: lastName ?? _lastName,
-    gender: gender ?? _gender,
-    dob: dob ?? _dob,
-    phone: phone ?? _phone,
-    address: address ?? _address,
-    center: center ?? _center,
-    createdAt: createdAt ?? _createdAt,
-    updatedAt: updatedAt ?? _updatedAt,
-    yearOfExperience: yearOfExperience ?? _yearOfExperience,
-    trainingType: trainingType ?? _trainingType,
-    discount: discount ?? _discount,
-    schedule: schedule ?? _schedule,
-  );
+TrainerDashboardResponseModel copyWith({  num? id,
+  String? username,
+  String? email,
+  String? role,
+  dynamic profilePhoto,
+  String? firstName,
+  String? lastName,
+  String? gender,
+  String? dob,
+  String? phone,
+  String? address,
+  num? center,
+  String? createdAt,
+  String? updatedAt,
+  num? yearOfExperience,
+  String? trainingType,
+  String? discount,
+  List<Schedule>? schedule,
+}) => TrainerDashboardResponseModel(  id: id ?? _id,
+  username: username ?? _username,
+  email: email ?? _email,
+  role: role ?? _role,
+  profilePhoto: profilePhoto ?? _profilePhoto,
+  firstName: firstName ?? _firstName,
+  lastName: lastName ?? _lastName,
+  gender: gender ?? _gender,
+  dob: dob ?? _dob,
+  phone: phone ?? _phone,
+  address: address ?? _address,
+  center: center ?? _center,
+  createdAt: createdAt ?? _createdAt,
+  updatedAt: updatedAt ?? _updatedAt,
+  yearOfExperience: yearOfExperience ?? _yearOfExperience,
+  trainingType: trainingType ?? _trainingType,
+  discount: discount ?? _discount,
+  schedule: schedule ?? _schedule,
+);
   num? get id => _id;
   String? get username => _username;
   String? get email => _email;
@@ -201,16 +201,16 @@ Schedule scheduleFromJson(String str) => Schedule.fromJson(json.decode(str));
 String scheduleToJson(Schedule data) => json.encode(data.toJson());
 class Schedule {
   Schedule({
-    String? scheduledDate,
-    String? providedDate,
-    String? center,
-    String? startTimme,
-    String? endTime,
-    num? ctId,
-    String? isPresent,
-    num? count,
-    num? interval,
-    num? totalApi,}){
+      String? scheduledDate, 
+      String? providedDate, 
+      String? center, 
+      String? startTimme, 
+      String? endTime, 
+      num? ctId, 
+      String? isPresent, 
+      num? count, 
+      num? interval, 
+      num? totalApi,}){
     _scheduledDate = scheduledDate;
     _providedDate = providedDate;
     _center = center;
@@ -221,7 +221,7 @@ class Schedule {
     _count = count;
     _interval = interval;
     _totalApi = totalApi;
-  }
+}
 
   Schedule.fromJson(dynamic json) {
     _scheduledDate = json['scheduled_date'];
@@ -245,27 +245,27 @@ class Schedule {
   num? _count;
   num? _interval;
   num? _totalApi;
-  Schedule copyWith({  String? scheduledDate,
-    String? providedDate,
-    String? center,
-    String? startTimme,
-    String? endTime,
-    num? ctId,
-    String? isPresent,
-    num? count,
-    num? interval,
-    num? totalApi,
-  }) => Schedule(  scheduledDate: scheduledDate ?? _scheduledDate,
-    providedDate: providedDate ?? _providedDate,
-    center: center ?? _center,
-    startTimme: startTimme ?? _startTimme,
-    endTime: endTime ?? _endTime,
-    ctId: ctId ?? _ctId,
-    isPresent: isPresent ?? _isPresent,
-    count: count ?? _count,
-    interval: interval ?? _interval,
-    totalApi: totalApi ?? _totalApi,
-  );
+Schedule copyWith({  String? scheduledDate,
+  String? providedDate,
+  String? center,
+  String? startTimme,
+  String? endTime,
+  num? ctId,
+  String? isPresent,
+  num? count,
+  num? interval,
+  num? totalApi,
+}) => Schedule(  scheduledDate: scheduledDate ?? _scheduledDate,
+  providedDate: providedDate ?? _providedDate,
+  center: center ?? _center,
+  startTimme: startTimme ?? _startTimme,
+  endTime: endTime ?? _endTime,
+  ctId: ctId ?? _ctId,
+  isPresent: isPresent ?? _isPresent,
+  count: count ?? _count,
+  interval: interval ?? _interval,
+  totalApi: totalApi ?? _totalApi,
+);
   String? get scheduledDate => _scheduledDate;
   String? get providedDate => _providedDate;
   String? get center => _center;

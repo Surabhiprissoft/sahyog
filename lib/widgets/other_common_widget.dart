@@ -13,6 +13,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/LoginScreen.dart';
 import 'package:sahyog/Screens/Trainee/AddTrainee.dart';
 import 'package:sahyog/Screens/Trainer/AddTrainer.dart';
+import 'package:sahyog/controller/LocationController.dart';
+import 'package:sahyog/controller/dashboardController/TrainerDashboardController.dart';
 import 'package:sahyog/utils/app_colors.dart';
 
 
@@ -182,6 +184,11 @@ Future<bool> showLogoutDialog(BuildContext context) async {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30))),
             onPressed: () {
+              if(PreferenceUtils.getInt(AppConstants.USERID)==1)
+                {
+                  /*var controller=Get.find<LocationController>();
+                  controller.dispose();*/
+                }
               PreferenceUtils.clearAll();
               Get.offAll(LoginScreen());
             },

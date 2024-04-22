@@ -1,17 +1,46 @@
 
 
+import 'dart:convert';
+
 class CenterModel {
   final String name;
   final List<int> centerId;
   final List<String> timeSlots;
+  late  String? status;
+
 
 
   @override
   String toString() {
-    return 'CenterModel{name: $name, centerId: $centerId, timeSlots: $timeSlots}';
+    String statusString = status != null ? ', status: $status' : ''; // Include status if not null
+    return 'CenterModel{name: $name, centerId: $centerId, timeSlots: $timeSlots$statusString}';
   }
 
-  CenterModel(this.centerId,this.name, this.timeSlots);
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'centerId': centerId,
+      'timeSlots': timeSlots,
+      'status':status
+    };
+  }
+
+  // Convert map to object
+  factory CenterModel.fromMap(Map<String, dynamic> map) {
+    return CenterModel(
+      List<int>.from(map['centerId']),
+      map['name'],
+      List<String>.from(map['timeSlots']),
+      status: map['status'], // Assign status from the map
+    );
+  }
+
+  // Convert object to JSON string
+  String toJson() => jsonEncode(toMap());
+
+  // Factory method to create an object from JSON string
+  factory CenterModel.fromJson(String source) => CenterModel.fromMap(jsonDecode(source));
+  CenterModel(this.centerId,this.name, this.timeSlots,{this.status});
 }
 
 class AssignTrainee {

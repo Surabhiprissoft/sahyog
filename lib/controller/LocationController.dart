@@ -22,20 +22,14 @@ class LocationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    //LocationChannel.initialize();
-    /* IsolateNameServer.registerPortWithName(port.sendPort, _isolateName);
-    port.listen((dynamic data) {
-      // do something with data
-      print("data"+data.toString());
-    });*/
-    //startLocationService();
+    print("IT IS CALLED_LOCATION CONTROLLER");
     initPlatformState();
 
   }
 
   Future<void> initPlatformState() async {
     await BackgroundLocator.initialize();
+
   }
 
    // Timer.periodic(Duration(seconds: 3), (Timer t) => getLocation());
@@ -59,7 +53,7 @@ class LocationController extends GetxController {
   Future<void> startLocationService() async {
     // Configure the location options
     Map<String, dynamic> data = {'countInit': 1};
-    BackgroundLocator.registerLocationUpdate(
+    await BackgroundLocator.registerLocationUpdate(
 
         //LocationCallbackHandler.callback,
       LocationCallbackHandler.callback,
@@ -70,6 +64,7 @@ class LocationController extends GetxController {
         androidSettings: AndroidSettings(
             accuracy: LocationAccuracy.HIGH,
             distanceFilter: 0,
+            interval:30 ,
             androidNotificationSettings: AndroidNotificationSettings(
                 notificationChannelName: 'Location tracking',
                 notificationTitle: 'Start Location Tracking',
@@ -81,30 +76,14 @@ class LocationController extends GetxController {
                 notificationTapCallback:
                 LocationCallbackHandler.notificationCallback)));
 
+
+
+
   }
 
-  void handleLocationUpdate(double latitude, double longitude) {
-    void startPrintingHello() {
-      // Repeat the process every 10 seconds
-      print("COUNTVALUE"+count.toString());
-      Timer.periodic(Duration(seconds: 10), (Timer timer) {
-      // Initialize count inside the callback function
-
-        // Print "Hello" 5 times
-        for (int i = 0; i < 5; i++) {
-          print("Hello");
-          count++;
-
-          // If count reaches 5, print "It's over" and cancel the timer
-          if (count == 5) {
-            print("It's over");
-            timer.cancel(); // Stop the timer
-            break; // Exit the loop
-          }
-        }
-      });
-    }
+  @override
+  void dispose() {
+    super.dispose();
+    BackgroundLocator.unRegisterLocationUpdate();
   }
-
-
 }

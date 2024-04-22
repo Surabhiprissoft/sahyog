@@ -5,18 +5,18 @@ import 'dart:convert';
 /// role : "trainer"
 /// profile_photo : null
 /// first_name : "Surabhi"
-/// last_name : "Jain"
+/// last_name : "Loya"
 /// gender : "Female"
-/// dob : "1995-04-01"
+/// dob : "1995-04-02"
 /// phone : "9860038135"
 /// address : "Pune"
 /// center : 1
-/// created_at : "2024-04-08T04:25:00.872170Z"
-/// updated_at : "2024-04-08T04:30:56.589485Z"
+/// created_at : "2024-04-15T17:18:00.735464Z"
+/// updated_at : "2024-04-15T17:41:30.280096Z"
 /// year_of_experience : 5
 /// training_type : ""
 /// discount : "0.00"
-/// schedule : [{"scheduled_date":"2024-04-08","provided_date":"2024-04-08","center":"SP","start_timme":"18:30:00","end_time":"20:00:00","user_id":75},{"scheduled_date":"2024-04-08","provided_date":"2024-04-08","center":"SP","start_timme":"20:00:00","end_time":"21:00:00","user_id":75},{"scheduled_date":"2024-04-08","provided_date":"2024-04-08","center":"Race","start_timme":"08:00:00","end_time":"10:00:00","user_id":75}]
+/// schedule : [{"scheduled_date":"2024-04-15","provided_date":"2024-04-15","center":"SP","start_timme":"23:00:00","end_time":"23:45:00","ct_id":1179,"is_present":"Absent","count":0,"interval":3,"total_api":5}]
 
 TrainerDashboardResponseModel trainerDashboardResponseModelFromJson(String str) => TrainerDashboardResponseModel.fromJson(json.decode(str));
 String trainerDashboardResponseModelToJson(TrainerDashboardResponseModel data) => json.encode(data.toJson());
@@ -186,12 +186,16 @@ TrainerDashboardResponseModel copyWith({  num? id,
 
 }
 
-/// scheduled_date : "2024-04-08"
-/// provided_date : "2024-04-08"
+/// scheduled_date : "2024-04-15"
+/// provided_date : "2024-04-15"
 /// center : "SP"
-/// start_timme : "18:30:00"
-/// end_time : "20:00:00"
-/// user_id : 75
+/// start_timme : "23:00:00"
+/// end_time : "23:45:00"
+/// ct_id : 1179
+/// is_present : "Absent"
+/// count : 0
+/// interval : 3
+/// total_api : 5
 
 Schedule scheduleFromJson(String str) => Schedule.fromJson(json.decode(str));
 String scheduleToJson(Schedule data) => json.encode(data.toJson());
@@ -202,13 +206,21 @@ class Schedule {
       String? center, 
       String? startTimme, 
       String? endTime, 
-      num? userId,}){
+      num? ctId, 
+      String? isPresent, 
+      num? count, 
+      num? interval, 
+      num? totalApi,}){
     _scheduledDate = scheduledDate;
     _providedDate = providedDate;
     _center = center;
     _startTimme = startTimme;
     _endTime = endTime;
-    _userId = userId;
+    _ctId = ctId;
+    _isPresent = isPresent;
+    _count = count;
+    _interval = interval;
+    _totalApi = totalApi;
 }
 
   Schedule.fromJson(dynamic json) {
@@ -217,33 +229,53 @@ class Schedule {
     _center = json['center'];
     _startTimme = json['start_timme'];
     _endTime = json['end_time'];
-    _userId = json['user_id'];
+    _ctId = json['ct_id'];
+    _isPresent = json['is_present'];
+    _count = json['count'];
+    _interval = json['interval'];
+    _totalApi = json['total_api'];
   }
   String? _scheduledDate;
   String? _providedDate;
   String? _center;
   String? _startTimme;
   String? _endTime;
-  num? _userId;
+  num? _ctId;
+  String? _isPresent;
+  num? _count;
+  num? _interval;
+  num? _totalApi;
 Schedule copyWith({  String? scheduledDate,
   String? providedDate,
   String? center,
   String? startTimme,
   String? endTime,
-  num? userId,
+  num? ctId,
+  String? isPresent,
+  num? count,
+  num? interval,
+  num? totalApi,
 }) => Schedule(  scheduledDate: scheduledDate ?? _scheduledDate,
   providedDate: providedDate ?? _providedDate,
   center: center ?? _center,
   startTimme: startTimme ?? _startTimme,
   endTime: endTime ?? _endTime,
-  userId: userId ?? _userId,
+  ctId: ctId ?? _ctId,
+  isPresent: isPresent ?? _isPresent,
+  count: count ?? _count,
+  interval: interval ?? _interval,
+  totalApi: totalApi ?? _totalApi,
 );
   String? get scheduledDate => _scheduledDate;
   String? get providedDate => _providedDate;
   String? get center => _center;
   String? get startTimme => _startTimme;
   String? get endTime => _endTime;
-  num? get userId => _userId;
+  num? get ctId => _ctId;
+  String? get isPresent => _isPresent;
+  num? get count => _count;
+  num? get interval => _interval;
+  num? get totalApi => _totalApi;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -252,7 +284,11 @@ Schedule copyWith({  String? scheduledDate,
     map['center'] = _center;
     map['start_timme'] = _startTimme;
     map['end_time'] = _endTime;
-    map['user_id'] = _userId;
+    map['ct_id'] = _ctId;
+    map['is_present'] = _isPresent;
+    map['count'] = _count;
+    map['interval'] = _interval;
+    map['total_api'] = _totalApi;
     return map;
   }
 

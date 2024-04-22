@@ -10,6 +10,9 @@ class AppConstants
   static const INVALID_USER = "Invalid username or password";
   static const USERNAME = "Username";
   static const USERID = "UserID";
+  static const COUNTER_VALUE = "COUNTER";
+  static const SERVER_COUNT_VALUE = "COUNT";
+  static const SEARVER_INTERVAL_TIME = "INTERVAL";
 
   // TOKEN
   static const USER_TOKEN = "UserToken";
@@ -35,6 +38,7 @@ class AppConstants
   static const GETTIMESLOTS="timeslots/centretimeslot/";
   static const SCHEDULETRAINERS="timeslots/mapschedule";
   static const DELETESCHEDULE="timeslots/removeschedule";
+  static const UPDATEATTENDANCE="attendance/update";
   static const ROLE = "role";
   static const TRAINERDASHBOARD = "user/";
 

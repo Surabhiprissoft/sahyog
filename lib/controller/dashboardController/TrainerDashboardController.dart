@@ -17,6 +17,8 @@ class TrainerDashboardController extends GetxController{
 
   RxBool switchValue = false.obs;
   RxString SelectedDate = ''.obs;
+  RxString profilePhoto="".obs;
+  RxString trainerName = "".obs;
   final UserRepository userRepository;
   late SingleResponse<TrainerDashboardResponseModel> trainerdashboardResponseModel;
   List<Schedule> myList = <Schedule>[];
@@ -33,45 +35,69 @@ class TrainerDashboardController extends GetxController{
    // print("Role from PreferenceUtils: $role");
   }
 
-  Future<SingleResponse<TrainerDashboardResponseModel>> getTrainerDashboardData(DateTime dateTime) async
+  Future<SingleResponse<TrainerDashboardResponseModel>> getTrainerDashboardData(
+      DateTime dateTime) async
   {
-      var newFormat = DateFormat("yyyy-MM-dd");
-      var selectedDate = newFormat.format(dateTime);
-      print(selectedDate);
-      trainerdashboardResponseModel = await userRepository.getTrainerDashboardData(PreferenceUtils.getInt(AppConstants.USERID),selectedDate);
-      print(trainerdashboardResponseModel.data.toString());
-      DateFormat format12Hour = DateFormat("h:mm a");
-      if (trainerdashboardResponseModel.status == 200) {
-
-         centers.clear();
-         myList=trainerdashboardResponseModel.data.schedule!;
+    var newFormat = DateFormat("yyyy-MM-dd");
+    var selectedDate = newFormat.format(dateTime);
+    print(selectedDate);
+    trainerdashboardResponseModel =
+    await userRepository.getTrainerDashboardData(
+        PreferenceUtils.getInt(AppConstants.USERID), selectedDate);
+    print(trainerdashboardResponseModel.data.toString());
+    DateFormat format12Hour = DateFormat("h:mm a");
+    if (trainerdashboardResponseModel.status == 200) {
+      centers.clear();
+      trainerName.value = trainerdashboardResponseModel.data.firstName!+" "+trainerdashboardResponseModel.data.lastName!;
+      if(trainerdashboardResponseModel.data.profilePhoto!=null){
+        profilePhoto.value = trainerdashboardResponseModel.data.profilePhoto!;
+      }
+      myList = trainerdashboardResponseModel.data.schedule!;
+      if (myList.length > 0) {
         for (var data in myList) {
           DateFormat format24Hour = DateFormat("HH:mm:ss");
 
-          var centerId = data.userId;
+          // for status---//
+
+          DateFormat formatter = DateFormat('h:mm a');
+
+          // Format the current time using the formatter
+          String formattedTime = formatter.format(DateTime.now());
+          DateTime formattedTimeDt = formatter.parse(formattedTime);
+          DateTime startTimeDt = DateFormat('h:mm a').parse(format12Hour.format(format24Hour.parse(data.startTimme!)));
+
+
+          int comparison = startTimeDt.compareTo(formattedTimeDt);
+
+          print("STARTTIME!!"+data.startTimme.toString());
+          var centerId = data.ctId;
           var centerName = data.center;
+
+
+          var status = data.isPresent == null ?comparison>0 ?"Wating":"Absent": data.isPresent;
           var startTime = format24Hour.parse(data.startTimme!);
           var endTime = format24Hour.parse(data!.endTime!);
 
           // Check if the center already exists in the centers list
-          var existingCenterIndex = centers.indexWhere((center) =>
-          center.name == centerName);
+          var existingCenterIndex =
+          centers.indexWhere((center) => center.name == centerName);
 
           // If the center doesn't exist, add it to the list
           if (existingCenterIndex == -1) {
-            centers.add(CenterModel([centerId!.toInt()], centerName!, [
-              '${format12Hour.format(startTime)} - ${format12Hour.format(
-                  endTime)}'
-            ]));
+            centers.add(CenterModel(
+                [centerId!.toInt()],
+                centerName!,
+                [
+                  '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}'
+                ],
+                ));
           } else {
             // If the center exists, check if the time slot is already added
             var existingCenter = centers[existingCenterIndex];
             if (!existingCenter.timeSlots.contains(
-                '${format12Hour.format(startTime)} - ${format12Hour.format(
-                    endTime)}')) {
+                '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}')) {
               existingCenter.timeSlots.add(
-                  '${format12Hour.format(startTime)} - ${format12Hour.format(
-                      endTime)}');
+                  '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}');
               existingCenter.centerId.add(centerId!.toInt());
             }
           }
@@ -79,16 +105,24 @@ class TrainerDashboardController extends GetxController{
 
         centers.sort(sortByStartTime);
 
+
+
+        update();
         // Print the sorted list
         centers.forEach((center) => print(center.name));
-        print("Centers Are"+centers.toString());
+        print("Centers Are" + centers.toString());
+        //await PreferenceUtils.setCenterList("CENTERS", centers);
         sendGeoLocations();
-        update();
-      } else {
-        showSnackBar("Something went wrong", "Unable to fetch Center list at the moment");
       }
-      return trainerdashboardResponseModel;
+
+      update();
+    } else {
+      showSnackBar(
+          "Something went wrong", "Unable to fetch Center list at the moment");
     }
+    return trainerdashboardResponseModel;
+  }
+
 
 
   // Custom comparator function

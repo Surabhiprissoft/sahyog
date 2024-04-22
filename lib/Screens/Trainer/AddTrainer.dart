@@ -24,15 +24,54 @@ class AddTrainer extends GetView<AddTrainerController> {
 
       body: Stack(
         children: [
-          CustomTopBar(titleName: "Add Trainer"),
+          Positioned(
+              top: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 30.h,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/Top_bg.png'),
+                      fit: BoxFit.cover, // Adjust the BoxFit as needed
+                    ),
+                    color: Colors.blue
+                ),
+                child:  Padding(
+                  padding: EdgeInsets.only(left:2.w,bottom: 16.h,right: 6.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_rounded,color: Colors.white,)),
+                          Text(
+                              "Add Trainer",
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontStyle: FontStyle.normal,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              )
+                          ),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+
+
+              )
+          ),
           Positioned  (
-              top: 140,
+              top: 20.h,
               left: 0,
               right: 0,
               bottom: 0,
               child: Container(
                  // height: 100.h,
-                padding: EdgeInsets.only(top: 13.h),
+                padding: EdgeInsets.only(top: 10.h),
                 width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -146,7 +185,7 @@ class AddTrainer extends GetView<AddTrainerController> {
 
                                         child: OutlinedButton(
                                           onPressed: () {
-                                            //TODO
+                                            Get.back();
                                           },
                                           child: const Text('Cancel'),
                                         ),
@@ -181,78 +220,93 @@ class AddTrainer extends GetView<AddTrainerController> {
               )
           ),
           Positioned(
-              top: 70, // Adjust this value to control the position of the card
-              left: 16,
-              right: 16,
+              top: 10.h,
+              // Adjust this value to control the position of the card
+              left: 20,
+              right: 50.w,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child:Center(
                   child:Obx(() {
-                    return Card(
-                      elevation: 10.0,
-                      shape: CircleBorder(),
-                      child: CircleAvatar(
-                        radius: 75,
-                        backgroundImage: addTrainerController.imagePath.isNotEmpty ?
-                        FileImage(File(addTrainerController.imagePath.toString())): null,
-                        child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: GestureDetector(
-                                  onTap: (){
-                                    showDialog(context: context, builder: (BuildContext contex)
-                                    {
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(20.0)),
-                                        child:  Container(
-
-                                          alignment: Alignment.center,
-                                          height: 100,
-                                          child:   Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                    return Stack(
+                      children: [
+                        // Your CircleAvatar widget
+                        Card(
+                          elevation: 10.0,
+                          shape: CircleBorder(),
+                          child: CircleAvatar(
+                            radius: 75,
+                            foregroundImage: addTrainerController.imagePath.isEmpty ? NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"):null,
+                            backgroundImage: addTrainerController.imagePath.isNotEmpty
+                                ? FileImage(File(addTrainerController.imagePath.toString()))
+                                : null,
+                          ),
+                        ),
+                        // Camera icon positioned on top of the stack
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 100,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(onPressed: (){
-                                                    Navigator.pop(context);
-                                                    addTrainerController.openCamera();
-
-                                                  }, icon: Icon(Icons.camera_alt_outlined),iconSize: 50.0,),
-                                                  Text("Camera")
-                                                ],
+                                              IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  addTrainerController.openCamera();
+                                                },
+                                                icon: Icon(Icons.camera_alt_outlined),
+                                                iconSize: 50.0,
                                               ),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(onPressed: (){
-                                                    Navigator.pop(context);
-                                                    addTrainerController.openGallery();
-                                                  }, icon: Icon(Icons.photo_album_outlined),iconSize: 50.0,),
-                                                  Text("Album")
-                                                ],
-                                              ),
+                                              Text("Camera"),
                                             ],
                                           ),
-                                        ),
-                                      );
-                                    });
-                                  },
-                                  child: const CircleAvatar(
-                                    radius: 22,
-                                    backgroundColor: Colors.white70,
-                                    child: Icon(Icons.add_a_photo_outlined),
-                                  ),
-                                ),
-                              ),
-                            ]
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  addTrainerController.openGallery();
+                                                },
+                                                icon: Icon(Icons.photo_album_outlined),
+                                                iconSize: 50.0,
+                                              ),
+                                              Text("Album"),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: CircleAvatar(
+                              radius: 22,
+                              backgroundColor: Colors.white70,
+                              child: Icon(Icons.add_a_photo_outlined),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     );
+
                   }),
 
                 ),

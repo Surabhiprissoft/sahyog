@@ -212,6 +212,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                         ElevatedButton(
                                                                             onPressed: () {
 
+                                                                              Get.back();
                                                                               controller.AssignedTrainer(
                                                                                   trainee.traineeName!,
                                                                                   controller
@@ -220,7 +221,6 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                                       .centers[index]
                                                                                       .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],trainee.userId,controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate,true);
 
-                                                                              Get.back();
                                                                             },
                                                                             style: ElevatedButton.styleFrom(
                                                                                 shape: RoundedRectangleBorder(
@@ -312,7 +312,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                               .centers[index].name,
                                                           controller
                                                               .centers[index]
-                                                              .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,"2024-03-29");
+                                                              .timeSlots[slotIndex],controller.centers[index].centerId[slotIndex],name.id!.toInt(),controller.selectedScheduleDays.value,controller.selectedInterval.value,controller.selectedDate);
                                                       return CheckboxListTile(
                                                         title: Text(
                                                             name.firstName!),

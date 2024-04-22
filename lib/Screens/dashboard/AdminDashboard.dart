@@ -349,10 +349,20 @@ class AdminDasboard extends GetView<AdminDashboardController> {
                                                                               padding: const EdgeInsets
                                                                                   .all(
                                                                                   15.0),
-                                                                              child: Text(
-                                                                                  center
-                                                                                      .trainersAssigned![index]
-                                                                                      .firstName!),
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  CircleAvatar(
+                                                                                    backgroundImage: center.trainersAssigned![index].profilePhoto!=null 
+                                                                                      ? NetworkImage(ApiBaseHelper().imageBaseUrl+center.trainersAssigned![index].profilePhoto!)
+                                                                                      : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                                                  ),
+                                                                                  SizedBox(width: 10.0,),
+                                                                                  Text(
+                                                                                      center
+                                                                                          .trainersAssigned![index]
+                                                                                          .firstName!),
+                                                                                ],
+                                                                              ),
                                                                             ),
                                                                           );
                                                                         },

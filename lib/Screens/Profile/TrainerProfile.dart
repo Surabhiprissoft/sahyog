@@ -44,19 +44,24 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(
-                            left: 6.w, bottom: 16.h, right: 6.w),
+                            left: 2.w, bottom: 16.h, right: 6.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                                "Trainer Profile",
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontStyle: FontStyle.normal,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                )
+                            Row(
+                              children: [
+                                IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_rounded,color: Colors.white,)),
+                                Text(
+                                    "Trainer Profile",
+                                    style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontStyle: FontStyle.normal,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    )
+                                ),
+                              ],
                             ),
                             Row(
                               children: [
@@ -78,15 +83,7 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                       Icons.edit, color: Colors.white,
                                       size: 25.0,)
                                 ),
-                                IconButton(
-                                    onPressed: () {
 
-                                    },
-                                    icon: Icon(
-                                      Icons.notifications_none,
-                                      color: Colors.white,
-                                      size: 25.0,)
-                                ),
                               ],
                             ),
 
@@ -133,51 +130,62 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                       .size
                                       .width,
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       trainerProfileController.isReadOnly.value
-                                          ? Container(
-                                        child: Row(
-                                          children: [
-                                            Text("Status"),
-                                            SizedBox(width: 10.0,),
-                                            ElevatedButton(onPressed: () {},
-                                              child: Text(
-                                                trainerProfileController
-                                                    .trainerStatus.value
-                                                    ? "ACTIVE"
-                                                    : "INACTIVE",
-                                                style: TextStyle(
-                                                    color: Colors.white),),
-                                              style: ButtonStyle(
-                                                  backgroundColor: trainerProfileController
-                                                      .trainerStatus.value
-                                                      ? MaterialStateProperty
-                                                      .all<Color>(Colors.green)
-                                                      : MaterialStateProperty
-                                                      .all<Color>(Colors.red)),)
-                                          ],
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .end,
-                                        ),
-                                      )
-                                          : Obx(() {
-                                        return Container(
-                                            child: Row(
-                                              children: [
-                                                Text("INACTIVE"),
-                                                Switch(
-                                                    value: trainerProfileController
-                                                        .trainerStatus.value,
-                                                    onChanged: (value) {
+                                          ? Card(
+                                            child: Container(
+                                              margin: EdgeInsets.only(top:5.0,bottom: 5.0,left: 8.0,right: 8.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text("Status"),
+                                                  SizedBox(width: 10.0,),
+                                                  ElevatedButton(onPressed: () {},
+                                                    child: Text(
                                                       trainerProfileController
-                                                          .trainerStatus
-                                                          .toggle();
-                                                    }),
-                                                Text("ACTIVE"),
-                                              ],
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .end,
-                                            ));
+                                                          .trainerStatus.value
+                                                          ? "ACTIVE"
+                                                          : "INACTIVE",
+                                                      style: TextStyle(
+                                                          color: Colors.white),),
+                                                    style: ButtonStyle(
+                                                        backgroundColor: trainerProfileController
+                                                            .trainerStatus.value
+                                                            ? MaterialStateProperty
+                                                            .all<Color>(Colors.green)
+                                                            : MaterialStateProperty
+                                                            .all<Color>(Colors.red)),)
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                          : Obx(() {
+                                        return Card(
+                                          child: Container(
+                                              margin: EdgeInsets.only(top:5.0,bottom: 5.0,left: 8.0,right: 8.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text("INACTIVE",style: TextStyle(fontSize: 14.sp),),
+                                                  Switch(
+                                                      activeColor: Colors.white,
+                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                      activeTrackColor: Colors.green,
+                                                      inactiveThumbColor: Colors.white,
+                                                      value: trainerProfileController
+                                                          .trainerStatus.value,
+                                                      onChanged: (value) {
+                                                        trainerProfileController
+                                                            .trainerStatus
+                                                            .toggle();
+                                                      }),
+                                                  Text("ACTIVE",style: TextStyle(fontSize: 14.sp)),
+                                                ],
+                                              )),
+                                        );
                                       }),
 
                                       const SizedBox(height:50.0),
@@ -245,10 +253,13 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                                               },
                                               readOnly: true,
                                               onTap: () async {
-                                                var selectedDate = await getDatePicker(
-                                                    context);
-                                                controller.ageController.text =
-                                                    selectedDate.toString();
+                                                if(!controller.isReadOnly.value){
+                                                  var selectedDate = await getDatePicker(
+                                                      context);
+                                                  controller.ageController.text =
+                                                      selectedDate.toString();
+                                                }
+
                                               },
 
                                             ),
@@ -406,7 +417,7 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                 Positioned(
                     top: 80,
                     // Adjust this value to control the position of the card
-                    left: 16,
+                    left: 15,
                     right: 50.w,
                     child: SizedBox(
                         width: MediaQuery
@@ -414,78 +425,87 @@ class TrainerProfile extends GetView<TrainerProfileController> {
                             .size
                             .width,
                         child: Obx(() {
-                          return Card(
-                            elevation: 10.0,
-                            shape: CircleBorder(),
-                            child: CircleAvatar(
-                              radius: 75,
-                              foregroundImage: trainerProfileController.imagePath.value.isNotEmpty
-                                  ?NetworkImage(trainerProfileController.imagePath.value)
-                                    : NetworkImage(
-                                  "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                              backgroundImage: trainerProfileController.imagePath.isNotEmpty
-                                  ? FileImage(File(trainerProfileController.imagePath.value.toString()))
-                                  : null,
-
-
-                              child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          showDialog(context: context, builder: (BuildContext contex)
-                                          {
-                                            return Dialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(20.0)),
-                                              child:  Container(
-
-                                                alignment: Alignment.center,
-                                                height: 100,
-                                                child:   Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                          return Stack(
+                            children: [
+                              // Your CircleAvatar widget
+                              Card(
+                                elevation: 10.0,
+                                shape: CircleBorder(),
+                                child: CircleAvatar(
+                                  radius: 70,
+                                  foregroundImage: trainerProfileController.imagePath.value.isNotEmpty
+                                      ? NetworkImage(trainerProfileController.imagePath.value)
+                                      : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                  backgroundImage: trainerProfileController.imagePath.isNotEmpty
+                                      ? FileImage(File(trainerProfileController.imagePath.value.toString()))
+                                      : null,
+                                ),
+                              ),
+                              // Camera icon positioned on top of the stack
+                              Positioned(
+                                right: 30,
+                                bottom: 0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            height: 100,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        IconButton(onPressed: (){
-                                                          Navigator.pop(context);
-                                                          trainerProfileController.openCamera();
-
-                                                        }, icon: Icon(Icons.camera_alt_outlined),iconSize: 50.0,),
-                                                        Text("Camera")
-                                                      ],
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        trainerProfileController.openCamera();
+                                                      },
+                                                      icon: Icon(Icons.camera_alt_outlined),
+                                                      iconSize: 50.0,
                                                     ),
-                                                    Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        IconButton(onPressed: (){
-                                                          Navigator.pop(context);
-                                                          trainerProfileController.openGallery();
-                                                        }, icon: Icon(Icons.photo_album_outlined),iconSize: 50.0,),
-                                                        Text("Album")
-                                                      ],
-                                                    ),
+                                                    Text("Camera"),
                                                   ],
                                                 ),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 22,
-                                          backgroundColor: Colors.white70,
-                                          child: Icon(Icons.add_a_photo_outlined),
-                                        ),
-                                      ),
-                                    ),
-                                  ]
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        trainerProfileController.openGallery();
+                                                      },
+                                                      icon: Icon(Icons.photo_album_outlined),
+                                                      iconSize: 50.0,
+                                                    ),
+                                                    Text("Album"),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 22,
+                                    backgroundColor: Colors.white70,
+                                    child: Icon(Icons.add_a_photo_outlined),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           );
+
                         }),
 
                     )

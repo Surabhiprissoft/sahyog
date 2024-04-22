@@ -20,7 +20,8 @@ class AddTrainee extends GetView<AddTraineeController> {
   AddTrainee({super.key});
 
 
- // final addTraineeController = Get.find<AddTraineeController>();
+  // final addTraineeController = Get.find<AddTraineeController>();
+  String? dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +29,62 @@ class AddTrainee extends GetView<AddTraineeController> {
       return Scaffold(
           body: Stack(
             children: [
-              CustomTopBar(titleName: "Add Trainee"),
               Positioned(
-                  top: 140,
+                  top: 0,
+                  child: Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    height: 30.h,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Top_bg.png'),
+                          fit: BoxFit.cover, // Adjust the BoxFit as needed
+                        ),
+                        color: Colors.blue
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 2.w, bottom: 16.h, right: 6.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(onPressed: () {
+                                Get.back();
+                              },
+                                  icon: Icon(Icons.arrow_back_ios_rounded,
+                                    color: Colors.white,)),
+                              Text(
+                                  "Add Trainee",
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                  )
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+
+                  )
+              ),
+              Positioned(
+                  top: 20.h,
                   left: 0,
                   right: 0,
                   bottom: 0,
                   child: Container(
                     // height: 100.h,
-                    padding: EdgeInsets.only(top: 13.h),
+                    padding: EdgeInsets.only(top: 10.h),
                     width: MediaQuery
                         .of(context)
                         .size
@@ -99,22 +147,31 @@ class AddTrainee extends GetView<AddTraineeController> {
                                         children: [
                                           Expanded(
                                             child: TextFormField(
-                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                              controller: controller.ageController,
+                                              autovalidateMode: AutovalidateMode
+                                                  .onUserInteraction,
+                                              controller: controller
+                                                  .ageController,
                                               decoration: const InputDecoration(
                                                 label: Text("DOB"),
                                                 border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                                  borderRadius: BorderRadius
+                                                      .all(
+                                                      Radius.circular(10.0)),
                                                 ),
-                                                prefixIcon: Icon(Icons.calendar_month_sharp),
+                                                prefixIcon: Icon(
+                                                    Icons.calendar_month_sharp),
                                               ),
                                               validator: (value) {
-                                                return AppValidation.validateforrequiredfield(value!,""!);
+                                                return AppValidation
+                                                    .validateforrequiredfield(
+                                                    value!, ""!);
                                               },
                                               readOnly: true,
-                                              onTap: ()async{
-                                                var selectedDate = await getDatePicker(context);
-                                                controller.ageController.text = selectedDate.toString();
+                                              onTap: () async {
+                                                var selectedDate = await getDatePicker(
+                                                    context);
+                                                controller.ageController.text =
+                                                    selectedDate.toString();
                                               },
 
                                             ),
@@ -179,7 +236,51 @@ class AddTrainee extends GetView<AddTraineeController> {
                                               .mobileNumberController),
                                       const SizedBox(height: 20.0,),
                                       Obx(() =>
+                                          DropdownButtonFormField<
+                                              CenterResponseModel>(
+                                            menuMaxHeight: 20.h,
+                                            value: addTraineeController
+                                                .selectedCenter.value,
+                                            decoration: InputDecoration(
+                                              labelText: "Center",
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius
+                                                      .all(
+                                                      Radius.circular(
+                                                          10.0))
+                                              ),
+                                              hintText: "Center",
+                                              errorText: addTraineeController
+                                                  .isSubmitted.value &&
+                                                  addTraineeController
+                                                      .selectedCenter
+                                                      .value == null
+                                                  ? ""
+                                                  : null,
+                                            ),
+                                            onChanged: (
+                                                CenterResponseModel? newValue) {
+                                              addTraineeController
+                                                  .selectedCenter
+                                                  .value = newValue;
+                                            },
+                                            items: addTraineeController
+                                                .centerlist.map<
+                                                DropdownMenuItem<
+                                                    CenterResponseModel>>((
+                                                CenterResponseModel center) {
+                                              return DropdownMenuItem<
+                                                  CenterResponseModel>(
+                                                value: center,
+                                                child: Text(center!
+                                                    .name!),
+                                              );
+                                            }).toList(),
+                                          )),
+                                      const SizedBox(height: 20.0,),
+                                      Obx(() =>
                                           DropdownButtonFormField<String>(
+                                            menuMaxHeight: 20.h,
                                             value: addTraineeController
                                                 .selectedLevel.value.isEmpty
                                                 ? null
@@ -188,9 +289,9 @@ class AddTrainee extends GetView<AddTraineeController> {
                                             decoration: InputDecoration(
                                               labelText: "Level",
                                               border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius
-                                                      .all(
-                                                      Radius.circular(10.0))
+                                                borderRadius: BorderRadius
+                                                    .all(
+                                                    Radius.circular(10.0)),
                                               ),
                                               hintText: "Level",
 
@@ -207,6 +308,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                     newValue;
                                               }
                                             },
+
                                             items: addTraineeController.level
                                                 .map<DropdownMenuItem<String>>((
                                                 String value) {
@@ -214,8 +316,11 @@ class AddTrainee extends GetView<AddTraineeController> {
                                                 value: value,
                                                 child: Text(value),
                                               );
+
                                             }).toList(),
-                                          )),
+                                          )
+                                      ),
+
                                       const SizedBox(height: 20.0,),
                                       InputTextFormField(label: "Email ID",
                                           keyboardType: TextInputType
@@ -227,50 +332,7 @@ class AddTrainee extends GetView<AddTraineeController> {
                                           keyboardType: TextInputType.multiline,
                                           controller: addTraineeController
                                               .addressController),
-                                      const SizedBox(height: 20.0,),
 
-                                      Obx(() =>
-                                        DropdownButtonFormField<
-                                            CenterResponseModel>(
-                                          value: addTraineeController
-                                              .selectedCenter.value,
-                                          decoration: InputDecoration(
-                                            labelText: "Center",
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius
-                                                    .all(
-                                                    Radius.circular(
-                                                        10.0))
-                                            ),
-                                            hintText: "Center",
-                                            errorText: addTraineeController
-                                                .isSubmitted.value &&
-                                                addTraineeController
-                                                    .selectedCenter
-                                                    .value == null
-                                                ? ""
-                                                : null,
-                                          ),
-                                          onChanged: (
-                                              CenterResponseModel? newValue) {
-                                            addTraineeController
-                                                .selectedCenter
-                                                .value = newValue;
-                                          },
-                                          items: addTraineeController
-                                              .centerlist.map<
-                                              DropdownMenuItem<
-                                                  CenterResponseModel>>((
-                                              CenterResponseModel center) {
-                                            return DropdownMenuItem<
-                                                CenterResponseModel>(
-                                              value: center,
-                                              child: Text(center!
-                                                  .name!),
-                                            );
-                                          }).toList(),
-                                        ) ),
-                                      
 
                                       /*Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -286,7 +348,7 @@ class AddTrainee extends GetView<AddTraineeController> {
 
                                             child: OutlinedButton(
                                               onPressed: () {
-                                                //TODO
+                                                Get.back();
                                               },
                                               child: const Text('Cancel'),
                                             ),
@@ -326,10 +388,10 @@ class AddTrainee extends GetView<AddTraineeController> {
                   )
               ),
               Positioned(
-                  top: 70,
+                  top: 10.h,
                   // Adjust this value to control the position of the card
-                  left: 16,
-                  right: 16,
+                  left: 20,
+                  right: 50.w,
                   child: SizedBox(
                     width: MediaQuery
                         .of(context)
@@ -337,93 +399,98 @@ class AddTrainee extends GetView<AddTraineeController> {
                         .width,
                     child: Center(
                       child: Obx(() {
-                        return Card(
-                          elevation: 10.0,
-                          shape: CircleBorder(),
-                          child: CircleAvatar(
-                            radius: 75,
-                            //foregroundImage: ExactAssetImage("assets/images/demo.jpg"),
-                            backgroundImage: addTraineeController.imagePath
-                                .isNotEmpty
-                                ?
-                            FileImage(
-                                File(addTraineeController.imagePath.toString()))
-                                : null,
-                            child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        showDialog(context: context,
-                                            builder: (BuildContext contex) {
-                                              return Dialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        20.0)),
-                                                child: Container(
-
-                                                  alignment: Alignment.center,
-                                                  height: 100,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceEvenly,
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .center,
-                                                    children: [
-                                                      Column(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .center,
-                                                        children: [
-                                                          IconButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              addTraineeController
-                                                                  .openCamera();
-                                                            },
-                                                            icon: Icon(Icons
-                                                                .camera_alt_outlined),
-                                                            iconSize: 50.0,),
-                                                          Text("Camera")
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .center,
-                                                        children: [
-                                                          IconButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              addTraineeController
-                                                                  .openGallery();
-                                                            },
-                                                            icon: Icon(Icons
-                                                                .photo_album_outlined),
-                                                            iconSize: 50.0,),
-                                                          Text("Album")
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            });
-                                      },
-                                      child: const CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor: AppColors
-                                            .appThemeColor,
-                                        child: Icon(
-                                          Icons.add, color: Colors.white,),
-                                      ),
-                                    ),
-                                  ),
-                                ]
+                        return Stack(
+                          children: [
+                            // Your CircleAvatar widget
+                            Card(
+                              elevation: 10.0,
+                              shape: CircleBorder(),
+                              child: CircleAvatar(
+                                radius: 75,
+                                foregroundImage: addTraineeController.imagePath
+                                    .isEmpty
+                                    ? NetworkImage(
+                                    "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png")
+                                    : null,
+                                backgroundImage: addTraineeController.imagePath
+                                    .isNotEmpty
+                                    ? FileImage(File(
+                                    addTraineeController.imagePath.toString()))
+                                    : null,
+                              ),
                             ),
-                          ),
+                            // Camera icon positioned on top of the stack
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              20.0),
+                                        ),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 100,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .spaceEvenly,
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .center,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      addTraineeController
+                                                          .openCamera();
+                                                    },
+                                                    icon: Icon(Icons
+                                                        .camera_alt_outlined),
+                                                    iconSize: 50.0,
+                                                  ),
+                                                  Text("Camera"),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      addTraineeController
+                                                          .openGallery();
+                                                    },
+                                                    icon: Icon(Icons
+                                                        .photo_album_outlined),
+                                                    iconSize: 50.0,
+                                                  ),
+                                                  Text("Album"),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: CircleAvatar(
+                                  radius: 22,
+                                  backgroundColor: Colors.white70,
+                                  child: Icon(Icons.add_a_photo_outlined),
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       }),
 

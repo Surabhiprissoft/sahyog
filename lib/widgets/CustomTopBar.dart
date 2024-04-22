@@ -36,11 +36,6 @@ class CustomTopBar extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     )
                 ),
-                IconButton(onPressed: (){
-
-                },
-                    icon:Icon(Icons.notifications_none,color: Colors.white,size: 25.0,)
-                ),
 
               ],
             ),

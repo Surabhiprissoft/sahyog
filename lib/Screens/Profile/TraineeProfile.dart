@@ -13,7 +13,10 @@ import 'package:sahyog/model/ResponseModel/CenterResponseModel.dart';
 import 'package:sahyog/utils/AppCommonMethods.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_validation.dart';
+import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/common_textfield.dart';
+
+import '../../model/ResponseModel/TrainerTraineeResponseModel.dart';
 
 
 class TraineeProfile extends GetView<TraineeProfileController> {
@@ -44,19 +47,24 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(
-                              left: 6.w, bottom: 16.h, right: 6.w),
+                              left: 2.w, bottom: 16.h, right: 6.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                  "Trainee Profile",
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontStyle: FontStyle.normal,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                  )
+                              Row(
+                                children: [
+                                  IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_rounded,color: Colors.white,)),
+                                  Text(
+                                      "Trainee Profile",
+                                      style: TextStyle(
+                                        fontSize: 18.sp,
+                                        fontStyle: FontStyle.normal,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                      )
+                                  ),
+                                ],
                               ),
                               Row(
                                 children: [
@@ -76,14 +84,7 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                         Icons.edit, color: Colors.white,
                                         size: 25.0,)
                                   ),
-                                  IconButton(onPressed: () {
-
-                                  },
-                                      icon: Icon(
-                                        Icons.notifications_none,
-                                        color: Colors.white,
-                                        size: 25.0,)
-                                  ),
+                                  
                                 ],
                               ),
 
@@ -113,90 +114,103 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                           ),
                           child: Obx(() {
                             return Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(15.0),
                                   child: traineeProfileController.isReadOnly
                                       .value
-                                      ? Container(
-                                    child: Row(
-                                      children: [
-                                        Text("Status"),
-                                        SizedBox(width: 10.0,),
-                                        ElevatedButton(onPressed: () {},
-                                          child: Text(
-                                            traineeProfileController
-                                                .traineeStatus.value
-                                                ? "ACTIVE"
-                                                : "INACTIVE",
-                                            style: TextStyle(
-                                                color: Colors.white),),
-                                          style: ButtonStyle(
-                                              backgroundColor: traineeProfileController
-                                                  .traineeStatus.value
-                                                  ? MaterialStateProperty
-                                                  .all<Color>(Colors.green)
-                                                  : MaterialStateProperty
-                                                  .all<Color>(Colors.red)),)
-                                      ],
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .end,
-                                    ),
-                                  )
-                                      : Obx(() {
-                                    return Container(
+                                      ? Card(
+                                        child: Container(
+                                          margin: EdgeInsets.only(top:5.0,bottom: 5.0,left: 8.0,right: 8.0),
                                         child: Row(
-                                          children: [
-                                            Text("INACTIVE"),
-                                            Switch(
-                                                value: traineeProfileController
-                                                    .traineeStatus.value,
-                                                onChanged: (value) {
-                                                  traineeProfileController
-                                                      .traineeStatus
-                                                      .toggle();
-                                                }),
-                                            Text("ACTIVE"),
-                                          ],
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .end,
-                                        ));
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text("Status"),
+                                          SizedBox(width: 10.0,),
+                                          ElevatedButton(onPressed: () {},
+                                            child: Text(
+                                              traineeProfileController
+                                                  .traineeStatus.value
+                                                  ? "ACTIVE"
+                                                  : "INACTIVE",
+                                              style: TextStyle(
+                                                  color: Colors.white),),
+                                            style: ButtonStyle(
+                                                backgroundColor: traineeProfileController
+                                                    .traineeStatus.value
+                                                    ? MaterialStateProperty
+                                                    .all<Color>(Colors.green)
+                                                    : MaterialStateProperty
+                                                    .all<Color>(Colors.red)),)
+                                        ],
+                                                                            ),
+                                                                          ),
+                                      )
+                                      : Obx(() {
+                                    return Card(
+                                      child: Container(
+                                          margin: EdgeInsets.only(top:5.0,bottom: 5.0,left: 8.0,right: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("INACTIVE",style: TextStyle(fontSize: 14.sp)),
+                                              Switch(
+                                                  activeColor: Colors.white,
+                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  activeTrackColor: Colors.green,
+                                                  inactiveThumbColor: Colors.white,
+                                                  value: traineeProfileController
+                                                      .traineeStatus.value,
+                                                  onChanged: (value) {
+                                                    traineeProfileController
+                                                        .traineeStatus
+                                                        .toggle();
+                                                  }),
+                                              Text("ACTIVE",style: TextStyle(fontSize: 14.sp)),
+                                            ],
+                                          )),
+                                    );
                                   }),
                                 ),
                                 SizedBox(height: 2.h,),
-                                CustomSlidingSegmentedControl<int>(
-                                  initialValue: controller.slidingValue.value,
-                                  children: const {
-                                    1: Text('Personal Details'),
-                                    2: Text('Payment Details'),
-                                  },
-                                  innerPadding: EdgeInsets.zero,
-                                  fixedWidth: 45.w,
-                                  decoration: BoxDecoration(
-                                    color: CupertinoColors.lightBackgroundGray,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  thumbDecoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(.3),
-                                        blurRadius: 4.0,
-                                        spreadRadius: 1.0,
-                                        offset: Offset(
-                                          0.0,
-                                          2.0,
+                                Center(
+                                  child: CustomSlidingSegmentedControl<int>(
+                                    initialValue: controller.slidingValue.value,
+                                    children: const {
+                                      1: Text('Personal Details'),
+                                      2: Text('Payment Details'),
+                                    },
+                                    innerPadding: EdgeInsets.zero,
+                                    fixedWidth: 45.w,
+                                    decoration: BoxDecoration(
+                                      color: CupertinoColors.lightBackgroundGray,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    thumbDecoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(.3),
+                                          blurRadius: 4.0,
+                                          spreadRadius: 1.0,
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                    onValueChanged: (v) {
+                                      controller.slidingValue.value = v;
+                                      print("POSITION" +
+                                          controller.slidingValue.value
+                                              .toString());
+                                    },
                                   ),
-                                  onValueChanged: (v) {
-                                    controller.slidingValue.value = v;
-                                    print("POSITION" +
-                                        controller.slidingValue.value
-                                            .toString());
-                                  },
                                 ),
                                 controller.slidingValue.value == 1 ?
                                 Container(
@@ -273,9 +287,7 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                                                       .circular(
                                                                       10.0)),
                                                             ),
-                                                            prefixIcon: Icon(
-                                                                Icons
-                                                                    .calendar_month_sharp),
+
                                                           ),
                                                           validator: (value) {
                                                             return AppValidation
@@ -284,13 +296,17 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                                           },
                                                           readOnly: true,
                                                           onTap: () async {
-                                                            var selectedDate = await getDatePicker(
-                                                                context);
-                                                            controller
-                                                                .ageController
-                                                                .text =
-                                                                selectedDate
-                                                                    .toString();
+
+                                                            if(!controller.isReadOnly.value){
+                                                              var selectedDate = await getDatePicker(
+                                                                  context);
+                                                              controller
+                                                                  .ageController
+                                                                  .text =
+                                                                  selectedDate
+                                                                      .toString();
+                                                            }
+
                                                           },
 
                                                         ),
@@ -633,6 +649,9 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                                             Text("Due"),
 
                                                             Switch(
+                                                                 activeColor: Colors.white,
+                                                                activeTrackColor: Colors.green,
+                                                                inactiveThumbColor: Colors.white,
                                                                 value: feeStatusByMonth
                                                                     .feesStatus ??
                                                                     false,
@@ -652,6 +671,41 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                                                                               .toString()),
                                                                       feeStatusByMonth
                                                                           .year);
+
+
+
+                                                                  /*FutureBuilder<TrainerTraineeResponseModel>(
+                                                                    future: traineeProfileController
+                                                                        .markFeeStatus(
+                                                                        value,
+                                                                        getMonthNumber(
+                                                                            feeStatusByMonth
+                                                                                .month
+                                                                                .toString()),
+                                                                        feeStatusByMonth
+                                                                            .year),
+                                                                    builder: (context, snapshot) {
+                                                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                        // Show loading indicator while waiting for the future to complete
+                                                                         DialogHelper.showLoading();
+                                                                      } else {
+                                                                        // Hide loading indicator when future completes
+                                                                        DialogHelper.hideLoading();
+
+                                                                        if (snapshot.hasError) {
+                                                                          // Handle error case
+                                                                          return Text('Error: ${snapshot.error}');
+                                                                        } else {
+                                                                          // Handle success case
+                                                                          return Text('Fee status marked successfully');
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                  );*/
+
+
+
+
                                                                 }),
 
                                                             Text("Paid"),
@@ -682,7 +736,7 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                   Positioned(
                       top: 10.h,
                       // Adjust this value to control the position of the card
-                      left: 16,
+                      left: 15,
                       right: 50.w,
                       child: SizedBox(
                         width: MediaQuery
@@ -690,96 +744,88 @@ class TraineeProfile extends GetView<TraineeProfileController> {
                             .size
                             .width,
                         child: Obx(() {
-                          return Card(
-                            elevation: 10.0,
-                            shape: CircleBorder(),
-                            child: CircleAvatar(
-                              radius: 75,
-                              foregroundImage: traineeProfileController.imagePath.value.isNotEmpty ?NetworkImage(
-                                  traineeProfileController.imagePath.value):NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                              backgroundImage: traineeProfileController
-                                  .imagePath.isNotEmpty
-                                  ? FileImage(File(
-                                  traineeProfileController.imagePath.value
-                                      .toString()))
-                                  : null,
-
-
-                              child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          showDialog(context: context,
-                                              builder: (BuildContext contex) {
-                                                return Dialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                                  child: Container(
-
-                                                    alignment: Alignment.center,
-                                                    height: 100,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment
-                                                          .spaceEvenly,
-                                                      crossAxisAlignment: CrossAxisAlignment
-                                                          .center,
-                                                      children: [
-                                                        Column(
-                                                          mainAxisAlignment: MainAxisAlignment
-                                                              .center,
-                                                          children: [
-                                                            IconButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                                traineeProfileController
-                                                                    .openCamera();
-                                                              },
-                                                              icon: Icon(Icons
-                                                                  .camera_alt_outlined),
-                                                              iconSize: 50.0,),
-                                                            Text("Camera")
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          mainAxisAlignment: MainAxisAlignment
-                                                              .center,
-                                                          children: [
-                                                            IconButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                                traineeProfileController
-                                                                    .openGallery();
-                                                              },
-                                                              icon: Icon(Icons
-                                                                  .photo_album_outlined),
-                                                              iconSize: 50.0,),
-                                                            Text("Album")
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 22,
-                                          backgroundColor: Colors.white70,
-                                          child: Icon(
-                                              Icons.add_a_photo_outlined),
-                                        ),
-                                      ),
-                                    ),
-                                  ]
+                          return Stack(
+                            children: [
+                              // Your CircleAvatar widget
+                              Card(
+                                elevation: 10.0,
+                                shape: CircleBorder(),
+                                child: CircleAvatar(
+                                  radius: 70,
+                                  foregroundImage: traineeProfileController.imagePath.value.isNotEmpty
+                                      ? NetworkImage(traineeProfileController.imagePath.value)
+                                      : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                  backgroundImage: traineeProfileController.imagePath.isNotEmpty
+                                      ? FileImage(File(traineeProfileController.imagePath.value.toString()))
+                                      : null,
+                                ),
                               ),
-                            ),
+                              // Camera icon positioned on top of the stack
+                              Positioned(
+                                right: 30,
+                                bottom: 0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            height: 100,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        traineeProfileController.openCamera();
+                                                      },
+                                                      icon: Icon(Icons.camera_alt_outlined),
+                                                      iconSize: 50.0,
+                                                    ),
+                                                    Text("Camera"),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        traineeProfileController.openGallery();
+                                                      },
+                                                      icon: Icon(Icons.photo_album_outlined),
+                                                      iconSize: 50.0,
+                                                    ),
+                                                    Text("Album"),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 22,
+                                    backgroundColor: Colors.white70,
+                                    child: Icon(Icons.add_a_photo_outlined),
+                                  ),
+                                ),
+                              ),
+                            ],
                           );
+
+
                         }),
 
                       )

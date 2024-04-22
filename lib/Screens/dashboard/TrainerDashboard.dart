@@ -15,6 +15,8 @@ import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../../network/api_baseHelper.dart';
+
 class TrainerDashboard extends GetView<TrainerDashboardController> {
   TrainerDashboard({super.key});
 
@@ -142,24 +144,32 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
                                 )),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.notifications_none,
-                                  color: Colors.white,
-                                  size: 25.0,
-                                )),
+
                           ],
+                        ),
+                        SizedBox(
+                          height: 3.0,
                         ),
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 35.0,
-                            ),
+                            Obx(() {
+                              return CircleAvatar(
+                                backgroundImage: controller.profilePhoto.value !=
+                                    null && controller.profilePhoto.value.isNotEmpty
+                                    ? NetworkImage(
+                                    ApiBaseHelper().imageBaseUrl +
+                                        controller.profilePhoto.value)
+                                    : NetworkImage(
+                                    "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                radius: 45.0,
+
+                              );
+                            }),
                             SizedBox(
-                              width: 8.0,
+                              width:20.0,
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("Welcome Back,",
                                     style: TextStyle(
@@ -171,17 +181,23 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                 SizedBox(
                                   height: 5.0,
                                 ),
-                                Text(PreferenceUtils.getString(AppConstants.USERNAME),
-                                    style: TextStyle(
-                                      fontSize: 17.sp,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    )),
+                                Obx(() {
+                                  return Text(
+                                      controller.trainerName.value,
+                                      style: TextStyle(
+                                        fontSize: 17.sp,
+                                        fontStyle: FontStyle.normal,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                      ));
+                                }),
                               ],
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
                       ],
                     ),
                   ),
@@ -224,7 +240,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                           locale: 'en_ISO',
                         ),
                         SizedBox(
-                          height: 20.0,
+                          height: 40.0,
                         ),
 
                         Obx(() {
@@ -251,7 +267,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                           controller.centers[index].name,
                                           style: TextStyle(
                                               color: AppColors.appThemeColor,
-                                              fontSize: 18.sp,
+                                              fontSize: 16.sp,
                                               fontWeight: FontWeight.w700),
                                         ),
                                       ],
@@ -275,7 +291,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                 );
                               },
                             ) : Center(child: Text(
-                                "No Centers are alllocated for selected Date")),
+                                "No Centers are allocated for selected Date")),
                           );
                         }),
                         /*SingleTrainerSlot(
@@ -328,7 +344,7 @@ class SingleTrainerSlot extends StatelessWidget {
                         child: Text(
                           slotTiming,
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.normal,
                               color: AppColors.appThemeColor),
                         ),

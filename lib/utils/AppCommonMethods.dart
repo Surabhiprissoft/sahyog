@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AppCommonMethods
 {
@@ -46,12 +47,27 @@ Future<String> getDatePicker(BuildContext context) async {
       context: context,
       //initialDate: DateTime.now(), // Provide an initial date if desired
       firstDate: DateTime(1990),
-      lastDate: DateTime.now()
+      lastDate: DateTime.now(),
+    builder: (context, child) {
+      return Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: Container(
+              height: 60.h,
+              width: 90.h,
+              child: child,
+            ),
+          ),
+        ],
+      );
+    },
   );
   if(picked!=null)
   {
     selectedDate= picked.toString().split(" ")[0];
   }
+
   return selectedDate;
 }
 

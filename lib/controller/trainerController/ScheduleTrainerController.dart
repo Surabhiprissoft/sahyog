@@ -18,6 +18,7 @@ import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/widgets/DialogHelper.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
+import '../dashboardController/AdminDashboardController.dart';
 import 'ManageTrainerController.dart';
 
 class ScheduleTrainerController extends GetxController {
@@ -297,6 +298,9 @@ class ScheduleTrainerController extends GetxController {
          showSnackBar("Saved Trainer", "Trainer Scheduled Successfully!");
          assigntrainess.clear();
          selectedNames.clear();
+         var adminController = Get.find<AdminDashboardController>();
+         adminController.centerList.clear();
+         adminController.getAdminDashboardData();
          getTimeslotData(selectedDateTime);
       }
 
@@ -334,6 +338,9 @@ class ScheduleTrainerController extends GetxController {
       selectedNames.clear();
       selectedListfordelete.clear();
       getTimeslotData(selectedDateTime);
+      var adminController = Get.find<AdminDashboardController>();
+      adminController.centerList.clear();
+      adminController.getAdminDashboardData();
     }
     else
       {

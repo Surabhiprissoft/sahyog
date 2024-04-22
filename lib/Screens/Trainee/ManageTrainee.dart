@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
@@ -40,7 +42,8 @@ class ManageTrainee extends GetView<ManageTraineeController> {
               bottom: 0,
               child: Container(
                 // height: 100.h,
-                padding: EdgeInsets.only(top: 1.h),
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.only(top:6),
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -52,13 +55,14 @@ class ManageTrainee extends GetView<ManageTraineeController> {
                 child: Obx(() {
                         if (manageTraineeController.traineeList.isEmpty) {
                          return Center(
-                            child: SizedBox(
-                              child: Text("No Trainee found"),
-                            ),
-                          );;// Show loading indicator while data is being fetched
+                           child: SizedBox(
+                             child: Text("No Trainee found"),
+                           ),
+                         );// Show loading indicator while data is being fetched
                         } else {
                           // Show the list view with data
                           return ListView.builder(
+                            padding: EdgeInsets.zero,
                             itemCount: controller.traineeList.length,
                             itemBuilder: (context, index) {
                               final trainee = controller.traineeList[index];
@@ -78,43 +82,52 @@ class ManageTrainee extends GetView<ManageTraineeController> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundImage:trainee.profilePhoto != null && trainee.profilePhoto!.isNotEmpty
-                                                    ? NetworkImage(ApiBaseHelper().imageBaseUrl+trainee.profilePhoto.toString()) : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                                                radius: 3.5.h,
-                                              ),
-                                              SizedBox(width: 2.w),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text("${trainee.firstName} ${trainee.lastName}"),
-                                                  SizedBox(height: 1.h),
-                                                  Row(
+                                          Expanded(
+                                            flex: 6,
+                                            child: Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundImage:trainee.profilePhoto != null && trainee.profilePhoto!.isNotEmpty
+                                                      ? NetworkImage(ApiBaseHelper().imageBaseUrl+trainee.profilePhoto.toString()) : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                  radius: 3.5.h,
+                                                ),
+                                                SizedBox(width: 2.w),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Icon(Icons.phone, size: 16.0),
-                                                      Text(trainee.phone ?? "",
-                                                        style: TextStyle(fontSize: 14.sp),
+                                                      Text("${trainee.firstName} ${trainee.lastName}",overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 14.sp)),
+                                                      SizedBox(height: 1.h),
+                                                      Row(
+                                                        children: [
+                                                          Icon(Icons.phone, size: 14.0),
+                                                          Text(" ${trainee.phone} ",
+                                                            style: TextStyle(fontSize: 14.sp),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
-                                                ],
-                                              ),
-                                            ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Text(trainee.centerName.toString(),style: TextStyle(fontSize: 15.sp),),
-                                              SizedBox(height: 7.0,),
-                                              Row(
-                                                children: [
-                                                  trainee.feesStatusFalseCount!>0 ? Icon(Icons.warning_amber_outlined,color: Colors.red,size: 16.0,) : Icon(Icons.check_circle_outlined,color: Colors.green,size: 16.0,),
-                                                  Text((trainee.feesStatusFalseCount!>0) ? " Fee Due :${trainee.feesStatusFalseCount} months" : " Fees Paid",style: TextStyle(fontSize: 14.sp,color: trainee.feesStatusFalseCount!>0 ? Colors.red : Colors.green),),
-                                                ],
-                                              ),
-                                            ],
+                                          Expanded(
+                                            flex: 4,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                Text(trainee.centerName.toString(),style: TextStyle(fontSize: 14.sp),overflow: TextOverflow.ellipsis,),
+                                                SizedBox(height: 7.0,),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    trainee.feesStatusFalseCount!>0 ? Icon(Icons.warning_amber_outlined,color: Colors.red,size: 14.0,) : Icon(Icons.check_circle_outlined,color: Colors.green,size: 16.0,),
+                                                    Text((trainee.feesStatusFalseCount!>0) ? " Fee Due :${trainee.feesStatusFalseCount} months" : " Fees Paid",style: TextStyle(fontSize: 14.sp,color: trainee.feesStatusFalseCount!>0 ? Colors.red : Colors.green),),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),

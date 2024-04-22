@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/controller/RegistrationRequestsController.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
 
 import '../utils/app_colors.dart';
 import '../widgets/CustomTopBar.dart';
@@ -21,7 +22,46 @@ class RegistrationRequest extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          CustomTopBar(titleName: "Registration Request's"),
+          Positioned(
+              top: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 30.h,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/Top_bg.png'),
+                      fit: BoxFit.cover, // Adjust the BoxFit as needed
+                    ),
+                    color: Colors.blue
+                ),
+                child:  Padding(
+                  padding: EdgeInsets.only(left:2.w,bottom: 16.h,right: 6.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_rounded,color: Colors.white,)),
+                          Text(
+                              "Registration Request",
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontStyle: FontStyle.normal,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              )
+                          ),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+
+
+              )
+          ),
           Positioned(
               top: 160,
               // Adjust this value to control the position of the card
@@ -55,6 +95,7 @@ class RegistrationRequest extends StatelessWidget {
                       } else {
                         // Show the list view with data
                         return ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: registrationRequestsController.unApprovedTrainerList.length,
                           itemBuilder: (context, index) {
                             final trainer = registrationRequestsController.unApprovedTrainerList[index];
@@ -81,7 +122,7 @@ class RegistrationRequest extends StatelessWidget {
                                         children: [
                                           CircleAvatar(
                                             backgroundImage: trainer.profilePhoto != null && trainer.profilePhoto!.isNotEmpty
-                                                ? NetworkImage("http://192.168.0.117:8000${trainer.profilePhoto}")
+                                                ? NetworkImage(ApiBaseHelper().imageBaseUrl+trainer.profilePhoto.toString())
                                                 : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                                             radius: 3.5.h,
                                           ),
@@ -162,6 +203,7 @@ class RegistrationRequest extends StatelessWidget {
                       } else {
                         // Show the list view with data
                         return ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: registrationRequestsController.traineeList.length,
                           itemBuilder: (context, index) {
                             final trainee = registrationRequestsController.traineeList[index];
@@ -185,7 +227,7 @@ class RegistrationRequest extends StatelessWidget {
                                             children: [
                                               CircleAvatar(
                                                 backgroundImage:trainee.profilePhoto != null && trainee.profilePhoto!.isNotEmpty
-                                                    ? NetworkImage("http://192.168.0.117:8000${trainee.profilePhoto}") : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                    ? NetworkImage(ApiBaseHelper().imageBaseUrl+trainee.profilePhoto.toString()) : NetworkImage("https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
                                                 radius: 3.5.h,
                                               ),
                                               SizedBox(width: 2.w),

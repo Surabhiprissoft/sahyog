@@ -12,6 +12,8 @@ import '../../network/api_baseHelper.dart';
 import '../../network/user_repository.dart';
 import '../../utils/AppCommonMethods.dart';
 import '../../widgets/DialogHelper.dart';
+import '../dashboardController/AdminDashboardController.dart';
+import '../trainerController/ManageTrainerController.dart';
 
 
 
@@ -122,7 +124,12 @@ class TrainerProfileController extends GetxController{
         final response = await  userRepository.updateTrainerData(updateTrainerData,userId);
         if(response.status==200){
           DialogHelper.hideLoading();
-          showSnackBar("Data Updated","Trainer data updated successfully");
+          var manageTrainerController = Get.find<ManageTrainerController>();
+          manageTrainerController.getTrainerList();
+          var adminController = Get.find<AdminDashboardController>();
+          adminController.centerList.clear();
+          adminController.getAdminDashboardData();
+          showSnackBar("Trainer data updated successfully","");
         }
     }
     else{

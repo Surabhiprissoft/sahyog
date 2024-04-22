@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
@@ -52,7 +53,7 @@ class TraineeProfileController extends GetxController{
   List<CenterResponseModel> centerlist=[];
   late final RxBool traineeStatus;
 
-
+  RxBool _isSnackbarActive = false.obs ;
   RxList feeStatusList=[].obs;
   late String imageInBaseValue = "";
   late final userId;
@@ -171,7 +172,6 @@ class TraineeProfileController extends GetxController{
     feesStatusResponse = await userRepository.getFeeData(userId);
     if(feesStatusResponse.status == 200) {
       feeStatusList.value = feesStatusResponse.data.feesStatusByMonth!.toList();
-      print("Hello Man ${feeStatusList.length}");
 
 
     } else {
@@ -194,12 +194,12 @@ class TraineeProfileController extends GetxController{
       yearId: paymentYear
     );
     feeMarkResponse= await userRepository.markFeeStatus(feeStatusRequestModel);
-
+    print("status : ${feeMarkResponse.status.toString()}");
     if(feeMarkResponse.status==200)
       {
+        _isSnackbarActive.value = true;
         DialogHelper.hideLoading();
         print("Inside 200");
-        showSnackBar("Success", "updated fee status has been marked");
         generateFeesData(currentTraineeId.toInt());
         var adminController = Get.find<AdminDashboardController>();
         adminController.centerList.clear();
@@ -208,6 +208,19 @@ class TraineeProfileController extends GetxController{
         var manageTraineeController = Get.find<ManageTraineeController>();
         manageTraineeController.getTraineeList();
         update();
+
+        Get.snackbar("Success", "Updated fee status has been marked",snackPosition: SnackPosition.BOTTOM,snackbarStatus: (status) {
+        if(status!=SnackbarStatus.CLOSED){
+          isReadOnly.value=true;
+          }
+        else{
+          isReadOnly.value=false;
+          }
+
+        },);
+        print("hi $isReadOnly");
+      //  showSnackBar("Success", "updated fee status has been marked");
+
       }else{
       DialogHelper.hideLoading();
     }
@@ -247,7 +260,11 @@ class TraineeProfileController extends GetxController{
         DialogHelper.hideLoading();
         var manageTraineeController = Get.find<ManageTraineeController>();
         manageTraineeController.getTraineeList();
-        showSnackBar("Data Updated","Trainee data updated successfully");
+        var adminController = Get.find<AdminDashboardController>();
+        adminController.centerList.clear();
+        adminController.getAdminDashboardData();
+        //Get.snackbar("Trainee data updated successfully","");
+        showSnackBar("Trainee data updated successfully","");
       }else{
         DialogHelper.hideLoading();
         showSnackBar("Error",response.message.toString());
@@ -279,6 +296,12 @@ class TraineeProfileController extends GetxController{
       imageInBaseValue =  AppCommonMethods().getBase64Image(image.path.toString());
     }
   }
+
+  Future<void> delay() async {
+    await Future.delayed(const Duration(seconds: 3));
+  }
+
+
 
 }
 

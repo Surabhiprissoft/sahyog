@@ -25,6 +25,7 @@ import 'package:sahyog/model/ResponseModel/TraineeDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TraineeListResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerDashboardResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerListResponseModel.dart';
+import 'package:sahyog/model/ResponseModel/TrainerRegistrationResponseModel.dart';
 import 'package:sahyog/model/ResponseModel/TrainerTraineeResponseModel.dart';
 import 'package:sahyog/network/api_baseHelper.dart';
 import 'package:sahyog/utils/app_constants.dart';
@@ -204,15 +205,15 @@ class UserRepository{
     }
   }
 
-  Future<ListResponse<TrainerListResponseModel>> getUnApprovedTrainerList() async {
+  Future<ListResponse<TrainerRegistrationResponseModel>> getUnApprovedTrainerList() async {
     try {
       // Make an asynchronous API call to fetch the login response
       final unApprovedTrainers = await apiBaseHelper.get(AppConstants.UNAPPROVEDRTAINERLIST);
 
       // Parse the response JSON into a SingleResponse object
-      ListResponse<TrainerListResponseModel> trainerListResponse = ListResponse.fromJson(
+      ListResponse<TrainerRegistrationResponseModel> trainerListResponse = ListResponse.fromJson(
           unApprovedTrainers,
-              (json) => TrainerListResponseModel.fromJson(json)
+              (json) => TrainerRegistrationResponseModel.fromJson(json)
       );
 
       return trainerListResponse;
@@ -266,7 +267,7 @@ class UserRepository{
   Future<TrainerTraineeResponseModel> actionOnRegistrationRequest(RegistrationUpdateRequestModel registrationRequest,int userId) async {
     try {
       // Make an asynchronous API call to fetch the login response
-      final response = await apiBaseHelper.patch("approveuser/$userId/", registrationRequest.toJson());
+      final response = await apiBaseHelper.patch("approveuser/$userId", registrationRequest.toJson());
       return TrainerTraineeResponseModel.fromJson(response);
 
     } catch (error) {

@@ -9,381 +9,408 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:sahyog/Screens/Trainee/ManageTrainee.dart';
 import 'package:sahyog/controller/dashboardController/TrainerDashboardController.dart';
 import 'package:sahyog/model/Centers.dart';
+import 'package:sahyog/network/api_baseHelper.dart';
+import 'package:sahyog/network/user_repository.dart';
 import 'package:sahyog/utils/app_colors.dart';
 import 'package:sahyog/utils/app_constants.dart';
 import 'package:sahyog/utils/preference_utils.dart';
 import 'package:sahyog/widgets/CustomTopBar.dart';
 import 'package:sahyog/widgets/other_common_widget.dart';
 
-import '../../network/api_baseHelper.dart';
-
 class TrainerDashboard extends GetView<TrainerDashboardController> {
   TrainerDashboard({super.key});
 
-  //final trainerdashBoardController = Get.put(TrainerDashboardController());
+  late List <CenterModel> plscenters = [];
+
 
   final trainerdashBoardController = Get.find<TrainerDashboardController>();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        bool exit = await showExitDialog(context);
-        return exit;
-      },
-      child: Scaffold(
-        floatingActionButton: FabCircularMenuPlus(
-          fabSize: 7.h,
-          fabOpenColor: AppColors.appThemeColor,
-          fabCloseColor: AppColors.appThemeColor,
-          fabOpenIcon: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          fabCloseIcon: Icon(
-            Icons.close,
-            color: Colors.white,
-          ),
-          ringColor: AppColors.ringDiameterColor,
-          ringWidth: 75.0,
-          ringDiameter: 300.0,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {},
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () {
-                      showLogoutDialog(context);
-                    },
-                    icon: Icon(
-                      Icons.logout_outlined,
-                      size: 8.w,
-                    ),
-                    color: AppColors.appThemeColor,
-                  ),
-                  Text(
-                    "Logout",
-                    style: TextStyle(
-                        fontSize: 14.sp, color: AppColors.appThemeColor),
-                  ),
-                ],
-              ),
+        onWillPop: () async {
+          bool exit = await showExitDialog(context);
+          return exit;
+        },
+        child: Scaffold(
+          floatingActionButton: FabCircularMenuPlus(
+            fabSize: 7.h,
+            fabOpenColor: AppColors.appThemeColor,
+            fabCloseColor: AppColors.appThemeColor,
+            fabOpenIcon: Icon(
+              Icons.menu,
+              color: Colors.white,
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  IconButton(
+            fabCloseIcon: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+            ringColor: AppColors.ringDiameterColor,
+            ringWidth: 75.0,
+            ringDiameter: 300.0,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
                       onPressed: () {
-                        Get.to(ManageTrainee());
+                        showLogoutDialog(context);
                       },
                       icon: Icon(
-                        Icons.groups_outlined,
+                        Icons.logout_outlined,
                         size: 8.w,
                       ),
-                      color: AppColors.appThemeColor),
-                  Text("Trainee",
-                      style: TextStyle(
-                          fontSize: 14.sp, color: AppColors.appThemeColor)),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.home_outlined,
-                      size: 8.w,
+                      color: AppColors.appThemeColor,
                     ),
-                    color: AppColors.appThemeColor,
-                  ),
-                  Text("Home",
+                    Text(
+                      "Logout",
                       style: TextStyle(
-                          fontSize: 14.sp, color: AppColors.appThemeColor)),
-                ],
+                          fontSize: 14.sp, color: AppColors.appThemeColor),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            Positioned(
-                top: 0,
-                child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  //height: 30.h,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Top_bg.png'),
-                        fit: BoxFit.cover, // Adjust the BoxFit as needed
+              GestureDetector(
+                onTap: () {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                        onPressed: () {
+                          Get.to(ManageTrainee());
+                        },
+                        icon: Icon(
+                          Icons.groups_outlined,
+                          size: 8.w,
+                        ),
+                        color: AppColors.appThemeColor),
+                    Text("Trainee",
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            color: AppColors.appThemeColor)),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.home_outlined,
+                        size: 8.w,
                       ),
-                      color: Colors.blue),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 5.h, left: 6.w, bottom: 16.h, right: 6.w),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Dashboard",
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontStyle: FontStyle.normal,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                )),
-
-                          ],
+                      color: AppColors.appThemeColor,
+                    ),
+                    Text("Home",
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            color: AppColors.appThemeColor)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          body: Stack(
+            children: [
+              Positioned(
+                  top: 0,
+                  child: Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    //height: 30.h,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Top_bg.png'),
+                          fit: BoxFit.cover, // Adjust the BoxFit as needed
                         ),
-                        SizedBox(
-                          height: 3.0,
-                        ),
-                        Row(
-                          children: [
-                            Obx(() {
-                              return CircleAvatar(
-                                backgroundImage: controller.profilePhoto.value !=
-                                    null && controller.profilePhoto.value.isNotEmpty
-                                    ? NetworkImage(
-                                    ApiBaseHelper().imageBaseUrl +
-                                        controller.profilePhoto.value)
-                                    : NetworkImage(
-                                    "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
-                                radius: 45.0,
-
-                              );
-                            }),
-                            SizedBox(
-                              width:20.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Welcome Back,",
-                                    style: TextStyle(
-                                      fontSize: 17.sp,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Obx(() {
-                                  return Text(
-                                      controller.trainerName.value,
+                        color: Colors.blue),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 5.h, left: 6.w, bottom: 16.h, right: 6.w),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("Dashboard",
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.notifications_none,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 35.0,
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Column(
+                                children: [
+                                  Text("Welcome Back,",
+                                      style: TextStyle(
+                                        fontSize: 17.sp,
+                                        fontStyle: FontStyle.normal,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                      )),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(PreferenceUtils.getString(
+                                      AppConstants.USERNAME),
                                       style: TextStyle(
                                         fontSize: 17.sp,
                                         fontStyle: FontStyle.normal,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
-                                      ));
-                                }),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-            Positioned(
-                top: 170,
-                left: 0,
-                right: 0,
-                child: Container(
-                    height: 100.h,
-                    padding: EdgeInsets.all(2.h),
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
+                                      )),
+                                ],
+                              )
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CalendarTimeline(
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(Duration(days: 7)),
-                          onDateSelected: (date) {
-                            controller.getTrainerDashboardData(date);
-                            /*trainerdashBoardController.SelectedDate.value =
-                                date.day.toString()*/
-                          },
-                          monthColor: Colors.blueGrey,
-                          dayColor: Colors.teal[200],
-                          activeDayColor: Colors.white,
-                          activeBackgroundDayColor: Colors.redAccent[100],
-                          dotsColor: Color(0xFF333A47),
-                          locale: 'en_ISO',
+                  )),
+              Positioned(
+                  top: 170,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                      height: 100.h,
+                      padding: EdgeInsets.all(2.h),
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
                         ),
-                        SizedBox(
-                          height: 40.0,
-                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CalendarTimeline(
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now().subtract(
+                                Duration(days: 7)),
+                            lastDate: DateTime.now().add(Duration(days: 7)),
+                            onDateSelected: (date) {
+                              controller.getTrainerDashboardData(date);
+                              // controller.sendGeoLocations();
+                              /*trainerdashBoardController.SelectedDate.value =
+                          date.day.toString()*/
+                            },
+                            monthColor: Colors.blueGrey,
+                            dayColor: Colors.teal[200],
+                            activeDayColor: Colors.white,
+                            activeBackgroundDayColor: Colors.redAccent[100],
+                            dotsColor: Color(0xFF333A47),
+                            locale: 'en_ISO',
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
 
-                        Obx(() {
-                          return Container(
-                            child: controller.centers.length > 0 ? ListView
-                                .builder(
-                              itemCount: controller.centers.length,
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              // physics: NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
+                          Obx(() {
+                            return Container(
+                              child: controller.centers.length > 0
+                                  ? Obx(() {
+                                return ListView
+                                    .builder(
+                                  itemCount: controller.centers.length,
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  // physics: NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .start,
                                       children: [
-                                        Icon(
-                                          Icons.location_on,
-                                          color: AppColors.appThemeColor,
-                                        ),
-                                        Text(
-                                          controller.centers[index].name,
-                                          style: TextStyle(
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
                                               color: AppColors.appThemeColor,
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700),
+                                            ),
+                                            Obx(() {
+                                              return Text(
+                                                controller.centers.value[index]
+                                                    .name,
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .appThemeColor,
+                                                    fontSize: 18.sp,
+                                                    fontWeight: FontWeight
+                                                        .w700),
+                                              );
+                                            }),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: controller.centers[index]
-                                            .timeSlots
-                                            .length,
-                                        itemBuilder: (context, slotIndex) {
-                                          return SingleTrainerSlot(
-                                            slotTiming: controller
+                                        ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            itemCount: controller
                                                 .centers[index]
-                                                .timeSlots[slotIndex],
-                                            locationStatus: "Arrived",
-                                          );
-                                        })
-                                  ],
+                                                .timeSlots
+                                                .length,
+                                            itemBuilder: (context,
+                                                slotIndex) {
+                                              return SingleTrainerSlot(
+
+
+                                                slotTiming: controller
+                                                      .centers[index]
+                                                      .timeSlots[slotIndex],
+                                                  locationStatus:controller
+                                                      .centers[index]
+                                                      .status![slotIndex],
+                                              );
+                                            })
+                                      ],
+                                    );
+                                  },
                                 );
-                              },
-                            ) : Center(child: Text(
-                                "No Centers are allocated for selected Date")),
-                          );
-                        }),
-                        /*SingleTrainerSlot(
-                          slotTiming: "8:00 - 9:00",
-                          locationStatus: "Arrived",
-                        ),
-                        SingleTrainerSlot(
-                          slotTiming: "10:00 - 12:00",
-                          locationStatus: "Awaiting Arrival",
-                        ),*/
-                      ],
-                    ))),
-          ],
-        ),
-      ),
-    );
+                              })
+                                  : Center(child: Text(
+                                  "No Centers are allocated for selected Date")),
+                            );
+                          })
+
+                          /*SingleTrainerSlot(
+                    slotTiming: "8:00 - 9:00",
+                    locationStatus: "Arrived",
+                  ),
+                  SingleTrainerSlot(
+                    slotTiming: "10:00 - 12:00",
+                    locationStatus: "Awaiting Arrival",
+                  ),*/
+                        ],
+                      ))),
+            ],
+          ),
+        ));
   }
+
+
 }
 
 class SingleTrainerSlot extends StatelessWidget {
-  final String locationStatus;
+
+  TrainerDashboardController trainerDashboardController = Get.find<
+      TrainerDashboardController>();
+
+
+
+   final String locationStatus;
   final String slotTiming;
 
-  const SingleTrainerSlot(
-      {super.key, required this.slotTiming, required this.locationStatus});
+  SingleTrainerSlot(
+       {super.key, required this.slotTiming, required this.locationStatus});
+
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          flex: 3,
-          child: Card(
-            elevation: 10.0,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-              decoration: BoxDecoration(
-                color: AppColors.slotCardBackground,
-                border: Border.all(color: Colors.white, width: 2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          slotTiming,
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.normal,
-                              color: AppColors.appThemeColor),
+    return GetBuilder<TrainerDashboardController>(
+        builder: (trainerDashboardController) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Card(
+                  elevation: 10.0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 5.0),
+                    decoration: BoxDecoration(
+                      color: AppColors.slotCardBackground,
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                   slotTiming,
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.normal,
+                                      color: AppColors.appThemeColor),
+                                )
+
+                            ),
+                            SizedBox(width: 15.0),
+                          ],
                         ),
-                      ),
-                      SizedBox(width: 15.0),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        Expanded(
-            flex: 1,
-            child: Row(
-              children: [
-                locationStatus == "Arrived"
-                    ? Icon(
-                  Icons.location_on_sharp,
-                  color: Colors.green,
-                )
-                    : Icon(
-                  Icons.not_listed_location_outlined,
-                  color: Colors.yellow,
-                ),
-                Text(
-                  locationStatus,
-                  style: TextStyle(
-                      fontSize: 13.sp,
-                      color: locationStatus == "Arrived"
-                          ? Colors.green
-                          : Colors.yellow),
-                ),
-              ],
-            ))
-      ],
-    );
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                     locationStatus == "Arrived"
+                          ? Icon(
+                        Icons.location_on_sharp,
+                        color: AppColors.greenStatusColor,
+                      )
+                          : Icon(
+                        Icons.not_listed_location_outlined,
+                        color: locationStatus=="Waiting"?AppColors.yellowStatusColor:AppColors.redStatusColor
+                      ),
+                       Text(
+                          locationStatus,
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w500,
+                              color: locationStatus ==
+                                  "Arrived"
+                                  ? AppColors.greenStatusColor
+                                  : locationStatus=="Waiting"?AppColors.yellowStatusColor:AppColors.redStatusColor),
+                        )
+
+                    ],
+                  ))
+            ],
+          );
+        });
   }
 }

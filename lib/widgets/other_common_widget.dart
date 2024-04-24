@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:background_locator_2/background_locator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -183,14 +184,34 @@ Future<bool> showLogoutDialog(BuildContext context) async {
                 elevation: 3,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30))),
-            onPressed: () {
-              if(PreferenceUtils.getInt(AppConstants.USERID)==1)
+            onPressed: () async {
+              print("USERID"+PreferenceUtils.getInt(AppConstants.USERID).toString());
+              if(PreferenceUtils.getInt(AppConstants.ROLE)==1)
                 {
-                  /*var controller=Get.find<LocationController>();
-                  controller.dispose();*/
+                  var controller=Get.put(LocationController());
+                  if(await BackgroundLocator.isServiceRunning())
+                    {
+                        controller.stopService();
+                        Get.delete<LocationController>();
+                        PreferenceUtils.clearAll();
+                        Get.offAll(LoginScreen());
+                      /*  await BackgroundLocator.unRegisterLocationUpdate().then((value) => {
+                            PreferenceUtils.clearAll(),
+                            Get.offAll(LoginScreen())
+                        });*/
+                    }
+                  else
+                    {
+                      PreferenceUtils.clearAll();
+                      Get.offAll(LoginScreen());
+                    }
                 }
-              PreferenceUtils.clearAll();
-              Get.offAll(LoginScreen());
+              else
+                {
+                  PreferenceUtils.clearAll();
+                  Get.offAll(LoginScreen());
+                }
+
             },
             child: Text(
               "yes".toUpperCase(), style: TextStyle(fontSize: 16.sp,color: Colors.white,fontWeight: FontWeight.w800,fontFamily: GoogleFonts.archivo().fontFamily),)),

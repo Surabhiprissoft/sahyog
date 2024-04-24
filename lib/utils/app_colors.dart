@@ -50,4 +50,7 @@ class AppColors
 
   static const cardBack = Color(0xffF0EEFF);
   static const slotCardBackground = Color(0xffFFAEAD);
+  static const yellowStatusColor = Color(0xffFFBF00);
+  static const greenStatusColor = Color(0xff00BC00 );
+  static const redStatusColor = Color(0xffFF0000);
 }

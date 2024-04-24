@@ -11,6 +11,7 @@ class AppConstants
   static const USERNAME = "Username";
   static const USERID = "UserID";
   static const COUNTER_VALUE = "COUNTER";
+  static const FETCH_COUNTER_VALUE = "FETCHCOUNTER";
   static const SERVER_COUNT_VALUE = "COUNT";
   static const SEARVER_INTERVAL_TIME = "INTERVAL";
 

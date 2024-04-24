@@ -74,6 +74,10 @@ class TrainerDashboardController extends GetxController  {
     if (trainerdashboardResponseModel.status == 200) {
 
       centers.clear();
+      trainerName.value = trainerdashboardResponseModel.data.firstName!+" "+trainerdashboardResponseModel.data.lastName!;
+      if(trainerdashboardResponseModel.data.profilePhoto!=null){
+        profilePhoto.value = trainerdashboardResponseModel.data.profilePhoto!;
+      }
       myList = trainerdashboardResponseModel.data.schedule!;
       if (myList.length > 0) {
         for (var data in myList) {
@@ -231,8 +235,8 @@ class TrainerDashboardController extends GetxController  {
 
             geolocationlist.add(
                 GeoLocation(
-                    center.status!, center.centerId[0], startTime,
-                    startTimeDt));
+                    center.status!, center.centerId[0], formattedTime,
+                    formattedTimeDt));
             update();
           }
           // statusList.add({'center_name': center.name, 'status': "after"});
@@ -443,6 +447,10 @@ class TrainerDashboardController extends GetxController  {
       } else if (result.isPermanentlyDenied) {
         // Permission is permanently denied
       }
+    }
+    if(await permission.isGranted)
+    {
+      getTrainerDashboardData(DateTime.now());
     }
     return permission;
   }

@@ -22,8 +22,15 @@ class LocationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("IT IS CALLED_LOCATION CONTROLLER");
+
+    IsolateNameServer.registerPortWithName(port.sendPort, _isolateName);
+    port.listen((dynamic data) {
+      // do something with data
+      print("DATA IN LOCATION CONTROLLER${data.toString()}");
+    });
     initPlatformState();
+
+
 
   }
 
@@ -81,9 +88,16 @@ class LocationController extends GetxController {
 
   }
 
+  void stopService()
+  {
+
+    IsolateNameServer.removePortNameMapping(_isolateName);
+    BackgroundLocator.unRegisterLocationUpdate();
+  }
   @override
   void dispose() {
     super.dispose();
+    IsolateNameServer.removePortNameMapping(_isolateName);
     BackgroundLocator.unRegisterLocationUpdate();
   }
 }

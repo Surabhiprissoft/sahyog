@@ -285,14 +285,14 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                             itemBuilder: (context,
                                                 slotIndex) {
                                               return SingleTrainerSlot(
-                                                  index: index,
-                                                  slotIndex: slotIndex
 
-                                                /*slotTiming: controller
+
+                                                slotTiming: controller
                                                       .centers[index]
                                                       .timeSlots[slotIndex],
-                                                  locationStatus: controller
-                                                      .TESTDATA.value,*/
+                                                  locationStatus:controller
+                                                      .centers[index]
+                                                      .status![slotIndex],
                                               );
                                             })
                                       ],
@@ -301,7 +301,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                 );
                               })
                                   : Center(child: Text(
-                                  "No Centers are alllocated for selected Date")),
+                                  "No Centers are allocated for selected Date")),
                             );
                           })
 
@@ -324,19 +324,18 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
 }
 
 class SingleTrainerSlot extends StatelessWidget {
-  int index;
-  int slotIndex;
+
   TrainerDashboardController trainerDashboardController = Get.find<
       TrainerDashboardController>();
-  RxString status = "NA".obs;
 
 
-  /* final String locationStatus;
-  final String slotTiming;*/
+
+   final String locationStatus;
+  final String slotTiming;
 
   SingleTrainerSlot(
-      /* {super.key, required this.slotTiming, required this.locationStatus});*/
-      {super.key, required this.index, required this.slotIndex});
+       {super.key, required this.slotTiming, required this.locationStatus});
+
 
   @override
   Widget build(BuildContext context) {
@@ -364,16 +363,14 @@ class SingleTrainerSlot extends StatelessWidget {
                           children: [
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              child: Obx(() {
-                                return Text(
-                                  trainerDashboardController.centers[index]
-                                      .timeSlots[slotIndex],
+                              child: Text(
+                                   slotTiming,
                                   style: TextStyle(
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.normal,
                                       color: AppColors.appThemeColor),
-                                );
-                              }),
+                                )
+
                             ),
                             SizedBox(width: 15.0),
                           ],
@@ -390,26 +387,26 @@ class SingleTrainerSlot extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      status.value == "Arrived"
+                     locationStatus == "Arrived"
                           ? Icon(
                         Icons.location_on_sharp,
-                        color: Colors.green,
+                        color: AppColors.greenStatusColor,
                       )
                           : Icon(
                         Icons.not_listed_location_outlined,
-                        color: Colors.yellow,
+                        color: locationStatus=="Waiting"?AppColors.yellowStatusColor:AppColors.redStatusColor
                       ),
-                      Obx(() {
-                        return Text(
-                          status.value!,
+                       Text(
+                          locationStatus,
                           style: TextStyle(
                               fontSize: 13.sp,
-                              color: status.value ==
+                              fontWeight: FontWeight.w500,
+                              color: locationStatus ==
                                   "Arrived"
-                                  ? Colors.green
-                                  : Colors.yellow),
-                        );
-                      }),
+                                  ? AppColors.greenStatusColor
+                                  : locationStatus=="Waiting"?AppColors.yellowStatusColor:AppColors.redStatusColor),
+                        )
+
                     ],
                   ))
             ],

@@ -28,6 +28,7 @@ class TrainerDashboardController extends GetxController  {
   RxString name = "Hello".obs;
   RxBool switchValue = false.obs;
   RxString SelectedDate = ''.obs;
+  DateTime SelectedDateTime = DateTime.now();
   final UserRepository userRepository;
   late SingleResponse<TrainerDashboardResponseModel>
       trainerdashboardResponseModel;
@@ -49,6 +50,7 @@ class TrainerDashboardController extends GetxController  {
     // TODO: implement onInit
     super.onInit();
     print("IT is also calling");
+    PreferenceUtils.setInt(AppConstants.FETCH_COUNTER_VALUE, 30);
     count = 1;
     requestPermission();
 
@@ -58,19 +60,23 @@ class TrainerDashboardController extends GetxController  {
   Future<SingleResponse<TrainerDashboardResponseModel>> getTrainerDashboardData(
       DateTime dateTime) async
   {
+    SelectedDateTime=dateTime;
     update();
     PreferenceUtils.reload();
-    counter.value=PreferenceUtils.getInt(AppConstants.COUNTER_VALUE);
+
+    print("GET STRING"+PreferenceUtils.getInt(AppConstants.FETCH_COUNTER_VALUE).toString());
     var newFormat = DateFormat("yyyy-MM-dd");
-    var selectedDate = newFormat.format(dateTime);
-    print(selectedDate);
+     SelectedDate.value = newFormat.format(dateTime);
+    print("SELECTED DATE"+SelectedDate.value);
+    print("SELECTED DATE"+newFormat.format(DateTime.now()));
+
     trainerdashboardResponseModel =
         await userRepository.getTrainerDashboardData(
-            PreferenceUtils.getInt(AppConstants.USERID), selectedDate);
+            PreferenceUtils.getInt(AppConstants.USERID), SelectedDate.value);
     print(trainerdashboardResponseModel.data.toString());
     DateFormat format12Hour = DateFormat("h:mm a");
     if (trainerdashboardResponseModel.status == 200) {
-      
+
       centers.clear();
       myList = trainerdashboardResponseModel.data.schedule!;
       if (myList.length > 0) {
@@ -82,7 +88,7 @@ class TrainerDashboardController extends GetxController  {
           DateFormat formatter = DateFormat('h:mm a');
           PreferenceUtils.setInt(AppConstants.SERVER_COUNT_VALUE,data.totalApi!.toInt());
           PreferenceUtils.setInt(AppConstants.SEARVER_INTERVAL_TIME,data.interval!.toInt());
-          
+
           // Format the current time using the formatter
           String formattedTime = formatter.format(DateTime.now());
           DateTime formattedTimeDt = formatter.parse(formattedTime);
@@ -91,10 +97,14 @@ class TrainerDashboardController extends GetxController  {
 
           int comparison = startTimeDt.compareTo(formattedTimeDt);
 
+
           print("STARTTIME!!"+data.startTimme.toString());
+          print("STARTTIME!!!comparison!"+comparison.toString());
           var centerId = data.ctId;
           var centerName = data.center;
-          STATUSOFCENTER.value=data.isPresent == null ?comparison>0 ?"no idea":"Absent": data.isPresent!.toString()+"${PreferenceUtils.getInt(AppConstants.COUNTER_VALUE)}";
+
+          STATUSOFCENTER.value=data.isPresent == null ?"NA": data.isPresent!.toString();
+
           var startTime = format24Hour.parse(data.startTimme!);
           var endTime = format24Hour.parse(data!.endTime!);
 
@@ -119,7 +129,7 @@ class TrainerDashboardController extends GetxController  {
                 [
                   '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}'
                 ],
-                status:STATUSOFCENTER.value));
+                status:[STATUSOFCENTER.value]));
 
           } else {
 
@@ -130,9 +140,11 @@ class TrainerDashboardController extends GetxController  {
               existingCenter.timeSlots.add(
                   '${format12Hour.format(startTime)} - ${format12Hour.format(endTime)}');
               existingCenter.centerId.add(centerId!.toInt());
+              existingCenter.status!.add(STATUSOFCENTER.value);
             }
           }
         }
+
         update();
         print("MY CENTERS"+centers.toString());
         centers.sort(sortByStartTime);
@@ -141,12 +153,25 @@ class TrainerDashboardController extends GetxController  {
         //centers.value=centers;
         centers.forEach((center) => print(center.name));
 
+
+
+
         PreferenceUtils.removekey("CENTERS");
         await PreferenceUtils.setCenterList("CENTERS", centers);
 
-        if( PreferenceUtils.getInt(AppConstants.COUNTER_VALUE) == 0 )
+
+
+        if( PreferenceUtils.getInt(AppConstants.COUNTER_VALUE) == 0)
           {
-            sendGeoLocations();
+            if(SelectedDate.value==newFormat.format(DateTime.now()))
+            {
+               sendGeoLocations();
+            }
+            else
+              {
+                //showSnackBar("Can't Track your Attendance", "Attendance can be marked of today !");
+              }
+
           }
         else
           {
@@ -160,6 +185,10 @@ class TrainerDashboardController extends GetxController  {
       showSnackBar(
           "Something went wrong", "Unable to fetch Center list at the moment");
     }
+    int fetchCounterValue = PreferenceUtils.getInt(AppConstants.FETCH_COUNTER_VALUE);
+    print("fetchCounter==main"+fetchCounterValue.toString());
+     needtoRebuild();
+
     update();
     return trainerdashboardResponseModel;
   }
@@ -216,7 +245,7 @@ class TrainerDashboardController extends GetxController  {
             toleranceDatetime = startTimeDt.subtract(Duration(minutes: 5));
             newStartTime = formatter.format(toleranceDatetime);
             geolocationlist.add(GeoLocation(
-                center.status!, center.centerId[0], newStartTime,
+                center.status![0], center.centerId[0], newStartTime,
                 toleranceDatetime));
             update();
           }
@@ -227,14 +256,17 @@ class TrainerDashboardController extends GetxController  {
             'status': "after"
           });*/
 
-            geolocationlist.add(
-                GeoLocation(
-                    center.status!, center.centerId[0], startTime,
-                    startTimeDt));
-            update();
+
+              geolocationlist.add(
+                  GeoLocation(
+                      center.status![0], center.centerId[0], formattedTime,
+                      formattedTimeDt));
+              update();
+
           }
           // statusList.add({'center_name': center.name, 'status': "after"});
         } else {
+
           print("before");
           // statusList.add({'center_name': center.name, 'status': "before"});
         }
@@ -243,9 +275,6 @@ class TrainerDashboardController extends GetxController  {
     });
 
 
-    print("GEOLOCATIONS-->>" + geolocationlist.toString());
-    print("GEOLOCATIONLIST" + geolocationlist.length.toString());
-    print("GEOLOCATIONS{FETCHED" + geolocationlist.toString());
     if (geolocationlist.length != 0)
     {
       await PreferenceUtils.removekey(
@@ -258,17 +287,25 @@ class TrainerDashboardController extends GetxController  {
 
 
       //var controller = Get.find<LocationController>();
+      if (!Get.isRegistered<LocationController>()) {
+        Get.put(LocationController());
+      }
+
+      // Retrieve the LocationController instance
+      var controller = Get.find<LocationController>();
       if (await BackgroundLocator.isServiceRunning())
       {
 
-        Get.delete<LocationController>();
+        print("YES IT IS ALREADY RUNNING");
+
+      /*  Get.delete<LocationController>();
         var controller = Get.put(LocationController());
         controller.initPlatformState();
-         await controller.startLocationService();
+         await controller.startLocationService();*/
       }
       else
         {
-          var controller = Get.put(LocationController());
+
           await controller.initPlatformState().then((value) async =>
           {
             await controller.startLocationService()
@@ -280,75 +317,54 @@ class TrainerDashboardController extends GetxController  {
 
 
       print("BACKGROUND"+await BackgroundLocator.isServiceRunning().toString());
-      if (await BackgroundLocator.isServiceRunning()) {
+      if (await BackgroundLocator.isServiceRunning())
+      {
         await BackgroundLocator.unRegisterLocationUpdate().then((value) =>
         {
 
           print("IT IS UPDATED..AS THERE ARE NO GEO LOCATIONS RIGHT NOW")
         });
       }
+
+      else
+        {
+           print("NO LOCATIONS ARE THERE");
+        }
     }
   }
-  Future<void> needtoRebuild(RxList<CenterModel> receivedcenters) async
-  {
 
-
-    int i= await PreferenceUtils.getInt(AppConstants.COUNTER_VALUE);
-
-      Timer.periodic(Duration(seconds: 5), (timer) async {
-        i++;
-        TESTDATA.value="AD $i";
-        update();
-    });
-    PreferenceUtils.reload();
-    print("DATA-CENTERS"+receivedcenters.toString());
-    print("AD ${PreferenceUtils.getInt(AppConstants.COUNTER_VALUE)}");
-    update();
-  }
   void handleLocationUpdate(
       double latitude, double longitude, int count) async
   {
+
 
     print("VALUE OF COUNT==>>" + count.toString());
 
     List<GeoLocation> retrievedListGeoLocations =
     await PreferenceUtils.getCustomGeoList("geoLocations");
 
-    /*List<CenterModel> retrievedCenters =
-    await PreferenceUtils.getCenterList("CENTERS");*/
-
-    //centers.value = await PreferenceUtils.getCenterList("CENTERS");
-
-
-
- /*   int? matchingIndex;
-    for (int index = 0; index < centers.length; index++) {
-      if (centers[index].centerId.contains(
-          retrievedListGeoLocations[0].centerId)) {
-        matchingIndex = index;
-        break;
-      }
-    }
-    print("MATCHING INDEX" + matchingIndex.toString());*/
-
-
     DateTime now = DateTime.now();
     DateFormat formatter = DateFormat('h:mm a');
     String formattedTime = formatter.format(now);
     String? storedDate =
     formatter.format(retrievedListGeoLocations[0].dateTime);
-
+    GeoLocation location = retrievedListGeoLocations[0];
     print("Stored DATE" + storedDate);
+    print("Print-Status"+location.attendancestatus!="Absent");
   //  print("Stored DATE-STATUS" + retrievedCenters[0].status.toString());
 
 
-    if (formattedTime == storedDate) {
-      if (count > 4) {
+    if (formattedTime == storedDate)
+    {
+      GeoLocation location = retrievedListGeoLocations[0];
+      if (count > 4 && location.attendancestatus=="Waiting")
+      {
+        print("s it is matching"+count.toString()+location.attendancestatus.toString());
         count = count + 1;
         PreferenceUtils.removekey(AppConstants.COUNTER_VALUE);
         PreferenceUtils.setInt(AppConstants.COUNTER_VALUE, count);
         update();
-        GeoLocation location = retrievedListGeoLocations[0];
+
         retrievedListGeoLocations.clear();
         GeoLocation geoLocation = GeoLocation(
             location.attendancestatus, location.centerId,
@@ -368,15 +384,19 @@ class TrainerDashboardController extends GetxController  {
 
 
       else {
+
+        print("not yet matching"+count.toString()+location.attendancestatus.toString());
+
         count = count + 1;
         PreferenceUtils.removekey(AppConstants.COUNTER_VALUE);
          PreferenceUtils.setInt(AppConstants.COUNTER_VALUE, count);
          update();
 
-        GeoLocation location = retrievedListGeoLocations[0];
+
         retrievedListGeoLocations.clear();
         GeoLocation geoLocation = GeoLocation(
             location.attendancestatus, location.centerId, location.timeSlot,
+            //location.dateTime.add(Duration(minutes:1)));
             location.dateTime.add(Duration(minutes: PreferenceUtils.getInt(AppConstants.SEARVER_INTERVAL_TIME))));
         //
         retrievedListGeoLocations.add(geoLocation);
@@ -407,13 +427,42 @@ class TrainerDashboardController extends GetxController  {
     if(updateAttendanceResponseModel.status==200)
     {
 
-      if(PreferenceUtils.getInt(AppConstants.COUNTER_VALUE)==PreferenceUtils.getInt(AppConstants.SERVER_COUNT_VALUE))
+      PreferenceUtils.removekey("FETCH_COUNTER_VALUE");
+      PreferenceUtils.setInt(AppConstants.FETCH_COUNTER_VALUE,30);
+
+      List<GeoLocation> retrievedListGeoLocations =
+      await PreferenceUtils.getCustomGeoList("geoLocations");
+
+      GeoLocation location = retrievedListGeoLocations[0];
+
+
+      retrievedListGeoLocations.clear();
+
+      GeoLocation geoLocation = GeoLocation(
+          updateAttendanceResponseModel.isPresent.toString(), location.centerId, location.timeSlot,
+          location.dateTime);
+
+      retrievedListGeoLocations.add(geoLocation);
+
+      await PreferenceUtils.setCustomGeoLocationList(
+          "geoLocations", retrievedListGeoLocations);
+      print("NEW LOCATION" + retrievedListGeoLocations.toString());
+
+
+      if(PreferenceUtils.getInt(AppConstants.COUNTER_VALUE)==PreferenceUtils.getInt(AppConstants.SERVER_COUNT_VALUE)+1)
         {
-          PreferenceUtils.removekey(AppConstants.COUNTER_VALUE);
-           PreferenceUtils.setInt(AppConstants.COUNTER_VALUE, 0);
+            PreferenceUtils.removekey(AppConstants.COUNTER_VALUE);
+            PreferenceUtils.setInt(AppConstants.COUNTER_VALUE, 0);
            update();
 
            await BackgroundLocator.unRegisterLocationUpdate();
+        }
+      if(updateAttendanceResponseModel.isPresent!="Waiting")
+        {
+          PreferenceUtils.removekey(AppConstants.COUNTER_VALUE);
+          PreferenceUtils.setInt(AppConstants.COUNTER_VALUE, 0);
+          update();
+          await BackgroundLocator.unRegisterLocationUpdate();
         }
 
 
@@ -427,10 +476,12 @@ class TrainerDashboardController extends GetxController  {
     }
   }
 
-  Future<Permission> requestPermission() async {
+  Future<Permission> requestPermission() async
+  {
+    print("YOU ARE HERE");
     final permission = Permission.location;
-
-    if (await permission.isDenied) {
+    if (await permission.isDenied)
+    {
       final result = await permission.request();
 
       if (result.isGranted) {
@@ -442,8 +493,23 @@ class TrainerDashboardController extends GetxController  {
         // Permission is permanently denied
       }
     }
+    if (await permission.isGranted)
+    {
+      await getTrainerDashboardData(DateTime.now());
+    }
     return permission;
   }
+  void needtoRebuild()
+  {
+    int fetchCounterValue = PreferenceUtils.getInt(AppConstants.FETCH_COUNTER_VALUE);
+    print("fetchCounter"+fetchCounterValue.toString());
+    Future.delayed(Duration(seconds:fetchCounterValue),()
+    {
 
+      getTrainerDashboardData(SelectedDateTime);
+      PreferenceUtils.removekey("FETCH_COUNTER_VALUE");
+      PreferenceUtils.setInt(AppConstants.FETCH_COUNTER_VALUE,30);
+    });
+  }
 }
 

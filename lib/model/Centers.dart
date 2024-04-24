@@ -6,14 +6,12 @@ class CenterModel {
   final String name;
   final List<int> centerId;
   final List<String> timeSlots;
-  late  String? status;
-
+  late List<String>? status;
 
 
   @override
   String toString() {
-    String statusString = status != null ? ', status: $status' : ''; // Include status if not null
-    return 'CenterModel{name: $name, centerId: $centerId, timeSlots: $timeSlots$statusString}';
+    return 'CenterModel{name: $name, centerId: $centerId, timeSlots: $timeSlots, status: $status}';
   }
 
   Map<String, dynamic> toMap() {

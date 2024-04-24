@@ -21,15 +21,9 @@ class ApiBaseHelper {
   //final baseUrl = "http://192.168.1.5:8000/";
   //final baseUrl = "http://192.168.235.136:8000/";
  // final baseUrl = "http://192.168.235.136:8000/";
-  final baseUrl = "http://192.168.1.5:8000/";
-
-  final imageBaseUrl = "http://192.168.1.5:8000";
-
- /* final baseUrl = "http://192.168.0.101:8000/"; // IP of Priyanka
-
-  final imageBaseUrl = "http://192.168.0.101:8000"; //IP of Priyanka*/
-
-   late  var authToken="";
+  final baseUrl = "http://192.168.1.6:8000/";
+  final imageBaseUrl = "http://192.168.1.6:8000";
+  late  var authToken="";
 
 
   Future<dynamic> get(String url) async {

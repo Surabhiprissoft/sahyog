@@ -159,9 +159,17 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                           ),
                           Row(
                             children: [
-                              CircleAvatar(
-                                radius: 35.0,
-                              ),
+                                            CircleAvatar(
+                                            backgroundImage: controller.profilePhoto.value !=
+                                            null && controller.profilePhoto.value.isNotEmpty
+                                                ? NetworkImage(
+                                                ApiBaseHelper().imageBaseUrl +
+                                                controller.profilePhoto.value)
+                                            : NetworkImage(
+                                        "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                              radius: 45.0,
+
+                            ),
                               SizedBox(
                                 width: 8.0,
                               ),
@@ -177,14 +185,16 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                   SizedBox(
                                     height: 5.0,
                                   ),
-                                  Text(PreferenceUtils.getString(
-                                      AppConstants.USERNAME),
-                                      style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700,
-                                      )),
+                                  Obx(() {
+                                    return Text(
+                                        controller.trainerName.value,
+                                        style: TextStyle(
+                                          fontSize: 17.sp,
+                                          fontStyle: FontStyle.normal,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ));
+                                  }),
                                 ],
                               )
                             ],
@@ -194,7 +204,7 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                     ),
                   )),
               Positioned(
-                  top: 170,
+                  top: 190,
                   left: 0,
                   right: 0,
                   child: Container(

@@ -29,6 +29,8 @@ class TrainerDashboardController extends GetxController  {
   RxBool switchValue = false.obs;
   RxString SelectedDate = ''.obs;
   DateTime SelectedDateTime = DateTime.now();
+  RxString trainerName = ''.obs;
+  RxString profilePhoto = ''.obs;
   final UserRepository userRepository;
   late SingleResponse<TrainerDashboardResponseModel>
       trainerdashboardResponseModel;
@@ -78,6 +80,12 @@ class TrainerDashboardController extends GetxController  {
     if (trainerdashboardResponseModel.status == 200) {
 
       centers.clear();
+
+      trainerName.value = trainerdashboardResponseModel.data.firstName!+" "+trainerdashboardResponseModel.data.lastName!;
+      if(trainerdashboardResponseModel.data.profilePhoto!=null)
+        {
+          profilePhoto.value = ApiBaseHelper().imageBaseUrl+trainerdashboardResponseModel.data.profilePhoto;
+        }
       myList = trainerdashboardResponseModel.data.schedule!;
       if (myList.length > 0) {
         for (var data in myList) {
@@ -240,9 +248,9 @@ class TrainerDashboardController extends GetxController  {
         {
           print("after__11"+timeDifference.toString());
 
-          if (timeDifference.inMinutes > 5)
+          if (timeDifference.inMinutes > 10)
           {
-            toleranceDatetime = startTimeDt.subtract(Duration(minutes: 5));
+            toleranceDatetime = startTimeDt.subtract(Duration(minutes: 10));
             newStartTime = formatter.format(toleranceDatetime);
             geolocationlist.add(GeoLocation(
                 center.status![0], center.centerId[0], newStartTime,
@@ -357,7 +365,7 @@ class TrainerDashboardController extends GetxController  {
     if (formattedTime == storedDate)
     {
       GeoLocation location = retrievedListGeoLocations[0];
-      if (count > 4 && location.attendancestatus=="Waiting")
+      if (count > 3 && location.attendancestatus=="Waiting")
       {
         print("s it is matching"+count.toString()+location.attendancestatus.toString());
         count = count + 1;
@@ -467,6 +475,7 @@ class TrainerDashboardController extends GetxController  {
 
 
       await getTrainerDashboardData(DateTime.now());
+     // await onInit();
       update();
 
     }

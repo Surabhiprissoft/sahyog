@@ -275,7 +275,7 @@ class ScheduleTrainerController extends GetxController {
     late List<ScheduleTrainerRequestModel> assigntrainess = <ScheduleTrainerRequestModel>[];
 
     //ScheduleTrainerRequestModel scheduleTrainerRequestModel = ScheduleTrainerRequestModel();
-
+    selectedNames!.removeWhere((element) => element.CurrentDate!=selectedDate);
     for(var trainer in selectedNames)
       {
          assigntrainess.add(ScheduleTrainerRequestModel(ctId: trainer.centerId,userId: trainer.userId,noOfDays: trainer.number_days,date: selectedDate,interval: trainer.interval));

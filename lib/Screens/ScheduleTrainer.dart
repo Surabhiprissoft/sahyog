@@ -387,7 +387,7 @@ class ScheduleTrainer extends GetView<ScheduleTrainerController> {
                                                                               value: -1, // Use a unique value to represent custom days
                                                                               groupValue: controller.selectedScheduleDays.value,
                                                                               onChanged: (value) {
-                                                                                controller.selectedInterval.value=2;
+                                                                                controller.selectedInterval.value=1;
                                                                                 if (value == -1) {
                                                                                   // Show custom days text field
                                                                                   controller.showCustomDaysTextField.value = true;

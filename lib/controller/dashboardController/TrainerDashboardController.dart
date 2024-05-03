@@ -155,7 +155,8 @@ class TrainerDashboardController extends GetxController  {
 
         update();
         print("MY CENTERS"+centers.toString());
-        centers.sort(sortByStartTime);
+        //centers.sort(sortByStartTime);
+        sortByStartTime(centers);
         centers.refresh();
         update();
         //centers.value=centers;
@@ -202,15 +203,57 @@ class TrainerDashboardController extends GetxController  {
   }
 
   // Custom comparator function
-  int sortByStartTime(CenterModel a, CenterModel b) {
-    // Get the start time of the first time slot for each center
-    DateTime startTimeA =
-        DateFormat('hh:mm a').parse(a.timeSlots[0].split(' - ')[0]);
-    DateTime startTimeB =
-        DateFormat('hh:mm a').parse(b.timeSlots[0].split(' - ')[0]);
+  void sortByStartTime(List<CenterModel> centers) {
+    // Define a function to parse and compare individual time slots
+    int compareTimeSlots(String slotA, String slotB) {
+      DateFormat sdf = DateFormat('hh:mm a');
+      DateTime startTimeA = sdf.parse(slotA.split(' - ')[0]);
+      DateTime startTimeB = sdf.parse(slotB.split(' - ')[0]);
+      return startTimeA.compareTo(startTimeB);
+    }
 
-    // Compare the start times
-    return startTimeA.compareTo(startTimeB);
+    // Sort the time slots and statuses for each center
+    for (var center in centers) {
+      List<String> timeSlots = center.timeSlots.cast<String>(); // Cast to List<String>
+      List<String> statuses = center.status!.cast<String>(); // Cast to List<String>
+
+      List<Map<String, String>> combinedSlotsAndStatuses = [];
+      for (int i = 0; i < timeSlots.length; i++) {
+        combinedSlotsAndStatuses.add({
+          'timeSlot': timeSlots[i],
+          'status': statuses.length > i ? statuses[i] : '',
+        });
+      }
+
+      combinedSlotsAndStatuses.sort((a, b) {
+        int timeComparison = compareTimeSlots(a['timeSlot']!, b['timeSlot']!);
+        if (timeComparison != 0) {
+          return timeComparison;
+        } else {
+          return a['status']!.compareTo(b['status']!);
+        }
+      });
+
+      // Update the sorted time slots and statuses back to the center
+      center.timeSlots = combinedSlotsAndStatuses.map((e) => e['timeSlot']!).toList();
+      center.status = combinedSlotsAndStatuses.map((e) => e['status']!).toList();
+    }
+
+    // Sort the centers based on the earliest time slot
+    centers.sort((a, b) {
+      DateFormat sdf = DateFormat('hh:mm a');
+      DateTime startTimeA = sdf.parse(a.timeSlots.first.split(' - ')[0]);
+      DateTime startTimeB = sdf.parse(b.timeSlots.first.split(' - ')[0]);
+      return startTimeA.compareTo(startTimeB);
+    });
+  }
+  int compareTimeSlots(GeoLocation a, GeoLocation b) {
+    // Parse the time slots into DateTime objects for comparison
+    DateTime timeA = DateFormat('h:mm a').parse(a.timeSlot);
+    DateTime timeB = DateFormat('h:mm a').parse(b.timeSlot);
+
+    // Compare the time slots
+    return timeA.compareTo(timeB);
   }
 
   Future<void> sendGeoLocations() async {
@@ -283,6 +326,7 @@ class TrainerDashboardController extends GetxController  {
     });
 
 
+    geolocationlist.sort(compareTimeSlots);
     if (geolocationlist.length != 0)
     {
       await PreferenceUtils.removekey(

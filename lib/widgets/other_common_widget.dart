@@ -325,7 +325,7 @@ Future<bool> selfRegisteredSuccessDialog() async {
       title: 'Registered Successfully',
       titlePadding: EdgeInsets.all(20.0),
       contentPadding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
-      content: Text('Thank you for registering on KHELO INDIA. We have received your registration request and forward it to the admin. upon reviewing your application we will notify you on your registered mail address.'),
+      content: Text('Thank you for registering on INDIA KHELEGA. We have received your registration request and forward it to the admin. upon reviewing your application we will notify you on your registered mail address.'),
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

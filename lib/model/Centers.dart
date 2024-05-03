@@ -5,7 +5,7 @@ import 'dart:convert';
 class CenterModel {
   final String name;
   final List<int> centerId;
-  final List<String> timeSlots;
+   List<String> timeSlots;
   late List<String>? status;
 
 

@@ -148,13 +148,6 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,
                                   )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.notifications_none,
-                                    color: Colors.white,
-                                    size: 25.0,
-                                  )),
                             ],
                           ),
                           Row(
@@ -204,11 +197,12 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                     ),
                   )),
               Positioned(
-                  top: 190,
+                  top: 22.h,
                   left: 0,
                   right: 0,
+                 // bottom: 10,
                   child: Container(
-                      height: 100.h,
+                    
                       padding: EdgeInsets.all(2.h),
                       width: MediaQuery
                           .of(context)
@@ -246,83 +240,88 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                             height: 20.0,
                           ),
 
-                          Obx(() {
-                            return Container(
-                              child: controller.centers.length > 0
-                                  ? Obx(() {
-                                return ListView
-                                    .builder(
-                                  itemCount: controller.centers.length,
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  // physics: NeverScrollableScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      children: [
-                                        Row(
+                          SingleChildScrollView(
+                            child: Container(
+                              child: SizedBox(
+                                height: 60.h,
+                                child: Obx(() {
+                                  return controller.centers.length > 0
+                                      ? Obx(() {
+                                    return ListView
+                                        .builder(
+                                      itemCount: controller.centers.length,
+                                      shrinkWrap: true,
+                                      padding: EdgeInsets.zero,
+                                      // physics: NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .start,
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .start,
                                           children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: AppColors.appThemeColor,
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
+                                                  color: AppColors.appThemeColor,
+                                                ),
+                                                Obx(() {
+                                                  return Text(
+                                                    controller.centers.value[index]
+                                                        .name,
+                                                    style: TextStyle(
+                                                        color: AppColors
+                                                            .appThemeColor,
+                                                        fontSize: 18.sp,
+                                                        fontWeight: FontWeight
+                                                            .w700),
+                                                  );
+                                                }),
+                                              ],
                                             ),
-                                            Obx(() {
-                                              return Text(
-                                                controller.centers.value[index]
-                                                    .name,
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .appThemeColor,
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight
-                                                        .w700),
-                                              );
-                                            }),
+                                            ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                shrinkWrap: true,
+                                                physics: NeverScrollableScrollPhysics(),
+                                                itemCount: controller
+                                                    .centers[index]
+                                                    .timeSlots
+                                                    .length,
+                                                itemBuilder: (context,
+                                                    slotIndex) {
+                                                  return SingleTrainerSlot(
+                                  
+                                  
+                                                    slotTiming: controller
+                                                          .centers[index]
+                                                          .timeSlots[slotIndex],
+                                                      locationStatus:controller
+                                                          .centers[index]
+                                                          .status![slotIndex],
+                                                  );
+                                                })
                                           ],
-                                        ),
-                                        ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller
-                                                .centers[index]
-                                                .timeSlots
-                                                .length,
-                                            itemBuilder: (context,
-                                                slotIndex) {
-                                              return SingleTrainerSlot(
-
-
-                                                slotTiming: controller
-                                                      .centers[index]
-                                                      .timeSlots[slotIndex],
-                                                  locationStatus:controller
-                                                      .centers[index]
-                                                      .status![slotIndex],
-                                              );
-                                            })
-                                      ],
+                                        );
+                                      },
                                     );
-                                  },
-                                );
-                              })
-                                  : Center(child: Text(
-                                  "No Centers are allocated for selected Date")),
-                            );
-                          })
+                                  })
+                                      : Center(child: Text(
+                                      "No Centers are allocated for selected Date"));
+                                }),
+                              ),
+                            ),
+                          )
 
                           /*SingleTrainerSlot(
-                    slotTiming: "8:00 - 9:00",
-                    locationStatus: "Arrived",
-                  ),
-                  SingleTrainerSlot(
-                    slotTiming: "10:00 - 12:00",
-                    locationStatus: "Awaiting Arrival",
-                  ),*/
+                                          slotTiming: "8:00 - 9:00",
+                                          locationStatus: "Arrived",
+                                        ),
+                                        SingleTrainerSlot(
+                                          slotTiming: "10:00 - 12:00",
+                                          locationStatus: "Awaiting Arrival",
+                                        ),*/
                         ],
                       ))),
             ],

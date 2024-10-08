@@ -19,11 +19,11 @@ class DialogHelper {
             children: [
               Text(
                 title,
-                style: Get.textTheme.headline4,
+                //style: Get.textTheme.headline4,
               ),
               Text(
                 description ?? '',
-                style: Get.textTheme.headline6,
+                //style: Get.textTheme.headline6,
               ),
               ElevatedButton(
                 onPressed: () {

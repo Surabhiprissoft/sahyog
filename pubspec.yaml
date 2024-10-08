@@ -51,6 +51,8 @@ dependencies:
   calendar_timeline: ^1.1.2
   flutter_launcher_icons: ^0.13.1
   permission_handler: ^11.3.1
+  win32: ^5.2.0
+
 
 
 

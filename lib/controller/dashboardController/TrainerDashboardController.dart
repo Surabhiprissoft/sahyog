@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
+//import 'package:permission_handler/permission_handler.dart';
 import 'package:sahyog/controller/LocationController.dart';
 import 'package:sahyog/model/BaseSingleObjectResponse.dart';
 import 'package:sahyog/model/Centers.dart';
@@ -54,7 +54,7 @@ class TrainerDashboardController extends GetxController  {
     print("IT is also calling");
     PreferenceUtils.setInt(AppConstants.FETCH_COUNTER_VALUE, 30);
     count = 1;
-    requestPermission();
+    //requestPermission();
 
   }
 
@@ -529,7 +529,7 @@ class TrainerDashboardController extends GetxController  {
     }
   }
 
-  Future<Permission> requestPermission() async
+  /*Future<Permission> requestPermission() async
   {
     print("YOU ARE HERE");
     final permission = Permission.location;
@@ -551,7 +551,7 @@ class TrainerDashboardController extends GetxController  {
       await getTrainerDashboardData(DateTime.now());
     }
     return permission;
-  }
+  }*/
   void needtoRebuild()
   {
     int fetchCounterValue = PreferenceUtils.getInt(AppConstants.FETCH_COUNTER_VALUE);

@@ -178,16 +178,15 @@ class TrainerDashboard extends GetView<TrainerDashboardController> {
                                   SizedBox(
                                     height: 5.0,
                                   ),
-                                  Obx(() {
-                                    return Text(
-                                        controller.trainerName.value,
+                                  Text(
+                                        PreferenceUtils.getString(AppConstants.USERFULLNAME),
                                         style: TextStyle(
                                           fontSize: 17.sp,
                                           fontStyle: FontStyle.normal,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w700,
-                                        ));
-                                  }),
+                                        )),
+
                                 ],
                               )
                             ],

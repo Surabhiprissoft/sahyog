@@ -9,6 +9,7 @@ class AppConstants
   static const USER_EXISTS = "User already exists";
   static const INVALID_USER = "Invalid username or password";
   static const USERNAME = "Username";
+  static const USERFULLNAME = "fullName";
   static const USERID = "UserID";
   static const COUNTER_VALUE = "COUNTER";
   static const FETCH_COUNTER_VALUE = "FETCHCOUNTER";

@@ -41,6 +41,7 @@ class ProjectBindings implements Bindings
     Get.lazyPut<AdminDashboardController>(() => AdminDashboardController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<RegistrationRequestsController>(() => RegistrationRequestsController(UserRepository(ApiBaseHelper())), fenix: true);
     Get.lazyPut<TrainerDashboardController>(() => TrainerDashboardController(UserRepository(ApiBaseHelper())), fenix: true);
+
    // Get.lazyPut<TrainerDashboardControllerdummy>(() => TrainerDashboardControllerdummy(UserRepository(ApiBaseHelper())), fenix: true);
     //Get.lazyPut<LocationController>(() => LocationController(), fenix: true);
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomTopBar extends StatelessWidget {
@@ -22,11 +24,12 @@ class CustomTopBar extends StatelessWidget {
               color: Colors.blue
           ),
           child:  Padding(
-            padding: EdgeInsets.only(left:6.w,bottom: 16.h,right: 6.w),
+            padding: EdgeInsets.only(left:2.w,bottom: 16.h,right: 6.w),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_rounded,color: Colors.white,)),
                 Text(
                     titleName,
                     style: TextStyle(

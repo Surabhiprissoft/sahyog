@@ -103,7 +103,7 @@ class TraineeDashboard extends GetView<TraineeDashboardController> {
                                                 ? NetworkImage(
                                                 controller.traineeProfile.value)
                                                 : NetworkImage(
-                                                "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"),
+                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNNLEL-qmmLeFR1nxJuepFOgPYfnwHR56vcw&s"),
                                             fit: BoxFit.cover),
                                         borderRadius: BorderRadius.circular(
                                             10), // Adjust the radius as needed
@@ -143,7 +143,7 @@ class TraineeDashboard extends GetView<TraineeDashboardController> {
                                               Icons.call, color: Colors.blue,)
                                                 : Icon(
                                               Icons.call, color: Colors.pink,),
-                                            Text(" +91 1234567845"),
+                                            Text(""+controller.phone.value),
                                           ],
                                         ),
                                         SizedBox(height: 5.0,),
@@ -225,14 +225,14 @@ class TraineeDashboard extends GetView<TraineeDashboardController> {
                                                     color: AppColors
                                                         .appThemeColor,
                                                     fontWeight: FontWeight.w700)),
-                        
-                                            Flexible(child: Text(
+
+                                            Text(
                                                 controller.centerAddress.value,
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 2,
-                                                style: TextStyle(fontSize: 14.sp,
+                                                style: TextStyle(fontSize: 13.sp,
                                                     fontWeight: FontWeight
-                                                        .w700))),
+                                                        .w700)),
                                           ],
                                         );
                                       }),

@@ -53,6 +53,10 @@
          <string>Location service needed.</string>
          <key>NSLocationWhenInUseUsageDescription</key>
          <string>Location service needed.</string>
+         <key>NSCameraUsageDescription</key>
+         <string>We need access to the camera for capturing photos</string>
+         <key>NSPhotoLibraryUsageDescription</key>
+         <string>We need access to your photo library to select and upload photos.</string>
          <key>UIBackgroundModes</key>
          <array>
           <string>location</string>

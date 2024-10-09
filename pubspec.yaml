@@ -52,6 +52,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   permission_handler: ^11.3.1
   win32: ^5.2.0
+  change_app_package_name: ^1.4.0
 
 
 
